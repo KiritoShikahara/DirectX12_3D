@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Graphics/SkyBox/Resource/SkyBoxResource.hpp"
 
@@ -10,7 +10,7 @@
 namespace Engine::Graphics
 {
 	/// <summary>
-	/// ƒXƒJƒCƒ{ƒbƒNƒX‚ÌƒŠƒ\[ƒXŠÇ—
+	/// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã®ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
 	/// </summary>
 	class SkyBoxResourceManager : public Singleton<SkyBoxResourceManager>
 	{
@@ -19,15 +19,15 @@ namespace Engine::Graphics
 	public:
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="FilePath">SkyBox—p‚Ìdds‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
-		/// <returns>QÆ—p‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="FilePath">SkyBoxç”¨ã®ddsã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+		/// <returns>å‚ç…§ç”¨ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		SkyBoxResource* Load(const std::filesystem::path& FilePath);
 
 	private:
 		/// <summary>
-		/// ŠÇ—‚µ‚Ä‚¢‚éƒŠƒ\[ƒX
+		/// ç®¡ç†ã—ã¦ã„ã‚‹ãƒªã‚½ãƒ¼ã‚¹
 		/// </summary>
 		std::unordered_map<std::string, std::unique_ptr<SkyBoxResource>> mResources;
 

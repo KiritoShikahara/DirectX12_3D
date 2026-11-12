@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector2/Vector2.h"
 #include"Math/Vector3/Vector3.h"
 #include"Math/Quaternion/Quaternion.h"
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// 2D—p‚ÌÀ•WAŠp“xAƒXƒP[ƒ‹
+	/// 2Dç”¨ã®åº§æ¨™ã€è§’åº¦ã€ã‚¹ã‚±ãƒ¼ãƒ«
 	/// </summary>
 	struct Transform2D
 	{
@@ -17,7 +17,7 @@ namespace Engine::System
 	};
 
 	/// <summary>
-	/// 3D—p‚ÌÀ•WA‰ñ“]AƒXƒP[ƒ‹
+	/// 3Dç”¨ã®åº§æ¨™ã€å›è»¢ã€ã‚¹ã‚±ãƒ¼ãƒ«
 	/// </summary>
 	struct Transform3D
 	{
@@ -31,7 +31,7 @@ namespace Engine::System
 				1.0f - 2.0f * (Rotation.z * Rotation.z));
 
 			Math::Vector3 f;
-			// ƒJƒƒ‰‚ÌŒvZ®ix=sin, z=cosj‚É‡‚í‚¹‚é
+			// ã‚«ãƒ¡ãƒ©ã®è¨ˆç®—å¼ï¼ˆx=sin, z=cosï¼‰ã«åˆã‚ã›ã‚‹
 			f.x = sinf(yaw);
 			f.y = 0.0f;
 			f.z = cosf(yaw);

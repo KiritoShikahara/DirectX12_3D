@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 
@@ -6,7 +6,7 @@ namespace Engine::Graphics
 {
 
 	/// <summary>
-	/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌƒtƒH[ƒ}ƒbƒg
+	/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 	/// </summary>
 	enum class eIndexBufferFormat : uint8_t
 	{
@@ -15,7 +15,7 @@ namespace Engine::Graphics
 	};
 	
 	/// <summary>
-	/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@—pƒNƒ‰ƒX
+	/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ç”¨ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class IndexBuffer
 	{
@@ -24,55 +24,55 @@ namespace Engine::Graphics
 		virtual ~IndexBuffer();
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 		/// </summary>
-		/// <param name="size">ƒoƒbƒtƒ@ƒTƒCƒY</param>
+		/// <param name="size">ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º</param>
 		/// <returns></returns>
 		bool Create(const size_t Size);
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚Ì‰ğ•ú
+		/// ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚ÌXV
+		/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		/// </summary>
-		/// <param name="SrcData">XVƒf[ƒ^</param>
+		/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
 		void Update(const void* SrcData);
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚ÌXV
+		/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		/// </summary>
-		/// <param name="SrcData">XVƒf[ƒ^</param>
-		/// <param name="offset">ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="size">XVƒTƒCƒY</param>
+		/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
+		/// <param name="offset">ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="size">æ›´æ–°ã‚µã‚¤ã‚º</param>
 		void Update(const void* SrcData, const size_t Offset, const size_t Size);
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Set()const;
 		void Set(const eIndexBufferFormat Format, const size_t Offset, const size_t Size)const;
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@ƒTƒCƒY‚Ìæ“¾
+		/// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		size_t GetSize()const;
 	private:
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒŠƒ\[ƒX
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒªã‚½ãƒ¼ã‚¹
 		/// </summary>
 		mw::ResourcePtr mBufferResource;
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìæ“ªƒAƒhƒŒƒX
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 		/// </summary>
 		D3D12_GPU_VIRTUAL_ADDRESS mBufferLocation;
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚ÌƒTƒCƒY
+		/// ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
 		/// </summary>
 		size_t mBufferSize;
 	};

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "PlayerStateSystem.hpp"
 #include "Application/Components/Tag/TagComponent.hpp"
 #include"Application/Components/InputMove/MoveComponent.hpp"
@@ -15,13 +15,13 @@
 #include"Audio/Manager/AudioManager.hpp"
 
 /// <summary>
-/// ‘–‚èó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+/// èµ°ã‚ŠçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 /// </summary>
 /// <returns></returns>
 bool Engine::System::PlayerStateSystem::CheckRunRequest(PlayerStateComponent& state)
 {
-	//	•à‚«ó‘Ô‚©ƒXƒvƒŠƒ“ƒgó‘Ô‚©ƒ_ƒbƒVƒ…ó‘Ô‚È‚çtrue
-	//	any_of‚æ‚èˆ—‘¬“x‚ª‘¬‚¢‚Ì‚Å‰Â“Ç«‚»‚ñ‚È‚É•Ï‚í‚ç‚È‚¢‚©‚ç‚±‚ê‚ÅB
+	//	æ­©ãçŠ¶æ…‹ã‹ã‚¹ãƒ—ãƒªãƒ³ãƒˆçŠ¶æ…‹ã‹ãƒ€ãƒƒã‚·ãƒ¥çŠ¶æ…‹ãªã‚‰true
+	//	any_ofã‚ˆã‚Šå‡¦ç†é€Ÿåº¦ãŒé€Ÿã„ã®ã§å¯èª­æ€§ãã‚“ãªã«å¤‰ã‚ã‚‰ãªã„ã‹ã‚‰ã“ã‚Œã§ã€‚
 	const auto& curr = state.State;
 	return  
 		curr == ePlayerState::Idle	||
@@ -30,7 +30,7 @@ bool Engine::System::PlayerStateSystem::CheckRunRequest(PlayerStateComponent& st
 }
 
 /// <summary>
-/// UŒ‚ó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+/// æ”»æ’ƒçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 /// </summary>
 /// <returns></returns>
 bool Engine::System::PlayerStateSystem::CheckAttackRequest(PlayerStateComponent& state)
@@ -44,7 +44,7 @@ bool Engine::System::PlayerStateSystem::CheckAttackRequest(PlayerStateComponent&
 }
 
 /// <summary>
-/// ƒXƒvƒŠƒ“ƒgó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+/// ã‚¹ãƒ—ãƒªãƒ³ãƒˆçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 /// </summary>
 /// <param name="state"></param>
 /// <returns></returns>
@@ -52,19 +52,19 @@ bool Engine::System::PlayerStateSystem::CheckSprintRequest(PlayerStateComponent&
 {
 	const auto& curr = state.State;
 
-	//	“ü—Í—Ê‚ª‚È‚¢‚Æ‚¾‚ß
+	//	å…¥åŠ›é‡ãŒãªã„ã¨ã ã‚
 	if (InputVec.SqrLength() <= 0)
 	{
 		return false;
 	}
 
-	//	ƒN[ƒ‹ƒ_ƒEƒ“’†‚Í‚¾‚ß
+	//	ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ä¸­ã¯ã ã‚
 	if (state.Dodge.IsCoolDown == true)
 	{
 		return false;
 	}
 
-	//	Œã‚ÍğŒŸ‘æ
+	//	å¾Œã¯æ¡ä»¶æ¬¡ç¬¬
 	return 
 		curr == ePlayerState::Idle ||
 		curr == ePlayerState::Run ||
@@ -72,7 +72,7 @@ bool Engine::System::PlayerStateSystem::CheckSprintRequest(PlayerStateComponent&
 }
 
 /// <summary>
-/// ó‘Ô‚ÌI—¹
+/// çŠ¶æ…‹ã®çµ‚äº†
 /// </summary>
 /// <param name="Reg"></param>
 void Engine::System::PlayerStateSystem::ExitState(entt::registry& Reg)
@@ -80,7 +80,7 @@ void Engine::System::PlayerStateSystem::ExitState(entt::registry& Reg)
 	auto view = Reg.view<PlayerStateComponent, InputRequestComponent, FbxComponent>();
 	view.each([&](auto entity, PlayerStateComponent& state, InputRequestComponent& req, FbxComponent& fbx)
 		{
-			//	UŒ‚
+			//	æ”»æ’ƒ
 			switch (state.State)
 			{
 			case ePlayerState::Attack:
@@ -107,7 +107,7 @@ void Engine::System::PlayerStateSystem::ExitState(entt::registry& Reg)
 }
 
 /// <summary>
-/// ó‘Ô‚ÌØ‚è‘Ö‚¦
+/// çŠ¶æ…‹ã®åˆ‡ã‚Šæ›¿ãˆ
 /// </summary>
 void Engine::System::PlayerStateSystem::ChangeState(entt::registry& Reg, PlayerStateComponent& state, ePlayerState NextState)
 {
@@ -117,21 +117,21 @@ void Engine::System::PlayerStateSystem::ChangeState(entt::registry& Reg, PlayerS
 
 
 /// <summary>
-/// UŒ‚‚ÌI—¹ğŒ‚Ì”»’è
+/// æ”»æ’ƒã®çµ‚äº†æ¡ä»¶ã®åˆ¤å®š
 /// </summary>
-/// <returns>true:I—¹</returns>
+/// <returns>true:çµ‚äº†</returns>
 bool Engine::System::PlayerStateSystem::IsFinishAttack(PlayerStateComponent& State, InputRequestComponent& Req, FbxComponent& Fbx,float DeltaTime)
 {
-	//	ƒAƒjƒ[ƒVƒ‡ƒ“I—¹”»’è
+	//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†åˆ¤å®š
 	if (Fbx.Mesh->GetAnimationFinish() == false)
 	{
 		return false;
 	}
 
-	//	ŠÔŒo‰ß
+	//	æ™‚é–“çµŒé
 	State.Attack.AttackInputTimer += DeltaTime;
 
-	//	ó•tŠÔ‚ğI—¹‚µ‚Ä‚¢‚½‚çI—¹
+	//	å—ä»˜æ™‚é–“ã‚’çµ‚äº†ã—ã¦ã„ãŸã‚‰çµ‚äº†
 	if (State.Attack.AttackInputTimer <= State.Attack.AttackInputWindow)
 	{
 		return false;
@@ -141,7 +141,7 @@ bool Engine::System::PlayerStateSystem::IsFinishAttack(PlayerStateComponent& Sta
 }
 
 /// <summary>
-/// UŒ‚‚ÌI—¹
+/// æ”»æ’ƒã®çµ‚äº†
 /// </summary>
 void Engine::System::PlayerStateSystem::OnAttackFinished(entt::registry& Reg,entt::entity entity, PlayerStateComponent& state, InputRequestComponent& req, FbxComponent& fbx)
 {
@@ -151,7 +151,7 @@ void Engine::System::PlayerStateSystem::OnAttackFinished(entt::registry& Reg,ent
 	fbx.IsLoop = true;
 	fbx.AnimationScale = 1.0f;
 
-	//	“–‚½‚è”»’è‚Ìíœ
+	//	å½“ãŸã‚Šåˆ¤å®šã®å‰Šé™¤
 	if (Reg.all_of<ColliderComponent>(state.Weapon))
 	{
 		Reg.remove<ColliderComponent>(state.Weapon);
@@ -163,24 +163,24 @@ void Engine::System::PlayerStateSystem::OnAttackFinished(entt::registry& Reg,ent
 }
 
 /// <summary>
-/// I—¹ğŒ‚ğ”»’f‚·‚é‚µ‚Ä‘Oó‘Ô‚ğI—¹‚·‚é
+/// çµ‚äº†æ¡ä»¶ã‚’åˆ¤æ–­ã™ã‚‹ã—ã¦å‰çŠ¶æ…‹ã‚’çµ‚äº†ã™ã‚‹
 /// </summary>
 void Engine::System::PlayerStateSystem::PreUpdate(entt::registry& Reg, double DeltaTime)
 {
-	//	UŒ‚‚ÌI—¹‚È‚Ç‚ğ”»’f‚·‚é
+	//	æ”»æ’ƒã®çµ‚äº†ãªã©ã‚’åˆ¤æ–­ã™ã‚‹
 	auto view = Reg.view<PlayerStateComponent, InputRequestComponent, FbxComponent>();
 	view.each([&](auto entity, PlayerStateComponent& state, InputRequestComponent& req, FbxComponent& fbx)
 		{
-			//	UŒ‚
+			//	æ”»æ’ƒ
 			if (state.State == ePlayerState::Attack)
 			{
-				//	UŒ‚‚ÌI—¹”»’è
+				//	æ”»æ’ƒã®çµ‚äº†åˆ¤å®š
 				if (IsFinishAttack(state, req, fbx, DeltaTime))
 				{
 					ExitState(Reg);
 				}
 			}
-			//	ƒ_ƒbƒVƒ…
+			//	ãƒ€ãƒƒã‚·ãƒ¥
 			else if (state.State == ePlayerState::Run)
 			{
 				if (req.InputVec.SqrLength() <= 0)
@@ -188,7 +188,7 @@ void Engine::System::PlayerStateSystem::PreUpdate(entt::registry& Reg, double De
 					ExitState(Reg);
 				}
 			}
-			//	‚±‚±‚¾‚¯‚Çó‘Ô‚Ì©“®I—¹‚Æ–³“G‚Í•ª—£‚µ‚Äl‚¦‚ÄAƒAƒjƒ[ƒVƒ‡ƒ“‚ÌI—¹‚Æ‚©‚É‚·‚é‚Ù‚¤‚ª‚¢‚¢‚©‚à‚µ‚ê‚È‚¢
+			//	ã“ã“ã ã‘ã©çŠ¶æ…‹ã®è‡ªå‹•çµ‚äº†ã¨ç„¡æ•µã¯åˆ†é›¢ã—ã¦è€ƒãˆã¦ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµ‚äº†ã¨ã‹ã«ã™ã‚‹ã»ã†ãŒã„ã„ã‹ã‚‚ã—ã‚Œãªã„
 			else if (state.State == ePlayerState::Dodge)
 			{
 				if (fbx.Mesh->GetAnimationFinish() == true)
@@ -197,18 +197,18 @@ void Engine::System::PlayerStateSystem::PreUpdate(entt::registry& Reg, double De
 				}
 			}
 
-			//	ƒ^ƒCƒ}[‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“
+			//	ã‚¿ã‚¤ãƒãƒ¼ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
 			if (state.Dodge.RecoveryTimer > 0.0f)
 			{
 				state.Dodge.RecoveryTimer -= DeltaTime;
 			}
-			//	ƒN[ƒ‹ƒ^ƒCƒ€I—¹”»’è
+			//	ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ çµ‚äº†åˆ¤å®š
 			if (state.Dodge.IsCoolDown && state.Dodge.RecoveryTimer <= 0.0f)
 			{
 				state.Dodge.IsCoolDown = false;
 				state.Dodge.DodgeCount = 0;
 			}
-			//	1‰ñˆÈã‚ÅÅ‘å”ˆÈ‰º‚Ìó‘Ô‚Å˜A‘±”»’è‚ÌŠÔ‚ğ‰ß‚¬‚½‚çƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg‚·‚é
+			//	1å›ä»¥ä¸Šã§æœ€å¤§æ•°ä»¥ä¸‹ã®çŠ¶æ…‹ã§é€£ç¶šåˆ¤å®šã®æ™‚é–“ã‚’éããŸã‚‰ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 			else if (!state.Dodge.IsCoolDown && state.Dodge.RecoveryTimer <= 0.0f)
 			{
 				state.Dodge.DodgeCount = 0;
@@ -218,12 +218,12 @@ void Engine::System::PlayerStateSystem::PreUpdate(entt::registry& Reg, double De
 }
 
 /// <summary>
-/// ó‘Ô‘JˆÚ‚Ì”»’è
+/// çŠ¶æ…‹é·ç§»ã®åˆ¤å®š
 /// </summary>
 void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double DeltaTime)
 {
-	//	—Dæ“x‡‚É•À‚×‚Ä‚¨‚«‚Ü‚·B
-	//	Œã‚©‚çÀ‘•‘‚â‚µ‚Ü‚·
+	//	å„ªå…ˆåº¦é †ã«ä¸¦ã¹ã¦ãŠãã¾ã™ã€‚
+	//	å¾Œã‹ã‚‰å®Ÿè£…å¢—ã‚„ã—ã¾ã™
 
 	auto view = Reg.view<Transform3D,PlayerStateComponent, InputRequestComponent,FbxComponent, MoveComponent>(entt::exclude<DeadTag>);
 	bool ret = false;
@@ -231,7 +231,7 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 	view.each([&](auto entity, Transform3D& trans,PlayerStateComponent& state, InputRequestComponent& req, FbxComponent&fbx, MoveComponent& move)
 		{
 
-			//	ƒXƒvƒŠƒ“ƒg
+			//	ã‚¹ãƒ—ãƒªãƒ³ãƒˆ
 			ret = (HasFlag(req.Flags, eActionInputFlags::DodgeRequested) == true)
 				&& (this->CheckSprintRequest(state, req.InputVec) == true);
 			if (ret == true)
@@ -244,12 +244,12 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 					fbx.IsLoop = false;
 					Reg.emplace_or_replace<InvincibleComponet>(entity);
 
-					//	ƒJƒEƒ“ƒg‰ÁZ
+					//	ã‚«ã‚¦ãƒ³ãƒˆåŠ ç®—
 					state.Dodge.DodgeCount++;
-					//	ƒJƒEƒ“ƒg‚ªãŒÀ‚ğ’´‚¦‚Ä‚¢‚½‚ç
+					//	ã‚«ã‚¦ãƒ³ãƒˆãŒä¸Šé™ã‚’è¶…ãˆã¦ã„ãŸã‚‰
 					if (state.Dodge.DodgeCount >= state.Dodge.DodgeCountMax)
 					{
-						//	˜A‘±g—p‚Ìƒyƒiƒ‹ƒeƒB
+						//	é€£ç¶šä½¿ç”¨ã®ãƒšãƒŠãƒ«ãƒ†ã‚£
 						state.Dodge.IsCoolDown = true;
 						state.Dodge.RecoveryTimer = state.Dodge.CoolDowmMax;
 					}
@@ -263,31 +263,31 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 
 			}
 
-			//	ƒXƒLƒ‹i¡‚Í‚P‚Â‚¾‚¯j
+			//	ã‚¹ã‚­ãƒ«ï¼ˆä»Šã¯ï¼‘ã¤ã ã‘ï¼‰
 			bool skillRequested = HasFlag(req.Flags, eActionInputFlags::Skill1Requested);
 			if (skillRequested == true && state.State != ePlayerState::Skill)
 			{
-				//	ƒvƒŒƒCƒ„[‚ª‚Á‚Ä‚¢‚éƒXƒLƒ‹‚ÌƒGƒ“ƒeƒBƒeƒB‚Ìæ“¾
+				//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæŒã£ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®å–å¾—
 				SkillSlotComponent* slots = Reg.try_get<SkillSlotComponent>(entity);
 				if (slots != nullptr)
 				{
-					//	¡‚ÍƒXƒLƒ‹”Ô†‚O‚ğw’è‚µ‚Ü‚·
+					//	ä»Šã¯ã‚¹ã‚­ãƒ«ç•ªå·ï¼ã‚’æŒ‡å®šã—ã¾ã™
 					entt::entity skillEntity = slots->SkillSlots[0];
 					if (Reg.valid(skillEntity) && Reg.all_of<SkillComponent>(skillEntity))
 					{
 						SkillComponent& skill = Reg.get<SkillComponent>(skillEntity);
 						Transform3D& skillTrans = Reg.get<Transform3D>(skillEntity);
-						//	ƒN[ƒ‹ƒ_ƒEƒ“ƒ`ƒFƒbƒN
+						//	ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ãƒã‚§ãƒƒã‚¯
 						if (skill.CooldownTimer <= 0.0f)
 						{
-							//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ ‚é‚È‚ç•ÏX‚·‚é
+							//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚ã‚‹ãªã‚‰å¤‰æ›´ã™ã‚‹
 
-							//	ƒAƒNƒeƒBƒu‚ÌƒAƒ^ƒbƒ`
+							//	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®ã‚¢ã‚¿ãƒƒãƒ
 							Reg.emplace_or_replace<ActiveSkillTag>(skillEntity);
 
-							//	“–‚½‚è”»’è‚Æƒqƒbƒg—š—ğ‚ÌƒAƒ^ƒbƒ`
+							//	å½“ãŸã‚Šåˆ¤å®šã¨ãƒ’ãƒƒãƒˆå±¥æ­´ã®ã‚¢ã‚¿ãƒƒãƒ
 							Reg.emplace_or_replace<HitHistoryComponent>(skillEntity);
-							//	‚±‚±‚Å“–‚½‚è”»’è‚ğƒAƒ^ƒbƒ`‚·‚éB
+							//	ã“ã“ã§å½“ãŸã‚Šåˆ¤å®šã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹ã€‚
 							auto col = ColliderComponent::Create<OBBCollider>();
 							auto collider = col.GetPtr<OBBCollider>();
 							collider->SetVolume({ 20.0f,0.4f,20.0f });
@@ -295,22 +295,22 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 							skillTrans.Position = trans.Position;
 
 							float scale = 10.0f;
-							//	ƒGƒtƒFƒNƒg¶¬
+							//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
 							for (auto& asset : skill.Effects)
 							{
 								auto EffEnt = EffectFactory::CreateAtLocation(asset, skillTrans.Position, { scale,scale,scale }, false);
 							}
-							//	ƒN[ƒ‹ƒ^ƒCƒ€‚ğİ’è
+							//	ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã‚’è¨­å®š
 							skill.CooldownTimer = skill.MaxCooldown;
 
-							//	‰¹‚ğ—¬‚·
+							//	éŸ³ã‚’æµã™
 							Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Wind.aud", false, 1.0f);
 						}
 
 					}
 					else
 					{
-						//	‰½‚àƒZƒbƒg‚³‚ê‚Ä‚È‚¢‚Æ‚«‚Æ‚«‚Æ‚©‚Ìˆ—‚ª‚ ‚é‚È‚ç“ü‚ê‚Ä‚à‚¢‚¢
+						//	ä½•ã‚‚ã‚»ãƒƒãƒˆã•ã‚Œã¦ãªã„ã¨ãã¨ãã¨ã‹ã®å‡¦ç†ãŒã‚ã‚‹ãªã‚‰å…¥ã‚Œã¦ã‚‚ã„ã„
 					}
 
 				}
@@ -321,27 +321,27 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 			bool skill2Requested = HasFlag(req.Flags, eActionInputFlags::Skill2Requested);
 			if (skill2Requested == true && state.State != ePlayerState::Skill)
 			{
-				//	ƒvƒŒƒCƒ„[‚ª‚Á‚Ä‚¢‚éƒXƒLƒ‹‚ÌƒGƒ“ƒeƒBƒeƒB‚Ìæ“¾
+				//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæŒã£ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®å–å¾—
 				SkillSlotComponent* slots = Reg.try_get<SkillSlotComponent>(entity);
 				if (slots != nullptr)
 				{
-					//	¡‚ÍƒXƒLƒ‹”Ô†‚P‚ğw’è‚µ‚Ü‚·
+					//	ä»Šã¯ã‚¹ã‚­ãƒ«ç•ªå·ï¼‘ã‚’æŒ‡å®šã—ã¾ã™
 					entt::entity skillEntity = slots->SkillSlots[1];
 					if (Reg.valid(skillEntity) && Reg.all_of<SkillComponent>(skillEntity))
 					{
 						SkillComponent& skill = Reg.get<SkillComponent>(skillEntity);
 						Transform3D& skillTrans = Reg.get<Transform3D>(skillEntity);
-						//	ƒN[ƒ‹ƒ_ƒEƒ“ƒ`ƒFƒbƒN
+						//	ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ãƒã‚§ãƒƒã‚¯
 						if (skill.CooldownTimer <= 0.0f)
 						{
-							//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ ‚é‚È‚ç•ÏX‚·‚é
+							//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚ã‚‹ãªã‚‰å¤‰æ›´ã™ã‚‹
 
-							//	ƒAƒNƒeƒBƒu‚ÌƒAƒ^ƒbƒ`
+							//	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®ã‚¢ã‚¿ãƒƒãƒ
 							Reg.emplace_or_replace<ActiveSkillTag>(skillEntity);
 
-							//	“–‚½‚è”»’è‚Æƒqƒbƒg—š—ğ‚ÌƒAƒ^ƒbƒ`
+							//	å½“ãŸã‚Šåˆ¤å®šã¨ãƒ’ãƒƒãƒˆå±¥æ­´ã®ã‚¢ã‚¿ãƒƒãƒ
 							Reg.emplace_or_replace<HitHistoryComponent>(skillEntity);
-							//	‚±‚±‚Å“–‚½‚è”»’è‚ğƒAƒ^ƒbƒ`‚·‚éB
+							//	ã“ã“ã§å½“ãŸã‚Šåˆ¤å®šã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹ã€‚
 							auto col = ColliderComponent::Create<OBBCollider>();
 							auto collider = col.GetPtr<OBBCollider>();
 							collider->SetVolume({ 20.0f,0.4f,20.0f });
@@ -349,12 +349,12 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 							skillTrans.Position = trans.Position;
 
 							float scale = 10.0f;
-							//	ƒGƒtƒFƒNƒg¶¬
+							//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
 							for (auto& asset : skill.Effects)
 							{
 								auto EffEnt = EffectFactory::CreateAtLocation(asset, skillTrans.Position, { scale,scale,scale }, false);
 							}
-							//	ƒN[ƒ‹ƒ^ƒCƒ€‚ğİ’è
+							//	ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã‚’è¨­å®š
 							skill.CooldownTimer = skill.MaxCooldown;
 							Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Fire.aud", false, 1.0f);
 						}
@@ -362,7 +362,7 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 					}
 					else
 					{
-						//	‰½‚àƒZƒbƒg‚³‚ê‚Ä‚È‚¢‚Æ‚«‚Æ‚«‚Æ‚©‚Ìˆ—‚ª‚ ‚é‚È‚ç“ü‚ê‚Ä‚à‚¢‚¢
+						//	ä½•ã‚‚ã‚»ãƒƒãƒˆã•ã‚Œã¦ãªã„ã¨ãã¨ãã¨ã‹ã®å‡¦ç†ãŒã‚ã‚‹ãªã‚‰å…¥ã‚Œã¦ã‚‚ã„ã„
 					}
 
 				}
@@ -371,20 +371,20 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 			}
 
 
-			// UŒ‚ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é
+			// æ”»æ’ƒãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹
 			bool isRequested = HasFlag(req.Flags, eActionInputFlags::AttackRequested);
 
-			// æs“ü—Í
+			// å…ˆè¡Œå…¥åŠ›
 			bool canCombo = (state.State == ePlayerState::Attack && state.Attack.AttackQueued);
 
-			//	UŒ‚
+			//	æ”»æ’ƒ
 			ret = (isRequested || canCombo);
 			if (ret == true)
 			{
-				// ‚·‚Å‚ÉUŒ‚’†‚Ìê‡‚ÍƒRƒ“ƒ{‰ÁZA‚»‚¤‚Å‚È‚¯‚ê‚Î‰Šú‰»
+				// ã™ã§ã«æ”»æ’ƒä¸­ã®å ´åˆã¯ã‚³ãƒ³ãƒœåŠ ç®—ã€ãã†ã§ãªã‘ã‚Œã°åˆæœŸåŒ–
 				if (state.State == ePlayerState::Attack) 
 				{
-					//	UŒ‚’†‚È‚çŸ‚ÌUŒ‚‚É‚Ü‚¾‘JˆÚ‚µ‚È‚¢
+					//	æ”»æ’ƒä¸­ãªã‚‰æ¬¡ã®æ”»æ’ƒã«ã¾ã é·ç§»ã—ãªã„
 					if (fbx.Mesh->GetAnimationFinish() == false)
 					{
 						state.Attack.AttackInputTimer = 0.0f;
@@ -392,10 +392,10 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 						return;
 					}
 
-					//	ƒŠƒZƒbƒg
+					//	ãƒªã‚»ãƒƒãƒˆ
 					state.Attack.AttackCount++;
 					state.Attack.AttackQueued = false;
-					//	UŒ‚”‚ªÅ‘å‚ğ‰z‚µ‚½‚çƒŠƒZƒbƒg
+					//	æ”»æ’ƒæ•°ãŒæœ€å¤§ã‚’è¶Šã—ãŸã‚‰ãƒªã‚»ãƒƒãƒˆ
 					if (state.Attack.AttackCount >= state.Attack.AttackCountMax)
 					{
 						state.Attack.AttackCount = 0;
@@ -409,9 +409,9 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 					fbx.AnimationScale = 2.2f;
 				}
 
-				//	•Ší‚É•K—v‚È‚à‚Ì‚ğƒAƒ^ƒbƒ`
+				//	æ­¦å™¨ã«å¿…è¦ãªã‚‚ã®ã‚’ã‚¢ã‚¿ãƒƒãƒ
 				Reg.emplace_or_replace<HitHistoryComponent>(state.Weapon);
-				//	‚±‚±‚Å“–‚½‚è”»’è‚ğƒAƒ^ƒbƒ`‚·‚éB
+				//	ã“ã“ã§å½“ãŸã‚Šåˆ¤å®šã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹ã€‚
 				auto col = ColliderComponent::Create<OBBCollider>();
 				auto collider = col.GetPtr<OBBCollider>();
 				collider->SetVolume({ 2.0f,5.0f,2.0f });
@@ -425,8 +425,8 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 
 			}
 
-			//	‘–‚è
-			//	‘–‚éƒŠƒNƒGƒXƒg‚ª‚ ‚é‚Æ‚«‚É
+			//	èµ°ã‚Š
+			//	èµ°ã‚‹ãƒªã‚¯ã‚¨ã‚¹ãƒˆãŒã‚ã‚‹ã¨ãã«
 			ret = (HasFlag(req.Flags,eActionInputFlags::RunRequested) == true) && (this->CheckRunRequest(state) == true);
 			if (ret == true)
 			{
@@ -436,7 +436,7 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 				if (state.State != ePlayerState::Run)
 				{
 					state.State = ePlayerState::Run;
-					//	‚±‚±‚ÉØ‚è‘Ö‚¦‚É1‰ñ‚¾‚¯’Ê‚µ‚½‚¢ˆ—‚È‚Ç‚ğ“ü‚ê‚Ä‚à‚¢‚¢
+					//	ã“ã“ã«åˆ‡ã‚Šæ›¿ãˆæ™‚ã«1å›ã ã‘é€šã—ãŸã„å‡¦ç†ãªã©ã‚’å…¥ã‚Œã¦ã‚‚ã„ã„
 					fbx.CurrAnimation = "Jog";
 				}
 
@@ -447,16 +447,16 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 					Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Foot.aud", false, 0.1f);
 				}
 
-				//	ˆÚ“®—Ê‚Ì‘ã“ü
+				//	ç§»å‹•é‡ã®ä»£å…¥
 				move.InputDir = req.InputVec;
 
 				return;
 			}
 
-			//	‘Ò‹@
+			//	å¾…æ©Ÿ
 			if (HasNoFlag(req.Flags) && state.State == ePlayerState::Idle)
 			{
-				//	‚±‚Ì’n“_‚Å‰½‚à’Ê‚¢‚È‚¢‚È‚ç
+				//	ã“ã®åœ°ç‚¹ã§ä½•ã‚‚é€šã„ãªã„ãªã‚‰
 				if (state.State != ePlayerState::Idle)
 				{
 					state.State = ePlayerState::Idle;
@@ -470,7 +470,7 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 }
 
 /// <summary>
-/// ¡‚Ìó‘Ô‚©‚çƒAƒjƒ[ƒVƒ‡ƒ“‚Ìİ’è‚ÆXV
+/// ä»Šã®çŠ¶æ…‹ã‹ã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šã¨æ›´æ–°
 /// </summary>
 void Engine::System::PlayerStateSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
 {

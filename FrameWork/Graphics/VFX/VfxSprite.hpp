@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 
@@ -24,43 +24,43 @@ namespace Engine::Graphics
 		virtual ~VfxMesh() = default;
 
 		/// <summary>
-		/// ì¬
+		/// ä½œæˆ
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(Texture* texture);
 
 		/// <summary>
-		/// s—ñ‚ÌŒvZ‚âƒrƒ…[ƒ{[ƒh§Œä
+		/// è¡Œåˆ—ã®è¨ˆç®—ã‚„ãƒ“ãƒ¥ãƒ¼ãƒœãƒ¼ãƒ‰åˆ¶å¾¡
 		/// </summary>
 		void Update(float DeltaTime );
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render();
 
-		//	À‹Æ
+		//	åº§æ¥­
 		const Math::Vector3& GetPosition()const { return mPosition; }
 		void SetPosition(const Math::Vector3& position) { mPosition = position; }
-		//	‰ñ“]
+		//	å›è»¢
 		const Math::Quaternion& GetRotation()const { return mRotation; }
 		void SetRotation(const Math::Quaternion& rotaion) { mRotation = rotaion; };
-		//	ƒXƒP[ƒ‹
+		//	ã‚¹ã‚±ãƒ¼ãƒ«
 		const Math::Vector3& GetScale()const { return mScale; }
 		void SetScale(const Math::Vector3& scale) { mScale = scale; }
-		//	ƒTƒCƒY
+		//	ã‚µã‚¤ã‚º
 		const Math::Vector2& GetSize() const { return mSize; }
 		void SetSize(const Math::Vector2& size) { mSize = size; }
 
-		// ƒsƒ{ƒbƒg (0.5, 0.5 ‚Å’†SA0.5, 1.0 ‚Å‘«Œ³‚È‚Ç)
+		// ãƒ”ãƒœãƒƒãƒˆ (0.5, 0.5 ã§ä¸­å¿ƒã€0.5, 1.0 ã§è¶³å…ƒãªã©)
 		const Math::Vector2& GetPivot() const { return mPivot; }
 		void SetPivot(const Math::Vector2& pivot) { mPivot = pivot; }
 
-		// ƒrƒ‹ƒ{[ƒhİ’è
+		// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¨­å®š
 		bool IsBillboard() const { return mIsBillBoard; }
 		void SetIsBillboard(bool isBillboard) { mIsBillBoard = isBillboard; }
 
-		// --- ŠOŠÏEŠÔ ---
+		// --- å¤–è¦³ãƒ»æ™‚é–“ ---
 		const Color& GetColor() const { return mColor; }
 		void SetColor(const Color& color) { mColor = color; }
 
@@ -69,14 +69,14 @@ namespace Engine::Graphics
 
 
 		void SetRotationToGround() {
-			// X²ü‚è‚É90“x‰ñ“]‚³‚¹‚éƒNƒH[ƒ^ƒjƒIƒ“‚ğì¬
-			// 90“x = 1.570796f ƒ‰ƒWƒAƒ“
+			// Xè»¸å‘¨ã‚Šã«90åº¦å›è»¢ã•ã›ã‚‹ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’ä½œæˆ
+			// 90åº¦ = 1.570796f ãƒ©ã‚¸ã‚¢ãƒ³
 			mRotation = Math::Quaternion::AngleAxis(1.570796f, Math::Vector3(1.0f, 0.0f, 0.0f));
 		}
 
 	private:
 		/// <summary>
-		/// ”Âƒ|ƒŠƒSƒ“‚Ì¶¬
+		/// æ¿ãƒãƒªã‚´ãƒ³ã®ç”Ÿæˆ
 		/// </summary>
 		/// <returns></returns>
 		bool CreateMesh();
@@ -87,80 +87,80 @@ namespace Engine::Graphics
 			Math::Vector2 uv;
 		};
 
-		// VFX—p’è”ƒoƒbƒtƒ@\‘¢‘ÌiHLSL‚Ìb0‚Æˆê’v‚³‚¹‚éj
+		// VFXç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡æ§‹é€ ä½“ï¼ˆHLSLã®b0ã¨ä¸€è‡´ã•ã›ã‚‹ï¼‰
 		struct VfxConstantBufferInfo {
 			Math::Matrix World;
 			Math::Matrix View;
 			Math::Matrix Projection;
 			Color MeshColor;
-			float Timer;      // ƒAƒjƒ[ƒVƒ‡ƒ“—pŒo‰ßŠÔ
+			float Timer;      // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨çµŒéæ™‚é–“
 			float Padding[3];
 		};
 
 	protected:
 		/// <summary>
-		/// 255‚ÌƒAƒ‰ƒCƒƒ“ƒg‚É‚·‚é
+		/// 255ã®ã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã«ã™ã‚‹
 		/// </summary>
 		static constexpr auto ConstantBufferSize = (sizeof(VfxConstantBufferInfo) + 255) & ~255;
 
 	protected:
 		/// <summary>
-		/// s—ñ—pGPU‚Ìs—ñ‚ğ‘—‚é—p‚Ìƒoƒbƒtƒ@
+		/// è¡Œåˆ—ç”¨GPUã®è¡Œåˆ—ã‚’é€ã‚‹ç”¨ã®ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		std::unique_ptr<ConstantBuffer> mTransformBuffer;
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		mw::ResourcePtr mVertexBuffer;
 
 		/// <summary>
-		/// ’¸“_î•ñ
+		/// é ‚ç‚¹æƒ…å ±
 		/// </summary>
 		D3D12_VERTEX_BUFFER_VIEW mVBView = {};
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ÌQÆ—pƒ|ƒCƒ“ƒ^
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ç”¨ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
 		Texture* mTexture;
 
 		/// <summary>
-		/// ƒ[ƒ‹ƒhs—ñ
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
 		/// </summary>
 		Math::Matrix mWorldMatrix;
 		/// <summary>
-		/// À•W
+		/// åº§æ¨™
 		/// </summary>
 		Math::Vector3    mPosition;
 		/// <summary>
-		/// ‰ñ“]
+		/// å›è»¢
 		/// </summary>
 		Math::Quaternion mRotation;
 		/// <summary>
-		/// ƒXƒP[ƒ‹
+		/// ã‚¹ã‚±ãƒ¼ãƒ«
 		/// </summary>
 		Math::Vector3    mScale;
 		/// <summary>
-		/// ƒTƒCƒY
+		/// ã‚µã‚¤ã‚º
 		/// </summary>
 		Math::Vector2    mSize;
 		/// <summary>
-		/// ‰ñ“]
+		/// å›è»¢
 		/// </summary>
 		Math::Vector2    mPivot;
 		/// <summary>
-		/// F
+		/// è‰²
 		/// </summary>
 		Color            mColor;
 
 		/// <summary>
-		/// Animation‚ÌŠÔŠÇ——p
+		/// Animationã®æ™‚é–“ç®¡ç†ç”¨
 		/// </summary>
 		float mTimer;
 
 		/// <summary>
-		/// ƒrƒ…[ƒ{[ƒh‚Ìİ’è
-		/// true:ƒJƒƒ‰‚Ì•û‚ğŒü‚­ false:©gŠî€
+		/// ãƒ“ãƒ¥ãƒ¼ãƒœãƒ¼ãƒ‰ã®è¨­å®š
+		/// true:ã‚«ãƒ¡ãƒ©ã®æ–¹ã‚’å‘ã false:è‡ªèº«åŸºæº–
 		/// </summary>
 		bool mIsBillBoard;
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 #include"Effekseer.h"
 
@@ -8,33 +8,33 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒXƒLƒ‹ƒRƒ“ƒ|[ƒlƒ“ƒg
-	/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Í”jŠü‚¹‚¸‚Éƒ^ƒO‚ÅƒAƒNƒeƒBƒu‚©‚Ç‚¤‚©‚ğØ‚è‘Ö‚¦‚Ü‚·B
+	/// ã‚¹ã‚­ãƒ«ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+	/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ç ´æ£„ã›ãšã«ã‚¿ã‚°ã§ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‹ã©ã†ã‹ã‚’åˆ‡ã‚Šæ›¿ãˆã¾ã™ã€‚
 	/// </summary>
 	struct SkillComponent
 	{
-		//	—LŒø‚ÈŠÔ
+		//	æœ‰åŠ¹ãªæ™‚é–“
 		float CooldownTimer = 0.0f;
-		//	ƒN[ƒ‹ƒ^ƒCƒ€
+		//	ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ 
 		float MaxCooldown = 5.0f;
-		//	ƒGƒtƒFƒNƒg
+		//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		std::vector<Effekseer::EffectRef> Effects;
 	};
 
 	/// <summary>
-	/// ƒAƒNƒeƒBƒu‚ÈƒXƒLƒ‹‚Ìƒ^ƒO
+	/// ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚¹ã‚­ãƒ«ã®ã‚¿ã‚°
 	/// </summary>
 	struct ActiveSkillTag {
-		float ElapsedTime = 0.0f; // ”­“®‚µ‚Ä‚©‚ç‰½•bŒo‚Á‚½‚©
-		float Duration = 2.0f;    // ‰½•bŠÔƒAƒNƒeƒBƒu‚Å‚¢‚é‚©
+		float ElapsedTime = 0.0f; // ç™ºå‹•ã—ã¦ã‹ã‚‰ä½•ç§’çµŒã£ãŸã‹
+		float Duration = 2.0f;    // ä½•ç§’é–“ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§ã„ã‚‹ã‹
 	};
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚ÉƒAƒ^ƒbƒ`‚·‚éƒXƒLƒ‹ƒXƒƒbƒgƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã‚¢ã‚¿ãƒƒãƒã™ã‚‹ã‚¹ã‚­ãƒ«ã‚¹ãƒ­ãƒƒãƒˆã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct SkillSlotComponent
 	{
-		//	•Û‚µ‚Ä‚¢‚éƒXƒLƒ‹
+		//	ä¿æŒã—ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«
 		std::array<entt::entity, 2> SkillSlots = { entt::null };
 	};
 }

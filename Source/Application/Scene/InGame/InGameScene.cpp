@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "InGameScene.hpp"
 
 #include "System/Entity/System/Manager/SystemManager.hpp"
@@ -46,16 +46,16 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	///	‰Šú‰»
+	///	åˆæœŸåŒ–
 	/// </summary>
 	/// <returns></returns>
 	bool InGame::Initialize()
 	{
-		//	ƒJƒƒ‰
+		//	ã‚«ãƒ¡ãƒ©
 		Engine::System::Camera* camera = new Engine::System::Camera();
 		camera->Create();
 
-		//	ƒVƒXƒeƒ€’Ç‰Á
+		//	ã‚·ã‚¹ãƒ†ãƒ è¿½åŠ 
 		System::SystemManager::GetInstance()->AddSystem<System::HpRenderSystem>();
 		System::SystemManager::GetInstance()->AddSystem<System::InputRequestSystem>();
 		System::SystemManager::GetInstance()->AddSystem<System::PlayerStateSystem>();
@@ -119,12 +119,12 @@ namespace Engine::Scene
 		System::ObjectsFactory::CreateField();
 		System::ObjectsFactory::CreatePlayer();
 
-		//	ƒ^ƒCƒ}[
+		//	ã‚¿ã‚¤ãƒãƒ¼
 		auto TimerEnt = System::TimerComponentSystem::CreateTimerObject();
 		auto& registry = System::EntityManager::GetInstance()->GetRegistry();
 		registry.emplace<System::InGameTag>(TimerEnt);
 
-		//	ƒXƒJƒCƒ{ƒbƒNƒX		
+		//	ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹		
 		auto SkyBoxResource = Graphics::SkyBoxResourceManager::GetInstance()->Load("Assets/SkyBox/skybox.dds");
 		mSkyBox = std::make_unique<Graphics::SkyBox>();
 		mSkyBox->Create(SkyBoxResource);
@@ -137,7 +137,7 @@ namespace Engine::Scene
 
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	void InGame::Render()
 	{
@@ -145,7 +145,7 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	void InGame::Release()
 	{

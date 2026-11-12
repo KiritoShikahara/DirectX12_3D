@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Logger.hpp"
 
 namespace Engine::Debug
@@ -9,14 +9,14 @@ namespace Engine::Debug
 }
 
 /// <summary>
-/// ƒRƒ“ƒ\[ƒ‹‚Ì‰Šú‰»
+/// ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®åˆæœŸåŒ–
 /// </summary>
 void Engine::Debug::Logger::InitializeConsole()
 {
 #if _DEBUG
-	//	ƒRƒ“ƒ\[ƒ‹‰æ–Ê‚Ìì¬
+	//	ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ç”»é¢ã®ä½œæˆ
 	AllocConsole();
-	//	ƒRƒ“ƒ\[ƒ‹‚Æcout
+	//	ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¨cout
 	freopen_s(&sConOutFP, "CONOUT$", "w", stdout);
 	freopen_s(&sConInFP, "CONIN$", "r", stdin);
 #endif // _DEBUG
@@ -28,39 +28,39 @@ void Engine::Debug::Logger::InitializeSpdlog()
 	const std::string logDir = "Log";
 	const std::string logFile = logDir + "/engine.log";
 
-	//	ƒfƒBƒŒƒNƒgƒŠ‚Ì‘¶İ”»’è
+	//	ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å­˜åœ¨åˆ¤å®š
 	if (std::filesystem::exists(logDir) == false)
 	{
-		//	‚È‚¯‚ê‚Îì‚é
+		//	ãªã‘ã‚Œã°ä½œã‚‹
 		std::filesystem::create_directory(logDir);
 	}
 
 #if _DEBUG
-	//	‘¶İ‚·‚é‚Æ‚«‚ÍƒŠƒZƒbƒg‚·‚é
+	//	å­˜åœ¨ã™ã‚‹ã¨ãã¯ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	if (std::filesystem::exists(logFile))
 	{
 		std::filesystem::remove(logFile);
 	}
 #endif // _DEBUG
 
-	//	ƒƒOƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ª‰z‚¦‚½‚çƒ[ƒe[ƒVƒ‡ƒ“‚·‚é
+	//	ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºãŒè¶ŠãˆãŸã‚‰ãƒ­ãƒ¼ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã™ã‚‹
 	auto fileSink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
-		logFile,	//	ƒƒOƒtƒ@ƒCƒ‹–¼
+		logFile,	//	ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«å
 		1024 * 1024 * 5,			//	5MB
-		3							//	¢‘ã”
+		3							//	ä¸–ä»£æ•°
 	);
 
-	//	ƒRƒ“ƒ\[ƒ‹‚ÌF•t‚«ƒVƒ“ƒN
+	//	ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®è‰²ä»˜ãã‚·ãƒ³ã‚¯
 	auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
-	//	•\¦‚·‚éŒ`®‚Ìƒpƒ^[ƒ“
+	//	è¡¨ç¤ºã™ã‚‹å½¢å¼ã®ãƒ‘ã‚¿ãƒ¼ãƒ³
 	std::string pattern =
 		"[%Y-%m-%d %H:%M:%S.%e] "
 		"[%^%l%$] "
 		"[%s:%# %!] "
 		"%v";
 
-	// ’ÊíƒƒO—piŠÔ{ƒŒƒxƒ‹{ƒƒbƒZ[ƒWj
+	// é€šå¸¸ãƒ­ã‚°ç”¨ï¼ˆæ™‚é–“ï¼‹ãƒ¬ãƒ™ãƒ«ï¼‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼‰
 	consoleSink->set_pattern(pattern);
 	fileSink->set_pattern(pattern);
 
@@ -82,10 +82,10 @@ Engine::Debug::Logger::~Logger()
 
 void Engine::Debug::Logger::Initialize()
 {
-	//	ƒRƒ“ƒ\[ƒ‹‰Šú‰»
+	//	ã‚³ãƒ³ã‚½ãƒ¼ãƒ«åˆæœŸåŒ–
 	Engine::Debug::Logger::InitializeConsole();
 
-	//	spdlog‰Šú‰»
+	//	spdlogåˆæœŸåŒ–
 	Engine::Debug::Logger::InitializeSpdlog();
 }
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/CSV/CsvLoader.hpp"
 
 namespace Engine::System
@@ -6,9 +6,9 @@ namespace Engine::System
 
 	struct SaveData
 	{
-		//	¯•Ê—p
+		//	è­˜åˆ¥ç”¨
 		int id = -1;
-		//	0:–¢“¢”° 1:Â“¢”° 2:‰©“¢”° 3:Ô“¢”°
+		//	0:æœªè¨ä¼ 1:é’è¨ä¼ 2:é»„è¨ä¼ 3:èµ¤è¨ä¼
 		int ClearLevel = 0;
 
 		CSV_BINDABLE(SaveData, obj.id, obj.ClearLevel);

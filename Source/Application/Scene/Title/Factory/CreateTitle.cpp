@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CreateTitle.hpp"
 
 #include"System/Entity/Manager/EntityManager.hpp"
@@ -16,7 +16,7 @@ void Engine::Scene::CreateTitleObject::CreateBG()
 
 	auto entity = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& trans = registry.emplace<Transform2D>(entity);
 	trans.Position = { 0,0 };
 	trans.Scale = { 1.0f,1.0f };
@@ -45,7 +45,7 @@ void Engine::Scene::CreateTitleObject::CreateBG()
 }
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹‚ÌƒƒS‚Ìì¬
+/// ã‚¿ã‚¤ãƒˆãƒ«ã®ãƒ­ã‚´ã®ä½œæˆ
 /// </summary>
 void Engine::Scene::CreateTitleObject::CreateGuide()
 {
@@ -56,7 +56,7 @@ void Engine::Scene::CreateTitleObject::CreateGuide()
 
 	auto entity = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& trans = registry.emplace<Transform2D>(entity);
 	trans.Position = { window->GetWidth() / 2.0f ,(float)window->GetHeight()  / 5 * 4};
 	float scale = 0.6f;

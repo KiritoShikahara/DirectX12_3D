@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/UI/UISprite.hpp"
 #include"Graphics/Sprite/Sprite.hpp"
 
@@ -10,37 +10,37 @@ namespace Engine::System
 {
 
 	/// <summary>
-	/// ƒXƒe[ƒ^ƒXƒRƒ“ƒ|[ƒlƒ“ƒg‚ª‚È‚¢‚Æ‰½‚à•\¦‚³‚ê‚È‚¢
+	/// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒãªã„ã¨ä½•ã‚‚è¡¨ç¤ºã•ã‚Œãªã„
 	/// </summary>
 	struct HpRenderComponent
 	{
-		std::unique_ptr<Graphics::Sprite> BaseSprite;	//	‰º’n
-		std::unique_ptr<Graphics::UISprite> BarSprite;	//	ƒo[–{‘Ì
-		std::unique_ptr<Graphics::UISprite> BarSpriteYellow;	//	’x‚ê‚ÄŒ¸‚é‘Ì—Íƒo[
+		std::unique_ptr<Graphics::Sprite> BaseSprite;	//	ä¸‹åœ°
+		std::unique_ptr<Graphics::UISprite> BarSprite;	//	ãƒãƒ¼æœ¬ä½“
+		std::unique_ptr<Graphics::UISprite> BarSpriteYellow;	//	é…ã‚Œã¦æ¸›ã‚‹ä½“åŠ›ãƒãƒ¼
 
-		//	‚±‚Ìî•ñ‚P‚Â‚Å—¼•û‚ÌƒTƒCƒY‚ÆÀ•W‚ğ•Ï‚¦‚ê‚é‚æ‚¤‚ÉB
+		//	ã“ã®æƒ…å ±ï¼‘ã¤ã§ä¸¡æ–¹ã®ã‚µã‚¤ã‚ºã¨åº§æ¨™ã‚’å¤‰ãˆã‚Œã‚‹ã‚ˆã†ã«ã€‚
 		Math::Vector2 Position;
 		Math::Vector2 Size;
 
-		//	‰©F‚Ìƒo[
+		//	é»„è‰²ã®ãƒãƒ¼
 		float VisualRatio = 1.0f;
 
-		//	Œ¸­ƒXƒs[ƒh
+		//	æ¸›å°‘ã‚¹ãƒ”ãƒ¼ãƒ‰
 		float ShrinkSpeed = 1.5f;
 
-		//	true:ŠO•”‚ÅF‚Ì§Œä‚ğ‚·‚é@false:‘Ì—Í‚Ìc—Ê‚É‰‚¶‚Ä—Î‚©‚çÔ‚Ì©“®“I‚ÉF‚ª•Ï‚í‚é
+		//	true:å¤–éƒ¨ã§è‰²ã®åˆ¶å¾¡ã‚’ã™ã‚‹ã€€false:ä½“åŠ›ã®æ®‹é‡ã«å¿œã˜ã¦ç·‘ã‹ã‚‰èµ¤ã®è‡ªå‹•çš„ã«è‰²ãŒå¤‰ã‚ã‚‹
 		bool isColorOverridden = false;
 
 		//HpRenderComponent(Graphics::Texture* BaseTexutre, Graphics::Texture* BarTexutre, Graphics::Texture* FrameTexture,const Math::Vector2& Pivot)
 		HpRenderComponent(Graphics::Texture* BaseTexutre, Graphics::Texture* BarTexutre, const Math::Vector2& Pivot,const Graphics::Color& Color = Graphics::Color::Green())
 		{
-			//	‰º’n
+			//	ä¸‹åœ°
 			BaseSprite = std::make_unique<Graphics::Sprite>();
 			BaseSprite->Create(BaseTexutre);
-			//	–{‘Ì
+			//	æœ¬ä½“
 			BarSprite = std::make_unique<Graphics::UISprite>();
 			BarSprite->Create(BarTexutre);
-			//	ƒtƒŒ[ƒ€
+			//	ãƒ•ãƒ¬ãƒ¼ãƒ 
 			BarSpriteYellow = std::make_unique<Graphics::UISprite>();
 			BarSpriteYellow->Create(BarTexutre);
 			BarSpriteYellow->SetColor(Graphics::Color::Apricot());
@@ -51,11 +51,11 @@ namespace Engine::System
 			BarSpriteYellow->SetPivot(Pivot);
 			BarSprite->SetColor(Color);
 		}
-		// unique_ptr ‚ğ‚Á‚Ä‚¢‚é‚È‚çƒRƒs[‚Í‹Ö~‚·‚×‚«
+		// unique_ptr ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ã‚³ãƒ”ãƒ¼ã¯ç¦æ­¢ã™ã¹ã
 		HpRenderComponent(const HpRenderComponent&) = delete;
 		HpRenderComponent& operator=(const HpRenderComponent&) = delete;
 
-		// ƒ€[ƒu‚Í‹–‰Â‚·‚é
+		// ãƒ ãƒ¼ãƒ–ã¯è¨±å¯ã™ã‚‹
 		HpRenderComponent(HpRenderComponent&&) noexcept = default;
 		HpRenderComponent& operator=(HpRenderComponent&&) noexcept = default;
 

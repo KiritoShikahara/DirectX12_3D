@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../Singleton/Singleton.hpp"
 #include "../Window/Setting/WindowSettings.hpp"
 
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒEƒBƒ“ƒhƒE—pƒNƒ‰ƒX
+	/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”¨ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class Window : public Singleton<Window>
 	{
@@ -18,31 +18,31 @@ namespace Engine::System
 
 	public:
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚Ì‰Šú‰»
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="WindowName">ƒEƒBƒ“ƒhƒE–¼</param>
-		/// <param name="x">xÀ•W</param>
-		/// <param name="y">yÀ•W</param>
-		/// <param name="setting">ƒEƒBƒ“ƒhƒE‚Ì”X‚Ìİ’è</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="WindowName">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å</param>
+		/// <param name="x">xåº§æ¨™</param>
+		/// <param name="y">yåº§æ¨™</param>
+		/// <param name="setting">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è«¸ã€…ã®è¨­å®š</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize(const char* WindowName, int x, int y,const WindowSetting& setting);
 		/// <summary>
-		/// XVƒƒbƒZ[ƒW‚Ìæ“¾
+		/// æ›´æ–°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		void IsUpdateMessage();
 		/// <summary>
-		/// I—¹ƒƒbƒZ[ƒW
+		/// çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 		/// </summary>
 		/// <returns></returns>
 		bool IsQuitMessage()const;
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚Ìæ“¾
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		const HWND GetWindowHandle()const;
 
-		// ‰¼‘z‰ğ‘œ“x‚ÆƒXƒP[ƒŠƒ“ƒOî•ñ
+		// ä»®æƒ³è§£åƒåº¦ã¨ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°æƒ…å ±
 		int GetWidth() const { return mWidth; }
 		int GetHeight() const { return mHeight; }
 		int GetVirtualWidth() const { return mVirtualWidth; }
@@ -53,31 +53,31 @@ namespace Engine::System
 
 	private:
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹
 		/// </summary>
 		WNDCLASSEX mWindowClass;
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 		/// </summary>
 		HWND mWindowHandle;
 		/// <summary>
-		/// Window‚Ì‰¡•iÀƒTƒCƒYj
+		/// Windowã®æ¨ªå¹…ï¼ˆå®Ÿã‚µã‚¤ã‚ºï¼‰
 		/// </summary>
 		float mWidth;
 		/// <summary>
-		/// Window‚Ìc•iÀƒTƒCƒYj
+		/// Windowã®ç¸¦å¹…ï¼ˆå®Ÿã‚µã‚¤ã‚ºï¼‰
 		/// </summary>
 		float mHeight;
 		/// <summary>
-		/// ƒQ[ƒ€“à‚Ì‰¼‘z‰¡•
+		/// ã‚²ãƒ¼ãƒ å†…ã®ä»®æƒ³æ¨ªå¹…
 		/// </summary>
 		float mVirtualWidth;
 		/// <summary>
-		/// ƒQ[ƒ€“à‚Ì‰¼‘zc•
+		/// ã‚²ãƒ¼ãƒ å†…ã®ä»®æƒ³ç¸¦å¹…
 		/// </summary>
 		float mVirtualHeight;
 		/// <summary>
-		/// I—¹’Ê’m
+		/// çµ‚äº†é€šçŸ¥
 		/// </summary>
 		bool mIsQuitMessage;
 

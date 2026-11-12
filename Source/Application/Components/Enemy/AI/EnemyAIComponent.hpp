@@ -1,48 +1,48 @@
-#pragma once
+ï»¿#pragma once
 #include"Application/Components/Player/PlayerState/PlayerStateComponent.hpp"
 
 namespace Engine::System
 {
-	//	“G‚Ìó‘Ô
+	//	æ•µã®çŠ¶æ…‹
 	enum class eEnemyState {
 		Idle,
 		Chasing,
 		Attacking,
 		Evade,
-		CancelEvade,	//	‘S‚Ä‚Ìs“®‚ğƒLƒƒƒ“ƒZƒ‹‚µ‚Ä‰ñ”ğ‚·‚éB
+		CancelEvade,	//	å…¨ã¦ã®è¡Œå‹•ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¦å›é¿ã™ã‚‹ã€‚
 	};
 
 	/// <summary>
-	/// ‘Ì—Í‚É‰‚¶‚½ó‘Ô‚Ì•Ï‰»
+	/// ä½“åŠ›ã«å¿œã˜ãŸçŠ¶æ…‹ã®å¤‰åŒ–
 	/// </summary>
 	enum class eEnemyPhase
 	{
-		Healthy,	//	’Êí
-		Caution,	//	Œx‰ú
-		Desperate,	//	•m€
+		Healthy,	//	é€šå¸¸
+		Caution,	//	è­¦æˆ’
+		Desperate,	//	ç€•æ­»
 	};
 
 	/// <summary>
-	/// “G‚ÌAI—p
+	/// æ•µã®AIç”¨
 	/// </summary>
 	struct EnemyAIComponent
 	{
-		//	“G‚Ìó‘Ô
-		//	s“®ƒ‹[ƒ`ƒ“•ÏX—pó‘Ô
+		//	æ•µã®çŠ¶æ…‹
+		//	è¡Œå‹•ãƒ«ãƒ¼ãƒãƒ³å¤‰æ›´ç”¨çŠ¶æ…‹
 		eEnemyState CurrState = eEnemyState::Chasing;
 		eEnemyPhase CurrPhase = eEnemyPhase::Healthy;
 
-		//	ó‘Ô‘Ò‹@‚È‚Ç‚ÌŠÔ‚ğŒv‚é—p
+		//	çŠ¶æ…‹å¾…æ©Ÿãªã©ã®æ™‚é–“ã‚’è¨ˆã‚‹ç”¨
 		float StateTimer = 0.0f;	
-		//	¡‚ÌUŒ‚‚Ì’i”
+		//	ä»Šã®æ”»æ’ƒã®æ®µæ•°
 		int CurrAttackCombo = 0;
 
-		//	ƒvƒŒƒCƒ„[‚Ì‘O‚Ìó‘Ô
+		//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰ã®çŠ¶æ…‹
 		ePlayerState PrevPlayerState = ePlayerState::Idle;
-		//	ƒvƒŒƒCƒ„[‚Ì‘O‚ÌUŒ‚‚Ì’i”
+		//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰ã®æ”»æ’ƒã®æ®µæ•°
 		int PrevPlayerAttackCombo = 0;
 
-		//	ƒAƒNƒVƒ‡ƒ“‚ÌI—¹‚µ‚½uŠÔ‚ğŒ©‚ê‚é‚æ‚¤‚É
+		//	ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®çµ‚äº†ã—ãŸç¬é–“ã‚’è¦‹ã‚Œã‚‹ã‚ˆã†ã«
 		bool IsActionFinished = true;
 
 		bool IsIdle = false;

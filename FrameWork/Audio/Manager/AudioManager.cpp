@@ -1,19 +1,19 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AudioManager.hpp"
 #include "Utility/PtrUtils.hpp"
 
 #include "Debug/spdlog/Logger.hpp"
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <param name="AudioResManager">ƒŠƒ\[ƒXŠÇ—‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="AudioResManager">ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Audio::AudioManager::Initialize(AudioResourceManager* AudioResManager)
 {
 	if (AudioResManager == nullptr)
 	{
-		LOG_ERROR("ƒTƒEƒ“ƒhƒŠƒ\[ƒXŠÇ—‚Ìæ“¾‚É¸”s");
+		LOG_ERROR("ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã®å–å¾—ã«å¤±æ•—");
 		return false;
 	}
 
@@ -23,11 +23,11 @@ bool Engine::Audio::AudioManager::Initialize(AudioResourceManager* AudioResManag
 }
 
 /// <summary>
-/// SE‚ÌÄ¶
+/// SEã®å†ç”Ÿ
 /// </summary>
-/// <param name="FilePath">ƒtƒ@ƒCƒ‹–¼</param>
-/// <param name="Loop">true:ƒ‹[ƒvÄ¶</param>
-/// <param name="Volume">‰¹—Ê:0.0f - 1.0f</param>
+/// <param name="FilePath">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+/// <param name="Loop">true:ãƒ«ãƒ¼ãƒ—å†ç”Ÿ</param>
+/// <param name="Volume">éŸ³é‡:0.0f - 1.0f</param>
 void Engine::Audio::AudioManager::PlaySE(const std::string& FilePath, bool Loop, float Volume, bool IsGlobal)
 {
 	auto resource = mResources->GetResource(FilePath);
@@ -63,24 +63,24 @@ void Engine::Audio::AudioManager::MixSounds(int16_t* Output, size_t FramesReques
 }
 
 /// <summary>
-/// ‘S‚Ä‚ÌƒTƒEƒ“ƒh‚ğ~‚ß‚é
+/// å…¨ã¦ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’æ­¢ã‚ã‚‹
 /// </summary>
 void Engine::Audio::AudioManager::AllClearSound()
 {
 	std::lock_guard<std::recursive_mutex> lock(mMtx);
 
-	// IsPersistent ‚ª falsei‰i‘±“I‚Å‚Í‚È‚¢j‚à‚Ì‚ğíœ‚·‚é
+	// IsPersistent ãŒ falseï¼ˆæ°¸ç¶šçš„ã§ã¯ãªã„ï¼‰ã‚‚ã®ã‚’å‰Šé™¤ã™ã‚‹
 	std::erase_if(mSounds, [](const Sound& sound) {
 		return !sound.IsGlobal;
 		});
 }
 
 /// <summary>
-/// miniaudio‚ÅŒÄ‚Ño‚³‚ê‚éƒR[ƒ‹ƒoƒbƒN
-/// ƒf[ƒ^‚ğ¶¬‚µ‚Ä‘—M‚·‚é
+/// miniaudioã§å‘¼ã³å‡ºã•ã‚Œã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
+/// ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆã—ã¦é€ä¿¡ã™ã‚‹
 /// </summary>
 void Engine::Audio::AudioManager::DataCallback(ma_device* pDevice, void* pOutput, const void*, ma_uint32 frameCount)
 {
 	AudioManager* mgr = reinterpret_cast<AudioManager*>(pDevice->pUserData);
-	mgr->MixSounds(reinterpret_cast<int16_t*>(pOutput), frameCount, 2); // 2chŒÅ’è
+	mgr->MixSounds(reinterpret_cast<int16_t*>(pOutput), frameCount, 2); // 2chå›ºå®š
 }

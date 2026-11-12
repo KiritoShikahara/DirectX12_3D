@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Collider/AABB/AABBCollider.hpp"
 #include"System/Collider/Sphere/SphereCollider.hpp"
 #include"System/Collider/OBB/OBBCollider.hpp"
@@ -11,21 +11,21 @@
 
 namespace Engine::System
 {
-	//	‰ñ“]‚Ì‚µ‚È‚¢‹éŒ`‚Ì“–‚½‚è”»’è
+	//	å›è»¢ã®ã—ãªã„çŸ©å½¢ã®å½“ãŸã‚Šåˆ¤å®š
 	struct AABBColliderComponent
 	{
-		//	‘«Œ³‚©‚ç‚Ç‚ê‚­‚ç‚¢‚¸‚ç‚·‚©
+		//	è¶³å…ƒã‹ã‚‰ã©ã‚Œãã‚‰ã„ãšã‚‰ã™ã‹
 		Math::Vector3 Offset = { 0.0f, 0.0f, 0.0f };
-		//	“–‚½‚è”»’èƒIƒuƒWƒFƒNƒg
+		//	å½“ãŸã‚Šåˆ¤å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		AABBCollider Collider;
-		//	true:‰Ÿ‚µ–ß‚µ‚ğ‚µ‚È‚¢ false:‰Ÿ‚µ–ß‚µ‚ğ‚·‚é
+		//	true:æŠ¼ã—æˆ»ã—ã‚’ã—ãªã„ false:æŠ¼ã—æˆ»ã—ã‚’ã™ã‚‹
 		bool IsStatic = false;
-		//	“–‚½‚è”»’è‚ğs‚¤‚©‚Ç‚¤‚©
+		//	å½“ãŸã‚Šåˆ¤å®šã‚’è¡Œã†ã‹ã©ã†ã‹
 		bool IsCollision = true;
 	};
 
 	/// <summary>
-	/// “–‚½‚è”»’è—pƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// å½“ãŸã‚Šåˆ¤å®šç”¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct ColliderComponent
 	{
@@ -37,7 +37,7 @@ namespace Engine::System
 		template<typename T>
 		static ColliderComponent Create()
 		{
-			//	ƒCƒ“ƒXƒ^ƒ“ƒX
+			//	ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 			ColliderComponent comp(typeid(T));
 			comp.Collider = std::make_shared<T>();
 			return comp;
@@ -60,19 +60,19 @@ namespace Engine::System
 		}
 
 
-		//@“–‚½‚è”»’èƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
+		//ã€€å½“ãŸã‚Šåˆ¤å®šã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 		std::shared_ptr<void> Collider = nullptr;
 
-		//	‘«Œ³‚©‚ç‚Ç‚ê‚­‚ç‚¢‚¸‚ç‚·‚©
+		//	è¶³å…ƒã‹ã‚‰ã©ã‚Œãã‚‰ã„ãšã‚‰ã™ã‹
 		Math::Vector3 Offset = { 0.0f, 0.0f, 0.0f };
 
-		//	ƒ{[ƒ“–¼i‹ó‚È‚ç’Ç]‚È‚µj
+		//	ãƒœãƒ¼ãƒ³åï¼ˆç©ºãªã‚‰è¿½å¾“ãªã—ï¼‰
 		std::string BoneName = "";
 
-		//	Œ^î•ñ
+		//	å‹æƒ…å ±
 		std::type_index Type;
 
-		//	true:“–‚½‚è”»’è‚ğ‚·‚é
+		//	true:å½“ãŸã‚Šåˆ¤å®šã‚’ã™ã‚‹
 		bool IsCollisiton = true;
 	};
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/Sprite/Sprite.hpp"
 #include"Graphics/Texture/Texture.hpp"
 
@@ -9,13 +9,13 @@ namespace Engine::System
 {
 	struct SpriteComponent
 	{
-		//	‰æ‘œ
+		//	ç”»åƒ
 		Graphics::Sprite Sprite;
 
-		//	‰æ‘œ‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©
+		//	ç”»åƒã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
 		bool IsShow = true;
 
-		//	–¾¦“I‚É
+		//	æ˜ç¤ºçš„ã«
 		explicit SpriteComponent(Graphics::Texture* Texture)
 		{
 			if (Texture != nullptr)
@@ -25,11 +25,11 @@ namespace Engine::System
 		}
 		~SpriteComponent() = default;
 
-		// unique_ptr ‚ğ‚Á‚Ä‚¢‚é‚È‚çƒRƒs[‚Í‹Ö~‚·‚×‚«
+		// unique_ptr ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ã‚³ãƒ”ãƒ¼ã¯ç¦æ­¢ã™ã¹ã
 		SpriteComponent(const SpriteComponent&) = delete;
 		SpriteComponent& operator=(const SpriteComponent&) = delete;
 
-		// ƒ€[ƒu‚Í‹–‰Â‚·‚é
+		// ãƒ ãƒ¼ãƒ–ã¯è¨±å¯ã™ã‚‹
 		SpriteComponent(SpriteComponent&&) noexcept = default;
 		SpriteComponent& operator=(SpriteComponent&&) noexcept = default;
 

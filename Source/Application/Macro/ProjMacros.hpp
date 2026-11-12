@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifndef PROJECT_MACROS
 #define PROJECT_MACROS
@@ -6,20 +6,20 @@
 //	
 
 /*
-* ƒfƒoƒbƒN
+* ãƒ‡ãƒãƒƒã‚¯
 */
 #if _DEBUG
 
 //	0: Title 1:StageSelect 2:InGame 3:GameClear 4:GameOver
 #define START_SCENE 1
 
-// 0:Â 1:‰© 2:Ô
+// 0:é’ 1:é»„ 2:èµ¤
 //#define SELECT_ENEMY 2
 
 //#define NO_DAMAGE
 
 /*
-* ƒŠƒŠ[ƒX
+* ãƒªãƒªãƒ¼ã‚¹
 */
 #else
 

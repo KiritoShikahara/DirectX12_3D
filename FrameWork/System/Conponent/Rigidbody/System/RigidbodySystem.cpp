@@ -1,4 +1,4 @@
-#include"pch.h"
+ï»¿#include"pch.h"
 #include"RigidbodySystem.hpp"
 
 #include"System/Conponent/Rigidbody/RigidbodyComponent.hpp"
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// d—Í‚ÆÀ•WXV
+	/// é‡åŠ›ã¨åº§æ¨™æ›´æ–°
 	/// </summary>
 	/// <param name="Reg"></param>
 	/// <param name="FixedDeltaTime"></param>

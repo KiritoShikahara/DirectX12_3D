@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include<Plugin/entt/entt.hpp>
 #include<set>
 
 namespace Engine::System
 {
-	//	‘½’i–h~—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	//	å¤šæ®µé˜²æ­¢ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	struct HitHistoryComponent
 	{
-		std::set<entt::entity>HitList;	//  Õ“Ë‚µ‚½“G‚ÉƒŠƒXƒgi‘½’i‚µ‚È‚¢‚æ‚¤‚Éj
-		float HitStopMS = 0.0f;	//	ƒqƒbƒgƒXƒgƒbƒv‚Å~‚ß‚éŠÔ
+		std::set<entt::entity>HitList;	//  è¡çªã—ãŸæ•µã«ãƒªã‚¹ãƒˆï¼ˆå¤šæ®µã—ãªã„ã‚ˆã†ã«ï¼‰
+		float HitStopMS = 0.0f;	//	ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã§æ­¢ã‚ã‚‹æ™‚é–“
 	};
 }

@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include <random>
 #include <utility>
 #include <type_traits>
 
 
-// ƒNƒ‰ƒX–¼‚ğ RandomGenerator ‚É•ÏX‚µ‚ÄÕ“Ë‚ğ”ğ‚¯‚é
+// ã‚¯ãƒ©ã‚¹åã‚’ RandomGenerator ã«å¤‰æ›´ã—ã¦è¡çªã‚’é¿ã‘ã‚‹
 class RandomGenerator
 {
 private:
@@ -43,6 +43,6 @@ public:
     }
 };
 
-// g‚¢Ÿè‚Ì‚½‚ß‚ÉƒGƒCƒŠƒAƒX‚ğ’u‚­
+// ä½¿ã„å‹æ‰‹ã®ãŸã‚ã«ã‚¨ã‚¤ãƒªã‚¢ã‚¹ã‚’ç½®ã
 using Random = RandomGenerator;
 

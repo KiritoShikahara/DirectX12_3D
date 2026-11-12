@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::Graphics
 {
@@ -8,9 +8,9 @@ namespace Engine::Graphics
 		int size;
 
 		/// <summary>
-		/// ”’l‚ª”ÍˆÍ“à‚©‚Ç‚¤‚©
+		/// æ•°å€¤ãŒç¯„å›²å†…ã‹ã©ã†ã‹
 		/// </summary>
-		/// <returns>true:³í’l</returns>
+		/// <returns>true:æ­£å¸¸å€¤</returns>
 		bool IsValid() const noexcept
 		{
 			return index >= 0 && size > 0;

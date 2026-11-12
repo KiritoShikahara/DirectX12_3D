@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Audio/Resource/AudioResource.hpp"
 
 namespace Engine::Audio
 {
 	/// <summary>
-/// SoundManager‚ªŠÇ—‚·‚éƒTƒEƒ“ƒhƒNƒ‰ƒX
-/// ‚±‚ÌƒNƒ‰ƒX’P‘Ì‚ÅƒTƒEƒ“ƒh‚ğ—¬‚·‚±‚Æ‚ª‚Å‚«‚È‚¢‚æ‚¤‚É‚È‚Á‚Ä‚¢‚é‚Ì‚Å\‘¢‘Ì‚ÅB
+/// SoundManagerãŒç®¡ç†ã™ã‚‹ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹
+/// ã“ã®ã‚¯ãƒ©ã‚¹å˜ä½“ã§ã‚µã‚¦ãƒ³ãƒ‰ã‚’æµã™ã“ã¨ãŒã§ããªã„ã‚ˆã†ã«ãªã£ã¦ã„ã‚‹ã®ã§æ§‹é€ ä½“ã§ã€‚
 /// </summary>
 	struct Sound
 	{
@@ -14,58 +14,58 @@ namespace Engine::Audio
 		virtual ~Sound() = default;
 
 		/// <summary>
-		/// Ä¶
+		/// å†ç”Ÿ
 		/// </summary>
 		void Play();
 
 		/// <summary>
-		/// ’â~
+		/// åœæ­¢
 		/// </summary>
 		void Stop();
 
 		/// <summary>
-		///	’†’f
+		///	ä¸­æ–­
 		/// </summary>
 		void Pause();
 
 		/// <summary>
-		/// Ä¶”»’è
+		/// å†ç”Ÿåˆ¤å®š
 		/// </summary>
-		/// <returns>true:Ä¶’†</returns>
+		/// <returns>true:å†ç”Ÿä¸­</returns>
 		bool IsPlaying();
 
 		/// <summary>
-		/// Output‚É’¼Ú PCM‚ğ‰ÁZ
+		/// Outputã«ç›´æ¥ PCMã‚’åŠ ç®—
 		/// </summary>
 		void ApplyAndMix(int16_t* Output, size_t FramesRequested, uint16_t OutputChannels);
 
 		/// <summary>
-		/// Ä¶—pƒŠƒ\[ƒX‚ÌQÆ—pƒ|ƒCƒ“ƒ^
+		/// å†ç”Ÿç”¨ãƒªã‚½ãƒ¼ã‚¹ã®å‚ç…§ç”¨ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
 		AudioResource* Resource;
 
 		/// <summary>
-		/// ¡‚ÌÄ¶ƒtƒŒ[ƒ€
+		/// ä»Šã®å†ç”Ÿãƒ•ãƒ¬ãƒ¼ãƒ 
 		/// </summary>
 		uint64_t CurrentFrame = 0;
 
 		/// <summary>
-		/// ‰¹—Ê
+		/// éŸ³é‡
 		/// </summary>
 		float Volume = 1.0f;
 
 		/// <summary>
-		/// true:ƒ‹[ƒvˆ—
+		/// true:ãƒ«ãƒ¼ãƒ—å‡¦ç†
 		/// </summary>
 		bool Loop = false;
 
 		/// <summary>
-		/// true:Ä¶’†
+		/// true:å†ç”Ÿä¸­
 		/// </summary>
 		bool Playing = false;
 
 		/// <summary>
-		/// true:‰æ–ÊØ‚è‘Ö‚¦‚ÉƒŠƒZƒbƒg‚³‚ê‚¸Ä¶I—¹‚È‚Ç‚Åíœ
+		/// true:ç”»é¢åˆ‡ã‚Šæ›¿ãˆæ™‚ã«ãƒªã‚»ãƒƒãƒˆã•ã‚Œãšå†ç”Ÿçµ‚äº†ãªã©ã§å‰Šé™¤
 		/// </summary>
 		bool IsGlobal = true;
 

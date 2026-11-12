@@ -1,10 +1,10 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GraphicsDescriptorHeapManager.hpp"
 #include "Graphics/DirectX/DirectX12.hpp" 
 #include "Debug/spdlog/Logger.hpp"
 
 /// <summary>
-/// ‰Šú’l
+/// åˆæœŸå€¤
 /// </summary>
 void Engine::Graphics::GraphicsDescriptorHeapManager::OnCreate()
 {
@@ -15,7 +15,7 @@ void Engine::Graphics::GraphicsDescriptorHeapManager::OnCreate()
 }
 
 /// <summary>
-/// ƒŠƒ\[ƒX‰ğ•ú
+/// ãƒªã‚½ãƒ¼ã‚¹è§£æ”¾
 /// </summary>
 void Engine::Graphics::GraphicsDescriptorHeapManager::OnDestory()
 {
@@ -23,15 +23,15 @@ void Engine::Graphics::GraphicsDescriptorHeapManager::OnDestory()
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::GraphicsDescriptorHeapManager::Initialize()
 {
 	ID3D12Device* device = DirectX::GetInstance()->GetDevice();
 	if (device == nullptr)
 	{
-		LOG_CRITICAL("Dx12ƒfƒoƒCƒX‚Ìæ“¾‚É¸”s");
+		LOG_CRITICAL("Dx12ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—ã«å¤±æ•—");
 		return false;
 	}
 
@@ -66,7 +66,7 @@ bool Engine::Graphics::GraphicsDescriptorHeapManager::Initialize()
 }
 
 /// <summary>
-/// ƒq[ƒv‚©‚çg—p—Ìˆæ‚Ì”­s
+/// ãƒ’ãƒ¼ãƒ—ã‹ã‚‰ä½¿ç”¨é ˜åŸŸã®ç™ºè¡Œ
 /// </summary>
 /// <param name="size"></param>
 /// <returns></returns>
@@ -75,18 +75,18 @@ Engine::Graphics::DescriptorHeapInfo Engine::Graphics::GraphicsDescriptorHeapMan
 	int searchStart = mSearchOffset;
 	for (int count = 0; count < MAX_DESCRIPTOR;)
 	{
-		//	”z—ñ‚Ì”ÍˆÍ“à‚Éû‚ß‚é‚½‚ß‚Ìè—]‰‰Z
+		//	é…åˆ—ã®ç¯„å›²å†…ã«åã‚ã‚‹ãŸã‚ã®å‰°ä½™æ¼”ç®—
 		int currentOffset = (searchStart + count) % MAX_DESCRIPTOR;
 
-		//	w’èƒTƒCƒY‚ªƒq[ƒv‚Ì––”ö‚ğ‚Ü‚½‚®ê‡‚ÍŠm•Û•s‰Â”\
+		//	æŒ‡å®šã‚µã‚¤ã‚ºãŒãƒ’ãƒ¼ãƒ—ã®æœ«å°¾ã‚’ã¾ãŸãå ´åˆã¯ç¢ºä¿ä¸å¯èƒ½
 		if (currentOffset + Size > MAX_DESCRIPTOR)
 		{
-			//	Ÿ‚Ìƒ`ƒFƒbƒN‚Íæ“ª‚©‚ç
+			//	æ¬¡ã®ãƒã‚§ãƒƒã‚¯ã¯å…ˆé ­ã‹ã‚‰
 			count += (MAX_DESCRIPTOR - currentOffset);
 			continue;
 		}
 
-		//	˜A‘±‚µ‚½‹ó‚«—Ìˆæ‚ª‚ ‚é‚©‚Ç‚¤‚©
+		//	é€£ç¶šã—ãŸç©ºãé ˜åŸŸãŒã‚ã‚‹ã‹ã©ã†ã‹
 		bool bCheck = true;
 		int conflictIndex = -1;
 		for (int s = 0; s < Size; s++)
@@ -101,20 +101,20 @@ Engine::Graphics::DescriptorHeapInfo Engine::Graphics::GraphicsDescriptorHeapMan
 
 		if (bCheck == true)
 		{
-			//	Šm•Ûˆ—
+			//	ç¢ºä¿å‡¦ç†
 			for (int i = 0; i < Size; i++)
 			{
 				mInUse[currentOffset + i] = true;
 			}
 
-			//	Ÿ‰ñ‚ÌŒŸõŠJnˆÊ’u‚ğXV
+			//	æ¬¡å›ã®æ¤œç´¢é–‹å§‹ä½ç½®ã‚’æ›´æ–°
 			mSearchOffset = (currentOffset + Size) % MAX_DESCRIPTOR;
 
 			DescriptorHeapInfo info = { currentOffset ,Size};
 			return info;
 		}
 
-		//	Œ©‚Â‚©‚ç‚È‚©‚Á‚½‚çÕ“Ë‚µ‚½—v‘f‚ÌŸ‚Ü‚ÅƒXƒLƒbƒv
+		//	è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸã‚‰è¡çªã—ãŸè¦ç´ ã®æ¬¡ã¾ã§ã‚¹ã‚­ãƒƒãƒ—
 		count += (conflictIndex + 1);
 
 	}
@@ -122,7 +122,7 @@ Engine::Graphics::DescriptorHeapInfo Engine::Graphics::GraphicsDescriptorHeapMan
 }
 
 /// <summary>
-/// g—p—Ìˆæ‚Ì”jŠü
+/// ä½¿ç”¨é ˜åŸŸã®ç ´æ£„
 /// </summary>
 /// <param name="Info"></param>
 void Engine::Graphics::GraphicsDescriptorHeapManager::Discard(DescriptorHeapInfo& Info)
@@ -155,11 +155,11 @@ void Engine::Graphics::GraphicsDescriptorHeapManager::Set(int RootParameterIndex
 	ID3D12GraphicsCommandList* CommandList = Graphics::DirectX::GetInstance()->GetCommandList();
 
 	CommandList->SetDescriptorHeaps(1, mGraphicsHeap.GetAddressOf());
-	// yC³zŒ»İ‚Ìƒq[ƒv‚Ìæ“ª‚©‚çAInfo.index •ª‚¾‚¯i‚ß‚½ƒnƒ“ƒhƒ‹‚ğŒvZ‚·‚é
+	// ã€ä¿®æ­£ã€‘ç¾åœ¨ã®ãƒ’ãƒ¼ãƒ—ã®å…ˆé ­ã‹ã‚‰ã€Info.index åˆ†ã ã‘é€²ã‚ãŸãƒãƒ³ãƒ‰ãƒ«ã‚’è¨ˆç®—ã™ã‚‹
 	D3D12_GPU_DESCRIPTOR_HANDLE gpuHandle = mGraphicsHeap->GetGPUDescriptorHandleForHeapStart();
 	UINT handleSize = Graphics::DirectX::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-	// ƒCƒ“ƒfƒbƒNƒX•ªƒIƒtƒZƒbƒg‚³‚¹‚é
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹åˆ†ã‚ªãƒ•ã‚»ãƒƒãƒˆã•ã›ã‚‹
 	gpuHandle.ptr += (UINT64)Info.index * handleSize;
 
 	CommandList->SetGraphicsRootDescriptorTable(RootParameterIndex, gpuHandle);
@@ -184,7 +184,7 @@ D3D12_GPU_DESCRIPTOR_HANDLE Engine::Graphics::GraphicsDescriptorHeapManager::Get
 }
 
 /// <summary>
-/// ƒOƒ‰ƒtƒBƒbƒNƒX—pƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv
+/// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç”¨ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—
 /// </summary>
 /// <returns></returns>
 ID3D12DescriptorHeap* Engine::Graphics::GraphicsDescriptorHeapManager::GetGraphicsHeap()

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "MoveComponentSystem.hpp"
 #include "System/Input/Manager/InputManager.hpp"
 #include"System/Camera/Camera.hpp"
@@ -13,15 +13,15 @@
 #include"Graphics/DebugRender/DebugRender.hpp"
 
 /// <summary>
-/// ˆÚ“®—Ê‚ÌŒvZˆ—‚ğ‚µ‚ÄRigid‚ÌˆÚ“®—Ê‚É‰ÁZ‚·‚é
+/// ç§»å‹•é‡ã®è¨ˆç®—å‡¦ç†ã‚’ã—ã¦Rigidã®ç§»å‹•é‡ã«åŠ ç®—ã™ã‚‹
 /// </summary>
 void Engine::System::MoveComponentSystem::MainUpdate(entt::registry& Reg, double DeltaTime)
 {
-	//	ƒXƒe[ƒW‚Ìî•ñ‚ğæ“¾
+	//	ã‚¹ãƒ†ãƒ¼ã‚¸ã®æƒ…å ±ã‚’å–å¾—
 	Math::Vector3 stageCenter = Math::Vector3::Zero;
 	float stageRadius = 200;
 
-	//	‚ ‚éê‡‚ÍÅ‰‚Ìî•ñ‚ğæ“¾‚·‚é
+	//	ã‚ã‚‹å ´åˆã¯æœ€åˆã®æƒ…å ±ã‚’å–å¾—ã™ã‚‹
 	auto  stageView = Reg.view<Transform3D, StageComponent>();
 	if (auto stageEntity = stageView.front(); stageEntity != entt::null)
 	{
@@ -33,21 +33,21 @@ void Engine::System::MoveComponentSystem::MainUpdate(entt::registry& Reg, double
 	auto view = Reg.view<MoveComponent, Rigidbody3D, Transform3D, PlayerStateComponent>();
 	view.each([&](auto entity, MoveComponent& move, Rigidbody3D& rigid, Transform3D& trans, PlayerStateComponent& state) 
 		{
-			//	ƒ[ƒ‹ƒh‹óŠÔ‚Ì•ûŒüƒxƒNƒgƒ‹
+			//	ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 			Math::Vector3 worldDir = {};
 
-			//	ƒJƒƒ‰Šî€‚Å“®‚­‚©‚ÂƒƒCƒ“ƒJƒƒ‰‚ª‘¶İ‚·‚é‚Æ‚«
+			//	ã‚«ãƒ¡ãƒ©åŸºæº–ã§å‹•ãã‹ã¤ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ãŒå­˜åœ¨ã™ã‚‹ã¨ã
 			const bool isCameraRelative = (move.UseCameraBasis == true) && System::Camera::Main != nullptr;
 			if (isCameraRelative == true)
 			{
-				//	ƒJƒƒ‰‚ÌŒü‚«‚ğæ“¾
+				//	ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å–å¾—
 				auto camForward = Camera::Main->GetForward();
 				auto camRight = Camera::Main->GetRight();
 
-				//	¡‰ñ‚ÍY²‚Í‚¢‚ç‚È‚¢‚Ì‚Å0.0‚É‚·‚éB
+				//	ä»Šå›ã¯Yè»¸ã¯ã„ã‚‰ãªã„ã®ã§0.0ã«ã™ã‚‹ã€‚
 				camForward.y = 0.0f;
 				camRight.y = 0.0f;
-				//	³‹K‰»
+				//	æ­£è¦åŒ–
 				camForward.Normalize();
 				camRight.Normalize();
 
@@ -59,25 +59,25 @@ void Engine::System::MoveComponentSystem::MainUpdate(entt::registry& Reg, double
 				worldDir = move.InputDir;
 			}
 
-			//	ˆÚ“®‘¬“xŒvZiƒ_ƒbƒVƒ…‚È‚Çj
+			//	ç§»å‹•é€Ÿåº¦è¨ˆç®—ï¼ˆãƒ€ãƒƒã‚·ãƒ¥ãªã©ï¼‰
 			float speed = move.MoveSpeed;
 
-			//	ÅI‚ÌˆÚ“®—Ê
+			//	æœ€çµ‚ã®ç§»å‹•é‡
 			Math::Vector3 finalVelocity = worldDir * speed;
 
 			/*
-			* ˆÚ“®‚µ‚È‚¢ó‘Ô‚È‚çˆÚ“®—Ê‚ğÁ‚·‚Ì‚à‚±‚±‚Ås‚¤
+			* ç§»å‹•ã—ãªã„çŠ¶æ…‹ãªã‚‰ç§»å‹•é‡ã‚’æ¶ˆã™ã®ã‚‚ã“ã“ã§è¡Œã†
 			*/
 			if (state.State == ePlayerState::Dodge) 
 			{
 				finalVelocity = move.ForceVelocity * move.DodgeSpeed;
 			}
-			//	‰ñ”ğó‘Ô‚¶‚á‚È‚¢‚Æ‚«ˆÚ“®—Ê‚ğÁ‚·
+			//	å›é¿çŠ¶æ…‹ã˜ã‚ƒãªã„ã¨ãç§»å‹•é‡ã‚’æ¶ˆã™
 			else
 			{
 				move.ForceVelocity = Math::Vector3::Zero;
 
-				//	ù‰ñ
+				//	æ—‹å›
 				if (worldDir.SqrLength() > 0.001f)
 				{
 					float targetAngle = atan2(worldDir.x, worldDir.z);
@@ -90,30 +90,30 @@ void Engine::System::MoveComponentSystem::MainUpdate(entt::registry& Reg, double
 				}
 			}
 
-			//	Ÿ‚ÌƒtƒŒ[ƒ€ˆÊ’u‚ğ—\‘ª
+			//	æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ä½ç½®ã‚’äºˆæ¸¬
 			Math::Vector3 currentPos = trans.Position;
 			Math::Vector3 nextPos = currentPos + (finalVelocity * DeltaTime);
 			//Math::Vector3 nextPos = currentPos + finalVelocity;
 
-			//	’†S‚©‚ç‚Ì‹——£‚ğŒvZ
+			//	ä¸­å¿ƒã‹ã‚‰ã®è·é›¢ã‚’è¨ˆç®—
 			Math::Vector3 toNext = nextPos - stageCenter;
-			toNext.y = 0;	//	…•½‚¾‚¯
+			toNext.y = 0;	//	æ°´å¹³ã ã‘
 			float distSq = toNext.SqrLength();
 
 			if (distSq > stageRadius * stageRadius)
 			{
-				//	ŠO‚ÖŒü‚©‚¤ƒxƒNƒgƒ‹
+				//	å¤–ã¸å‘ã‹ã†ãƒ™ã‚¯ãƒˆãƒ«
 				toNext.Normalize();
 
-				//	Œ»İ‚Ì‘¬“x‚ªŠOŒü‚«‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
+				//	ç¾åœ¨ã®é€Ÿåº¦ãŒå¤–å‘ãã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
 				float dot = Math::Vector3::Dot(finalVelocity, toNext);
 				if (dot > 0.0f)
 				{
-					//	ŠO•ûŒü‚ÌˆÚ“®—Ê‚ğƒJƒbƒg
+					//	å¤–æ–¹å‘ã®ç§»å‹•é‡ã‚’ã‚«ãƒƒãƒˆ
 					finalVelocity -= toNext * dot;
 				}
 
-				//	–œ‚ªˆêŠO‚Éo‚½‚çˆÊ’u‚ğ‹­§C³iƒXƒ^ƒbƒN–h~j
+				//	ä¸‡ãŒä¸€å¤–ã«å‡ºãŸã‚‰ä½ç½®ã‚’å¼·åˆ¶ä¿®æ­£ï¼ˆã‚¹ã‚¿ãƒƒã‚¯é˜²æ­¢ï¼‰
 				float currDistSq = (currentPos - stageCenter).SqrLength();
 				if (currDistSq > stageRadius * stageRadius)
 				{
@@ -123,11 +123,11 @@ void Engine::System::MoveComponentSystem::MainUpdate(entt::registry& Reg, double
 				}
 			}
 
-			//	ˆÚ“®‘¬“x‚ğ“K‰
+			//	ç§»å‹•é€Ÿåº¦ã‚’é©å¿œ
 			rigid.Velocity.x = finalVelocity.x;
 			rigid.Velocity.z = finalVelocity.z;
 
-			//	“ü—Í‚©‚ç‚ÌˆÚ“®—Ê‚ÌƒŠƒZƒbƒg
+			//	å…¥åŠ›ã‹ã‚‰ã®ç§»å‹•é‡ã®ãƒªã‚»ãƒƒãƒˆ
 			move.InputDir = Math::Vector3::Zero;
 			move.ForceVelocity *= 0.995f;
 		});

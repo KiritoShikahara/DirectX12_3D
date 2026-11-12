@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SkyBoxResource.hpp"
 
 #include "Graphics/Texture/Texture.hpp"
@@ -14,21 +14,21 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ¶¬
+	/// ç”Ÿæˆ
 	/// </summary>
-	/// <param name="CubeMapPath">ƒLƒ…[ƒuƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚ÌƒpƒX</param>
-	/// <returns>true:¬Œ÷</returns>
+	/// <param name="CubeMapPath">ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‘ã‚¹</param>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool SkyBoxResource::Create(const std::filesystem::path& CubeMapPath)
 	{
 		bool ret = false;
-		//	ƒƒbƒVƒ…
+		//	ãƒ¡ãƒƒã‚·ãƒ¥
 		ret = this->CreateMesh();
 		if (ret == false)
 		{
 			LOG_ERROR("Failed CreateMesh.");
 			return false;
 		}
-		//	ƒeƒNƒXƒ`ƒƒ
+		//	ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		mSkyTexture = std::make_unique<Texture>();
 		ret = mSkyTexture->Create(CubeMapPath);
 		if (ret == false)
@@ -40,42 +40,42 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// —§•û‘ÌƒƒbƒVƒ…‚Ìì¬
+	/// ç«‹æ–¹ä½“ãƒ¡ãƒƒã‚·ãƒ¥ã®ä½œæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool SkyBoxResource::CreateMesh()
 	{
-		// —§•û‘Ì‚Ì’¸“_ƒf[ƒ^’è‹`iTriangle List / 1•Ó‚Ì’·‚³ 2.0j
-		// À•W‚»‚Ì‚à‚Ì‚ªƒTƒ“ƒvƒŠƒ“ƒOƒxƒNƒgƒ‹‚É‚È‚é‚½‚ßA’†S‚Í(0,0,0)
+		// ç«‹æ–¹ä½“ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿å®šç¾©ï¼ˆTriangle List / 1è¾ºã®é•·ã• 2.0ï¼‰
+		// åº§æ¨™ãã®ã‚‚ã®ãŒã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ™ã‚¯ãƒˆãƒ«ã«ãªã‚‹ãŸã‚ã€ä¸­å¿ƒã¯(0,0,0)
 		std::vector<SkyBoxVertex> vertices = {
-			// ‘O–Ê (Z+)
+			// å‰é¢ (Z+)
 			{{-1.0f,  1.0f,  1.0f}}, {{ 1.0f,  1.0f,  1.0f}}, {{ 1.0f, -1.0f,  1.0f}},
 			{{-1.0f,  1.0f,  1.0f}}, {{ 1.0f, -1.0f,  1.0f}}, {{-1.0f, -1.0f,  1.0f}},
-			// ”w–Ê (Z-)
+			// èƒŒé¢ (Z-)
 			{{ 1.0f,  1.0f, -1.0f}}, {{-1.0f,  1.0f, -1.0f}}, {{-1.0f, -1.0f, -1.0f}},
 			{{ 1.0f,  1.0f, -1.0f}}, {{-1.0f, -1.0f, -1.0f}}, {{ 1.0f, -1.0f, -1.0f}},
-			// ã–Ê (Y+)
+			// ä¸Šé¢ (Y+)
 			{{-1.0f,  1.0f, -1.0f}}, {{ 1.0f,  1.0f, -1.0f}}, {{ 1.0f,  1.0f,  1.0f}},
 			{{-1.0f,  1.0f, -1.0f}}, {{ 1.0f,  1.0f,  1.0f}}, {{-1.0f,  1.0f,  1.0f}},
-			// ‰º–Ê (Y-)
+			// ä¸‹é¢ (Y-)
 			{{-1.0f, -1.0f,  1.0f}}, {{ 1.0f, -1.0f,  1.0f}}, {{ 1.0f, -1.0f, -1.0f}},
 			{{-1.0f, -1.0f,  1.0f}}, {{ 1.0f, -1.0f, -1.0f}}, {{-1.0f, -1.0f, -1.0f}},
-			// ¶–Ê (X-)
+			// å·¦é¢ (X-)
 			{{-1.0f,  1.0f, -1.0f}}, {{-1.0f,  1.0f,  1.0f}}, {{-1.0f, -1.0f,  1.0f}},
 			{{-1.0f,  1.0f, -1.0f}}, {{-1.0f, -1.0f,  1.0f}}, {{-1.0f, -1.0f, -1.0f}},
-			// ‰E–Ê (X+)
+			// å³é¢ (X+)
 			{{ 1.0f,  1.0f,  1.0f}}, {{ 1.0f,  1.0f, -1.0f}}, {{ 1.0f, -1.0f, -1.0f}},
 			{{ 1.0f,  1.0f,  1.0f}}, {{ 1.0f, -1.0f, -1.0f}}, {{ 1.0f, -1.0f,  1.0f}}
 		};
 
-		//	æ“¾
+		//	å–å¾—
 		Graphics::DirectX* directX = Graphics::DirectX::GetInstance();
 		auto* device = directX->GetDevice();
 
-		//	VBƒTƒCƒY
+		//	VBã‚µã‚¤ã‚º
 		const UINT vbSize = static_cast<UINT>(vertices.size() * sizeof(SkyBoxVertex));
 
-		//	ƒoƒbƒtƒ@ì¬
+		//	ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		D3D12_HEAP_PROPERTIES defaultHeap = {};
 		defaultHeap.Type = D3D12_HEAP_TYPE_DEFAULT;
 		D3D12_RESOURCE_DESC vbDesc = {};
@@ -87,12 +87,12 @@ namespace Engine::Graphics
 		vbDesc.SampleDesc.Count = 1;
 		vbDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-		// Default Heap ƒŠƒ\[ƒX
+		// Default Heap ãƒªã‚½ãƒ¼ã‚¹
 		device->CreateCommittedResource(
 			&defaultHeap, D3D12_HEAP_FLAG_NONE, &vbDesc,
 			D3D12_RESOURCE_STATE_COMMON, nullptr, IID_PPV_ARGS(&mVB));
 
-		//	upload heapƒŠƒ\[ƒX
+		//	upload heapãƒªã‚½ãƒ¼ã‚¹
 		mw::ResourcePtr uploadVB;
 		D3D12_HEAP_PROPERTIES uploadHeap = {};
 		uploadHeap.Type = D3D12_HEAP_TYPE_UPLOAD;
@@ -100,13 +100,13 @@ namespace Engine::Graphics
 			&uploadHeap, D3D12_HEAP_FLAG_NONE, &vbDesc,
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&uploadVB));
 
-		//	ƒf[ƒ^ƒRƒs[
+		//	ãƒ‡ãƒ¼ã‚¿ã‚³ãƒ”ãƒ¼
 		void* mappedPtr = nullptr;
 		uploadVB->Map(0, nullptr, &mappedPtr);
 		memcpy(mappedPtr, vertices.data(), vbSize);
 		uploadVB->Unmap(0, nullptr);
 
-		//	GPUƒRƒs[ƒRƒ}ƒ“ƒh
+		//	GPUã‚³ãƒ”ãƒ¼ã‚³ãƒãƒ³ãƒ‰
 		mw::CmdAllocatorPtr tempAlloc;
 		device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&tempAlloc));
 		mw::CmdListPtr tempCmdList;
@@ -114,7 +114,7 @@ namespace Engine::Graphics
 
 		tempCmdList->CopyBufferRegion(mVB.Get(), 0, uploadVB.Get(), 0, vbSize);
 
-		//	ƒoƒŠƒAˆ—
+		//	ãƒãƒªã‚¢å‡¦ç†
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		barrier.Transition.pResource = mVB.Get();
@@ -123,13 +123,13 @@ namespace Engine::Graphics
 		barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 		tempCmdList->ResourceBarrier(1, &barrier);
 
-		//	Às
+		//	å®Ÿè¡Œ
 		tempCmdList->Close();
 		ID3D12CommandList* lists[] = { tempCmdList.Get() };
 		directX->GetCommandQueue()->ExecuteCommandLists(1, lists);
 		directX->WaitForGPU();
 
-		// viewİ’è
+		// viewè¨­å®š
 		mVBView.BufferLocation = mVB->GetGPUVirtualAddress();
 		mVBView.SizeInBytes = vbSize;
 		mVBView.StrideInBytes = sizeof(SkyBoxVertex);
@@ -138,7 +138,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+	/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 	/// </summary>
 	void SkyBoxResource::Release()
 	{

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
@@ -6,7 +6,7 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// KiB‚ðŒvŽZ
+		/// KiBã‚’è¨ˆç®—
 		/// </summary>
 		/// <param name="Size"></param>
 		/// <returns></returns>
@@ -16,7 +16,7 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// MiB‚ðŒvŽZ
+		/// MiBã‚’è¨ˆç®—
 		/// </summary>
 		/// <param name="Size"></param>
 		/// <returns></returns>
@@ -26,7 +26,7 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// GiB‚ðŒvŽZ
+		/// GiBã‚’è¨ˆç®—
 		/// </summary>
 		/// <param name="Size"></param>
 		/// <returns></returns>

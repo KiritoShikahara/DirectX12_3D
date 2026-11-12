@@ -1,44 +1,44 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
     /// <summary>
-    /// ƒXƒP[ƒ‹‘€ì‚ÌŠî€‚Æ‚È‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+    /// ã‚¹ã‚±ãƒ¼ãƒ«æ“ä½œã®åŸºæº–ã¨ãªã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     /// </summary>
     struct ScaleEffectComponent
     {
-        // Šî€‚Æ‚È‚éƒXƒP[ƒ‹i’Êí‚Í1.0fj
+        // åŸºæº–ã¨ãªã‚‹ã‚¹ã‚±ãƒ¼ãƒ«ï¼ˆé€šå¸¸ã¯1.0fï¼‰
         float BaseScale = 1.0f;
-        // Œ»İŒvZ‚³‚ê‚½ÅI“I‚È•\¦”{—¦
+        // ç¾åœ¨è¨ˆç®—ã•ã‚ŒãŸæœ€çµ‚çš„ãªè¡¨ç¤ºå€ç‡
         float CurrentScale = 1.0f;
-        // ŠÔŒo‰ßŒv‘ª
+        // æ™‚é–“çµŒéè¨ˆæ¸¬
         float Timer = 0.0f;
 
-        //  true:—LŒø false:–³Œø
+        //  true:æœ‰åŠ¹ false:ç„¡åŠ¹
         bool IsActive = true;
     };
 
     /// <summary>
-    /// ƒXƒP[ƒ‹‚ÌŒÛ“®Fw’è‚µ‚½üŠú‚Å‘å‚«‚³‚ğ—h‚ç‚·
+    /// ã‚¹ã‚±ãƒ¼ãƒ«ã®é¼“å‹•ï¼šæŒ‡å®šã—ãŸå‘¨æœŸã§å¤§ãã•ã‚’æºã‚‰ã™
     /// </summary>
     struct ScalePulseTag {
-        float Duration = 1.5f; // 1üŠú‚ÌŠÔ
-        float Range = 0.1f;   // U•i1.0 +- 0.1 ‚Ì‚æ‚¤‚É“®‚­j
+        float Duration = 1.5f; // 1å‘¨æœŸã®æ™‚é–“
+        float Range = 0.1f;   // æŒ¯å¹…ï¼ˆ1.0 +- 0.1 ã®ã‚ˆã†ã«å‹•ãï¼‰
     };
 
     /// <summary>
-    /// ƒXƒP[ƒ‹‚Ì’¼ü•Ï‰»FoŒ»‚âÁ–Å‚ÌƒY[ƒ€‰‰o‚È‚Ç‚É
+    /// ã‚¹ã‚±ãƒ¼ãƒ«ã®ç›´ç·šå¤‰åŒ–ï¼šå‡ºç¾æ™‚ã‚„æ¶ˆæ»…æ™‚ã®ã‚ºãƒ¼ãƒ æ¼”å‡ºãªã©ã«
     /// </summary>
     struct ScaleLinearTag {
         float StartScale = 0.0f;
         float EndScale = 1.0f;
         float Duration = 0.5f;
         bool Loop = false;
-        bool PingPong = false; // ‰•œ‚³‚¹‚é‚È‚ç•Ö—˜
+        bool PingPong = false; // å¾€å¾©ã•ã›ã‚‹ãªã‚‰ä¾¿åˆ©
     };
 
     /// <summary>
-    /// ‘I‘ğ’†‚Ì‚İƒXƒP[ƒ‹‚ğ“K—p‚·‚é‚½‚ß‚Ì¯•Ê—p
+    /// é¸æŠä¸­ã®ã¿ã‚¹ã‚±ãƒ¼ãƒ«ã‚’é©ç”¨ã™ã‚‹ãŸã‚ã®è­˜åˆ¥ç”¨
     /// </summary>
     struct SelectedUIEffectTag {};
 }

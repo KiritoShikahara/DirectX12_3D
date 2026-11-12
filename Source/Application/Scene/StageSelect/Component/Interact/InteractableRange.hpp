@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Application/Objects/EnemyRank.hpp"
 #include"entt/entt.hpp"
 #include "Graphics/Texture/Texture.hpp"
@@ -7,10 +7,10 @@ namespace Engine::System
 {
 	struct InteractableComponent
 	{
-		float InteractRange = 10.0f;	//	ƒCƒ“ƒ^ƒ‰ƒNƒg‚Å‚«‚é‹——£
-		EnemyRank Rank = EnemyRank::Basic;	//	‚Ç‚Ìó‘Ô‚É‘JˆÚ‚·‚é‚©
+		float InteractRange = 10.0f;	//	ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒˆã§ãã‚‹è·é›¢
+		EnemyRank Rank = EnemyRank::Basic;	//	ã©ã®çŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹
 		int UnlockLevel = 0;
-		bool Talkable = true;			//	—£‚¹‚éó‘Ô‚©‚Ç‚¤‚©
+		bool Talkable = true;			//	é›¢ã›ã‚‹çŠ¶æ…‹ã‹ã©ã†ã‹
 	};
 
 }

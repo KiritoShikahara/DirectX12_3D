@@ -20,17 +20,17 @@ VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;
 
-    // ���W�ϊ�
-    // C++����View�s��̈ړ������������Ă���̂ŉ�]�����ɂȂ�
+    // 座標変換
+    // C++側でView行列の移動成分を消しているので回転だけになる
     float4 wPos = mul(input.Pos, World);
     float4 vPos = mul(wPos, View);
     output.Position = mul(vPos, Projection);
 
-    // �[�x�� 1.0 �ɌŒ肷��
-    // z = w �ɂ��邱�ƂŁA�������W�n�ł̐[�x��1.0�ɁB
+    // 深度を 1.0 に固定する
+    // z = w にすることで、同次座標系での深度が1.0に。
     output.Position.z = output.Position.w;
 
-    // ���_�̃��[�J�����W���A���̂܂܃e�N�X�`���T���v�����O�p�̕����x�N�g���Ƃ��ēn��
+    // 頂点のローカル座標を、そのままテクスチャサンプリング用の方向ベクトルとして渡す
     output.TexCoord = input.Pos.xyz;
 
     return output;

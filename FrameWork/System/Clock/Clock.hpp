@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Time/Time.hpp"
 
 namespace Engine::System
@@ -7,7 +7,7 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// ‘O‰ñŒÄ‚Ño‚µ‚©‚ç‚ÌŒo‰ßŠÔ‚ğ•Ô‚µAŠî€“_‚ğXV‚·‚é
+		/// å‰å›å‘¼ã³å‡ºã—ã‹ã‚‰ã®çµŒéæ™‚é–“ã‚’è¿”ã—ã€åŸºæº–ç‚¹ã‚’æ›´æ–°ã™ã‚‹
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] Time Restart();

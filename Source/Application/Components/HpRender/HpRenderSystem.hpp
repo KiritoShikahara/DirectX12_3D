@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 #include"Application/Components/HpRender/HpRenderComponent.hpp"
 
@@ -12,12 +12,12 @@ namespace Engine::System
 		virtual void Render(entt::registry& Reg) override;
 	private:
 		/// <summary>
-		/// ‘Ì—Í‚Ìc—Ê‚ÅF‚ğ•ÏX‚·‚é
+		/// ä½“åŠ›ã®æ®‹é‡ã§è‰²ã‚’å¤‰æ›´ã™ã‚‹
 		/// </summary>
 		void UpdateColor(HpRenderComponent& Component,float Ratio);
 
 		/// <summary>
-		/// GUI‚Å’²®‚Å‚«‚é‚æ‚¤‚É
+		/// GUIã§èª¿æ•´ã§ãã‚‹ã‚ˆã†ã«
 		/// </summary>
 		/// <param name="Reg"></param>
 		void OnGui(entt::registry& Reg);

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<cstdint>
 #include<winrt/windows.gaming.input.h>
 
@@ -70,16 +70,16 @@ namespace Engine::Input
 	}
 
 	/// <summary>
-	/// “ü—Í‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’è—p
+	/// å…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®šç”¨
 	/// </summary>
-	/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+	/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 	inline constexpr bool operator&(const ePadButton a, const ePadButton b)
 	{
 		return static_cast<uint32_t>(a) & static_cast<uint32_t>(b);
 	}
 
 	/// <summary>
-	/// Pad‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ‚í‚©‚è‚â‚·‚­‚·‚é‚½‚ß‚Ìenum class
+	/// Padã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ã‚ã‹ã‚Šã‚„ã™ãã™ã‚‹ãŸã‚ã®enum class
 	/// </summary>
 	enum class ePadIndex : uint8_t
 	{

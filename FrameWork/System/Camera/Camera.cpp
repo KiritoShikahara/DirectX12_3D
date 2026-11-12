@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Camera.hpp"
 #include"Math/Math.h"
 
@@ -23,7 +23,7 @@ bool Engine::System::Camera::Create()
 	SetFieldOfView(90.0f);
 	SetAspect(16.0f, 9.0f);
 	SetZ(0.1f, 1000.0f);
-	//	©•ªˆÈŠO‚Ì‘O‚ÌƒJƒƒ‰‚ªc‚Á‚Ä‚¢‚é
+	//	è‡ªåˆ†ä»¥å¤–ã®å‰ã®ã‚«ãƒ¡ãƒ©ãŒæ®‹ã£ã¦ã„ã‚‹æ™‚
 	if (Main != nullptr && Main != this)
 	{
 		delete Main;
@@ -49,24 +49,24 @@ void Engine::System::Camera::Update(
 )
 {
 	mPosition = Position;
-	//	ƒJƒƒ‰s—ñ
+	//	ã‚«ãƒ¡ãƒ©è¡Œåˆ—
 	mView = Math::Matrix::LookAt(Position, Target, Up);
-	//	ƒJƒƒ‰‚Ì‰EƒxƒNƒgƒ‹XV
+	//	ã‚«ãƒ¡ãƒ©ã®å³ãƒ™ã‚¯ãƒˆãƒ«æ›´æ–°
 	mRight.x = mView._11;
 	mRight.y = mView._21;
 	mRight.z = mView._31;
 
-	//	ƒJƒƒ‰‚ÌãƒxƒNƒgƒ‹XV
+	//	ã‚«ãƒ¡ãƒ©ã®ä¸Šãƒ™ã‚¯ãƒˆãƒ«æ›´æ–°
 	mUp.x = mView._12;
 	mUp.y = mView._22;
 	mUp.z = mView._32;
 
-	//	ƒJƒƒ‰‚Ì‘OƒxƒNƒgƒ‹XV
+	//	ã‚«ãƒ¡ãƒ©ã®å‰ãƒ™ã‚¯ãƒˆãƒ«æ›´æ–°
 	mForward.x = mView._13;
 	mForward.y = mView._23;
 	mForward.z = mView._33;
 
-	//	ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñİ’è
+	//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—è¨­å®š
 	//Projection = Math::Matrix::PerspectiveFovRH(Fov, Aspect, ZNear, ZFar);
 	mProjection = Math::Matrix::PerspectiveFovLH(mFov, mAspect, mZNear, mZFar);
 

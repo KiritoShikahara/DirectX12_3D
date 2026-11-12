@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AppDebug.hpp"
 
 #include"System/Scene/Manager/SceneManager.hpp"
@@ -10,7 +10,7 @@
 #include"Application/Scene/StageSelect/StageSelectScene.hpp"
 
 /// <summary>
-/// SceneŠÖŒW‚ÌƒfƒoƒbƒN
+/// Sceneé–¢ä¿‚ã®ãƒ‡ãƒãƒƒã‚¯
 /// </summary>
 void Engine::Debug::AppDebugUI::SceneDebug()
 {
@@ -22,10 +22,10 @@ void Engine::Debug::AppDebugUI::SceneDebug()
 	if (scene == nullptr) return;
 
 
-	// Scene‚Ìì¬EØ‚è‘Ö‚¦
+	// Sceneã®ä½œæˆãƒ»åˆ‡ã‚Šæ›¿ãˆ
 	ImGui::Begin("Scene");
 
-	//	¡
+	//	ä»Š
 	ImGui::Text(scene->CurrentSceneName().c_str());
 
 	ImGui::Separator();
@@ -72,7 +72,7 @@ void Engine::Debug::AppDebugUI::SceneDebug()
 }
 
 /// <summary>
-/// ‘S‚Ä‚ÌDebug‘€ì‚Ìó‘ÔXV
+/// å…¨ã¦ã®Debugæ“ä½œã®çŠ¶æ…‹æ›´æ–°
 /// </summary>
 void Engine::Debug::AppDebugUI::UpdateImGui()
 {

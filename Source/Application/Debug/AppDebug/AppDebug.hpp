@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 namespace Engine::Debug
@@ -7,12 +7,12 @@ namespace Engine::Debug
 	{
 	public:
 		/// <summary>
-		/// SceneŠÖŒW‚ÌƒfƒoƒbƒN
+		/// Sceneé–¢ä¿‚ã®ãƒ‡ãƒãƒƒã‚¯
 		/// </summary>
 		static void SceneDebug();
 
 		/// <summary>
-		/// ‘S‚Ä‚ÌDebug‘€ì‚Ìó‘ÔXV
+		/// å…¨ã¦ã®Debugæ“ä½œã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		static void UpdateImGui();
 	private:

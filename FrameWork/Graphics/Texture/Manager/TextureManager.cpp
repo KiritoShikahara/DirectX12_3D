@@ -1,8 +1,8 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TextureManager.hpp"
 
 /// <summary>
-/// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+/// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
 /// </summary>
 /// <param name="FilePath"></param>
 /// <returns></returns>

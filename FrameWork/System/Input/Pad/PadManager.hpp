@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Pad.hpp"
 
 #include<vector>
@@ -9,90 +9,90 @@ namespace Engine::Input
 	class PadManager
 	{
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒX‚ª”ÍˆÍ“à‚©”»’è‚·‚éƒƒ\ƒbƒh
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒç¯„å›²å†…ã‹åˆ¤å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 		/// </summary>
 		/// <param name="index"></param>
-		/// <returns>true:”ÍˆÍ“à</returns>
+		/// <returns>true:ç¯„å›²å†…</returns>
 		bool IsValidIndex(const uint8_t Index) const;
 
 		/// <summary>
-		/// “n‚³‚ê‚½ƒ{ƒ^ƒ“‚ª—LŒø‚©‚Ç‚¤‚©‚Ì”»’è
+		/// æ¸¡ã•ã‚ŒãŸãƒœã‚¿ãƒ³ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
 		/// <param name="Button"></param>
 		/// <returns></returns>
 		bool IsValidButtonCode(ePadButton Button)const;
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		PadManager();
 		virtual ~PadManager() = default;
 
 		/// <summary>
-		/// ŠePad‚Ìó‘ÔXV
+		/// å„Padã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚½uŠÔ
+		/// æŠ¼ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="button">ƒ{ƒ^ƒ“í•Ê</param>
-		/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+		/// <param name="button">ãƒœã‚¿ãƒ³ç¨®åˆ¥</param>
+		/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 		bool IsPressed(const ePadButton Button,const ePadIndex Index = ePadIndex::Pad1) const;
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+		/// æŠ¼ã—ã¦ã„ã‚‹é–“
 		/// </summary>
 		/// <param name="button"></param>
-		/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+		/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 		bool IsHeld(const ePadButton Button,const ePadIndex Index = ePadIndex::Pad1) const;
 
 		/// <summary>
-		/// —£‚µ‚½uŠÔ
+		/// é›¢ã—ãŸç¬é–“
 		/// </summary>
 		/// <param name="button"></param>
-		/// <returns>true:—£‚µ‚½uŠÔ</returns>
+		/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 		bool IsReleased(const ePadButton Button, const ePadIndex Index = ePadIndex::Pad1) const;
 
 		/// <summary>
-		/// 3D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+		/// 3Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetLeftStick3D(const ePadIndex Index = ePadIndex::Pad1)const;
 
 		/// <summary>
-		/// 3D—p‚Ì‰EƒXƒeƒBƒbƒNæ“¾
+		/// 3Dç”¨ã®å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetRightStick3D(const ePadIndex Index = ePadIndex::Pad1)const;
 
 		/// <summary>
-		/// 2D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+		/// 2Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetLeftStick2D(const ePadIndex Index = ePadIndex::Pad1)const;
 
 		/// <summary>
-		/// ‰EƒXƒeƒBƒbƒNæ“¾
+		/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetRightStick2D(const ePadIndex Index = ePadIndex::Pad1)const;
 
 
 		/// <summary>
-		/// d—l‰Â”\‚ÈPad‚ÌIndex‚Ìˆê——‚ğ•Ô‚·
+		/// ä»•æ§˜å¯èƒ½ãªPadã®Indexã®ä¸€è¦§ã‚’è¿”ã™
 		/// </summary>
 		/// <returns></returns>
 		std::vector<ePadIndex> GetAvailableIndices()const;
 
 		/// <summary>
-		/// ImGui‚ÌXV
+		/// ImGuiã®æ›´æ–°
 		/// </summary>
 		void ImGuiUpdate();
 
 	private:
 		/// <summary>
-		/// Pad‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		/// Padã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		/// </summary>
 		std::vector<Pad> mGamepads;
 	};

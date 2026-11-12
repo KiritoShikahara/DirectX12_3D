@@ -1,9 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EffectObject.hpp"
 #include "Manager/EffectManager.hpp"
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚ÌÄ¶
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿ
 /// </summary>
 /// <param name="effect"></param>
 void Engine::Graphics::EffectObject::Play(Effekseer::EffectRef Effect, const Math::Vector3& Position,bool AutoDelete)
@@ -11,15 +11,15 @@ void Engine::Graphics::EffectObject::Play(Effekseer::EffectRef Effect, const Mat
 	auto manager = EffectManager::GetInstance()->GetManager();
 	if (manager == nullptr || Effect == nullptr) return;
 
-	//	‚·‚Å‚ÉÄ¶’†‚È‚ç’â~
+	//	ã™ã§ã«å†ç”Ÿä¸­ãªã‚‰åœæ­¢
 	Stop();
 
 	mIsAutoDelete = AutoDelete;
 
-	//	Ä¶
+	//	å†ç”Ÿ
 	mHandle = manager->Play(Effect, Position.x, Position.y, Position.z);
 
-	//	Ä¶‘¬“x‚Ì”½‰f
+	//	å†ç”Ÿé€Ÿåº¦ã®åæ˜ 
 	if (mHandle != -1)
 	{
 		manager->SetSpeed(mHandle, mSpeed);
@@ -40,7 +40,7 @@ void Engine::Graphics::EffectObject::SetRotation(const Math::Vector3& Rotation)
 	auto manager = EffectManager::GetInstance()->GetManager();
 	if (manager == nullptr || mHandle == -1) return;
 
-	//	‰ñ“]‚Íƒ‰ƒWƒAƒ“Šp
+	//	å›è»¢ã¯ãƒ©ã‚¸ã‚¢ãƒ³è§’
 	manager->SetRotation(mHandle, Rotation.x, Rotation.y, Rotation.z);
 }
 
@@ -60,7 +60,7 @@ void Engine::Graphics::EffectObject::SetSpeed(float Speed)
 }
 
 /// <summary>
-/// ƒnƒ“ƒhƒ‹‚Ì‰ğ•ú
+/// ãƒãƒ³ãƒ‰ãƒ«ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::EffectObject::Stop()
 {
@@ -71,9 +71,9 @@ void Engine::Graphics::EffectObject::Stop()
 }
 
 /// <summary>
-/// •\¦‚ÌØ‚è‘Ö‚¦@
+/// è¡¨ç¤ºã®åˆ‡ã‚Šæ›¿ãˆã€€
 /// </summary>
-/// <param name="IsShow">true:•\¦‚·‚é</param>
+/// <param name="IsShow">true:è¡¨ç¤ºã™ã‚‹</param>
 void Engine::Graphics::EffectObject::SetShown(bool IsShow)
 {
 	auto manager = EffectManager::GetInstance()->GetManager();
@@ -82,9 +82,9 @@ void Engine::Graphics::EffectObject::SetShown(bool IsShow)
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚ÌÄ¶‚ğ~‚ß‚é
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿã‚’æ­¢ã‚ã‚‹
 /// </summary>
-/// <param name="Visible">true:•\¦‚·‚é</param>
+/// <param name="Visible">true:è¡¨ç¤ºã™ã‚‹</param>
 void Engine::Graphics::EffectObject::SetVisible(bool Visible)
 {
 	auto manager = EffectManager::GetInstance()->GetManager();
@@ -94,9 +94,9 @@ void Engine::Graphics::EffectObject::SetVisible(bool Visible)
 }
 
 /// <summary>
-/// Ä¶’†‚©‚Ç‚¤‚©‚Ì”»’è
+/// å†ç”Ÿä¸­ã‹ã©ã†ã‹ã®åˆ¤å®š
 /// </summary>
-/// <returns>true:‘¶İ‚µ‚Ä‚¢‚é</returns>
+/// <returns>true:å­˜åœ¨ã—ã¦ã„ã‚‹</returns>
 bool Engine::Graphics::EffectObject::IsPlaying() const
 {
 	auto manager = EffectManager::GetInstance()->GetManager();
@@ -104,7 +104,7 @@ bool Engine::Graphics::EffectObject::IsPlaying() const
 	return manager->Exists(mHandle);
 }
 /// <summary>
-/// ©“®íœ‚ÌğŒ”»’è
+/// è‡ªå‹•å‰Šé™¤ã®æ¡ä»¶åˆ¤å®š
 /// </summary>
 /// <returns></returns>
 bool Engine::Graphics::EffectObject::ShouldDestroy() const
@@ -113,7 +113,7 @@ bool Engine::Graphics::EffectObject::ShouldDestroy() const
 }
 
 /// <summary>
-/// ƒnƒ“ƒhƒ‹‚Ìæ“¾
+/// ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Effekseer::Handle Engine::Graphics::EffectObject::GetHandle() const

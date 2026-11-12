@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FbxResourceManager.hpp"
 
 /// <summary>
-/// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+/// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
 /// </summary>
-/// <param name="Path">ƒtƒHƒ‹ƒ_ƒpƒX</param>
-/// <param name="CustomName">ƒL[‚ğİ’è‰Â”\B–¢İ’è‚Ìê‡‚ÍƒtƒHƒ‹ƒ_ƒpƒX</param>
+/// <param name="Path">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
+/// <param name="CustomName">ã‚­ãƒ¼ã‚’è¨­å®šå¯èƒ½ã€‚æœªè¨­å®šã®å ´åˆã¯ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
 /// <returns></returns>
 Engine::Graphics::FbxResource* Engine::Graphics::FbxResourceManager::Load(const std::filesystem::path& Path, const std::string& CustomName)
 {
@@ -17,7 +17,7 @@ Engine::Graphics::FbxResource* Engine::Graphics::FbxResourceManager::Load(const 
 		return it->second.get();
 	}
 
-	//	ƒ[ƒh‚µ‚Ä“o˜^
+	//	ãƒ­ãƒ¼ãƒ‰ã—ã¦ç™»éŒ²
 	auto res = std::make_unique<FbxResource>();
 	const bool ret = res->Create(path);
 	if (ret == false)

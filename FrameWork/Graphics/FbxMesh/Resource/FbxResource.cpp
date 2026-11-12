@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FbxResource.hpp"
 #include"Graphics/Graphics.hpp"
 #include"Graphics/Texture/Texture.hpp"
@@ -17,19 +17,19 @@ namespace Engine::Graphics
 		this->Release();
 	}
 	/// <summary>
-	/// ƒRƒ“ƒo[ƒgÏ‚İFbxƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿Fbxãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	/// </summary>
-	/// <param name="FilePath">ƒtƒ@ƒCƒ‹ƒpƒX XXX.fbx.bin</param>
-	/// <returns>true:¬Œ÷</returns>
+	/// <param name="FilePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ XXX.fbx.bin</param>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool FbxResource::Create(const std::filesystem::path& FilePath)
 	{
-		//	ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©ƒ`ƒFƒbƒN
+		//	ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 		if (std::filesystem::exists(FilePath) == false)
 		{
 			return false;
 		}
 
-		//	ƒRƒ“ƒo[ƒg‚µ‚½fbx.binƒtƒ@ƒCƒ‹‚Ì“Ç
+		//	ã‚³ãƒ³ãƒãƒ¼ãƒˆã—ãŸfbx.binãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼
 		bool ret = LoadModelData(FilePath.string());
 		if (ret == false)
 		{
@@ -40,11 +40,11 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒRƒ“ƒo[ƒgÏ‚İƒAƒjƒ[ƒVƒ‡ƒ“(ƒ‚[ƒVƒ‡ƒ“)ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³(ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³)ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	/// </summary>
-	/// <param name="AnimationName">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-	/// <param name="AnimationPath">ƒtƒ@ƒCƒ‹ƒpƒX XXX.fbx.anm</param>
-	/// <returns>true:¬Œ÷</returns>
+	/// <param name="AnimationName">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+	/// <param name="AnimationPath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ XXX.fbx.anm</param>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool FbxResource::LoadAnimation(const std::string& AnimationName, const std::filesystem::path& AnimationPath)
 	{
 		if (std::filesystem::exists(AnimationPath) == false)
@@ -52,13 +52,13 @@ namespace Engine::Graphics
 			return false;
 		}
 
-		//	“¯ˆêƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì‘¶İ”»’è
+		//	åŒä¸€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å­˜åœ¨åˆ¤å®š
 		if (mAnimations.count(AnimationName) > 0)
 		{
 			return true;
 		}
 
-		//	ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		//	ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		FILE* fp = nullptr;
 		const errno_t error = fopen_s(&fp, AnimationPath.string().c_str(), "rb");
 		if (error != 0)
@@ -68,22 +68,22 @@ namespace Engine::Graphics
 
 		Animation anim = {};
 
-		//	‘ƒtƒŒ[ƒ€‚Ì“Ç
+		//	ç·ãƒ•ãƒ¬ãƒ¼ãƒ ã®èª­è¾¼
 		fread(&anim.NumFrame, sizeof(int), 1, fp);
 
-		//@ƒ{[ƒ“”‚Ì“Ç‚İ‚İ
+		//ã€€ãƒœãƒ¼ãƒ³æ•°ã®èª­ã¿è¾¼ã¿
 		int boneCount = 0;
 		fread(&boneCount, sizeof(int), 1, fp);
 
-		//	‘Sƒ{[ƒ“E‘SƒtƒŒ[ƒ€‚Ìs—ñƒf[ƒ^‚Ìƒ[ƒh
-		//	KeyFrame[ƒ{[ƒ“”][ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€”]
+		//	å…¨ãƒœãƒ¼ãƒ³ãƒ»å…¨ãƒ•ãƒ¬ãƒ¼ãƒ ã®è¡Œåˆ—ãƒ‡ãƒ¼ã‚¿ã®ãƒ­ãƒ¼ãƒ‰
+		//	KeyFrame[ãƒœãƒ¼ãƒ³æ•°][ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ æ•°]
 		anim.KeyFrame.resize(boneCount);
 		for (int bone = 0; bone < boneCount; bone++)
 		{
 			int frameCount = 0;
 			fread(&frameCount, sizeof(int), 1, fp);
 
-			//	s—ñ”z—ñ‚ğŠm•Û‚µ‚ÄƒoƒCƒiƒŠ‚©‚ç—¬‚µ‚Ş
+			//	è¡Œåˆ—é…åˆ—ã‚’ç¢ºä¿ã—ã¦ãƒã‚¤ãƒŠãƒªã‹ã‚‰æµã—è¾¼ã‚€
 			anim.KeyFrame[bone].resize(frameCount);
 			fread(anim.KeyFrame[bone].data(), sizeof(Math::Matrix), frameCount, fp);
 		}
@@ -95,14 +95,14 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒRƒ“ƒo[ƒgÏ‚İfbxƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
-	/// —áŠO‚ğ“f‚¢‚Ä‚àŠÛ‚ß‚Ş‚µ‚©‚È‚¢‚Ì‚Å‘¬“xd‹‚ÅFILE* ‚Æfread‚ğg‚¢‚Ü‚·
+	/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿fbxãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+	/// ä¾‹å¤–ã‚’åã„ã¦ã‚‚ä¸¸ã‚è¾¼ã‚€ã—ã‹ãªã„ã®ã§é€Ÿåº¦é‡è¦–ã§FILE* ã¨freadã‚’ä½¿ã„ã¾ã™
 	/// </summary>
 	/// <param name="FilePath"></param>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool FbxResource::LoadModelData(const std::filesystem::path& FilePath)
 	{
-		//	ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+		//	ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 		FILE* fp = nullptr;
 		const errno_t error = fopen_s(&fp, FilePath.string().c_str(), "rb");
 		if (error != 0)
@@ -120,14 +120,14 @@ namespace Engine::Graphics
 
 		std::filesystem::path directory = FilePath.parent_path();
 
-		//	ƒwƒbƒ_[î•ñ‚Ì“Ç
+		//	ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ã®èª­è¾¼
 		int meshCount = 0, polygonCount = 0, vertexCount = 0;
 		fread(&meshCount, sizeof(int), 1, fp);
 		fread(&polygonCount, sizeof(int), 1, fp);
 		fread(&vertexCount, sizeof(int), 1, fp);
 
-		//	’¸“_ƒf[ƒ^‚Ì“Çiˆê”z—ñj
-		//	GPUƒXƒLƒjƒ“ƒO—p\‘¢‘Ì‚Å“Ç‚İ‚Ş
+		//	é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®èª­è¾¼ï¼ˆä¸€æ™‚é…åˆ—ï¼‰
+		//	GPUã‚¹ã‚­ãƒ‹ãƒ³ã‚°ç”¨æ§‹é€ ä½“ã§èª­ã¿è¾¼ã‚€
 		std::vector<SkeletalMeshVertex> allVertices(vertexCount);
 		for (int i = 0; i < vertexCount; i++)
 		{
@@ -139,7 +139,7 @@ namespace Engine::Graphics
 			fread(v.Weight.data(), sizeof(int) * v.Weight.size(), 1, fp);
 		}
 
-		//	ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚Ì“Ç‚İ‚İ
+		//	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		int indexCount = 0;
 		fread(&indexCount, sizeof(int), 1, fp);
 		std::vector<uint32_t> allIndices(indexCount);
@@ -150,7 +150,7 @@ namespace Engine::Graphics
 			allIndices[i] = static_cast<uint32_t>(index);
 		}
 
-		//	ƒ}ƒeƒŠƒAƒ‹î•ñ‚Ì“Ç
+		//	ãƒãƒ†ãƒªã‚¢ãƒ«æƒ…å ±ã®èª­è¾¼
 		int materialCount = 0;
 		fread(&materialCount, sizeof(int), 1, fp);
 		mMaterials.reserve(materialCount);
@@ -160,24 +160,24 @@ namespace Engine::Graphics
 		{
 			Material readMaterial = {};
 
-			//	ƒ}ƒeƒŠƒAƒ‹–¼
+			//	ãƒãƒ†ãƒªã‚¢ãƒ«å
 			int nameLen = 0;
 			fread(&nameLen, sizeof(int), 1, fp);
 			readMaterial.Name.resize(nameLen);
 			fread(readMaterial.Name.data(), 1, nameLen, fp);
 
-			//	ƒeƒNƒXƒ`ƒƒƒpƒX
+			//	ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‘ã‚¹
 			int texPathLen = 0;
 			fread(&texPathLen, sizeof(int), 1, fp);
 			std::string texturePath = {};
 			texturePath.resize(texPathLen);
 			fread(texturePath.data(), 1, texPathLen, fp);
 
-			//	ƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
+			//	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
 			readMaterial.Texture = std::make_unique<Texture>();
 			readMaterial.Texture->Create(directory / "Texture" / texturePath);
 
-			//	ƒ|ƒŠƒSƒ“”‚©‚çƒCƒ“ƒfƒbƒNƒX”ÍˆÍ‚ğŠm’è
+			//	ãƒãƒªã‚´ãƒ³æ•°ã‹ã‚‰ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç¯„å›²ã‚’ç¢ºå®š
 			int matPolygonCount = 0;
 			fread(&matPolygonCount, sizeof(int), 1, fp);
 			readMaterial.IndexCount = matPolygonCount * 3;
@@ -187,7 +187,7 @@ namespace Engine::Graphics
 			mMaterials.push_back(std::move(readMaterial));
 		}
 
-		//	ƒ{[ƒ“î•ñ‚Ì“Ç‚İ‚İ
+		//	ãƒœãƒ¼ãƒ³æƒ…å ±ã®èª­ã¿è¾¼ã¿
 		int boneCount = 0;
 		fread(&boneCount, sizeof(int), 1, fp);
 		mBones.reserve(boneCount);
@@ -195,15 +195,15 @@ namespace Engine::Graphics
 		{
 			BoneInfo info = {};
 
-			//	ƒ{[ƒ“–¼
+			//	ãƒœãƒ¼ãƒ³å
 			int nameLen = 0;
 			fread(&nameLen, sizeof(int), 1, fp);
 			info.Name.resize(nameLen);
 			fread(info.Name.data(), 1, nameLen, fp);
 
-			//	eƒ{[ƒ“ƒCƒ“ƒfƒbƒNƒX
+			//	è¦ªãƒœãƒ¼ãƒ³ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 			fread(&info.ParentIndex, sizeof(int), 1, fp);
-			//	‰Šúƒ|[ƒY—ps—ñ
+			//	åˆæœŸãƒãƒ¼ã‚ºç”¨è¡Œåˆ—
 			fread(&info.BindMatrix, sizeof(Math::Matrix), 1, fp);
 
 			mBones.push_back(std::move(info));
@@ -211,7 +211,7 @@ namespace Engine::Graphics
 
 		fclose(fp);
 
-		//	’¸“_ƒoƒbƒtƒ@iDefaultj
+		//	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ï¼ˆDefaultï¼‰
 		const UINT vbSize = static_cast<UINT>(allVertices.size() * sizeof(SkeletalMeshVertex));
 
 		D3D12_RESOURCE_DESC vbDesc = {};
@@ -230,12 +230,12 @@ namespace Engine::Graphics
 			&defaultHeap,
 			D3D12_HEAP_FLAG_NONE,
 			&vbDesc,
-			D3D12_RESOURCE_STATE_COMMON, // ƒRƒs[æ‚Æ‚µ‚Äì¬
+			D3D12_RESOURCE_STATE_COMMON, // ã‚³ãƒ”ãƒ¼å…ˆã¨ã—ã¦ä½œæˆ
 			nullptr,
 			IID_PPV_ARGS(&mVB)
 		);
 
-		//	’†Œp—pƒAƒbƒvƒ[ƒhƒq[ƒv
+		//	ä¸­ç¶™ç”¨ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ’ãƒ¼ãƒ—
 		mw::ResourcePtr uploadVB;
 		D3D12_HEAP_PROPERTIES uploadHeap = {};
 		uploadHeap.Type = D3D12_HEAP_TYPE_UPLOAD;
@@ -250,16 +250,16 @@ namespace Engine::Graphics
 				IID_PPV_ARGS(&uploadVB)
 			);
 
-		//	CPU‚©‚çƒAƒbƒvƒ[ƒhƒq[ƒv‚É‘‚«‚İ
+		//	CPUã‹ã‚‰ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ’ãƒ¼ãƒ—ã«æ›¸ãè¾¼ã¿
 		void* vbData = nullptr;
 		uploadVB->Map(0, nullptr, &vbData);
 		memcpy(vbData, allVertices.data(), vbSize);
 		uploadVB->Unmap(0, nullptr);
 
-		// GPU“à•”‚Å Upload -> Default ‚Ö‚‘¬ƒRƒs[
+		// GPUå†…éƒ¨ã§ Upload -> Default ã¸é«˜é€Ÿã‚³ãƒ”ãƒ¼
 		tempCmdList->CopyBufferRegion(mVB.Get(), 0, uploadVB.Get(), 0, vbSize);
 
-		// ó‘Ô‘JˆÚƒoƒŠƒAiƒRƒs[æ‚©‚ç’¸“_ƒoƒbƒtƒ@‚Æ‚µ‚Äg—p‰Â”\‚Öj
+		// çŠ¶æ…‹é·ç§»ãƒãƒªã‚¢ï¼ˆã‚³ãƒ”ãƒ¼å…ˆã‹ã‚‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¨ã—ã¦ä½¿ç”¨å¯èƒ½ã¸ï¼‰
 		D3D12_RESOURCE_BARRIER vbBarrier = {};
 		vbBarrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		vbBarrier.Transition.pResource = mVB.Get();
@@ -269,9 +269,9 @@ namespace Engine::Graphics
 
 		tempCmdList->ResourceBarrier(1, &vbBarrier);
 
-		//	ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
+		//	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
 		const UINT ibSize = static_cast<UINT>(allIndices.size() * sizeof(uint32_t));
-		D3D12_RESOURCE_DESC ibDesc = vbDesc; // Šî–{İ’è‚ğ—¬—p
+		D3D12_RESOURCE_DESC ibDesc = vbDesc; // åŸºæœ¬è¨­å®šã‚’æµç”¨
 		ibDesc.Width = ibSize;
 
 		device->CreateCommittedResource(
@@ -313,7 +313,7 @@ namespace Engine::Graphics
 		ID3D12CommandList* lists[] = { tempCmdList.Get()};
 		directX->GetCommandQueue()->ExecuteCommandLists(1, lists);
 
-		// “]‘—Š®—¹‚ğ‘Ò‚Âiƒ[ƒh‚È‚Ì‚ÅŠmÀ‚ÉŠ®—¹‚³‚¹‚éj
+		// è»¢é€å®Œäº†ã‚’å¾…ã¤ï¼ˆãƒ­ãƒ¼ãƒ‰æ™‚ãªã®ã§ç¢ºå®Ÿã«å®Œäº†ã•ã›ã‚‹ï¼‰
 		directX->WaitForGPU();
 
 		mVBView.BufferLocation = mVB->GetGPUVirtualAddress();
@@ -328,7 +328,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+	/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 	/// </summary>
 	void FbxResource::Release()
 	{
@@ -341,22 +341,22 @@ namespace Engine::Graphics
 		mIB.Reset();
 	}
 
-	//	ƒ}ƒeƒŠƒAƒ‹
+	//	ãƒãƒ†ãƒªã‚¢ãƒ«
 	std::span<const FbxResource::Material> FbxResource::GetMaterials() const {
 		return mMaterials;
 	}
 
-	//	ƒ{[ƒ“
+	//	ãƒœãƒ¼ãƒ³
 	std::span<const FbxResource::BoneInfo> FbxResource::GetBones() const {
 		return mBones;
 	}
 
-	//	ƒAƒjƒ[ƒVƒ‡ƒ“‘S‘Ì
+	//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å…¨ä½“
 	const std::unordered_map<std::string, FbxResource::Animation>& FbxResource::GetAnimations() const {
 		return mAnimations;
 	}
 
-	//	“Á’è‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+	//	ç‰¹å®šã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	std::span<const std::vector<Math::Matrix>> FbxResource::GetAnimationKeyFrames(const std::string& name) const
 	{
 		if (mAnimations.count(name)) {

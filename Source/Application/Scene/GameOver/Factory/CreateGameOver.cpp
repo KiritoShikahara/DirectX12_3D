@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CreateGameOver.hpp"
 #include"System/Entity/Manager/EntityManager.hpp"
 #include"System/Conponent/Transform/TransformConponent.hpp"
@@ -18,7 +18,7 @@ namespace Engine::Scene
 
 		auto entity = manager->CreateEntity();
 
-		//	À•W
+		//	åº§æ¨™
 		auto& trans = registry.emplace<Transform2D>(entity);
 		trans.Position = { 0,0 };
 		trans.Scale = { 1.0f,1.0f };
@@ -55,7 +55,7 @@ namespace Engine::Scene
 		auto entity = manager->CreateEntity();
 		auto window = System::Window::GetInstance();
 
-		//	À•W
+		//	åº§æ¨™
 		auto& trans = registry.emplace<Transform2D>(entity);
 		Math::Vector2 Pos = { (float)window->GetWidth() / 3,(float)window->GetHeight() / 5 * 4 };
 		trans.Position = { Pos };
@@ -97,7 +97,7 @@ namespace Engine::Scene
 		auto entity = manager->CreateEntity();
 		auto window = System::Window::GetInstance();
 
-		//	À•W
+		//	åº§æ¨™
 		auto& trans = registry.emplace<Transform2D>(entity);
 		Math::Vector2 Pos = { (float)window->GetWidth() / 3 * 2,(float)window->GetHeight() /5 * 4};
 		trans.Position = { Pos };

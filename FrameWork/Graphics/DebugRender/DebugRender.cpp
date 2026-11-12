@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "DebugRender.hpp"
 #include "Graphics/Renderer/Renderer.hpp"
 #include "Graphics/Graphics.hpp"
@@ -17,12 +17,12 @@ void Engine::Graphics::DebugRender::DrawDebugCircle(const Math::Vector3& Center,
         };
         vertices[i].color = Color;
 
-        // ƒCƒ“ƒfƒbƒNƒX‚ğ’£‚é (i”Ô–Ú‚Æi+1”Ô–Ú‚ğ‚Â‚È‚®)
+        // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å¼µã‚‹ (iç•ªç›®ã¨i+1ç•ªç›®ã‚’ã¤ãªã)
         indices.push_back((uint16_t)i);
         indices.push_back((uint16_t)((i + 1) % Segments));
     }
 
-    //  •`‰æ
+    //  æç”»
     Renderer::GetInstance()->DrawLines(
         vertices.data(), vertices.size(),
         indices.data(), indices.size()
@@ -31,26 +31,26 @@ void Engine::Graphics::DebugRender::DrawDebugCircle(const Math::Vector3& Center,
 
 void Engine::Graphics::DebugRender::DrawDebugQuad(const Math::Matrix& World, float Width, float Height, const Graphics::Color& Color)
 {
-    // ƒ[ƒJƒ‹À•W‚Å‚Ì4‹÷ (ƒsƒ{ƒbƒg’†‰›‘z’èA•K—v‚É‰‚¶‚ÄC³‚µ‚Ä‚­‚¾‚³‚¢)
+    // ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã§ã®4éš… (ãƒ”ãƒœãƒƒãƒˆä¸­å¤®æƒ³å®šã€å¿…è¦ã«å¿œã˜ã¦ä¿®æ­£ã—ã¦ãã ã•ã„)
     float halfW = Width * 0.5f;
     float halfH = Height * 0.5f;
 
     Math::Vector3 localPos[4] = {
-        { -halfW, -halfH, 0.0f }, // ¶‰º
-        { -halfW,  halfH, 0.0f }, // ¶ã
-        {  halfW,  halfH, 0.0f }, // ‰Eã
-        {  halfW, -halfH, 0.0f }  // ‰E‰º
+        { -halfW, -halfH, 0.0f }, // å·¦ä¸‹
+        { -halfW,  halfH, 0.0f }, // å·¦ä¸Š
+        {  halfW,  halfH, 0.0f }, // å³ä¸Š
+        {  halfW, -halfH, 0.0f }  // å³ä¸‹
     };
 
     std::vector<LineVertex> vertices(4);
     for (int i = 0; i < 4; ++i) {
-        // s—ñ‚ğg‚Á‚Äƒ[ƒ‹ƒhÀ•W‚Ö•ÏŠ·
-        // Vector3::TransformCoord (‚ ‚é‚¢‚Í‘Š“–‚·‚és—ñæZ) ‚ğg—p
+        // è¡Œåˆ—ã‚’ä½¿ã£ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã¸å¤‰æ›
+        // Vector3::TransformCoord (ã‚ã‚‹ã„ã¯ç›¸å½“ã™ã‚‹è¡Œåˆ—ä¹—ç®—) ã‚’ä½¿ç”¨
         vertices[i].Position = Math::Vector3::TransformCoord(localPos[i], World);
         vertices[i].color = Color;
     }
 
-    // 4‚Â‚Ì“_‚ğ‚Â‚È‚®ƒCƒ“ƒfƒbƒNƒX (0-1, 1-2, 2-3, 3-0)
+    // 4ã¤ã®ç‚¹ã‚’ã¤ãªãã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ (0-1, 1-2, 2-3, 3-0)
     uint16_t indices[] = { 0, 1, 1, 2, 2, 3, 3, 0 };
 
     Renderer::GetInstance()->DrawLines(

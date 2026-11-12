@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
 	/// <summary>
-	/// ˆÚ“®§ŒÀ‚È‚Ç‚Ìî•ñ‚ğ‚ÂƒXƒe[ƒW‚Ì’n–Ê—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ç§»å‹•åˆ¶é™ãªã©ã®æƒ…å ±ã‚’æŒã¤ã‚¹ãƒ†ãƒ¼ã‚¸ã®åœ°é¢ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct StageComponent
 	{
 		/// <summary>
-		/// ƒvƒŒƒC‚Å‚«‚éƒXƒe[ƒW‚Ì”ÍˆÍ
+		/// ãƒ—ãƒ¬ã‚¤ã§ãã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç¯„å›²
 		/// </summary>
 		float PlayableRadius = 150.0f;
 	};

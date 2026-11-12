@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
-	//	ƒAƒNƒ^[‚Ìí•Ê
+	//	ã‚¢ã‚¯ã‚¿ãƒ¼ã®ç¨®åˆ¥
 	struct PlayerTag {};
 	struct EnemyTag {};
 	struct BasicTag{};
@@ -13,6 +13,6 @@ namespace Engine::System
 	struct EnemyWeaponTag {};
 	struct DeadTag{};
 
-	//	ƒJƒeƒSƒŠ
+	//	ã‚«ãƒ†ã‚´ãƒª
 	struct InGameTag{};
 }

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "OBBCollider.hpp"
 #include"Graphics/Graphics.hpp"
 #include"Math/Matrix/Matrix.h"
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-/// “–‚½‚è”»’è—p‚ÌlŠpŒ`•`‰æ‚Ìì¬
+/// å½“ãŸã‚Šåˆ¤å®šç”¨ã®å››è§’å½¢æç”»ã®ä½œæˆ
 /// </summary>
 
 	void OBBCollider::DebugRender()
@@ -15,83 +15,83 @@ namespace Engine::System
 		Graphics::LineVertex vertices[8];
 		for (auto& v : vertices) { v.color = Graphics::Color::Magenta(); }
 
-		// 1. s—ñ‚©‚ç‰ñ“]²iŒü‚«j‚ğæ“¾‚µ‚ÄAƒTƒCƒY‚ğŠ|‚¯‚é
+		// 1. è¡Œåˆ—ã‹ã‚‰å›è»¢è»¸ï¼ˆå‘ãï¼‰ã‚’å–å¾—ã—ã¦ã€ã‚µã‚¤ã‚ºã‚’æ›ã‘ã‚‹
 		const Math::Matrix rot = GetRotation().ToMatrix();
 		const Math::Vector3 half = GetVolume() * 0.5f;
 
-		// Še²‚Ì³‹K‰»ƒxƒNƒgƒ‹‚É”¼•ª‚ÌƒTƒCƒY‚ğŠ|‚¯‚ÄA’†S‚©‚ç‚ÌƒIƒtƒZƒbƒg—Ê‚É‚·‚é
+		// å„è»¸ã®æ­£è¦åŒ–ãƒ™ã‚¯ãƒˆãƒ«ã«åŠåˆ†ã®ã‚µã‚¤ã‚ºã‚’æ›ã‘ã¦ã€ä¸­å¿ƒã‹ã‚‰ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆé‡ã«ã™ã‚‹
 		const Math::Vector3 Right = Math::Vector3::Normalize(rot.GetRightVector()) * half.x;
 		const Math::Vector3 Up = Math::Vector3::Normalize(rot.GetUpVector()) * half.y;
 		const Math::Vector3 Forward = Math::Vector3::Normalize(rot.GetForwardVector()) * half.z;
 
-		// 2. ’¸“_ŒvZ (’†S + Še²‚Ì‘g‚İ‡‚í‚¹)
+		// 2. é ‚ç‚¹è¨ˆç®— (ä¸­å¿ƒ + å„è»¸ã®çµ„ã¿åˆã‚ã›)
 		const Math::Vector3& C = mCenter;
-		vertices[0].Position = C - Right + Up + Forward; // ¶èã
-		vertices[1].Position = C - Right + Up - Forward; // ¶è‰œ
-		vertices[2].Position = C + Right + Up + Forward; // ‰Eèã
-		vertices[3].Position = C + Right + Up - Forward; // ‰Eè‰œ
-		vertices[4].Position = C - Right - Up + Forward; // ¶è‰º
-		vertices[5].Position = C - Right - Up - Forward; // ¶è‰œ‰º
-		vertices[6].Position = C + Right - Up + Forward; // ‰Eè‰º
-		vertices[7].Position = C + Right - Up - Forward; // ‰Eè‰œ‰º
+		vertices[0].Position = C - Right + Up + Forward; // å·¦æ‰‹ä¸Š
+		vertices[1].Position = C - Right + Up - Forward; // å·¦æ‰‹å¥¥
+		vertices[2].Position = C + Right + Up + Forward; // å³æ‰‹ä¸Š
+		vertices[3].Position = C + Right + Up - Forward; // å³æ‰‹å¥¥
+		vertices[4].Position = C - Right - Up + Forward; // å·¦æ‰‹ä¸‹
+		vertices[5].Position = C - Right - Up - Forward; // å·¦æ‰‹å¥¥ä¸‹
+		vertices[6].Position = C + Right - Up + Forward; // å³æ‰‹ä¸‹
+		vertices[7].Position = C + Right - Up - Forward; // å³æ‰‹å¥¥ä¸‹
 
-		// 3. ƒCƒ“ƒfƒbƒNƒXiü‚ğ‚Â‚È‚®‡˜j
+		// 3. ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆç·šã‚’ã¤ãªãé †åºï¼‰
 		const uint16_t indices[24] = {
-			0,1, 0,2, 1,3, 2,3, // ã–Ê
-			4,5, 4,6, 5,7, 6,7, // ‰º–Ê
-			0,4, 1,5, 2,6, 3,7  // c‚Ì’Œ
+			0,1, 0,2, 1,3, 2,3, // ä¸Šé¢
+			4,5, 4,6, 5,7, 6,7, // ä¸‹é¢
+			0,4, 1,5, 2,6, 3,7  // ç¸¦ã®æŸ±
 		};
 
 		Graphics::Renderer::GetInstance()->DrawLines(vertices, 8, indices, 24);
 	}
 
 	/// <summary>
-	/// ’†S‚ÌÀ•W‚Ìæ“¾
+	/// ä¸­å¿ƒã®åº§æ¨™ã®å–å¾—
 	/// </summary>
-	/// <returns>’†S‚ÌÀ•W</returns>
+	/// <returns>ä¸­å¿ƒã®åº§æ¨™</returns>
 	const Math::Vector3& OBBCollider::GetCenter()const
 	{
 		return mCenter;
 	}
 
 	/// <summary>
-	/// ’†SÀ•W‚Ìw’è
+	/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 	/// </summary>
-	/// <param name="center">’†SÀ•W</param>
+	/// <param name="center">ä¸­å¿ƒåº§æ¨™</param>
 	void OBBCollider::SetCenter(const Math::Vector3& center)
 	{
 		mCenter = center;
 	}
 
 	/// <summary>
-	/// Še²‚Ì‘å‚«‚³‚Ìæ“¾
+	/// å„è»¸ã®å¤§ãã•ã®å–å¾—
 	/// </summary>
-	/// <returns>Še²‚Ì‘å‚«‚³</returns>
+	/// <returns>å„è»¸ã®å¤§ãã•</returns>
 	const Math::Vector3& OBBCollider::GetVolume()const
 	{
 		return mVolume;
 	}
 
 	/// <summary>
-	/// Še²‚Ì‘å‚«‚³‚Ìw’è
+	/// å„è»¸ã®å¤§ãã•ã®æŒ‡å®š
 	/// </summary>
-	/// <param name="volume">Še²‚Ì‘å‚«‚³</param>
+	/// <param name="volume">å„è»¸ã®å¤§ãã•</param>
 	void OBBCollider::SetVolume(const Math::Vector3& volume)
 	{
 		mVolume = volume;
 	}
 
 	/// <summary>
-	/// ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚Ìæ“¾
+	/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã®å–å¾—
 	/// </summary>
-	/// <returns>ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]</returns>
+	/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢</returns>
 	const Math::Quaternion& OBBCollider::GetRotation()const
 	{
 		return mRotation;
 	}
 
 	/// <summary>
-	/// ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚Ìw’è
+	/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã®æŒ‡å®š
 	/// </summary>
 	void OBBCollider::SetRotation(const Math::Quaternion& rotation)
 	{

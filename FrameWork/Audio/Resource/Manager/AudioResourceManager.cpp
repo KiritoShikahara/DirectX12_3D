@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AudioResourceManager.hpp"
 #include "Debug/spdlog/Logger.hpp"
 
 
 
 /// <summary>
-/// ƒtƒ@ƒCƒ‹ƒpƒX‚ğ‘S‚Ä‘Š‘ÎƒpƒX‚É•ÏŠ·‚·‚éB
+/// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’å…¨ã¦ç›¸å¯¾ãƒ‘ã‚¹ã«å¤‰æ›ã™ã‚‹ã€‚
 /// </summary>
 /// <param name="FilePath"></param>
 /// <returns></returns>
@@ -15,28 +15,28 @@ std::string Engine::Audio::AudioResourceManager::NormalizePath(const std::filesy
 }
 
 /// <summary>
-/// ƒŠƒ\[ƒX‚Ìæ“¾
-/// ‚Ü‚¾“Ç‚İ‚ñ‚Å‚¢‚È‚¢ƒŠƒ\[ƒX‚È‚ç“Ç‚İ‚ŞB
+/// ãƒªã‚½ãƒ¼ã‚¹ã®å–å¾—
+/// ã¾ã èª­ã¿è¾¼ã‚“ã§ã„ãªã„ãƒªã‚½ãƒ¼ã‚¹ãªã‚‰èª­ã¿è¾¼ã‚€ã€‚
 /// </summary>
-/// <param name="FileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+/// <param name="FileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 /// <returns></returns>
 Engine::Audio::AudioResource* Engine::Audio::AudioResourceManager::GetResource(const std::string& FileName)
 {
 	std::string path = this->NormalizePath(FileName);
 
-	//	‚·‚Å‚É“Ç‚İ‚Ü‚ê‚Ä‚¢‚½‚ç•Ô‚·
+	//	ã™ã§ã«èª­ã¿è¾¼ã¾ã‚Œã¦ã„ãŸã‚‰è¿”ã™
 	auto it = mResources.find(path);
 	if (it != mResources.end())
 	{
 		return it->second.get();
 	}
 
-	//	‚È‚¯‚ê‚Î“Ç‚İ‚İˆ—
+	//	ãªã‘ã‚Œã°èª­ã¿è¾¼ã¿å‡¦ç†
 	std::unique_ptr<AudioResource> resource = std::make_unique<AudioResource>();
 	const bool ret = resource->LoadFromAud(path);
 	if (ret == false)
 	{
-		LOG_ERROR("“Ç‚İ‚İ¸”s: " + path);
+		LOG_ERROR("èª­ã¿è¾¼ã¿å¤±æ•—: " + path);
 		return nullptr;
 	}
 
@@ -47,19 +47,19 @@ Engine::Audio::AudioResource* Engine::Audio::AudioResourceManager::GetResource(c
 }
 
 /// <summary>
-/// w’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ”z‰º‚Ì.aud‚ğ‘S‚Ä“Ç‚İ‚ŞB
+/// æŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã®.audã‚’å…¨ã¦èª­ã¿è¾¼ã‚€ã€‚
 /// </summary>
 /// <param name="Root"></param>
 void Engine::Audio::AudioResourceManager::LoadAllFromDirectory(const fs::path& Root)
 {
-	//	ƒtƒ@ƒCƒ‹‚ÆƒfƒBƒŒƒNƒgƒŠ‘{¸
+	//	ãƒ•ã‚¡ã‚¤ãƒ«ã¨ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæœæŸ»
 	if (fs::exists(Root) == false || fs::is_directory(Root) == false)
 	{
 		LOG_WARN("not find directory: ",Root.string());
 		return;
 	}
 
-	//	ƒTƒuƒtƒHƒ‹ƒ_‚Ü‚Å‘{¸
+	//	ã‚µãƒ–ãƒ•ã‚©ãƒ«ãƒ€ã¾ã§æœæŸ»
 	for (auto& entry : fs::recursive_directory_iterator(Root))
 	{
 		if (entry.is_regular_file() == false)
@@ -70,24 +70,24 @@ void Engine::Audio::AudioResourceManager::LoadAllFromDirectory(const fs::path& R
 		fs::path filepath = entry.path();
 		std::string ext = filepath.extension().string();
 
-		//	Šg’£q‚ğ¬•¶š‚É•ÏŠ·‚·‚é
+		//	æ‹¡å¼µå­ã‚’å°æ–‡å­—ã«å¤‰æ›ã™ã‚‹
 		std::transform(ext.begin(), ext.end(),ext.begin(),
 			[](unsigned char c) { return std::tolower(c); });
 
-		//	Šg’£q”»’è
+		//	æ‹¡å¼µå­åˆ¤å®š
 		if (ext != ".aud")
 		{
 			continue;
 		}
 
-		//	“Ç‚İ‚İˆ—‚ğ‚·‚é
+		//	èª­ã¿è¾¼ã¿å‡¦ç†ã‚’ã™ã‚‹
 		this->GetResource(filepath.string());
 	}
 
 }
 
 /// <summary>
-/// w’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ”z‰º‚ÌƒŠƒ\[ƒX‚ğ‚·‚×‚Ä‰ğ•ú‚·‚éB
+/// æŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’ã™ã¹ã¦è§£æ”¾ã™ã‚‹ã€‚
 /// </summary>
 /// <param name="Root"></param>
 void Engine::Audio::AudioResourceManager::UnloadAllFromDirectory(const fs::path& Root)
@@ -106,6 +106,6 @@ void Engine::Audio::AudioResourceManager::UnloadAllFromDirectory(const fs::path&
 
 	size_t after = mResources.size();
 
-	LOG_INFO("%s ˆÈ‰º‚ÌƒeƒNƒXƒ`ƒƒ‚ğ % zu ŒÂíœ‚µ‚Ü‚µ‚½", path.c_str(), before - after);
+	LOG_INFO("%s ä»¥ä¸‹ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ % zu å€‹å‰Šé™¤ã—ã¾ã—ãŸ", path.c_str(), before - after);
 
 }

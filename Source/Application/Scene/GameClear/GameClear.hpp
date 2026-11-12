@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 
 #include<string>
@@ -9,7 +9,7 @@ namespace Engine::Scene
 	class RankFac
 	{
 		/// <summary>
-		/// ƒf[ƒ^‚©‚çƒ‰ƒ“ƒN‚Ì”»’è
+		/// ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒ©ãƒ³ã‚¯ã®åˆ¤å®š
 		/// </summary>
 		/// <param name="ClearTime"></param>
 		/// <returns></returns>
@@ -17,32 +17,32 @@ namespace Engine::Scene
 
 
 		/// <summary>
-	/// ƒRƒƒ“‚Ì¶¬
+	/// ã‚³ãƒ­ãƒ³ã®ç”Ÿæˆ
 	/// </summary>
 	/// <param name="X"></param>
 	/// <param name="Y"></param>
 		static void DrawColon2D(float X, float Y);
 
 		/// <summary>
-		/// 2Œ…ŒÅ’è‚Å”š‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+		/// 2æ¡å›ºå®šã§æ•°å­—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 		/// </summary>
-		/// <param name="Value">2Œ…‚Ì”š</param>
-		/// <param name="StartX">n“_X‚ÌÀ•W</param>
-		/// <param name="StartY">n“_Y‚ÌÀ•W</param>
+		/// <param name="Value">2æ¡ã®æ•°å­—</param>
+		/// <param name="StartX">å§‹ç‚¹Xã®åº§æ¨™</param>
+		/// <param name="StartY">å§‹ç‚¹Yã®åº§æ¨™</param>
 		static void DrawNumber2Digits(int Value, float StartX, float StartY, float Width);
 
 
 	public:
 
 			/// <summary>
-			///	ƒNƒŠƒAƒ^ƒCƒ€‚Ì‰‚¶‚½ƒ‰ƒ“ƒN‚Ì•\¦
+			///	ã‚¯ãƒªã‚¢ã‚¿ã‚¤ãƒ ã®å¿œã˜ãŸãƒ©ãƒ³ã‚¯ã®è¡¨ç¤º
 			/// </summary>
 			/// <param name="ClearTime"></param>
 		static void CreateRank(double ClearTime);
 
 
 		/// <summary>
-		/// 00:00•û®‚Å•\¦‚·‚é
+		/// 00:00æ–¹å¼ã§è¡¨ç¤ºã™ã‚‹
 		/// </summary>
 		/// <param name="TotalSeconds"></param>
 		/// <param name="X"></param>
@@ -63,18 +63,18 @@ namespace Engine::Scene
 		}
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize()override;
 
 		/// <summary>
-		/// –ŒãXV
+		/// äº‹å¾Œæ›´æ–°
 		/// </summary>
 		void PostUpdate(double FixedDeltaTime)override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Release()override;
 

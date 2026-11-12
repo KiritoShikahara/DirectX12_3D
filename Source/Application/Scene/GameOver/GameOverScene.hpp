@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 #include"Application/Objects/EnemyRank.hpp"
 
@@ -16,18 +16,18 @@ namespace Engine::Scene
 		}
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize()override;
 
 		/// <summary>
-		/// –ŒãXV
+		/// äº‹å¾Œæ›´æ–°
 		/// </summary>
 		void PostUpdate(double FixedDeltaTime)override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Release()override;
 
@@ -37,7 +37,7 @@ namespace Engine::Scene
 		}
 
 	private:
-		//	Ÿ‚Ç‚Ì‰æ–Ê‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è—p
+		//	æ¬¡ã©ã®ç”»é¢ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®šç”¨
 		enum class SelectMode : int
 		{
 			None,
@@ -48,7 +48,7 @@ namespace Engine::Scene
 		SelectMode mSelectMode = SelectMode::Retry;
 
 		/// <summary>
-		/// ÅŒã‚Éí‚Á‚½“G‚Ìƒ‰ƒ“ƒN
+		/// æœ€å¾Œã«æˆ¦ã£ãŸæ•µã®ãƒ©ãƒ³ã‚¯
 		/// </summary>
 		System::EnemyRank mEnemyRank = System::EnemyRank::Basic;
 

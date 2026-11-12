@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"MouseButton.hpp"
 #include"Math/Vector2/Vector2.h"
@@ -10,7 +10,7 @@ namespace Engine::Input
 	class Mouse
 	{
 		/// <summary>
-		///	ƒƒbƒZ[ƒW‚ğƒR[ƒh‚É•ÏŠ·
+		///	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã‚³ãƒ¼ãƒ‰ã«å¤‰æ›
 		/// </summary>
 		/// <param name="Message"></param>
 		/// <param name="WParam"></param>
@@ -18,28 +18,28 @@ namespace Engine::Input
 		eMouseButton ToMouseButton(UINT Message, WPARAM WParam)const;
 
 		/// <summary>
-		/// “ü—Íó‘Ô‚ğXV‚·‚é
+		/// å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 		/// </summary>
 		/// <param name="Button"></param>
 		/// <param name="IsDown"></param>
 		void SetInputState(eMouseButton Button, bool IsDown);
 
 		/// <summary>
-		/// À•WXV
+		/// åº§æ¨™æ›´æ–°
 		/// </summary>
 		/// <param name="LParam"></param>
 		void UpdatePosition(LPARAM LParam);
 
 		/// <summary>
-		/// ƒ{ƒ^ƒ“‚Ì“ü—Í‚ª—LŒø‚©‚Ç‚¤‚©‚Ì”»’è
+		/// ãƒœã‚¿ãƒ³ã®å…¥åŠ›ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
 		/// <param name="Button"></param>
-		/// <returns>true:—LŒø</returns>
+		/// <returns>true:æœ‰åŠ¹</returns>
 		bool IsValid(eMouseButton Button)const;
 
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		Mouse();
 		virtual ~Mouse() = default;
@@ -57,26 +57,26 @@ namespace Engine::Input
 
 	private:
 		/// <summary>
-		/// “ü—Íó‘Ô
+		/// å…¥åŠ›çŠ¶æ…‹
 		/// </summary>
 		std::array<bool, static_cast<int>(eMouseButton::Count)> mCurrButtons;
 		std::array<bool, static_cast<int>(eMouseButton::Count)> mPrevButtons;
 
 		/// <summary>
-		/// À•W
+		/// åº§æ¨™
 		/// </summary>
 		Math::Vector2 mPosition;
 		/// <summary>
-		/// ‘OƒtƒŒ[ƒ€‚ÌÀ•W
+		/// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®åº§æ¨™
 		/// </summary>
 		Math::Vector2 mPrevPosition; 
 		/// <summary>
-		/// 1ƒtƒŒ[ƒ€ŠÔ‚ÌˆÚ“®—Ê
+		/// 1ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã®ç§»å‹•é‡
 		/// </summary>
 		Math::Vector2 mDeltaPosition;
 
 		/// <summary>
-		/// ƒ}ƒEƒXƒzƒC[ƒ‹
+		/// ãƒã‚¦ã‚¹ãƒ›ã‚¤ãƒ¼ãƒ«
 		/// </summary>
 		float mWheel;
 	};

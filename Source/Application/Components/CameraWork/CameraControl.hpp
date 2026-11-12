@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/entt/entt.hpp>
 #include"Math/Vector3/Vector3.h"
 
@@ -6,34 +6,34 @@ namespace Engine::System
 {
 	struct CameraControlComponent
 	{
-		//	’Ç]‚·‚é‘ÎÛ
+		//	è¿½å¾“ã™ã‚‹å¯¾è±¡
 		entt::entity TargetEntity = entt::null;
-		//	’‹“_‚Ì‚‚³
+		//	æ³¨è¦–ç‚¹ã®é«˜ã•
 		Math::Vector3 offset = { 0.0f,0.0f,0.0f };
 
-		//	Œ»İ‚Ì‰ñ“]ó‹µiƒ‰ƒWƒAƒ“j
-		//	¶‰E
+		//	ç¾åœ¨ã®å›è»¢çŠ¶æ³ï¼ˆãƒ©ã‚¸ã‚¢ãƒ³ï¼‰
+		//	å·¦å³
 		float Yaw = 0.0f;
-		//	ã‰º
+		//	ä¸Šä¸‹
 		float Pitch = 0.0f;
 
-		//	‹——£
-		//	ƒLƒƒƒ‰‚©‚çƒJƒƒ‰‚Ü‚Å‚ÌŠî–{‹——£
+		//	è·é›¢
+		//	ã‚­ãƒ£ãƒ©ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã¾ã§ã®åŸºæœ¬è·é›¢
 		float Distance = 10.0f;
-		//	ƒY[ƒ€ƒCƒ“ŒÀŠE
+		//	ã‚ºãƒ¼ãƒ ã‚¤ãƒ³é™ç•Œ
 		float MinDistance = 2.0f;
-		//	ƒY[ƒ€ƒAƒEƒgŒÀŠE
+		//	ã‚ºãƒ¼ãƒ ã‚¢ã‚¦ãƒˆé™ç•Œ
 		float MaxDistance = 18.0f;
 
-		//	§ŒÀEŠ´“x
-		//	‰ñ“]‘¬“x
+		//	åˆ¶é™ãƒ»æ„Ÿåº¦
+		//	å›è»¢é€Ÿåº¦
 		float LookSensitivity = 2.0f;
-		//	‰º‚ğŒü‚­ŒÀŠEi-45“x‚­‚ç‚¢j
+		//	ä¸‹ã‚’å‘ãé™ç•Œï¼ˆ-45åº¦ãã‚‰ã„ï¼‰
 		float PitchLimitMin = -0.8f;
-		//	ã‚ğŒü‚­ŒÀŠEi70“x‚­‚ç‚¢j
+		//	ä¸Šã‚’å‘ãé™ç•Œï¼ˆ70åº¦ãã‚‰ã„ï¼‰
 		float PitchLimitMax = 1.2f;
 
-		//	•¨—E“Áê
+		//	ç‰©ç†ãƒ»ç‰¹æ®Š
 
 	};
 }

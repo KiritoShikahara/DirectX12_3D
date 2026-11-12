@@ -1,10 +1,10 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "InputManager.hpp"
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Input::InputManager::Initialize()
 {
 	mPadManager = std::make_unique<PadManager>();
@@ -12,8 +12,8 @@ bool Engine::Input::InputManager::Initialize()
 	mKeyboard = std::make_unique<Keyboard>();
 
 	/*
-	* ƒfƒtƒHƒ‹ƒg‚ÌƒL[ƒRƒ“ƒtƒBƒO‚Å‚ÌƒAƒNƒVƒ‡ƒ“ƒ}ƒbƒv‚Ìì¬
-	* —]—T‚ª‚Å‚«‚½‚çƒtƒ@ƒCƒ‹‚©‚ç‘O‰ñ‚Ìİ’è‚ğˆø‚«Œp‚°‚é‚æ‚¤‚É‚µ‚Ü‚·
+	* ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚­ãƒ¼ã‚³ãƒ³ãƒ•ã‚£ã‚°ã§ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒƒãƒ—ã®ä½œæˆ
+	* ä½™è£•ãŒã§ããŸã‚‰ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰å‰å›ã®è¨­å®šã‚’å¼•ãç¶™ã’ã‚‹ã‚ˆã†ã«ã—ã¾ã™
 	*/
 
 	AddAction("Sprint", { eKeyCode::LShift,ePadButton::A });
@@ -32,7 +32,7 @@ bool Engine::Input::InputManager::Initialize()
 }
 
 /// <summary>
-/// ó‘ÔXV
+/// çŠ¶æ…‹æ›´æ–°
 /// </summary>
 void Engine::Input::InputManager::Update()
 {
@@ -42,7 +42,7 @@ void Engine::Input::InputManager::Update()
 }
 
 /// <summary>
-/// PadŠÇ—‚Ìæ“¾
+/// Padç®¡ç†ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::Input::PadManager* Engine::Input::InputManager::GetPadManager()
@@ -52,32 +52,32 @@ Engine::Input::PadManager* Engine::Input::InputManager::GetPadManager()
 
 
 /// <summary>
-/// ƒEƒBƒ“ƒhƒE‚ÌƒCƒxƒ“ƒg‚©‚ç“ü—Íó‘Ô‚Ìæ“¾
+/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å…¥åŠ›çŠ¶æ…‹ã®å–å¾—
 /// </summary>
-/// <returns>true:ŠY“–ƒCƒxƒ“ƒg</returns>
+/// <returns>true:è©²å½“ã‚¤ãƒ™ãƒ³ãƒˆ</returns>
 bool Engine::Input::InputManager::ProcessEvent(UINT Message, WPARAM WParam, LPARAM LParam)
 {
 	bool ret = false;
 
-	//	ƒL[
+	//	ã‚­ãƒ¼
 	ret = mKeyboard->ProcessEvent(Message, WParam);
 	if (ret == true)
 	{
 		return true;
 	}
 
-	//	ƒ}ƒEƒX
+	//	ãƒã‚¦ã‚¹
 	ret = mMouse->ProcessEvent(Message, WParam, LParam);
 	if (ret == true)
 	{
 		return true;
 	}
-	//	‰½‚à‚È‚µ
+	//	ä½•ã‚‚ãªã—
 	return false;
 }
 
 /// <summary>
-/// ƒ}ƒEƒXŠÇ—‚Ìæ“¾
+/// ãƒã‚¦ã‚¹ç®¡ç†ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::Input::Mouse* Engine::Input::InputManager::GetMouse()
@@ -86,7 +86,7 @@ Engine::Input::Mouse* Engine::Input::InputManager::GetMouse()
 }
 
 /// <summary>
-/// ƒL[ƒ{[ƒhŠÇ—‚Ìæ“¾
+/// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ç®¡ç†ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::Input::Keyboard* Engine::Input::InputManager::GetKeyboard()
@@ -95,14 +95,14 @@ Engine::Input::Keyboard* Engine::Input::InputManager::GetKeyboard()
 }
 
 /// <summary>
-/// ˆÚ“®²‚Ìæ“¾
+/// ç§»å‹•è»¸ã®å–å¾—
 /// </summary>
 Math::Vector2 Engine::Input::InputManager::GetAxis()
 {
 	Math::Vector2 key = {};
 	Math::Vector2 pad = {};
 
-	//	ƒL[ƒ{[ƒh
+	//	ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
 	if (mKeyboard->IsHeld(Input::eKeyCode::D))
 	{
 		key.x += 1.0f;
@@ -111,7 +111,7 @@ Math::Vector2 Engine::Input::InputManager::GetAxis()
 	{
 		key.x -= 1.0f;
 	}
-	//	ƒL[ƒ{[ƒh
+	//	ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
 	if (mKeyboard->IsHeld(Input::eKeyCode::W))
 	{
 		key.y += 1.0f;
@@ -124,7 +124,7 @@ Math::Vector2 Engine::Input::InputManager::GetAxis()
 	//	PAD
 	pad = mPadManager->GetLeftStick3D();
 
-	// ƒxƒNƒgƒ‹‡¬
+	// ãƒ™ã‚¯ãƒˆãƒ«åˆæˆ
 	Math::Vector2 vec = pad + key;
 	float len = vec.SqrLength();
 	if (len > 1.0f)
@@ -136,7 +136,7 @@ Math::Vector2 Engine::Input::InputManager::GetAxis()
 }
 
 /// <summary>
-/// ƒAƒ“ƒOƒ‹²‚Ì“ü—Í—Ê‚ğæ“¾
+/// ã‚¢ãƒ³ã‚°ãƒ«è»¸ã®å…¥åŠ›é‡ã‚’å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::InputManager::GetLookAxis()
@@ -148,7 +148,7 @@ Math::Vector2 Engine::Input::InputManager::GetLookAxis()
 	mouse.y = -mouse.y;
 	pad = mPadManager->GetRightStick3D();
 
-	//	ƒxƒNƒgƒ‹‚Ì‡¬
+	//	ãƒ™ã‚¯ãƒˆãƒ«ã®åˆæˆ
 	Math::Vector2 vec = pad + mouse;
 
 	float len = vec.SqrLength();
@@ -161,10 +161,10 @@ Math::Vector2 Engine::Input::InputManager::GetLookAxis()
 }
 
 /// <summary>
-/// ƒAƒNƒVƒ‡ƒ“–¼‚Ì—v˜^
+/// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³åã®è¦éŒ²
 /// </summary>
-/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-/// <param name="Bind">‘Î‰‚µ‚½ƒL[ƒR[ƒhŒQ</param>
+/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+/// <param name="Bind">å¯¾å¿œã—ãŸã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ç¾¤</param>
 void Engine::Input::InputManager::AddAction(const std::string& ActionName, const ActionBinding& Bind)
 {
 	if (ActionName.empty()) return;
@@ -172,10 +172,10 @@ void Engine::Input::InputManager::AddAction(const std::string& ActionName, const
 }
 
 /// <summary>
-/// ‰Ÿ‚µ‚½uŠÔ
+/// æŠ¼ã—ãŸç¬é–“
 /// </summary>
-/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 bool Engine::Input::InputManager::IsActionPressed(const std::string& ActionName)
 {
 	auto it = mActionMaps.find(ActionName);
@@ -183,7 +183,7 @@ bool Engine::Input::InputManager::IsActionPressed(const std::string& ActionName)
 
 	const auto& bind = it->second;
 
-	//	‚Ç‚ê‚©‚ª“ü—Í‚³‚ê‚Ä‚¢‚½‚çtrue
+	//	ã©ã‚Œã‹ãŒå…¥åŠ›ã•ã‚Œã¦ã„ãŸã‚‰true
 	const bool KeyIn = mKeyboard->IsPressed(bind.key);
 	const bool PadIn = mPadManager->IsPressed(bind.pad);
 	const bool MouseIn = mMouse->IsPressed(bind.mouse);
@@ -192,10 +192,10 @@ bool Engine::Input::InputManager::IsActionPressed(const std::string& ActionName)
 }
 
 /// <summary>
-/// ‰Ÿ‚³‚ê‚Ä‚¢‚é
+/// æŠ¼ã•ã‚Œã¦ã„ã‚‹
 /// </summary>
-/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 bool Engine::Input::InputManager::IsActionHeld(const std::string& ActionName)
 {
 	auto it = mActionMaps.find(ActionName);
@@ -203,7 +203,7 @@ bool Engine::Input::InputManager::IsActionHeld(const std::string& ActionName)
 
 	const auto& bind = it->second;
 
-	//	‚Ç‚ê‚©‚ª“ü—Í‚³‚ê‚Ä‚¢‚½‚çtrue
+	//	ã©ã‚Œã‹ãŒå…¥åŠ›ã•ã‚Œã¦ã„ãŸã‚‰true
 	const bool KeyIn = mKeyboard->IsHeld(bind.key);
 	const bool PadIn = mPadManager->IsHeld(bind.pad);
 	const bool MouseIn = mMouse->IsHeld(bind.mouse);
@@ -212,10 +212,10 @@ bool Engine::Input::InputManager::IsActionHeld(const std::string& ActionName)
 }
 
 /// <summary>
-/// —£‚µ‚½uŠÔ
+/// é›¢ã—ãŸç¬é–“
 /// </summary>
-/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-/// <returns>true:—£‚µ‚½uŠÔ</returns>
+/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 bool Engine::Input::InputManager::IsActionReleased(const std::string& ActionName)
 {
 	auto it = mActionMaps.find(ActionName);
@@ -223,7 +223,7 @@ bool Engine::Input::InputManager::IsActionReleased(const std::string& ActionName
 
 	const auto& bind = it->second;
 
-	//	‚Ç‚ê‚©‚ª“ü—Í‚³‚ê‚Ä‚¢‚½‚çtrue
+	//	ã©ã‚Œã‹ãŒå…¥åŠ›ã•ã‚Œã¦ã„ãŸã‚‰true
 	const bool KeyIn = mKeyboard->IsReleased(bind.key);
 	const bool PadIn = mPadManager->IsReleased(bind.pad);
 	const bool MouseIn = mMouse->IsReleased(bind.mouse);

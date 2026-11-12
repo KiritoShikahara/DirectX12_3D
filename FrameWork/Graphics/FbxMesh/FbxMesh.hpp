@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Math/Matrix/Matrix.h"
 #include"Math/Quaternion/Quaternion.h"
@@ -25,34 +25,34 @@ namespace Engine::Graphics
 		virtual ~FbxMesh();
 
 		/// <summary>
-		/// ì¬
+		/// ä½œæˆ
 		/// </summary>
-		/// <param name="Resource">“Ç‚İ‚İÏ‚İ‚ÌƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="Resource">èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(FbxResource* Resource);
 
 		/// <summary>
-		/// ‰ğ•ú
+		/// è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“—pXVˆ—iƒtƒŒ[ƒ€‚ği‚ß‚éj
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨æ›´æ–°å‡¦ç†ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é€²ã‚ã‚‹ï¼‰
 		/// </summary>
-		/// <param name="AnimationName">Load‚É“o˜^‚µ‚½ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
+		/// <param name="AnimationName">Loadæ™‚ã«ç™»éŒ²ã—ãŸã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
 		/// <param name="DeltaTime"></param>
-		/// <param name="IsLoop">true:ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒ‹[ƒv‚³‚¹‚é</param>
+		/// <param name="IsLoop">true:ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒ«ãƒ¼ãƒ—ã•ã›ã‚‹</param>
 		void Animate(
 			const std::string& AnimationName,
 			const float DeltaTime,
 			const float IsLoop);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render();
 		
-		//	ƒAƒNƒZƒT
+		//	ã‚¢ã‚¯ã‚»ã‚µ
 		const Math::Vector3& GetPosition()const;
 		void SetPosition(const Math::Vector3& position);
 
@@ -65,30 +65,30 @@ namespace Engine::Graphics
 		void SetColor(const Color& color);
 
 		/// <summary>
-		/// ƒ{[ƒ“–¼‚©‚çƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚é
+		/// ãƒœãƒ¼ãƒ³åã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <param name="BoneName">ƒ{[ƒ“–¼</param>
-		/// <returns>À•W</returns>
+		/// <param name="BoneName">ãƒœãƒ¼ãƒ³å</param>
+		/// <returns>åº§æ¨™</returns>
 		Math::Vector3 GetBoneWorldPosition(const std::string& BoneName)const;
 
 		/// <summary>
-		/// ƒ{[ƒ“–¼‚©‚çƒ[ƒ‹ƒh‰ñ“]‚ğæ“¾‚·‚é
+		/// ãƒœãƒ¼ãƒ³åã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
 		/// <param name="BoneName"></param>
 		/// <returns></returns>
 		Math::Quaternion GetBoneWorldRotation(const std::string& BoneName)const;
 
 		/// <summary>
-		/// ‰ñ“]‚ÆÀ•W‚ğ‡‚í‚¹‚½ÅI“I‚Èƒ[ƒ‹ƒhs—ñ‚ğ’¼Ú•Ô‚·
+		/// å›è»¢ã¨åº§æ¨™ã‚’åˆã‚ã›ãŸæœ€çµ‚çš„ãªãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’ç›´æ¥è¿”ã™
 		/// </summary>
 		/// <param name="BoneName"></param>
 		/// <returns></returns>
 		Math::Matrix GetBoneFinalMatrix(const std::string& BoneName) const;
 
 		/// <summary>
-		/// ƒ{[ƒ“–¼‚©‚ç”z—ñ‚ÌƒCƒ“ƒfƒbƒNƒX‚ğŒŸõ‚·‚éƒwƒ‹ƒp[
+		/// ãƒœãƒ¼ãƒ³åã‹ã‚‰é…åˆ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ¤œç´¢ã™ã‚‹ãƒ˜ãƒ«ãƒ‘ãƒ¼
 		/// </summary>
-		/// <param name="BoneName">ƒ{[ƒ“–¼</param>
+		/// <param name="BoneName">ãƒœãƒ¼ãƒ³å</param>
 		/// <returns></returns>
 		int FindBoneIndex(const std::string& BoneName)const;
 
@@ -97,16 +97,16 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
 		/// </summary>
-		/// <returns>true:I—¹</returns>
+		/// <returns>true:çµ‚äº†</returns>
 		bool GetAnimationFinish()const
 		{
 			return mIsAnimationFinish;
 		}
 
 		/// <summary>
-		/// Animation‚ÌÄ¶ŠÔ‚Ìæ“¾
+		/// Animationã®å†ç”Ÿæ™‚é–“ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		float GetAnimationTime() const
@@ -115,22 +115,22 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// •âŠÔ‚É‚©‚¯‚éŠÔ‚Ìİ’è
+		/// è£œé–“ã«ã‹ã‘ã‚‹æ™‚é–“ã®è¨­å®š
 		/// </summary>
 		/// <param name="BlendTime"></param>
 		void SetBlendTime(float BlendTime);
 
 	protected:
 		/// <summary>
-		/// ƒ‚ƒfƒ‹—p’è”ƒoƒbƒtƒ@\‘¢‘Ì
+		/// ãƒ¢ãƒ‡ãƒ«ç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡æ§‹é€ ä½“
 		/// </summary>
 		struct MeshConstantBufferInfo {
 			Math::Matrix World;
 			Math::Matrix View;
 			Math::Matrix Projection;
 			Color MeshColor;
-			Math::Matrix Bones[256]; // GPUƒXƒLƒjƒ“ƒO—p
-			int IsSkinned;	// 0:ƒXƒLƒjƒ“ƒO‚ğ‚µ‚È‚¢ 1:ƒXƒLƒjƒ“ƒO‚ğ‚·‚é
+			Math::Matrix Bones[256]; // GPUã‚¹ã‚­ãƒ‹ãƒ³ã‚°ç”¨
+			int IsSkinned;	// 0:ã‚¹ã‚­ãƒ‹ãƒ³ã‚°ã‚’ã—ãªã„ 1:ã‚¹ã‚­ãƒ‹ãƒ³ã‚°ã‚’ã™ã‚‹
 			std::array<float, 3> Padding;
 		};
 
@@ -138,101 +138,101 @@ namespace Engine::Graphics
 	protected:
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@ƒTƒCƒY
+		/// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
 		/// </summary>
 		static constexpr auto MeshConstantBufferSize = (sizeof(MeshConstantBufferInfo) + 255) & ~255;
 
 		/// <summary>
-		/// ƒ{[ƒ“”i256‚Í“K“–j
-		/// ‚æ‚Ù‚Ç‚Ìƒ‚ƒfƒ‹‚¶‚á‚È‚¯‚ê‚Î256‚Å‘«‚è‚éB
-		/// Œy—Ê‚Èƒ‚ƒfƒ‹‚¾‚¯‚È‚ç128‚Å‚à–â‘è‚È‚¢B
-		///	512‚Íd‚½‚¢‚µA‚»‚±‚Ü‚Å•K—v‚Èƒ‚ƒfƒ‹‚Í­‚È‚¢Bœ‘½‚·‚¬‚â‚ëH
+		/// ãƒœãƒ¼ãƒ³æ•°ï¼ˆ256ã¯é©å½“ï¼‰
+		/// ã‚ˆã»ã©ã®ãƒ¢ãƒ‡ãƒ«ã˜ã‚ƒãªã‘ã‚Œã°256ã§è¶³ã‚Šã‚‹ã€‚
+		/// è»½é‡ãªãƒ¢ãƒ‡ãƒ«ã ã‘ãªã‚‰128ã§ã‚‚å•é¡Œãªã„ã€‚
+		///	512ã¯é‡ãŸã„ã—ã€ãã“ã¾ã§å¿…è¦ãªãƒ¢ãƒ‡ãƒ«ã¯å°‘ãªã„ã€‚éª¨å¤šã™ãã‚„ã‚ï¼Ÿ
 		/// </summary>
 		static constexpr int BONE_COUNT_MAX = 256;
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹ƒf[ƒ^‚ÌƒŠƒ\[ƒX
+		/// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒªã‚½ãƒ¼ã‚¹
 		/// </summary>
 		FbxResource* mResource;
 
 		/// <summary>
-		/// s—ñ—p‚Ì’è”ƒoƒbƒtƒ@
+		/// è¡Œåˆ—ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		std::unique_ptr<ConstantBuffer> mTransformBuffer;
 
 		/// <summary>
-		/// GPU‚Ì‘—‚éƒ{[ƒ“s—ñiÅI•ÏŒ`s—ñj
+		/// GPUã®é€ã‚‹ãƒœãƒ¼ãƒ³è¡Œåˆ—ï¼ˆæœ€çµ‚å¤‰å½¢è¡Œåˆ—ï¼‰
 		/// </summary>
 		std::array<Math::Matrix, BONE_COUNT_MAX> mSkinningMatrices;
 
 		/// <summary>
-		/// CPU‘¤‚Å•Û‚·‚éŒ»İ‚Ìƒ{[ƒ“s—ñ
-		/// ƒ{[ƒ“–¼‚©‚çÀ•Wæ“¾‚ÌŒø—¦‚ğã‚°‚é—p
+		/// CPUå´ã§ä¿æŒã™ã‚‹ç¾åœ¨ã®ãƒœãƒ¼ãƒ³è¡Œåˆ—
+		/// ãƒœãƒ¼ãƒ³åã‹ã‚‰åº§æ¨™å–å¾—ã®åŠ¹ç‡ã‚’ä¸Šã’ã‚‹ç”¨
 		/// </summary>
 		std::array<Math::Matrix, BONE_COUNT_MAX> mCurrentGlobalMatrices;
 
 		/// <summary>
-		/// ¡‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼
+		/// ä»Šã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
 		/// </summary>
 		std::string mCurrentAnimationName;
 
 		/// <summary>
-		/// ‘O‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼
+		/// å‰ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
 		/// </summary>
 		std::string mPreviousAnimationName;
 
 		/// <summary>
-		/// À•W
+		/// åº§æ¨™
 		/// </summary>
 		Math::Vector3 mPosition;
 
 		/// <summary>
-		/// Šp“xE‰ñ“]
+		/// è§’åº¦ãƒ»å›è»¢
 		/// </summary>
 		Math::Quaternion mRotation;
 
 		/// <summary>
-		/// Šgk
+		/// æ‹¡ç¸®
 		/// </summary>
 		Math::Vector3 mScale;
 
 		/// <summary>
-		/// ƒƒbƒVƒ…‚ÌF
+		/// ãƒ¡ãƒƒã‚·ãƒ¥ã®è‰²
 		/// </summary>
 		Color mMeshColor;
 
 		/// <summary>
-		///	ƒƒbƒVƒ…‚Ì’è”ƒoƒbƒtƒ@—p‚Ìî•ñ
+		///	ãƒ¡ãƒƒã‚·ãƒ¥ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ç”¨ã®æƒ…å ±
 		/// </summary>
 		MeshConstantBufferInfo mCBInfo;
 
 		/// <summary>
-		/// ¡‚ÌƒtƒŒ[ƒ€
+		/// ä»Šã®ãƒ•ãƒ¬ãƒ¼ãƒ 
 		/// </summary>
 		float mFrame;
 
 		/// <summary>
-		/// ‘O‚ÌƒtƒŒ[ƒ€i’»
+		/// å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ é€²æ—
 		/// </summary>
 		float mPreviousFrame = 0.0f;
 
 		/// <summary>
-		///	•âŠÔ‚É‚©‚¯‚é‘SŠÔ
+		///	è£œé–“ã«ã‹ã‘ã‚‹å…¨æ™‚é–“
 		/// </summary>
 		float mBlendTime = 0.2f;
 
 		/// <summary>
-		/// •âŠÔŠJn‚©‚ç‚ÌŒo‰ßŠÔ
+		/// è£œé–“é–‹å§‹ã‹ã‚‰ã®çµŒéæ™‚é–“
 		/// </summary>
 		float mBlendTimer = 0.0f;
 
 		/// <summary>
-		/// ¡•âŠÔ’†‚©‚Ç‚¤‚©
+		/// ä»Šè£œé–“ä¸­ã‹ã©ã†ã‹
 		/// </summary>
 		bool  mIsBlending = false;
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌI—¹”»’è
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµ‚äº†åˆ¤å®š
 		/// </summary>
 		bool mIsAnimationFinish;
 	};

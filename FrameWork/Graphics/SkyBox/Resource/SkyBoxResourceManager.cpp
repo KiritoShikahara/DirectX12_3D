@@ -1,14 +1,14 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SkyBoxResourceManager.hpp"
 
 namespace Engine::Graphics
 {
 
     /// <summary>
-    /// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+    /// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
     /// </summary>
-    /// <param name="FilePath">SkyBox—p‚Ìdds‚Ìƒtƒ@ƒCƒ‹ƒpƒX</param>
-    /// <returns>QÆ—p‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <param name="FilePath">SkyBoxç”¨ã®ddsã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+    /// <returns>å‚ç…§ç”¨ã®ãƒã‚¤ãƒ³ã‚¿</returns>
     SkyBoxResource* Engine::Graphics::SkyBoxResourceManager::Load(const std::filesystem::path& FilePath)
     {
         auto it = mResources.find(FilePath.string());

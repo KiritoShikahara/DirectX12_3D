@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Pad.hpp"
 
 
@@ -32,27 +32,27 @@ std::string ToString(Engine::Input::ePadButton Button)
 
 
 /// <summary>
-/// ó‘ÔXV
+/// çŠ¶æ…‹æ›´æ–°
 /// </summary>
 void  Engine::Input::Pad::Update()
 {
-	//	‘Oó‘Ô‚Ì•Û‘¶
+	//	å‰çŠ¶æ…‹ã®ä¿å­˜
 	mPrevButtons = mCurrButtons;
 	mPrevTrigger = mCurrTrigger;
 
-	//	¡‚Ì“ü—Íó‘ÔXV
+	//	ä»Šã®å…¥åŠ›çŠ¶æ…‹æ›´æ–°
 	auto reading = mGamepad.GetCurrentReading();
 
-	//	ƒ{ƒ^ƒ“
+	//	ãƒœã‚¿ãƒ³
 	mCurrButtons = static_cast<uint32_t>(reading.Buttons);
 
-	//	ƒgƒŠƒK[
+	//	ãƒˆãƒªã‚¬ãƒ¼
 	mLeftTrigger = this->ApplyDeadZone(reading.LeftTrigger, mTriggerDeadZone);
 	mRightTrigger = this->ApplyDeadZone(reading.RightTrigger, mTriggerDeadZone);
 	mCurrTrigger[static_cast<int>(Trigger::Left)] = (mLeftTrigger > 0.0f);
 	mCurrTrigger[static_cast<int>(Trigger::Right)] = (mRightTrigger > 0.0f);
 
-	//	ƒXƒeƒBƒbƒN
+	//	ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 	mLeftStick.x = this->ApplyDeadZone(reading.LeftThumbstickX, mLeftStickDeadZone);
 	mLeftStick.y = this->ApplyDeadZone(reading.LeftThumbstickY, mLeftStickDeadZone);
 	mRightStick.x = this->ApplyDeadZone(reading.RightThumbstickX, mRightStickDeadZone);
@@ -60,17 +60,17 @@ void  Engine::Input::Pad::Update()
 }
 
 /// <summary>
-/// ƒfƒbƒhƒ][ƒ““K‰
+/// ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³é©å¿œ
 /// </summary>
-/// <param name="Value">“K‰‘O‚Ì’l</param>
-/// <param name="DeadZone">ƒfƒbƒhƒ][ƒ“’l</param>
-/// <returns>ƒfƒbƒhƒ][ƒ“’lˆÈ‰º‚È‚ç0.0</returns>
+/// <param name="Value">é©å¿œå‰ã®å€¤</param>
+/// <param name="DeadZone">ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤</param>
+/// <returns>ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ä»¥ä¸‹ãªã‚‰0.0</returns>
 float Engine::Input::Pad::ApplyDeadZone(float Value, float DeadZone)
 {
-	//	¬‚³‚·‚¬‚é‚Æ‘€ì‚ª‘å•Ï‚È‚Ì‚Å
+	//	å°ã•ã™ãã‚‹ã¨æ“ä½œãŒå¤§å¤‰ãªã®ã§
 	DeadZone = std::max(DeadZone, 0.1f);
 
-	//	ƒfƒbƒhƒ][ƒ“’l‚æ‚è¬‚³‚©‚Á‚½‚ç“ü—Í‚È‚µ
+	//	ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã‚ˆã‚Šå°ã•ã‹ã£ãŸã‚‰å…¥åŠ›ãªã—
 	if (std::abs(Value) < DeadZone)
 	{
 		return 0.0f;
@@ -79,7 +79,7 @@ float Engine::Input::Pad::ApplyDeadZone(float Value, float DeadZone)
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 /// <param name="Gamepad"></param>
 Engine::Input::Pad::Pad(const Gamepad& Gamepad, const float RightStickDeadZone, const float LeftStickDeadZone, const float TriggerDeadZone)
@@ -95,10 +95,10 @@ Engine::Input::Pad::Pad(const Gamepad& Gamepad, const float RightStickDeadZone, 
 
 
 /// <summary>
-/// ‰Ÿ‚µ‚½uŠÔ
+/// æŠ¼ã—ãŸç¬é–“
 /// </summary>
-/// <param name="button">ƒ{ƒ^ƒ“í•Ê</param>
-/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+/// <param name="button">ãƒœã‚¿ãƒ³ç¨®åˆ¥</param>
+/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 bool Engine::Input::Pad::IsPressed(const ePadButton Button) const
 {
 	switch (Button)
@@ -124,10 +124,10 @@ bool Engine::Input::Pad::IsPressed(const ePadButton Button) const
 }
 
 /// <summary>
-/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+/// æŠ¼ã—ã¦ã„ã‚‹é–“
 /// </summary>
 /// <param name="button"></param>
-/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 bool Engine::Input::Pad::IsHeld(const ePadButton Button) const
 {
 	switch (Button)
@@ -151,10 +151,10 @@ bool Engine::Input::Pad::IsHeld(const ePadButton Button) const
 }
 
 /// <summary>
-/// —£‚µ‚½uŠÔ
+/// é›¢ã—ãŸç¬é–“
 /// </summary>
 /// <param name="button"></param>
-/// <returns>true:—£‚µ‚½uŠÔ</returns>
+/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 bool Engine::Input::Pad::IsReleased(const ePadButton Button) const
 {
 	switch (Button)
@@ -180,7 +180,7 @@ bool Engine::Input::Pad::IsReleased(const ePadButton Button) const
 }
 
 /// <summary>
-/// ¶ƒXƒeƒBƒbƒNæ“¾
+/// å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::Pad::GetLeftStick3D() const
@@ -189,7 +189,7 @@ Math::Vector2 Engine::Input::Pad::GetLeftStick3D() const
 }
 
 /// <summary>
-/// ‰EƒXƒeƒBƒbƒNæ“¾
+/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::Pad::GetRightStick3D() const
@@ -198,7 +198,7 @@ Math::Vector2 Engine::Input::Pad::GetRightStick3D() const
 }
 
 /// <summary>
-/// 2D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+/// 2Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::Pad::GetLeftStick2D() const
@@ -209,7 +209,7 @@ Math::Vector2 Engine::Input::Pad::GetLeftStick2D() const
 }
 
 /// <summary>
-/// ‰EƒXƒeƒBƒbƒNæ“¾
+/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::Pad::GetRightStick2D() const
@@ -220,7 +220,7 @@ Math::Vector2 Engine::Input::Pad::GetRightStick2D() const
 }
 
 /// <summary>
-/// ‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 /// <param name="RightStickDeadZone"></param>
 void Engine::Input::Pad::SetRightStickDeadZone(const float RightStickDeadZone)
@@ -229,7 +229,7 @@ void Engine::Input::Pad::SetRightStickDeadZone(const float RightStickDeadZone)
 }
 
 /// <summary>
-/// ‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 /// <param name="LeftStickDeadZone"></param>
 void Engine::Input::Pad::SetLeftStickDeadZone(const float LeftStickDeadZone)
@@ -238,7 +238,7 @@ void Engine::Input::Pad::SetLeftStickDeadZone(const float LeftStickDeadZone)
 }
 
 /// <summary>
-/// ƒgƒŠƒK[‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+/// ãƒˆãƒªã‚¬ãƒ¼ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 /// <param name="TriggerDeadZone"></param>
 void Engine::Input::Pad::SetTriggerDeadZone(const float TriggerDeadZone)
@@ -247,7 +247,7 @@ void Engine::Input::Pad::SetTriggerDeadZone(const float TriggerDeadZone)
 }
 
 /// <summary>
-/// Pad‚Ìæ“¾
+/// Padã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::Input::Gamepad Engine::Input::Pad::GetGamepad()
@@ -256,11 +256,11 @@ Engine::Input::Gamepad Engine::Input::Pad::GetGamepad()
 }
 
 /// <summary>
-/// ImGui‚ÌXV
+/// ImGuiã®æ›´æ–°
 /// </summary>
 void Engine::Input::Pad::ImGuiUpdate()
 {
-	//	ƒXƒeƒBƒbƒN
+	//	ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 	ImGui::Separator();
 	ImGui::PushID(this);
 
@@ -275,10 +275,10 @@ void Engine::Input::Pad::ImGuiUpdate()
 	ImGui::ProgressBar((LRight.x + 1.0f) / 2.0f, ImVec2(100, 8), "X");
 	ImGui::ProgressBar((LRight.y + 1.0f) / 2.0f, ImVec2(100, 8), "Y");
 
-	//	ƒXƒeƒBƒbƒN‚Ì‰~‚Ì‰Â‹‰»
+	//	ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å††ã®å¯è¦–åŒ–
 	float radius = 40.f;
 
-	//	¶
+	//	å·¦
 	{
 		ImVec2 cursor = ImGui::GetCursorScreenPos();
 		ImVec2 center(cursor.x + radius, cursor.y + radius);
@@ -295,7 +295,7 @@ void Engine::Input::Pad::ImGuiUpdate()
 
 	}
 
-	//	‰E
+	//	å³
 	{
 		ImVec2 cursor = ImGui::GetCursorScreenPos();
 		ImVec2 center(cursor.x + radius, cursor.y + radius);
@@ -312,14 +312,14 @@ void Engine::Input::Pad::ImGuiUpdate()
 
 	}
 
-	//	ƒgƒŠƒK[
+	//	ãƒˆãƒªã‚¬ãƒ¼
 	ImGui::Text("Triggers:");
 	ImGui::Text("L: %.2f", mLeftTrigger);
 	ImGui::ProgressBar(mLeftTrigger, ImVec2(100, 10));
 	ImGui::Text("R: %.2f", mRightTrigger);
 	ImGui::ProgressBar(mRightTrigger, ImVec2(100, 10));
 
-	// === ƒ{ƒ^ƒ“•\¦ ===
+	// === ãƒœã‚¿ãƒ³è¡¨ç¤º ===
 	ImGui::Spacing();
 	ImGui::Text("Buttons:");
 	ImGui::BeginChild("buttons_child", ImVec2(0, 0), true);

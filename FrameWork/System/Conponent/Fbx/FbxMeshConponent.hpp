@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/FbxMesh/FbxMesh.hpp"
 #include"Math/Math.h"
 
@@ -9,19 +9,19 @@ namespace Engine::System
 {
 	struct FbxComponent
 	{
-		//	3Dƒ‚ƒfƒ‹•`‰æ•âŠÔ—p
+		//	3Dãƒ¢ãƒ‡ãƒ«æç”»è£œé–“ç”¨
 		Math::Quaternion OffsetRotation = Math::Quaternion::Identity;
 
-		//	FBX–{‘Ì
+		//	FBXæœ¬ä½“
 		std::unique_ptr<Graphics::FbxMesh> Mesh;
 
-		//	¡‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼
+		//	ä»Šã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
 		std::string CurrAnimation = "";
-		//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒo‰ß”{—¦
+		//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµŒéå€ç‡
 		float AnimationScale = 1.0f;
-		//	ƒ‹[ƒvÄ¶‚·‚é‚©‚Ç‚¤‚©
+		//	ãƒ«ãƒ¼ãƒ—å†ç”Ÿã™ã‚‹ã‹ã©ã†ã‹
 		bool IsLoop = true;
-		//	Ä¶’†‚©‚Ç‚¤‚©
+		//	å†ç”Ÿä¸­ã‹ã©ã†ã‹
 		bool IsPlay = true;
 
 
@@ -35,11 +35,11 @@ namespace Engine::System
 			}
 		}
 
-		// unique_ptr ‚ğ‚Á‚Ä‚¢‚é‚È‚çƒRƒs[‚Í‹Ö~‚·‚×‚«
+		// unique_ptr ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ã‚³ãƒ”ãƒ¼ã¯ç¦æ­¢ã™ã¹ã
 		FbxComponent(const FbxComponent&) = delete;
 		FbxComponent& operator=(const FbxComponent&) = delete;
 
-		// ƒ€[ƒu‚Í‹–‰Â‚·‚é
+		// ãƒ ãƒ¼ãƒ–ã¯è¨±å¯ã™ã‚‹
 		FbxComponent(FbxComponent&&) noexcept = default;
 		FbxComponent& operator=(FbxComponent&&) noexcept = default;
 	};

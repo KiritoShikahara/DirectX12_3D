@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"../SpriteComponent.hpp"
 
 
@@ -8,13 +8,13 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// À•W‚Ì“¯Šú
+		/// åº§æ¨™ã®åŒæœŸ
 		/// </summary>
 		/// <param name="Reg"></param>
 		static void Update(entt::registry& Reg);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		/// <param name="Reg"></param>
 		static void Render(entt::registry& Reg);

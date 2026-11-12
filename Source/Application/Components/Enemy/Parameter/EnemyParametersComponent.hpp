@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 #include"Application/Objects/EnemyRank.hpp"
 
 namespace Engine::System
 {
 	/// <summary>
-	/// “G‚Ìó‘ÔŠÇ——p‚ÌŒÅ—Lƒpƒ‰ƒ[ƒ^[
+	/// æ•µã®çŠ¶æ…‹ç®¡ç†ç”¨ã®å›ºæœ‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	/// </summary>
 	struct EnemyParameters
 	{
-		float MoveSpeed = 10.0f;	//	‘–‚é‘¬“x
-		float EvadeSpeed = 50.0f;	//	‰ñ”ğ‚Ì‘¬“x
-		float EvadeMaxSpeed = 50.0f;	//	‰ñ”ğ‚Ì‘¬“x
-		float AttackRange = 10.0f;	//	UŒ‚‚É“ü‚é‹——£
-		float IdleTime = 1.0f;	//	UŒ‚Œã‚Ìd’¼ŠÔ
+		float MoveSpeed = 10.0f;	//	èµ°ã‚‹é€Ÿåº¦
+		float EvadeSpeed = 50.0f;	//	å›é¿æ™‚ã®é€Ÿåº¦
+		float EvadeMaxSpeed = 50.0f;	//	å›é¿æ™‚ã®é€Ÿåº¦
+		float AttackRange = 10.0f;	//	æ”»æ’ƒã«å…¥ã‚‹è·é›¢
+		float IdleTime = 1.0f;	//	æ”»æ’ƒå¾Œã®ç¡¬ç›´æ™‚é–“
 
-		float IdleEvadeProbability = 0.3f;	//	‘Ò‹@’†‚É‰ñ”ğ‚·‚éŠm—¦
-		float CancelEvadeProbability = 0.3f; // ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ‚ª”­¶‚·‚éŠm—¦
+		float IdleEvadeProbability = 0.3f;	//	å¾…æ©Ÿä¸­ã«å›é¿ã™ã‚‹ç¢ºç‡
+		float CancelEvadeProbability = 0.3f; // ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿ãŒç™ºç”Ÿã™ã‚‹ç¢ºç‡
 		int AttackComboMax = 1;
-		entt::entity Weapon = entt::null;	//	•Ší
-		EnemyRank Rank = EnemyRank::Basic;	//	“G‚Ìƒ‰ƒ“ƒN
-		bool  CanCancelEvade = false;		//	ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ‚ğs‚¦‚é‚©‚Ç‚¤‚©
+		entt::entity Weapon = entt::null;	//	æ­¦å™¨
+		EnemyRank Rank = EnemyRank::Basic;	//	æ•µã®ãƒ©ãƒ³ã‚¯
+		bool  CanCancelEvade = false;		//	ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿ã‚’è¡Œãˆã‚‹ã‹ã©ã†ã‹
 	};
 }

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AABBCollider.hpp"
 #include "Graphics/Renderer/Renderer.hpp"
 #include"Graphics/Color/Color.hpp"
@@ -21,38 +21,38 @@ void Engine::System::AABBCollider::DebugRender()
 	const Math::Vector3 Right = Math::Vector3(mVolume.x * 0.5f, 0.0f, 0.0f);
 	const Math::Vector3 Up = Math::Vector3(0.0f, mVolume.y * 0.5f, 0.0f);
 	const Math::Vector3 Forward = Math::Vector3(0.0f, 0.0f, mVolume.z * 0.5f);
-	//	ã–Ê
-	//	¶è‘O
+	//	ä¸Šé¢
+	//	å·¦æ‰‹å‰
 	vertices[0].Position = -Right + Up + Forward + mCenter;
-	//	¶‰œ
+	//	å·¦å¥¥
 	vertices[1].Position = -Right + Up + -Forward + mCenter;
-	//	‰Eè‘O
+	//	å³æ‰‹å‰
 	vertices[2].Position = Right + Up + Forward + mCenter;
-	//	‰E‰œ
+	//	å³å¥¥
 	vertices[3].Position = Right + Up + -Forward + mCenter;
-	//	’ê–Ê
-	//	¶è‘O
+	//	åº•é¢
+	//	å·¦æ‰‹å‰
 	vertices[4].Position = -Right + -Up + Forward +mCenter;
-	//	¶‰œ
+	//	å·¦å¥¥
 	vertices[5].Position = -Right + -Up + -Forward + mCenter;
-	//	‰Eè‘O
+	//	å³æ‰‹å‰
 	vertices[6].Position = Right + -Up + Forward + mCenter;
-	//	‰E‰œ
+	//	å³å¥¥
 	vertices[7].Position = Right + -Up + -Forward + mCenter;
 
 	const uint16_t indices[24] =
 	{
-		//ã–Ê
+		//ä¸Šé¢
 		0,1,
 		0,2,
 		1,3,
 		2,3,
-		//cü
+		//ç¸¦ç·š
 		0,4,
 		1,5,
 		3,7,
 		2,6,
-		//’ê–Ê
+		//åº•é¢
 		4,5,
 		4,6,
 		5,7,
@@ -64,16 +64,16 @@ void Engine::System::AABBCollider::DebugRender()
 }
 
 /// <summary>
-/// ’†SÀ•W‚Ìw’è
+/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 /// </summary>
-/// <param name="Center">’†SÀ•W</param>
+/// <param name="Center">ä¸­å¿ƒåº§æ¨™</param>
 void Engine::System::AABBCollider::SetCenter(const Math::Vector3& Center)
 {
 	mCenter = Center;
 }
 
 /// <summary>
-/// ’†SÀ•W‚Ìæ“¾
+/// ä¸­å¿ƒåº§æ¨™ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 const Math::Vector3& Engine::System::AABBCollider::GetCenter() const
@@ -82,7 +82,7 @@ const Math::Vector3& Engine::System::AABBCollider::GetCenter() const
 }
 
 /// <summary>
-/// Še²‚Ì‘å‚«‚³‚Ìw’è
+/// å„è»¸ã®å¤§ãã•ã®æŒ‡å®š
 /// </summary>
 /// <param name="Volume"></param>
 void Engine::System::AABBCollider::SetVolume(const Math::Vector3& Volume)
@@ -91,7 +91,7 @@ void Engine::System::AABBCollider::SetVolume(const Math::Vector3& Volume)
 }
 
 /// <summary>
-/// Še²‚Ì‘å‚«‚³‚Ìæ“¾
+/// å„è»¸ã®å¤§ãã•ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 const Math::Vector3& Engine::System::AABBCollider::GetVolume() const
@@ -100,7 +100,7 @@ const Math::Vector3& Engine::System::AABBCollider::GetVolume() const
 }
 
 /// <summary>
-/// X²‚Ì”ÍˆÍ‚Ìæ“¾
+/// Xè»¸ã®ç¯„å›²ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::System::AABBCollider::Range Engine::System::AABBCollider::GetAxisXRange() const
@@ -113,7 +113,7 @@ Engine::System::AABBCollider::Range Engine::System::AABBCollider::GetAxisXRange(
 }
 
 /// <summary>
-/// Y²‚Ì”ÍˆÍ‚Ìæ“¾
+/// Yè»¸ã®ç¯„å›²ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::System::AABBCollider::Range Engine::System::AABBCollider::GetAxisYRange() const
@@ -126,7 +126,7 @@ Engine::System::AABBCollider::Range Engine::System::AABBCollider::GetAxisYRange(
 }
 
 /// <summary>
-/// Z²‚Ì”ÍˆÍ‚Ìæ“¾
+/// Zè»¸ã®ç¯„å›²ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Engine::System::AABBCollider::Range Engine::System::AABBCollider::GetAxisZRange() const

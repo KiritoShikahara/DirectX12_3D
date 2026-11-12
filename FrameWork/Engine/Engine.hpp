@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "System/Singleton/Singleton.hpp"
 
@@ -30,28 +30,28 @@ namespace Engine::Core
 
 	public:
 		/// <summary>
-		/// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰Šú‰»
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize();
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰ğ•ú
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®è§£æ”¾
 		/// </summary>
 		void OnDestory()override;
 
 		/// <summary>
-		/// V‹KƒtƒŒ[ƒ€‚ÌŠJn
+		/// æ–°è¦ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 		/// </summary>
 		void NewFrame();
 
 		/// <summary>
-		/// ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌŠJn
+		/// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®é–‹å§‹
 		/// </summary>
 		void BegineRendering();
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€‚ÌI—¹
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµ‚äº†
 		/// </summary>
 		void EndFrame();
 

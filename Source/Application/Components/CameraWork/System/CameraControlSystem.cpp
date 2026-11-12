@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CameraControlSystem.hpp"
 
 #include"Application/Components/CameraWork/CameraControl.hpp"
@@ -11,37 +11,37 @@
 
 void Engine::System::CameraControlSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
 {
-	//	ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ‚ÂƒIƒuƒWƒFƒNƒg‚Ìæ“¾
-//	“ü—Í‚Ìæ“¾
+	//	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’æŒã¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
+//	å…¥åŠ›ã®å–å¾—
 	auto view = Reg.view<CameraControlComponent>();
 	auto input = Input::InputManager::GetInstance();
 
 	view.each([&](auto entity, auto& ctrl)
 		{
-			//	ƒ^[ƒQƒbƒg‚»‚Ì‘¶İŠm”F
+			//	ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãã®å­˜åœ¨ç¢ºèª
 			if (ctrl.TargetEntity == entt::null || Reg.valid(ctrl.TargetEntity) == false)
 			{
 				return;
 			}
 
-			//	“ü—Í‚Ìæ“¾
+			//	å…¥åŠ›ã®å–å¾—
 			Math::Vector2 look = input->GetLookAxis();
 
-			//	Šp“x‚ÌXV
+			//	è§’åº¦ã®æ›´æ–°
 			ctrl.Yaw += look.x * ctrl.LookSensitivity * DeltaTime;
 			ctrl.Pitch += look.y * ctrl.LookSensitivity * DeltaTime;
 
 			ctrl.Yaw = fmodf(ctrl.Yaw, Math::PI * 2.0f);
 
-			//	‰ñ“]‚Ì§ŒÀ
+			//	å›è»¢ã®åˆ¶é™
 			ctrl.Pitch = std::clamp(ctrl.Pitch, ctrl.PitchLimitMin, ctrl.PitchLimitMax);
 
-			//	’‹“_‚ÌŒvZ
+			//	æ³¨è¦–ç‚¹ã®è¨ˆç®—
 			auto& TargetTransform = Reg.get<Transform3D>(ctrl.TargetEntity);
 			Math::Vector3 LookAtPos = TargetTransform.Position + ctrl.offset;
 
-			//	‹…–ÊÀ•W‚©‚çƒJƒƒ‰‚Ì‘Š‘ÎÀ•W‚ğZo
-			// Œö®: iŠÔˆá‚Á‚Ä‚¢‚½‚ç‚Ç‚ñ‚Ü‚¢j
+			//	çƒé¢åº§æ¨™ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã®ç›¸å¯¾åº§æ¨™ã‚’ç®—å‡º
+			// å…¬å¼: ï¼ˆé–“é•ã£ã¦ã„ãŸã‚‰ã©ã‚“ã¾ã„ï¼‰
 			// x = r * cos(pitch) * sin(yaw)
 			// y = r * sin(pitch)
 			// z = r * cos(pitch) * cos(yaw)
@@ -52,10 +52,10 @@ void Engine::System::CameraControlSystem::PostUpdate(entt::registry& Reg, double
 			relativePos.y = -ctrl.Distance * sinf(ctrl.Pitch);
 			relativePos.z = -ctrl.Distance * cosPitch * cosf(ctrl.Yaw);
 
-			//	ƒJƒƒ‰‚ÌÅI“I‚ÈÀ•W
+			//	ã‚«ãƒ¡ãƒ©ã®æœ€çµ‚çš„ãªåº§æ¨™
 			Math::Vector3 cameraPos = LookAtPos + relativePos;
 
-			//	ƒJƒƒ‰–{‘Ì‚É”½‰f
+			//	ã‚«ãƒ¡ãƒ©æœ¬ä½“ã«åæ˜ 
 			if (Camera::Main != nullptr)
 			{
 				Camera::Main->Update(cameraPos, LookAtPos, Math::Vector3::Up);

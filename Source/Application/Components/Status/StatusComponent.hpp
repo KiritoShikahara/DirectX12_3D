@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
-	//	Œã‚©‚ç‰ÁZ•â³’l‚âƒoƒt”’l‚È‚Ç‚ğ’Ç‰Á‚Å‚«‚é‚æ‚¤‚É‚µ‚Æ‚«‚Ü‚·B
+	//	å¾Œã‹ã‚‰åŠ ç®—è£œæ­£å€¤ã‚„ãƒãƒ•æ•°å€¤ãªã©ã‚’è¿½åŠ ã§ãã‚‹ã‚ˆã†ã«ã—ã¨ãã¾ã™ã€‚
 	struct StatusValue
 	{
-		float Base = 0.0f;		//	Šî€’l
+		float Base = 0.0f;		//	åŸºæº–å€¤
 
-		//	Œ»İ”’l‚Ìæ“¾iŒã‚©‚çŒÂX‚¾‚¯•ÏX‚µ‚½‚ç‚¢‚¢‚æ‚¤‚Éj
+		//	ç¾åœ¨æ•°å€¤ã®å–å¾—ï¼ˆå¾Œã‹ã‚‰å€‹ã€…ã ã‘å¤‰æ›´ã—ãŸã‚‰ã„ã„ã‚ˆã†ã«ï¼‰
 		float GetCurrent()const noexcept
 		{
 			return Base;
@@ -15,16 +15,16 @@ namespace Engine::System
 	};
 
 	/// <summary>
-	/// ƒXƒe[ƒ^ƒX‚ğŠÇ—‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç®¡ç†ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct StatusComponet
 	{
 		StatusValue MaxHp = {1.0f};
 		StatusValue Attack = { 1.0f };
 		float Hp = 1.0f;
-		//	‘¼‚ÌƒXƒe[ƒ^ƒX‚Í•K—v‚É‚È‚Á‚½‚ç
+		//	ä»–ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã¯å¿…è¦ã«ãªã£ãŸã‚‰
 
-		//	c‚è‚Ì‘Ì—Í‚ÌŠ„‡
+		//	æ®‹ã‚Šã®ä½“åŠ›ã®å‰²åˆ
 		float GetHpRatio()
 		{
 			if (Hp <= 0 || MaxHp.Base <= 0)
@@ -35,7 +35,7 @@ namespace Engine::System
 			return Hp / MaxHp.GetCurrent();
 		}
 
-		//	‘Ì—Í‚ğŒ¸‚ç‚·
+		//	ä½“åŠ›ã‚’æ¸›ã‚‰ã™
 		void ApplyDamage(float Damage)
 		{
 			Hp -= Damage;
@@ -46,9 +46,9 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// €–S”»’è
+		/// æ­»äº¡åˆ¤å®š
 		/// </summary>
-		/// <returns>true:€‚ñ‚Å‚¢‚é</returns>
+		/// <returns>true:æ­»ã‚“ã§ã„ã‚‹</returns>
 		bool IsDead()
 		{
 			return Hp <= 0;

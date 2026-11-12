@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EffectManager.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
 #include"System/Camera/Camera.hpp"
@@ -6,15 +6,15 @@
 #include"System/Window/Window.hpp"
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::EffectManager::Initialize()
 {
     DirectX* directX = DirectX::GetInstance();
     if (directX == nullptr) return false;
 
-    //  ƒŒƒ“ƒ_ƒ‰[ì¬
+    //  ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ä½œæˆ
     DXGI_FORMAT rtFormat = directX->GetFormat();
 
     mEfkRenderer = EffekseerRendererDX12::Create(
@@ -36,7 +36,7 @@ bool Engine::Graphics::EffectManager::Initialize()
 
     mEfkManager = Effekseer::Manager::Create(2000);
     
-    // ŠeíƒŒƒ“ƒ_ƒ‰[‚Æƒ[ƒ_[‚Ìİ’è
+    // å„ç¨®ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ã¨ãƒ­ãƒ¼ãƒ€ãƒ¼ã®è¨­å®š
     mEfkManager->SetSpriteRenderer(mEfkRenderer->CreateSpriteRenderer());
     mEfkManager->SetRibbonRenderer(mEfkRenderer->CreateRibbonRenderer());
     mEfkManager->SetRingRenderer(mEfkRenderer->CreateRingRenderer());
@@ -56,20 +56,20 @@ bool Engine::Graphics::EffectManager::Initialize()
         return false;
     }
 
-    //  ê—p‚ÌƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ìì¬
+    //  å°‚ç”¨ã®ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®ä½œæˆ
     mEfkCmdList = EffekseerRenderer::CreateCommandList(mEfkRenderer->GetGraphicsDevice(), mEfkMemoryPool);
 
     return true;
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚Ìæ“¾
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å–å¾—
 /// </summary>
-/// <param name="FilePath">ƒtƒHƒ‹ƒ_ƒpƒX</param>
+/// <param name="FilePath">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
 /// <returns></returns>
 Effekseer::EffectRef Engine::Graphics::EffectManager::GetEffect(const std::filesystem::path& FilePath)
 {
-    //  ƒpƒX‚Ì³‹K‰»
+    //  ãƒ‘ã‚¹ã®æ­£è¦åŒ–
     std::u16string key = std::filesystem::absolute(FilePath).lexically_normal().u16string();
 
     auto it = mEffectCache.find(key);
@@ -78,7 +78,7 @@ Effekseer::EffectRef Engine::Graphics::EffectManager::GetEffect(const std::files
         return it->second;
     }
 
-    // ‚È‚¯‚ê‚Îƒ[ƒh‚µ‚Ä•Û‘¶
+    // ãªã‘ã‚Œã°ãƒ­ãƒ¼ãƒ‰ã—ã¦ä¿å­˜
     auto effect = Effekseer::Effect::Create(
         mEfkManager,
         key.c_str()
@@ -93,7 +93,7 @@ Effekseer::EffectRef Engine::Graphics::EffectManager::GetEffect(const std::files
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void Engine::Graphics::EffectManager::Update(float DeltaTime)
 {
@@ -109,7 +109,7 @@ void Engine::Graphics::EffectManager::Update(float DeltaTime)
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::Graphics::EffectManager::Draw()
 {
@@ -117,30 +117,30 @@ void Engine::Graphics::EffectManager::Draw()
     auto cmdList = DirectX::GetInstance()->GetCommandList();
     auto mainCamera = System::Camera::Main;
     if (mEfkRenderer == nullptr || mEfkManager == nullptr || cmdList == nullptr) return;
-    //  ƒJƒƒ‰‚ ‚é
+    //  ã‚«ãƒ¡ãƒ©ã‚ã‚‹æ™‚
     if (mainCamera != nullptr)
     {
         const auto& view = mainCamera->GetView();
         const auto& proj = mainCamera->GetProjection();
 
-        //  •ÏŠ·
+        //  å¤‰æ›
         mEfkRenderer->SetCameraMatrix(ToEfkMatrix(view));
         mEfkRenderer->SetProjectionMatrix(ToEfkMatrix(proj));
 
     }
-    //  ƒJƒƒ‰‚È‚¢‚Æ‚«
+    //  ã‚«ãƒ¡ãƒ©ãªã„ã¨ã
     else
     {
-        // ƒJƒƒ‰‚ª‚È‚¢ê‡F2D—pƒvƒƒWƒFƒNƒVƒ‡ƒ“‚ğİ’è
+        // ã‚«ãƒ¡ãƒ©ãŒãªã„å ´åˆï¼š2Dç”¨ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
         Effekseer::Matrix44 viewMat;
         Effekseer::Matrix44 projMat;
         viewMat.Indentity();
 
-        // ‰æ–ÊƒTƒCƒY‚ğæ“¾
+        // ç”»é¢ã‚µã‚¤ã‚ºã‚’å–å¾—
         float screenW = static_cast<float>(System::Window::GetInstance()->GetWidth());
         float screenH = static_cast<float>(System::Window::GetInstance()->GetHeight());
 
-        // •½s“Š‰es—ñ‚ğì¬i¶ã(0,0), ‰E‰º(W, H)j
+        // å¹³è¡ŒæŠ•å½±è¡Œåˆ—ã‚’ä½œæˆï¼ˆå·¦ä¸Š(0,0), å³ä¸‹(W, H)ï¼‰
         projMat.OrthographicLH(screenW, screenH, 0.0f, 100.0f);
 
         mEfkRenderer->SetCameraMatrix(viewMat);
@@ -162,7 +162,7 @@ Effekseer::Matrix44 Engine::Graphics::EffectManager::ToEfkMatrix(const Math::Mat
 {
     Effekseer::Matrix44 result;
 
-    // Mat[4][4] ”z—ñ‚É’¼ÚƒAƒNƒZƒX‚Å‚«‚éê‡‚Í‚±‚ê‚ªÅ‘¬‚Å‚·
+    // Mat[4][4] é…åˆ—ã«ç›´æ¥ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹å ´åˆã¯ã“ã‚ŒãŒæœ€é€Ÿã§ã™
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             result.Values[i][j] = CustomMat.Mat[i][j];
@@ -173,7 +173,7 @@ Effekseer::Matrix44 Engine::Graphics::EffectManager::ToEfkMatrix(const Math::Mat
 }
 
 /// <summary>
-/// ƒ}ƒl[ƒWƒƒ[‚Ìæ“¾
+/// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 Effekseer::ManagerRef Engine::Graphics::EffectManager::GetManager()

@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
 	/// <summary>
-	/// Œo‰ßŠÔŒv‘ª—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// çµŒéæ™‚é–“è¨ˆæ¸¬ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct TimerComponent
 	{
-		//	Œo‰ßŠÔ
+		//	çµŒéæ™‚é–“
 		double Timer = 0;
 	};
 }

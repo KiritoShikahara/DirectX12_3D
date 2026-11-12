@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CreateObjects.hpp"
 
 #include"System/Entity/Manager/EntityManager.hpp"
@@ -46,13 +46,13 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayer()
 
 	const float Scale = 0.05f;
 
-	//	ƒIƒuƒWƒFƒNƒg
+	//	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	auto player = manager->CreateEntity();
 
 	auto data = System::CSV::Get<PlayerData>().Find(1);
 
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(player);
 	transform.Position = { 0.0f,0.0f,0.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
@@ -68,11 +68,11 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayer()
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(player, res);
 	fbx.CurrAnimation = "Idle";
 
-	//	“–‚½‚è”»’è
+	//	å½“ãŸã‚Šåˆ¤å®š
 	auto col = ColliderComponent::Create<AABBCollider>();
 	auto collider = col.GetPtr<AABBCollider>();
 	collider->SetVolume({ 2.0f,8.0f,2.0f });
@@ -80,16 +80,16 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayer()
 	col.BoneName = "Head";
 	registry.emplace<ColliderComponent>(player, std::move(col));
 
-	//	ˆÚ“®—Êi•¨—j
+	//	ç§»å‹•é‡ï¼ˆç‰©ç†ï¼‰
 	auto& rigidbody = registry.emplace<Rigidbody3D>(player);
 	rigidbody.Flags |= RigidbodyFlags::UseCameraBasis;
 
-	//	ƒJƒƒ‰’Ç]
+	//	ã‚«ãƒ¡ãƒ©è¿½å¾“
 	auto& camera = registry.emplace<System::CameraControlComponent>(player);
 	camera.TargetEntity = player;
 	camera.offset = { 0,8,0 };
 
-	//	ƒXƒe[ƒ^ƒX
+	//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	auto& status = registry.emplace<System::StatusComponet>(player);
 	status.MaxHp.Base = data ->MaxHP;
 	status.Hp = data->MaxHP;
@@ -97,33 +97,33 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayer()
 	auto baseRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/BarBase.png");
 	auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
 
-	//	‘Ì—Íƒo[
+	//	ä½“åŠ›ãƒãƒ¼
 	auto& hpBar = registry.emplace<System::HpRenderComponent>
 		(player, baseRes, barRes, Math::Vector2(0.0,0.0), Graphics::Color::Lime());
 	hpBar.SetPosition({730,978});
 	hpBar.SetSize({ 480,12 });
 
-	//	“ü—Í
+	//	å…¥åŠ›
 	registry.emplace<System::InputRequestComponent>(player);
-	//	ó‘Ô
+	//	çŠ¶æ…‹
 	auto& state = registry.emplace<System::PlayerStateComponent>(player);
 	state.Dodge.DodgeCountMax = data->DodgeMax;
 	state.Dodge.CoolDowmMax = data->DodgeCT;
 	state.Dodge.MoveSpeed = data->DodgeSpeed;
-	//	ˆÚ“®
+	//	ç§»å‹•
 	auto& move = registry.emplace<System::MoveComponent>(player);
 	move.MoveSpeed = data->MoveSpeed;
 	move.TurnSpeed = data->TurnSpeed;
 
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreatePlayerWeapon(player,"RightHand", data->Attack);
 	state.Weapon = sword;
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<PlayerTag>(player);
 
-	//	ƒXƒLƒ‹•Û
+	//	ã‚¹ã‚­ãƒ«ä¿æŒ
 	auto& skillHolder = registry.emplace<SkillSlotComponent>(player);
 	skillHolder.SkillSlots[0] = CreateSkill1();
 	skillHolder.SkillSlots[1] = CreateSkill2();
@@ -149,17 +149,17 @@ void Engine::System::ObjectsFactory::CreateEnemy()
 
 	auto enemy = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	ˆÚ“®—Êi•¨—j
+	//	ç§»å‹•é‡ï¼ˆç‰©ç†ï¼‰
 	auto& rigidbody = registry.emplace<Rigidbody3D>(enemy);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 	res->LoadAnimation("Jog", "Assets/Fbx/Ganfaul/Animation/Jog.fbx.anm");
@@ -169,21 +169,21 @@ void Engine::System::ObjectsFactory::CreateEnemy()
 	res->LoadAnimation("Attack_2", "Assets/Fbx/Ganfaul/Animation/Attack_C.fbx.anm");
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Red());
 
-	//	ƒXƒe[ƒ^ƒX
+	//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	auto& status = registry.emplace<System::StatusComponet>(enemy);
 	status.MaxHp.Base = 1000;
 	status.Hp = 1000;
 
-	//	‰æ‘œ
+	//	ç”»åƒ
 	auto baseRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/BarBase.png");
 	auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
 
-	//	‘Ì—Íƒo[
+	//	ä½“åŠ›ãƒãƒ¼
 	auto& hpBar = registry.emplace<System::HpRenderComponent>(enemy, baseRes, barRes, Math::Vector2(0.0, 0.0));
 	hpBar.SetPosition({ 100,100 });
 
@@ -193,10 +193,10 @@ void Engine::System::ObjectsFactory::CreateEnemy()
 	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand", 10, Graphics::Color::White());
 	state.Weapon = sword;
 
@@ -210,13 +210,13 @@ void Engine::System::ObjectsFactory::CreateEnemy()
 	vfx.Mesh->SetRotationToGround();
 
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 
 }
 
 /// <summary>
-/// Åã‚ÌÂF‚Ì“G
+/// æœ€å¼±ã®é’è‰²ã®æ•µ
 /// </summary>
 void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 {
@@ -227,20 +227,20 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 
 	auto enemy = manager->CreateEntity();
 
-	//	ƒf[ƒ^æ“¾
+	//	ãƒ‡ãƒ¼ã‚¿å–å¾—
 	auto data = System::CSV::Get<EnemyData>().Find(1);
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	ˆÚ“®—Êi•¨—j
+	//	ç§»å‹•é‡ï¼ˆç‰©ç†ï¼‰
 	auto& rigidbody = registry.emplace<Rigidbody3D>(enemy);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 	res->LoadAnimation("Jog", "Assets/Fbx/Ganfaul/Animation/Jog.fbx.anm");
@@ -250,21 +250,21 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 	res->LoadAnimation("Attack_2", "Assets/Fbx/Ganfaul/Animation/Attack_C.fbx.anm");
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Cyan());
 
-	//	ƒXƒe[ƒ^ƒX
+	//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	auto& status = registry.emplace<System::StatusComponet>(enemy);
 	status.MaxHp.Base = data->MaxHP;
 	status.Hp = data->MaxHP;
 
-	//	‰æ‘œ
+	//	ç”»åƒ
 	auto baseRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/BarBase.png");
 	auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
 
-	//	‘Ì—Íƒo[
+	//	ä½“åŠ›ãƒãƒ¼
 	auto& hpBar = registry.emplace<System::HpRenderComponent>
 		(enemy, baseRes, barRes, Math::Vector2(0.0, 0.0), Graphics::Color::CoralRed());
 	hpBar.SetPosition({ 622,126 });
@@ -278,12 +278,12 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 	col.BoneName = "Head";
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
 	//	AI
 	auto& ai = registry.emplace<EnemyAIComponent>(enemy);
-	//	ƒpƒ‰ƒ[ƒ^[
+	//	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	auto& param = registry.emplace<EnemyParameters>(enemy);
 	param.Rank = EnemyRank::Basic;
 	param.MoveSpeed = data->MoveSpeed;
@@ -295,7 +295,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 	param.AttackComboMax = data->AttackComboMax;
 	param.CanCancelEvade = (bool)data->CanCancelEvade;
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand", data->Attack, Graphics::Color::Cyan());
 	param.Weapon = sword;
 
@@ -308,7 +308,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 	vfx.Mesh->SetColor({ 0,0,0,0.5 });
 	vfx.Mesh->SetRotationToGround();
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 	registry.emplace<BasicTag>(enemy);
 
@@ -316,7 +316,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Basic()
 }
 
 /// <summary>
-/// ‚¿‚å‚Á‚Æ‹­‚¢‰©F‚Ì“G
+/// ã¡ã‚‡ã£ã¨å¼·ã„é»„è‰²ã®æ•µ
 /// </summary>
 void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 {
@@ -329,17 +329,17 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 
 	auto data = System::CSV::Get<EnemyData>().Find(2);
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	ˆÚ“®—Êi•¨—j
+	//	ç§»å‹•é‡ï¼ˆç‰©ç†ï¼‰
 	auto& rigidbody = registry.emplace<Rigidbody3D>(enemy);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 	res->LoadAnimation("Jog", "Assets/Fbx/Ganfaul/Animation/Jog.fbx.anm");
@@ -349,21 +349,21 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 	res->LoadAnimation("Attack_2", "Assets/Fbx/Ganfaul/Animation/Attack_C.fbx.anm");
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Yellow());
 
-	//	ƒXƒe[ƒ^ƒX
+	//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	auto& status = registry.emplace<System::StatusComponet>(enemy);
 	status.MaxHp.Base = data->MaxHP;
 	status.Hp = data->MaxHP;
 
-	//	‰æ‘œ
+	//	ç”»åƒ
 	auto baseRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/BarBase.png");
 	auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
 
-	//	‘Ì—Íƒo[
+	//	ä½“åŠ›ãƒãƒ¼
 	auto& hpBar = registry.emplace<System::HpRenderComponent>
 		(enemy, baseRes, barRes, Math::Vector2(0.0, 0.0), Graphics::Color::CoralRed());
 	hpBar.SetPosition({ 622,126 });
@@ -377,12 +377,12 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 	col.BoneName = "Head";
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
 	//	AI
 	auto& ai = registry.emplace<EnemyAIComponent>(enemy);
-	//	ƒpƒ‰ƒ[ƒ^[
+	//	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	auto& param = registry.emplace<EnemyParameters>(enemy);
 	param.Rank = EnemyRank::Advanced;
 	param.MoveSpeed = data->MoveSpeed;
@@ -395,7 +395,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 	param.CanCancelEvade = (bool)data->CanCancelEvade;
 
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand", data->Attack, Graphics::Color::Yellow());
 	param.Weapon = sword;
 
@@ -408,7 +408,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 	vfx.Mesh->SetColor({ 0,0,0,0.5 });
 	vfx.Mesh->SetRotationToGround();
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 	registry.emplace<AdvancedTag>(enemy);
 
@@ -417,7 +417,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Advanced()
 }
 
 /// <summary>
-/// Å‹­‚Ìƒ{ƒXiÔj
+/// æœ€å¼·ã®ãƒœã‚¹ï¼ˆèµ¤ï¼‰
 /// </summary>
 void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 {
@@ -430,17 +430,17 @@ void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 	auto data = System::CSV::Get<EnemyData>().Find(3);
 
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	ˆÚ“®—Êi•¨—j
+	//	ç§»å‹•é‡ï¼ˆç‰©ç†ï¼‰
 	auto& rigidbody = registry.emplace<Rigidbody3D>(enemy);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 	res->LoadAnimation("Jog", "Assets/Fbx/Ganfaul/Animation/Jog.fbx.anm");
@@ -450,21 +450,21 @@ void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 	res->LoadAnimation("Attack_2", "Assets/Fbx/Ganfaul/Animation/Attack_C.fbx.anm");
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Red());
 
-	//	ƒXƒe[ƒ^ƒX
+	//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	auto& status = registry.emplace<System::StatusComponet>(enemy);
 	status.MaxHp.Base = data->MaxHP;
 	status.Hp = data->MaxHP;
 
-	//	‰æ‘œ
+	//	ç”»åƒ
 	auto baseRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/BarBase.png");
 	auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
 
-	//	‘Ì—Íƒo[
+	//	ä½“åŠ›ãƒãƒ¼
 	auto& hpBar = registry.emplace<System::HpRenderComponent>
 		(enemy, baseRes, barRes, Math::Vector2(0.0, 0.0), Graphics::Color::CoralRed());
 	hpBar.SetPosition({ 622,126 });
@@ -478,12 +478,12 @@ void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 	col.BoneName = "Head";
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
 	//	AI
 	auto& ai = registry.emplace<EnemyAIComponent>(enemy);
-	//	ƒpƒ‰ƒ[ƒ^[
+	//	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	auto& param = registry.emplace<EnemyParameters>(enemy);
 	param.Rank = EnemyRank::Boss;
 	param.MoveSpeed = data->MoveSpeed;
@@ -496,7 +496,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 	param.CanCancelEvade = (bool)data->CanCancelEvade;
 
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand",data->Attack,Graphics::Color::Red());
 	param.Weapon = sword;
 
@@ -509,7 +509,7 @@ void Engine::System::ObjectsFactory::CreateEnemy_Boss()
 	vfx.Mesh->SetColor({ 0,0,0,0.5 });
 	vfx.Mesh->SetRotationToGround();
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 	registry.emplace<BossTag>(enemy);
 
@@ -523,10 +523,10 @@ void Engine::System::ObjectsFactory::CreateField()
 
 	auto field = manager->CreateEntity();
 
-	//	ƒTƒCƒY
+	//	ã‚µã‚¤ã‚º
 	const float volume = 1.8f;
 
-	//	À•W
+	//	åº§æ¨™
 	auto& trans = registry.emplace<Transform3D>(field);
 	trans.Position = { 0.0f,0.0f,0.0f };
 	trans.Scale = { volume,volume,volume };
@@ -552,13 +552,13 @@ void Engine::System::ObjectsFactory::CreateTest()
 
 	auto test = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(test);
 	transform.Position = { 0.0f,0.0f,-20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 	res->LoadAnimation("Jog", "Assets/Fbx/Ganfaul/Animation/Jog.fbx.anm");
@@ -568,7 +568,7 @@ void Engine::System::ObjectsFactory::CreateTest()
 	res->LoadAnimation("Attack_2", "Assets/Fbx/Ganfaul/Animation/Attack_C.fbx.anm");
 	res->LoadAnimation("Attack_3", "Assets/Fbx/Ganfaul/Animation/Attack_D.fbx.anm");
 
-	//	fbx‚ÌƒŠƒ\[ƒX
+	//	fbxã®ãƒªã‚½ãƒ¼ã‚¹
 	//auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Mannequin/SKM_Manny_Simple.FBX.bin");
 	//res->LoadAnimation("Idle", "Assets/Mannequin/Animation/MM_Idle.FBX.anm");
 	//res->LoadAnimation("Run", "Assets/Mannequin/Animation/MM_Run_Fwd.FBX.anm");
@@ -577,7 +577,7 @@ void Engine::System::ObjectsFactory::CreateTest()
 
 
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(test, res);
 	fbx.CurrAnimation = "Attack_3";
 	//fbx.Mesh->SetColor(Graphics::Color::Red());
@@ -588,7 +588,7 @@ void Engine::System::ObjectsFactory::CreateTest()
 	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
 	registry.emplace<ColliderComponent>(test, std::move(col));
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	//registry.emplace<EnemyTag>(test);
 
 }
@@ -601,20 +601,20 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayerWeapon(entt::entity Par
 	const float Scale = 1.0f;
 	auto sword = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(sword);
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	fbx‚ÌƒŠƒ\[ƒX
+	//	fbxã®ãƒªã‚½ãƒ¼ã‚¹
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Sword/Sword.fbx.bin");
 
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(sword, res, false);
 	fbx.CurrAnimation = "";
 
-	//	ƒAƒ^ƒbƒ`
+	//	ã‚¢ã‚¿ãƒƒãƒ
 	auto& socket = registry.emplace<SocketComponent>(sword);
 	socket.Parent = Parent;
 	socket.BoneName = BoneName;
@@ -634,7 +634,7 @@ entt::entity Engine::System::ObjectsFactory::CreatePlayerWeapon(entt::entity Par
 	damage.Offset = { 0,5,0 };
 	damage.Scale = { 2,2,2 };
 
-	//	‘«Œ³‚Ì‰e—p‚ÌVfx‚ÌƒAƒ^ƒbƒ`
+	//	è¶³å…ƒã®å½±ç”¨ã®Vfxã®ã‚¢ã‚¿ãƒƒãƒ
 
 
 	registry.emplace<PlayerWeaponTag>(sword);
@@ -650,20 +650,20 @@ entt::entity Engine::System::ObjectsFactory::CreateEnemyWeapon(entt::entity Pare
 	const float Scale = 1.0f;
 	auto sword = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(sword);
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	fbx‚ÌƒŠƒ\[ƒX
+	//	fbxã®ãƒªã‚½ãƒ¼ã‚¹
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Sword/Sword.fbx.bin");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(sword, res, false);
 	fbx.CurrAnimation = "";
 	fbx.Mesh->SetColor(Color);
 
-	//	ƒAƒ^ƒbƒ`
+	//	ã‚¢ã‚¿ãƒƒãƒ
 	auto& socket = registry.emplace<SocketComponent>(sword);
 	socket.Parent = Parent;
 	socket.BoneName = BoneName;
@@ -688,7 +688,7 @@ entt::entity Engine::System::ObjectsFactory::CreateEnemyWeapon(entt::entity Pare
 }
 
 /// <summary>
-/// ƒXƒLƒ‹‚P
+/// ã‚¹ã‚­ãƒ«ï¼‘
 /// </summary>
 /// <returns></returns>
 entt::entity Engine::System::ObjectsFactory::CreateSkill1()
@@ -700,10 +700,10 @@ entt::entity Engine::System::ObjectsFactory::CreateSkill1()
 	auto data = System::CSV::Get<SkillData>().Find(1);
 
 
-	//	ƒXƒLƒ‹
+	//	ã‚¹ã‚­ãƒ«
 	auto& skill = registry.emplace<SkillComponent>(entity);
 
-	//	ƒGƒtƒFƒNƒg‚Ì“Ç‚İ‚İ
+	//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Sylph/1.efk"));
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Sylph/2.efk"));
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Sylph/3.efk"));
@@ -735,11 +735,11 @@ entt::entity Engine::System::ObjectsFactory::CreateSkill2()
 	auto entity = manager->CreateEntity();
 	auto data = System::CSV::Get<SkillData>().Find(2);
 
-	//	ƒXƒLƒ‹
+	//	ã‚¹ã‚­ãƒ«
 	auto& skill = registry.emplace<SkillComponent>(entity);
 	skill.MaxCooldown = 4.0f;
 
-	//	ƒGƒtƒFƒNƒg‚Ì“Ç‚İ‚İ
+	//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Fire3.efk"));
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Fire7.efk"));
 	skill.Effects.push_back(Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/Flame.efk"));

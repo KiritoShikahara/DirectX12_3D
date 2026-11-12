@@ -1,9 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EventManager.hpp"
 
 /// <summary>
-/// ’x‰„Œ^ƒCƒxƒ“ƒg‚Ìˆ—
-/// ƒtƒŒ[ƒ€––‚Åˆ—‚ğ‚µ‚Ü‚·B
+/// é…å»¶å‹ã‚¤ãƒ™ãƒ³ãƒˆã®å‡¦ç†
+/// ãƒ•ãƒ¬ãƒ¼ãƒ æœ«ã§å‡¦ç†ã‚’ã—ã¾ã™ã€‚
 /// </summary>
 void Engine::System::EventManager::ProcessEvents()
 {
@@ -12,7 +12,7 @@ void Engine::System::EventManager::ProcessEvents()
 		return;
 	}
 
-	// ˆ—’†‚ÉV‚µ‚¢ƒCƒxƒ“ƒg‚ª’Ç‰Á‚³‚ê‚Ä‚à‚¢‚¢‚æ‚¤‚Éˆêƒoƒbƒtƒ@‚ÉˆÚ“®
+	// å‡¦ç†ä¸­ã«æ–°ã—ã„ã‚¤ãƒ™ãƒ³ãƒˆãŒè¿½åŠ ã•ã‚Œã¦ã‚‚ã„ã„ã‚ˆã†ã«ä¸€æ™‚ãƒãƒƒãƒ•ã‚¡ã«ç§»å‹•
 	std::vector<std::function<void()>> processingQueue;
 	processingQueue.swap(mEventQueue);
 	for (auto& eventTask : processingQueue) {

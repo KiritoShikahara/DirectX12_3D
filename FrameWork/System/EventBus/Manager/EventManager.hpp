@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"System/EventBus/Connection/EventConnection.hpp"
 
@@ -12,7 +12,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒCƒxƒ“ƒg‚Ì“o˜^A‘¦”­sA’x‰„”­s
+	/// ã‚¤ãƒ™ãƒ³ãƒˆã®ç™»éŒ²ã€å³æ™‚ç™ºè¡Œã€é…å»¶ç™ºè¡Œ
 	/// </summary>
 	class EventManager : public Singleton<EventManager>
 	{
@@ -27,7 +27,7 @@ namespace Engine::System
 		};
 
 		/// <summary>
-		/// ƒCƒxƒ“ƒg‚Ìw“Ç‰ğœ
+		/// ã‚¤ãƒ™ãƒ³ãƒˆã®è³¼èª­è§£é™¤
 		/// </summary>
 		/// <param name="TypeIdx"></param>
 		/// <param name="ID"></param>
@@ -35,22 +35,22 @@ namespace Engine::System
 
 	public:
 		/// <summary>
-		/// ƒCƒxƒ“ƒg‚Ìw“Ç
+		/// ã‚¤ãƒ™ãƒ³ãƒˆã®è³¼èª­
 		/// </summary>
-		/// <typeparam name="E">ƒCƒxƒ“ƒg\‘¢‘Ì</typeparam>
+		/// <typeparam name="E">ã‚¤ãƒ™ãƒ³ãƒˆæ§‹é€ ä½“</typeparam>
 		/// <param name="Callback"></param>
 		/// <returns></returns>
 		template<typename E>
 		[[nodiscard]] EventConnection Subscribe(std::function<void(const E&)> Callback);
 
 		/// <summary>
-		/// ƒCƒxƒ“ƒg‚Ì‘¦”­s
+		/// ã‚¤ãƒ™ãƒ³ãƒˆã®å³æ™‚ç™ºè¡Œ
 		/// </summary>
 		template<typename E>
 		void TriggerEvent(const E& Event);
 
 		/// <summary>
-		/// ’x‰„”­sƒCƒxƒ“ƒg‚Ì’Ç‰Á
+		/// é…å»¶ç™ºè¡Œã‚¤ãƒ™ãƒ³ãƒˆã®è¿½åŠ 
 		/// </summary>
 		/// <typeparam name="E"></typeparam>
 		/// <param name="Event"></param>
@@ -58,31 +58,31 @@ namespace Engine::System
 		void QueueEvent(E Event);
 
 		/// <summary>
-		/// ’x‰„Œ^ƒCƒxƒ“ƒg‚Ìˆ—
-		/// ƒtƒŒ[ƒ€––‚Åˆ—‚ğ‚µ‚Ü‚·B
+		/// é…å»¶å‹ã‚¤ãƒ™ãƒ³ãƒˆã®å‡¦ç†
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ æœ«ã§å‡¦ç†ã‚’ã—ã¾ã™ã€‚
 		/// </summary>
 		void ProcessEvents();
 	private:
 		/// <summary>
-		/// “o˜^‚µ‚Ä‚¢‚éƒCƒxƒ“ƒg
+		/// ç™»éŒ²ã—ã¦ã„ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 		/// </summary>
 		std::unordered_map<std::type_index, std::vector<Listener>> mListeners;
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€––‚Å”­s‚·‚é’x‰„Œ^ƒCƒxƒ“ƒg
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ æœ«ã§ç™ºè¡Œã™ã‚‹é…å»¶å‹ã‚¤ãƒ™ãƒ³ãƒˆ
 		/// </summary>
 		std::vector<std::function<void()>> mEventQueue;
 
 		/// <summary>
-		/// Ÿ‚Ì”­sID
+		/// æ¬¡ã®ç™ºè¡ŒID
 		/// </summary>
 		CallBackID mNextID = 0;
 	};
 
 	/// <summary>
-	/// ƒCƒxƒ“ƒg‚Ìw“Ç
+	/// ã‚¤ãƒ™ãƒ³ãƒˆã®è³¼èª­
 	/// </summary>
-	/// <typeparam name="E">ƒCƒxƒ“ƒg\‘¢‘Ì</typeparam>
+	/// <typeparam name="E">ã‚¤ãƒ™ãƒ³ãƒˆæ§‹é€ ä½“</typeparam>
 	/// <param name="Callback"></param>
 	/// <returns></returns>
 	template<typename E>
@@ -91,7 +91,7 @@ namespace Engine::System
 		CallBackID id = mNextID++;
 		auto TypeIdx = std::type_index(typeid(E));
 
-		//	Œ^‚ğ‰B‚Ø‚¢‚µ‚Ä•Û‘¶
+		//	å‹ã‚’éš ãºã„ã—ã¦ä¿å­˜
 		mListeners[TypeIdx].push_back({ id, [Callback](const std::any& eventData) {
 						Callback(std::any_cast<const E&>(eventData));
 					}});
@@ -101,20 +101,20 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// ƒCƒxƒ“ƒg‚Ì‘¦”­s
+	/// ã‚¤ãƒ™ãƒ³ãƒˆã®å³æ™‚ç™ºè¡Œ
 	/// </summary>
 	template<typename E>
 	inline void EventManager::TriggerEvent(const E& Event)
 	{
-		//	ŒŸõ
+		//	æ¤œç´¢
 		auto it = mListeners.find(typeid(E));
 		if (it == mListeners.end())
 		{
 			return;
 		}
 
-		//	ƒ‹[ƒv’†‚Ìíœ‚ÅƒNƒ‰ƒbƒVƒ…‚·‚é‚Ì‚ğ–h‚®‚½‚ßƒRƒs[ì¬
-		//	ƒRƒs[ƒRƒXƒg‚Í‚Ü‚Á‚½‚­d‚­‚È‚¢
+		//	ãƒ«ãƒ¼ãƒ—ä¸­ã®å‰Šé™¤ã§ã‚¯ãƒ©ãƒƒã‚·ãƒ¥ã™ã‚‹ã®ã‚’é˜²ããŸã‚ã‚³ãƒ”ãƒ¼ä½œæˆ
+		//	ã‚³ãƒ”ãƒ¼ã‚³ã‚¹ãƒˆã¯ã¾ã£ãŸãé‡ããªã„
 		auto targets = it->second;
 		for(auto& lisener : targets)
 		{
@@ -124,14 +124,14 @@ namespace Engine::System
 
 
 	/// <summary>
-	/// ’x‰„”­sƒCƒxƒ“ƒg‚Ì’Ç‰Á
+	/// é…å»¶ç™ºè¡Œã‚¤ãƒ™ãƒ³ãƒˆã®è¿½åŠ 
 	/// </summary>
 	/// <typeparam name="E"></typeparam>
 	/// <param name="Event"></param>
 	template<typename E>
 	inline void EventManager::QueueEvent(E Event)
 	{
-		//	•Û‘¶‚µ‚ÄŒã‚ÅÀs
+		//	ä¿å­˜ã—ã¦å¾Œã§å®Ÿè¡Œ
 		mEventQueue.push_back([this, Event = std::move(Event)]() {
 			this->TriggerEvent(Event);
 		});

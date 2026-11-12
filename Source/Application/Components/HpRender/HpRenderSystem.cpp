@@ -1,21 +1,21 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "HpRenderSystem.hpp"
 
 #include"Application/Components/Status/StatusComponent.hpp"
 
 /// <summary>
-/// ‘Ì—ÍƒRƒ“ƒ|[ƒlƒ“ƒg‚©‚çƒo[‚Ì’·‚³‚ÆF‚ğİ’è‚·‚é
+/// ä½“åŠ›ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‹ã‚‰ãƒãƒ¼ã®é•·ã•ã¨è‰²ã‚’è¨­å®šã™ã‚‹
 /// </summary>
 void Engine::System::HpRenderSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
 {
 	auto view = Reg.view<HpRenderComponent,StatusComponet>();
 	view.each([&](auto entity, HpRenderComponent& render, StatusComponet&status)
 	{
-			//	¡‚Ì‘Ì—Í‚ÌŠ„‡‚Ìæ“¾
+			//	ä»Šã®ä½“åŠ›ã®å‰²åˆã®å–å¾—
 			auto ratio = status.GetHpRatio();
 
 
-			//	‰©F‚ÌÀÛ‚ÌHP‚É‹ß‚Ã‚¯‚é
+			//	é»„è‰²ã®å®Ÿéš›ã®HPã«è¿‘ã¥ã‘ã‚‹
 			if (render.VisualRatio > ratio)
 			{
 				//	
@@ -30,7 +30,7 @@ void Engine::System::HpRenderSystem::PostUpdate(entt::registry& Reg, double Delt
 			render.BarSprite->SetFillRatio(ratio);
 			render.BarSpriteYellow->SetFillRatio(render.VisualRatio);
 
-			//	Š„‡‚É‰‚¶‚ÄF‚ğ•ÏX‚·‚é
+			//	å‰²åˆã«å¿œã˜ã¦è‰²ã‚’å¤‰æ›´ã™ã‚‹
 			if (render.isColorOverridden == true)
 			{
 
@@ -41,8 +41,8 @@ void Engine::System::HpRenderSystem::PostUpdate(entt::registry& Reg, double Delt
 			}
 
 
-			//	* “ª‚Ìã‚É•\¦‚µ‘±‚¯‚½‚¢‚Æ‚«‚Íê—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ
-			//	ì¬‚µ‚Ä‚±‚Ì‰º‚ÉÀ•WXVƒƒWƒbƒN‚ğ’Ç‰ÁB
+			//	* é ­ã®ä¸Šã«è¡¨ç¤ºã—ç¶šã‘ãŸã„ã¨ãã¯å°‚ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’
+			//	ä½œæˆã—ã¦ã“ã®ä¸‹ã«åº§æ¨™æ›´æ–°ãƒ­ã‚¸ãƒƒã‚¯ã‚’è¿½åŠ ã€‚
 
 	});
 
@@ -68,21 +68,21 @@ void Engine::System::HpRenderSystem::Render(entt::registry& Reg)
 }
 
 /// <summary>
-/// ‘Ì—Í‚Ìc—Ê‚ÅF‚ğ•ÏX‚·‚é
+/// ä½“åŠ›ã®æ®‹é‡ã§è‰²ã‚’å¤‰æ›´ã™ã‚‹
 /// </summary>
 void Engine::System::HpRenderSystem::UpdateColor(HpRenderComponent& Component, float Ratio)
 {
-	//	50%‚æ‚èã
+	//	50%ã‚ˆã‚Šä¸Š
 	if (Ratio > 0.5f)
 	{
 		Component.BarSprite->SetColor(Graphics::Color::Green());
 	}
-	//	20%‚æ‚èã50%ˆÈ‰º
+	//	20%ã‚ˆã‚Šä¸Š50%ä»¥ä¸‹
 	else if (Ratio > 0.2f)
 	{
 		Component.BarSprite->SetColor(Graphics::Color::Yellow());
 	}
-	//	20%ˆÈ‰º
+	//	20%ä»¥ä¸‹
 	else
 	{
 		Component.BarSprite->SetColor(Graphics::Color::Red());
@@ -107,21 +107,21 @@ void Engine::System::HpRenderSystem::OnGui(entt::registry& Reg)
 				{
 					ImGui::PushID((int)entity);
 
-					//	À•W
+					//	åº§æ¨™
 					float pos[2] = { render.Position.x, render.Position.y };
 					if (ImGui::DragFloat2("Position", pos, 1.0f))
 					{
 						render.SetPosition({ pos[0], pos[1] });
 					}
 
-					// ƒTƒCƒY
+					// ã‚µã‚¤ã‚º
 					float size[2] = { render.Size.x, render.Size.y };
 					if (ImGui::DragFloat2("Size", size, 1.0f))
 					{
 						render.SetSize({ size[0], size[1] });
 					}
 
-					//	ƒXƒs[ƒh
+					//	ã‚¹ãƒ”ãƒ¼ãƒ‰
 					ImGui::SliderFloat("Shrink Speed", &render.ShrinkSpeed, 0.1f, 10.0f);
 					ImGui::PopID();
 				}

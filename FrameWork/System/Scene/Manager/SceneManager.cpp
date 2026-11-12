@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SceneManager.hpp"
 
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -11,7 +11,7 @@
 #include"Audio/Manager/AudioManager.hpp"
 
 /// <summary>
-///	‰Šú‰»
+///	åˆæœŸåŒ–
 /// </summary>
 /// <returns></returns>
 bool Engine::System::SceneManager::Initialize()
@@ -24,7 +24,7 @@ bool Engine::System::SceneManager::Initialize()
 }
 
 /// <summary>
-/// ‰Â•ÏXV
+/// å¯å¤‰æ›´æ–°
 /// </summary>
 /// <param name="DeltaTime"></param>
 void Engine::System::SceneManager::Update(double DeltaTime)
@@ -36,7 +36,7 @@ void Engine::System::SceneManager::Update(double DeltaTime)
 }
 
 /// <summary>
-/// ŒÅ’èXV
+/// å›ºå®šæ›´æ–°
 /// </summary>
 void Engine::System::SceneManager::PostUpdate(double  FixedDeltaTime)
 {
@@ -52,13 +52,13 @@ void Engine::System::SceneManager::PostUpdate(double  FixedDeltaTime)
 
 	FadeComponent& fade = mRegistry.get<FadeComponent>(mFadeEntity);
 	SpriteComponent& sprite = mRegistry.get<SpriteComponent>(mFadeEntity);
-	//	ŠÔ‚ği‚ß‚ÄƒAƒ‹ƒtƒ@‚ğŒvZ‚·‚éLerp
+	//	æ™‚é–“ã‚’é€²ã‚ã¦ã‚¢ãƒ«ãƒ•ã‚¡ã‚’è¨ˆç®—ã™ã‚‹Lerp
 	fade.CurrentTime += (float)FixedDeltaTime;
 
-	// 0.0 ` 1.0 ‚ÉƒNƒ‰ƒ“ƒv
+	// 0.0 ã€œ 1.0 ã«ã‚¯ãƒ©ãƒ³ãƒ—
 	float t = std::clamp(fade.CurrentTime / fade.TotalTime, 0.0f, 1.0f);
 
-	// std::lerp(ŠJn’l, I—¹’l, is“x)
+	// std::lerp(é–‹å§‹å€¤, çµ‚äº†å€¤, é€²è¡Œåº¦)
 	float alpha = std::lerp(fade.StartAlpha, fade.TargetAlpha, t);
 
 	sprite.Sprite.SetColor({ 0.0f, 0.0f, 0.0f, alpha });
@@ -74,7 +74,7 @@ void Engine::System::SceneManager::PostUpdate(double  FixedDeltaTime)
 }
 
 /// <summary>
-/// ImGui‚ÌXV•\¦
+/// ImGuiã®æ›´æ–°è¡¨ç¤º
 /// </summary>
 void Engine::System::SceneManager::ImGuiUpdate()
 {
@@ -87,7 +87,7 @@ void Engine::System::SceneManager::ImGuiUpdate()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::System::SceneManager::Render()
 {
@@ -109,7 +109,7 @@ void Engine::System::SceneManager::FadeRender()
 }
 
 /// <summary>
-/// Ÿ‚ÌScene‚ª‚ ‚éê‡‚ÉØ‚è‘Ö‚¦‚é
+/// æ¬¡ã®SceneãŒã‚ã‚‹å ´åˆã«åˆ‡ã‚Šæ›¿ãˆã‚‹
 /// </summary>
 void Engine::System::SceneManager::PostPresentUpdate()
 {
@@ -123,10 +123,10 @@ void Engine::System::SceneManager::PostPresentUpdate()
 	{
 		auto& fade = mRegistry.get<FadeComponent>(mFadeEntity);
 
-		//	ƒtƒF[ƒhƒAƒEƒg‚Å‚È‚¨‚©‚Â
+		//	ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã§ãªãŠã‹ã¤
 		if (fade.State == eFadeState::FadeOut)
 		{
-			//	ƒtƒF[ƒh‚ªI‚í‚Á‚Ä‚¢‚È‚¢‚Æ‚Ü‚¾Ø‚è‘Ö‚¦‚È‚¢
+			//	ãƒ•ã‚§ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ã¦ã„ãªã„ã¨ã¾ã åˆ‡ã‚Šæ›¿ãˆãªã„
 			float t = fade.CurrentTime / fade.TotalTime;
 			if (t < 1.0f) return;
 
@@ -134,7 +134,7 @@ void Engine::System::SceneManager::PostPresentUpdate()
 			SystemManager::GetInstance()->AllClearSystem();
 			Audio::AudioManager::GetInstance()->AllClearSound();
 
-			//	I‚í‚Á‚Ä‚¢‚½‚çØ‚è‘Ö‚¦‚é
+			//	çµ‚ã‚ã£ã¦ã„ãŸã‚‰åˆ‡ã‚Šæ›¿ãˆã‚‹
 			if (mScene != nullptr)
 			{
 				mScene->Release();
@@ -162,7 +162,7 @@ void Engine::System::SceneManager::PostPresentUpdate()
 		Audio::AudioManager::GetInstance()->AllClearSound();
 
 
-		//	I‚í‚Á‚Ä‚¢‚½‚çØ‚è‘Ö‚¦‚é
+		//	çµ‚ã‚ã£ã¦ã„ãŸã‚‰åˆ‡ã‚Šæ›¿ãˆã‚‹
 		if (mScene != nullptr)
 		{
 			mScene->Release();
@@ -181,7 +181,7 @@ void Engine::System::SceneManager::PostPresentUpdate()
 }
 
 /// <summary>
-/// ƒtƒF[ƒh—p‚ÌƒGƒ“ƒeƒBƒeƒBì¬
+/// ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ä½œæˆ
 /// </summary>
 void Engine::System::SceneManager::CreateFadeEntity()
 {
@@ -197,7 +197,7 @@ void Engine::System::SceneManager::CreateFadeEntity()
 }
 
 /// <summary>
-/// ¡‚ÌScene‚ğ“Ç‚İ‚İ’¼‚·
+/// ä»Šã®Sceneã‚’èª­ã¿è¾¼ã¿ç›´ã™
 /// </summary>
 void Engine::System::SceneManager::ReloadCurrentScene()
 {

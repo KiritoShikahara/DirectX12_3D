@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Graphics/Texture/Texture.hpp"
 
@@ -14,14 +14,14 @@ namespace Engine::Graphics
 		GENERATE_SINGLETON_BODY(TextureManager);
 	public:
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
 		/// </summary>
 		/// <param name="FilePath"></param>
 		/// <returns></returns>
 		Texture* Load(const std::filesystem::path& FilePath);
 	private:
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		/// </summary>
 		std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 	};

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/Entity/System/Base/ISystem.hpp"
 
@@ -8,13 +8,13 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// ‘JˆÚ”»’è
+		/// é·ç§»åˆ¤å®š
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		virtual void MainUpdate(entt::registry& Reg, double DeltaTime) override;
 		/// <summary>
-		/// ”»’è—p‚Ì‰~‚Ì•`‰æ
+		/// åˆ¤å®šç”¨ã®å††ã®æç”»
 		/// </summary>
 		/// <param name="Reg"></param>
 		virtual void Render(entt::registry& Reg) override;

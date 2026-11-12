@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 
 namespace Engine::System
@@ -7,13 +7,13 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// ŠÔŒo‰ß
+		/// æ™‚é–“çµŒé
 		/// </summary>
 		/// <param name="DeltaTime"></param>
 		static void PreUpdate(entt::registry& Reg,double DeltaTime);
 
 		/// <summary>
-		/// ƒ^ƒCƒ}[‚Æ‚È‚éƒGƒ“ƒeƒBƒeƒB‚Ìì¬
+		/// ã‚¿ã‚¤ãƒãƒ¼ã¨ãªã‚‹ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ä½œæˆ
 		/// </summary>
 		/// <returns></returns>
 		static entt::entity CreateTimerObject();

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 
 namespace Engine::System
@@ -11,24 +11,24 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// AABB“¯m‚Ì“–‚½‚è”»’è
+		/// AABBåŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
-		/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-		/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-		/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-		/// <returns>true:ÚG</returns>
+		/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+		/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+		/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+		/// <returns>true:æ¥è§¦</returns>
 		static bool ComputeAABBCollision(
 			const AABBCollider* Collider1,
 			const AABBCollider* Collider2,
 			Math::Vector3& OutVector);
 		
 		/// <summary>
-		/// ‰~“¯m‚Ì“–‚½‚è”»’è
+		/// å††åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
-		/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-		/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-		/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-		/// <returns>true:ÚG</returns>
+		/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+		/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+		/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+		/// <returns>true:æ¥è§¦</returns>
 		static bool ComputeSphepeCollision(
 			const SphereCollider* Collider1,
 			const SphereCollider* Collider2,
@@ -36,44 +36,44 @@ namespace Engine::System
 
 
 		/// <summary>
-		/// AABB“¯m‚Ì“–‚½‚è”»’è
+		/// AABBåŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
-		/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-		/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-		/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-		/// <returns>true:ÚG</returns>
+		/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+		/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+		/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+		/// <returns>true:æ¥è§¦</returns>
 		static bool ComputeCollision(
 			const AABBCollider* Collider1,
 			const AABBCollider* Collider2,
 			Math::Vector3& OutVector);
 
 		/// <summary>
-		/// ‰~“¯m‚Ì“–‚½‚è”»’è
+		/// å††åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
-		/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-		/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-		/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-		/// <returns>true:ÚG</returns>
+		/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+		/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+		/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+		/// <returns>true:æ¥è§¦</returns>
 		static bool ComputeCollision(
 			const SphereCollider* Collider1,
 			const SphereCollider* Collider2,
 			Math::Vector3& OutVector);
 
-		//	OBB‚ÆOBB‚Ì“–‚½‚è”»’è
+		//	OBBã¨OBBã®å½“ãŸã‚Šåˆ¤å®š
 
 		/// <summary>
-		/// AABB‚ÆOBB‚Ì“–‚½‚è”»’è
+		/// AABBã¨OBBã®å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
 		/// <param name="aabb"></param>
 		/// <param name="obb"></param>
-		/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌƒxƒNƒgƒ‹</param>
-		/// <returns>ture:ÚG</returns>
+		/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
+		/// <returns>ture:æ¥è§¦</returns>
 		static bool ComputeCollision(
 			const AABBCollider* aabb,
 			const OBBCollider* obb,
 			Math::Vector3& OutVector);
 
-		//	AABB‚Æ‰~‚Ì“–‚½‚è”»’è
+		//	AABBã¨å††ã®å½“ãŸã‚Šåˆ¤å®š
 
 	private:
 

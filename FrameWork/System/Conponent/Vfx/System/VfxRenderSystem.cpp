@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "VfxRenderSystem.hpp"
 
 #include "../VfxMeshComponent.hpp"
 #include "System/Conponent/Transform/TransformConponent.hpp"
 
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘ÔXV
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹æ›´æ–°
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -14,20 +14,20 @@ void Engine::System::VfxRenderSystem::Update(entt::registry& Reg, float DeltaTim
 	auto view = Reg.view<VfxMeshComponent, Transform3D>();
 	view.each([&](VfxMeshComponent& fbx, Transform3D& trans)
 		{
-			//	À•W‚ğƒgƒ‰ƒ“ƒX{ƒIƒtƒZƒbƒg•ª‚¸‚ç‚·
+			//	åº§æ¨™ã‚’ãƒˆãƒ©ãƒ³ã‚¹ï¼‹ã‚ªãƒ•ã‚»ãƒƒãƒˆåˆ†ãšã‚‰ã™
 			fbx.Mesh->SetPosition(trans.Position + fbx.Offset);
 
-			//	ƒJƒƒ‰‚É‡‚í‚¹‚é
+			//	ã‚«ãƒ¡ãƒ©ã«åˆã‚ã›ã‚‹
 			fbx.Mesh->Update(DeltaTime);
 		});
 
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
-/// <param name="Reg">enttƒŒƒWƒXƒgƒŠ</param>
-/// <param name="Alpha">•âŠÔŒW”</param>
+/// <param name="Reg">enttãƒ¬ã‚¸ã‚¹ãƒˆãƒª</param>
+/// <param name="Alpha">è£œé–“ä¿‚æ•°</param>
 void Engine::System::VfxRenderSystem::Render(entt::registry& Reg)
 {
 	auto view = Reg.view<VfxMeshComponent>();

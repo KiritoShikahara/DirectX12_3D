@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"PadButton.hpp"
 #include"Math/Vector2/Vector2.h"
 
@@ -8,22 +8,22 @@
 
 namespace Engine::Input
 {
-	//	•Ê–¼
+	//	åˆ¥å
 	using Gamepad = winrt::Windows::Gaming::Input::Gamepad;
 
 	class Pad
 	{
 		/// <summary>
-		/// ƒfƒbƒhƒ][ƒ““K‰
+		/// ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³é©å¿œ
 		/// </summary>
-		/// <param name="Value">“K‰‘O‚Ì’l</param>
-		/// <param name="DeadZone">ƒfƒbƒhƒ][ƒ“’l</param>
-		/// <returns>ƒfƒbƒhƒ][ƒ“’lˆÈ‰º‚È‚ç0.0</returns>
+		/// <param name="Value">é©å¿œå‰ã®å€¤</param>
+		/// <param name="DeadZone">ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤</param>
+		/// <returns>ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ä»¥ä¸‹ãªã‚‰0.0</returns>
 		float ApplyDeadZone(float Value, float DeadZone);
 
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		/// <param name="Gamepad"></param>
 		Pad(const Gamepad& Gamepad,const float RightStickDeadZone = 0.1f, const float LeftStickDeadZone = 0.2f, const float TriggerDeadZone = 0.1f);
@@ -31,82 +31,82 @@ namespace Engine::Input
 		virtual ~Pad() = default;
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚½uŠÔ
+		/// æŠ¼ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="button">ƒ{ƒ^ƒ“í•Ê</param>
-		/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+		/// <param name="button">ãƒœã‚¿ãƒ³ç¨®åˆ¥</param>
+		/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 		bool IsPressed(const ePadButton Button) const;
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+		/// æŠ¼ã—ã¦ã„ã‚‹é–“
 		/// </summary>
 		/// <param name="button"></param>
-		/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+		/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 		bool IsHeld(const ePadButton Button) const;
 
 		/// <summary>
-		/// —£‚µ‚½uŠÔ
+		/// é›¢ã—ãŸç¬é–“
 		/// </summary>
 		/// <param name="button"></param>
-		/// <returns>true:—£‚µ‚½uŠÔ</returns>
+		/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 		bool IsReleased(const ePadButton Button) const;
 
 		/// <summary>
-		/// 3D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+		/// 3Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetLeftStick3D()const;
 
 		/// <summary>
-		/// 3D—p‚Ì‰EƒXƒeƒBƒbƒNæ“¾
+		/// 3Dç”¨ã®å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetRightStick3D()const;
 
 		/// <summary>
-		/// 2D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+		/// 2Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetLeftStick2D()const;
 
 		/// <summary>
-		/// ‰EƒXƒeƒBƒbƒNæ“¾
+		/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetRightStick2D()const;
 
 
 		/// <summary>
-		/// ó‘ÔXV
+		/// çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+		/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		/// <param name="RightStickDeadZone"></param>
 		void SetRightStickDeadZone(const float RightStickDeadZone);
 
 		/// <summary>
-		/// ‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+		/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		/// <param name="LeftStickDeadZone"></param>
 		void SetLeftStickDeadZone(const float LeftStickDeadZone);
 
 		/// <summary>
-		/// ƒgƒŠƒK[‚Ìƒfƒbƒhƒ][ƒ“’l‚ÌƒZƒbƒg
+		/// ãƒˆãƒªã‚¬ãƒ¼ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³å€¤ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		/// <param name="TriggerDeadZone"></param>
 		void SetTriggerDeadZone(const float TriggerDeadZone);
 
 		/// <summary>
-		/// Pad‚Ìæ“¾
+		/// Padã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Gamepad GetGamepad();
 
 		/// <summary>
-		/// ImGui‚ÌXV
+		/// ImGuiã®æ›´æ–°
 		/// </summary>
 		void ImGuiUpdate();
 
@@ -125,57 +125,57 @@ namespace Engine::Input
 		Gamepad mGamepad;
 
 		/// <summary>
-		/// ¶ƒXƒeƒBƒbƒN-1.0~1.0
+		/// å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯-1.0~1.0
 		/// </summary>
 		Math::Vector2 mLeftStick;
 
 		/// <summary>
-		/// ‰EƒXƒeƒBƒbƒN-1.0~1.0
+		/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯-1.0~1.0
 		/// </summary>
 		Math::Vector2 mRightStick;
 
 		/// <summary>
-		///	‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“
+		///	å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³
 		/// </summary>
 		float mLeftStickDeadZone;
 
 		/// <summary>
-		///	‰EƒXƒeƒBƒbƒN‚Ìƒfƒbƒhƒ][ƒ“
+		///	å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³
 		/// </summary>
 		float mRightStickDeadZone;
 
 		/// <summary>
-		/// ¶ƒgƒŠƒK[ 0.0~1.0
+		/// å·¦ãƒˆãƒªã‚¬ãƒ¼ 0.0~1.0
 		/// </summary>
 		float mLeftTrigger;
 
 		/// <summary>
-		/// ‰EƒgƒŠƒK[ 0.0~1.0
+		/// å³ãƒˆãƒªã‚¬ãƒ¼ 0.0~1.0
 		/// </summary>
 		float mRightTrigger;
 
 		/// <summary>
-		/// ¡‚ÌƒgƒŠƒK[“ü—Íó‘Ô
+		/// ä»Šã®ãƒˆãƒªã‚¬ãƒ¼å…¥åŠ›çŠ¶æ…‹
 		/// </summary>
 		std::array<bool, static_cast<int>(Trigger::Count)> mCurrTrigger;
 
 		/// <summary>
-		/// ‘O‚ÌƒgƒŠƒK[‚Ì“ü—Íó‘Ô
+		/// å‰ã®ãƒˆãƒªã‚¬ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹
 		/// </summary>
 		std::array<bool, static_cast<int>(Trigger::Count)> mPrevTrigger;
 
 		/// <summary>
-		/// ƒgƒŠƒK[‚Ìƒfƒbƒhƒ][ƒ“
+		/// ãƒˆãƒªã‚¬ãƒ¼ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³
 		/// </summary>
 		float mTriggerDeadZone;
 
 		/// <summary>
-		/// ¡‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
+		/// ä»Šã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
 		/// </summary>
 		uint32_t mCurrButtons;
 
 		/// <summary>
-		/// ‘O‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
+		/// å‰ã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
 		/// </summary>
 		uint32_t mPrevButtons;
 	};

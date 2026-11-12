@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SkyBox.hpp"
 
 #include "System/Camera/Camera.hpp"
@@ -15,10 +15,10 @@ Engine::Graphics::SkyBox::~SkyBox()
 }
 
 /// <summary>
-/// ì¬
+/// ä½œæˆ
 /// </summary>
-/// <param name="Resource">ƒŠƒ\[ƒXŠÇ—‚©‚çæ“¾‚µ‚½ƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="Resource">ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã‹ã‚‰å–å¾—ã—ãŸãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::SkyBox::Create(SkyBoxResource* Resource)
 {
 	if (Resource == nullptr) return false;
@@ -30,7 +30,7 @@ bool Engine::Graphics::SkyBox::Create(SkyBoxResource* Resource)
 }
 
 /// <summary>
-/// ‰ğ•ú
+/// è§£æ”¾
 /// </summary>
 void Engine::Graphics::SkyBox::Release()
 {
@@ -39,32 +39,32 @@ void Engine::Graphics::SkyBox::Release()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::Graphics::SkyBox::Render()
 {
 	if (mResource == nullptr) return;
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“İ’è
+	//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š
 	auto* renderer = Renderer::GetInstance();
 	renderer->SetSkyBoxPipeline();
 
-	// •½sˆÚ“®¬•ª‚ğÁ‹‚µ‚½Views—ñ‚Ìì¬
+	// å¹³è¡Œç§»å‹•æˆåˆ†ã‚’æ¶ˆå»ã—ãŸViewè¡Œåˆ—ã®ä½œæˆ
 	Math::Matrix view = System::Camera::Main->GetView();
-	//	s—ñ‚ÌˆÚ“®¬•ª‚Ìíœ
+	//	è¡Œåˆ—ã®ç§»å‹•æˆåˆ†ã®å‰Šé™¤
 	view._41 = 0.0f;
 	view._42 = 0.0f;
 	view._43 = 0.0f;
 
-	//	s—ñXV
+	//	è¡Œåˆ—æ›´æ–°
 	SkyBoxConstantBufferInfo cb;
 	cb.World = Math::Matrix::Transpose(Math::Matrix::identity);
-	cb.View = Math::Matrix::Transpose(view); // ˆÚ“®‚ğÁ‚µ‚½s—ñ‚ğ“]’u‚µ‚Ä‘—‚é
+	cb.View = Math::Matrix::Transpose(view); // ç§»å‹•ã‚’æ¶ˆã—ãŸè¡Œåˆ—ã‚’è»¢ç½®ã—ã¦é€ã‚‹
 	cb.Projection = Math::Matrix::Transpose(System::Camera::Main->GetProjection());
 
 	mTransformBuffer->Update(&cb);
 
-	//	ƒeƒNƒXƒ`ƒƒİ’è
+	//	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	mTransformBuffer->Set(0);
 	Texture* tex = mResource->GetTexture();
 	if (tex != nullptr)
@@ -72,6 +72,6 @@ void Engine::Graphics::SkyBox::Render()
 		tex->Set(1);
 	}
 
-	//	•`‰æ
+	//	æç”»
 	renderer->DrawSkyBox(mResource->GetVertexBufferView(), 36);
 }

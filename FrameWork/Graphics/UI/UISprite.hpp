@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"Graphics/Sprite/Sprite.hpp"
 #include"Graphics/Color/Color.hpp"
@@ -6,7 +6,7 @@
 namespace Engine::Graphics
 {
 	/// <summary>
-	///	‰æ‘œ•\¦‚Ì‹@”\‚É‰Á‚¦‚Ä•\¦”ÍˆÍ‚Ì
+	///	ç”»åƒè¡¨ç¤ºã®æ©Ÿèƒ½ã«åŠ ãˆã¦è¡¨ç¤ºç¯„å›²ã®
 	/// </summary>
 	class UISprite : public Sprite
 	{
@@ -18,7 +18,7 @@ namespace Engine::Graphics
 		{ }
 
 		/// <summary>
-		/// •\¦
+		/// è¡¨ç¤º
 		/// </summary>
 		void Render()override;
 
@@ -27,12 +27,12 @@ namespace Engine::Graphics
 		DEFINE_PROPERTY(Color, Color, mColor);
 	private:
 		/// <summary>
-		/// F
+		/// è‰²
 		/// </summary>
 		Color mColor = Color::White();
 
 		/// <summary>
-		/// ¶‚©‚ç•\¦Š„‡i0.0 ` 1.0j
+		/// å·¦ã‹ã‚‰è¡¨ç¤ºå‰²åˆï¼ˆ0.0 ã€œ 1.0ï¼‰
 		/// </summary>
 		float mFillRatio;
 	};

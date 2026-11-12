@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Sprite.hpp"
 
 #include"Graphics/Texture/Texture.hpp"
@@ -20,10 +20,10 @@ Engine::Graphics::Sprite::Sprite()
 }
 
 /// <summary>
-/// ¶¬
+/// ç”Ÿæˆ
 /// </summary>
-/// <param name="Texture">ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="Texture">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::Sprite::Create(Graphics::Texture* Texture)
 {
 	if (Texture == nullptr)
@@ -42,13 +42,13 @@ bool Engine::Graphics::Sprite::Create(Graphics::Texture* Texture)
 }
 
 /// <summary>
-/// ƒeƒNƒXƒ`ƒƒ•`‰æ
+/// ãƒ†ã‚¯ã‚¹ãƒãƒ£æç”»
 /// </summary>
 void Engine::Graphics::Sprite::Render()
 {
 	Renderer* rederer = Renderer::GetInstance();
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+	//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 	rederer->SetSpritePipeline();
 
 	SpriteConstantBuffer cb;
@@ -59,7 +59,7 @@ void Engine::Graphics::Sprite::Render()
 
 	mConstantBuffer->Set(0);
 
-	//	ƒq[ƒv‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+	//	ãƒ’ãƒ¼ãƒ—ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 	mTexture->Set(1);
 
 	Graphics::SpriteVertex Vertices[4] = {};
@@ -70,7 +70,7 @@ void Engine::Graphics::Sprite::Render()
 		1, 3, 2
 	};
 
-	//	•`‰æ
+	//	æç”»
 	Graphics::Renderer::GetInstance()->DrawSprite(
 		Vertices, 4, Indices, 6);
 }
@@ -78,28 +78,28 @@ void Engine::Graphics::Sprite::Render()
 void Engine::Graphics::Sprite::UpdateVertices(Graphics::SpriteVertex* Vertices)
 {
 
-	//// ƒeƒXƒgF‰æ–Ê’†‰›‚É‘å‚«‚­•\¦‚³‚ê‚é‚Í‚¸‚Ì”’l
-	//Vertices[0].Position = { -0.5f,  0.5f, 0.0f }; Vertices[0].UV = { 0,0 }; // ¶ã
-	//Vertices[1].Position = { -0.5f, -0.5f, 0.0f }; Vertices[1].UV = { 0,1 }; // ¶‰º
-	//Vertices[2].Position = { 0.5f,  0.5f, 0.0f }; Vertices[2].UV = { 1,0 }; // ‰Eã
-	//Vertices[3].Position = { 0.5f, -0.5f, 0.0f }; Vertices[3].UV = { 1,1 }; // ‰E‰º
+	//// ãƒ†ã‚¹ãƒˆï¼šç”»é¢ä¸­å¤®ã«å¤§ããè¡¨ç¤ºã•ã‚Œã‚‹ã¯ãšã®æ•°å€¤
+	//Vertices[0].Position = { -0.5f,  0.5f, 0.0f }; Vertices[0].UV = { 0,0 }; // å·¦ä¸Š
+	//Vertices[1].Position = { -0.5f, -0.5f, 0.0f }; Vertices[1].UV = { 0,1 }; // å·¦ä¸‹
+	//Vertices[2].Position = { 0.5f,  0.5f, 0.0f }; Vertices[2].UV = { 1,0 }; // å³ä¸Š
+	//Vertices[3].Position = { 0.5f, -0.5f, 0.0f }; Vertices[3].UV = { 1,1 }; // å³ä¸‹
 
-	//	¶ã
+	//	å·¦ä¸Š
 	Vertices[0].Position = { 0.0f, 0.0f, 0.0f };
 	Vertices[0].UV.x = 0.0f;
 	Vertices[0].UV.y = 0.0f;
 
-	//	¶‰º
+	//	å·¦ä¸‹
 	Vertices[1].Position = { 0.0f, mSize.y, 0.0f };
 	Vertices[1].UV.x = 0.0f;
 	Vertices[1].UV.y = 1.0f;
 
-	//	‰Eã
+	//	å³ä¸Š
 	Vertices[2].Position = { mSize.x, 0.0f, 0.0f };
 	Vertices[2].UV.x = 1.0f;
 	Vertices[2].UV.y = 0.0f;
 
-	//	‰E‰º
+	//	å³ä¸‹
 	Vertices[3].Position = { mSize.x, mSize.y, 0.0f };
 	Vertices[3].UV.x = 1.0f;
 	Vertices[3].UV.y = 1.0f;
@@ -110,20 +110,20 @@ void Engine::Graphics::Sprite::UpdateVertices(Graphics::SpriteVertex* Vertices)
 
 	for (int i = 0; i < 4; i++)
 	{
-		// À•W‚Ì’†S‚Ìw’è(ƒ[ƒJƒ‹À•W)‚ÆŠgk 
+		// åº§æ¨™ã®ä¸­å¿ƒã®æŒ‡å®š(ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™)ã¨æ‹¡ç¸® 
 		Vertices[i].Position.x -= mPivot.x * mSize.x;
 		Vertices[i].Position.y -= mPivot.y * mSize.y;
 		Vertices[i].Position.x *= mScale.x;
 		Vertices[i].Position.y *= mScale.y;
 
-		// À•W‚Ì‰ñ“]	
+		// åº§æ¨™ã®å›è»¢	
 		float x = Vertices[i].Position.x;
 		float y = Vertices[i].Position.y;
 
 		Vertices[i].Position.x = x * cos + y * sin;
 		Vertices[i].Position.y = x * -sin + y * cos;
 
-		//// À•W‚Ì•½sˆÚ“®	
+		//// åº§æ¨™ã®å¹³è¡Œç§»å‹•	
 		//x = Vertices[i].Position.x + mPosition.x;
 		//y = Vertices[i].Position.y + mPosition.y;
 

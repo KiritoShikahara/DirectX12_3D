@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Math/Quaternion/Quaternion.h"
 
@@ -8,58 +8,58 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// “–‚½‚è”»’è—p‚ÌlŠpŒ`•`‰æ‚Ìì¬
+		/// å½“ãŸã‚Šåˆ¤å®šç”¨ã®å››è§’å½¢æç”»ã®ä½œæˆ
 		/// </summary>
 		void DebugRender();
 
 		/// <summary>
-		/// ’†S‚ÌÀ•W‚Ìæ“¾
+		/// ä¸­å¿ƒã®åº§æ¨™ã®å–å¾—
 		/// </summary>
-		/// <returns>’†S‚ÌÀ•W</returns>
+		/// <returns>ä¸­å¿ƒã®åº§æ¨™</returns>
 		const Math::Vector3& GetCenter()const;
 
 		/// <summary>
-		/// ’†SÀ•W‚Ìw’è
+		/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="center">’†SÀ•W</param>
+		/// <param name="center">ä¸­å¿ƒåº§æ¨™</param>
 		void SetCenter(const Math::Vector3& center);
 
 		/// <summary>
-		/// Še²‚Ì‘å‚«‚³‚Ìæ“¾
+		/// å„è»¸ã®å¤§ãã•ã®å–å¾—
 		/// </summary>
-		/// <returns>Še²‚Ì‘å‚«‚³</returns>
+		/// <returns>å„è»¸ã®å¤§ãã•</returns>
 		const Math::Vector3& GetVolume()const;
 
 		/// <summary>
-		/// Še²‚Ì‘å‚«‚³‚Ìw’è
+		/// å„è»¸ã®å¤§ãã•ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="volume">Še²‚Ì‘å‚«‚³</param>
+		/// <param name="volume">å„è»¸ã®å¤§ãã•</param>
 		void SetVolume(const Math::Vector3& volume);
 
 		/// <summary>
-		/// ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚Ìæ“¾
+		/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã®å–å¾—
 		/// </summary>
-		/// <returns>ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]</returns>
+		/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢</returns>
 		const Math::Quaternion& GetRotation()const;
 
 		/// <summary>
-		/// ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚Ìw’è
+		/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="rotation">ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]</param>
+		/// <param name="rotation">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢</param>
 		void SetRotation(const Math::Quaternion& rotation);
 	private:
 		/// <summary>
-		/// ’†SÀ•W
+		/// ä¸­å¿ƒåº§æ¨™
 		/// </summary>
 		Math::Vector3 mCenter = { 0.0f,0.0f,0.0f };
 
 		/// <summary>
-		/// ƒTƒCƒY
+		/// ã‚µã‚¤ã‚º
 		/// </summary>
 		Math::Vector3 mVolume = {1.0f,1.0f,1.0f};
 
 		/// <summary>
-		/// ‰ñ“]
+		/// å›è»¢
 		/// </summary>
 		Math::Quaternion mRotation = Math::Quaternion::Identity;
 	};

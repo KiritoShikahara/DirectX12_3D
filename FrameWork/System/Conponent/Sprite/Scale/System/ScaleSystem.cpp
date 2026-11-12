@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include"ScaleSystem.hpp"
 #include"../ScaleComponent.hpp"
 #include "System/Conponent/Sprite/SpriteComponent.hpp"
@@ -13,38 +13,38 @@ void Engine::System::ScaleSystem::Update(entt::registry& Reg, float DeltaTime)
 
                 if (scale.IsActive == false)
                 {
-                    // ŒvZ‚µ‚½ƒXƒP[ƒ‹‚ğ“K—p
+                    // è¨ˆç®—ã—ãŸã‚¹ã‚±ãƒ¼ãƒ«ã‚’é©ç”¨
                     scale.CurrentScale = nextScale;
                     trans.Scale = { nextScale ,nextScale };
                     return;
                 }
 
-                // ’¼ü•Ï‰»
+                // ç›´ç·šå¤‰åŒ–
                 if (ScaleLinearTag* linear = Reg.try_get<ScaleLinearTag>(entity))
                 {
                     scale.Timer += DeltaTime;
                     float t = std::clamp(scale.Timer / linear->Duration, 0.0f, 1.0f);
                     nextScale = std::lerp(linear->StartScale, linear->EndScale, t);
 
-                    // Š®—¹‚Ìˆ—
+                    // å®Œäº†æ™‚ã®å‡¦ç†
                     if (t >= 1.0f) {
                         if (linear->Loop) {
                             scale.Timer = 0.0f;
                         }
                         else {
-                            // •K—v‚È‚çƒ^ƒOíœ‚âƒGƒ“ƒeƒBƒeƒB”jŠü‚È‚Ç‚ÌƒƒWƒbƒN
+                            // å¿…è¦ãªã‚‰ã‚¿ã‚°å‰Šé™¤ã‚„ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ç ´æ£„ãªã©ã®ãƒ­ã‚¸ãƒƒã‚¯
                         }
                     }
                 }
                 else if (ScalePulseTag* pulse = Reg.try_get<ScalePulseTag>(entity))
                 {
                     scale.Timer += DeltaTime;
-                    // sin”g‚Å 1.0f ‚ğ’†S‚É }Range “®‚©‚·
+                    // sinæ³¢ã§ 1.0f ã‚’ä¸­å¿ƒã« Â±Range å‹•ã‹ã™
                     float wave = std::sin(scale.Timer * (2.0f * 3.14159f / pulse->Duration));
                     nextScale = scale.BaseScale + (wave * pulse->Range);
                 }
 
-                // ŒvZ‚µ‚½ƒXƒP[ƒ‹‚ğ“K—p
+                // è¨ˆç®—ã—ãŸã‚¹ã‚±ãƒ¼ãƒ«ã‚’é©ç”¨
                 scale.CurrentScale = nextScale;
                 trans.Scale = { nextScale ,nextScale };
             });

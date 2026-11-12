@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/entt/entt.hpp>
 #include<utility>
 #include<typeindex>
@@ -9,7 +9,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// “–‚½‚è”»’è‚Ìƒ^ƒO‚²‚Æ‚Ìİ’è
+	/// å½“ãŸã‚Šåˆ¤å®šã®ã‚¿ã‚°ã”ã¨ã®è¨­å®š
 	/// </summary>
 	struct CollisionResolution
 	{
@@ -19,48 +19,48 @@ namespace Engine::System
 		bool HitEventSecond = true;
 	};
 
-	//	“–‚½‚è”»’è—p‚ÌŠÖ”‚Ìƒ|ƒCƒ“ƒ^‚ÌŒ^î•ñ
+	//	å½“ãŸã‚Šåˆ¤å®šç”¨ã®é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿ã®å‹æƒ…å ±
 	using CollisionFunc = bool(*)(const void*, const void*,Math::Vector3&);
 
 	/// <summary>
-	/// Õ“Ë”»’è‚Æ
+	/// è¡çªåˆ¤å®šã¨
 	/// </summary>
 	class ColliderSystem
 	{
 		/// <summary>
-		/// Õ“ËƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌƒAƒ^ƒbƒ`
+		/// è¡çªã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ã‚¢ã‚¿ãƒƒãƒ
 		/// </summary>
 		static void NotifyCollision(entt::registry& Reg, entt::entity EntityA, entt::entity EntityB);
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		static void Initialize();
 
 		/// <summary>
-		/// ’†SÀ•W‚ÌXV
+		/// ä¸­å¿ƒåº§æ¨™ã®æ›´æ–°
 		/// </summary>
 		/// <param name="Registry"></param>
 		static void Update(entt::registry& Registry);
 
 		/// <summary>
-		/// “–‚½‚è”»’è
+		/// å½“ãŸã‚Šåˆ¤å®š
 		/// </summary>
 		static void CheckCollition(entt::registry& Registry);
 
 		/// <summary>
-		/// XV‚ÌÅŒã‚ÉÕ“ËƒCƒxƒ“ƒg‚ğ‘S‚Äíœ‚·‚é
+		/// æ›´æ–°ã®æœ€å¾Œã«è¡çªã‚¤ãƒ™ãƒ³ãƒˆã‚’å…¨ã¦å‰Šé™¤ã™ã‚‹
 		/// </summary>
 		/// <param name="Registry"></param>
 		static void PostUpdate(entt::registry& Registry);
 
 		/// <summary>
-		/// ƒfƒoƒbƒN—p‚Ì“–‚½‚è”»’è‚Ì•\¦
+		/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®å½“ãŸã‚Šåˆ¤å®šã®è¡¨ç¤º
 		/// </summary>
 		static void Debug(entt::registry& Registry);
 
 		/// <summary>
-		/// “–‚½‚è”»’è‚ğ‚·‚é‘g‚İ‡‚í‚¹‚Ì’Ç‰Á
+		/// å½“ãŸã‚Šåˆ¤å®šã‚’ã™ã‚‹çµ„ã¿åˆã‚ã›ã®è¿½åŠ 
 		/// </summary>
 		/// <param name="Tag1"></param>
 		/// <param name="Tag2"></param>
@@ -68,32 +68,32 @@ namespace Engine::System
 		static void AddCollisionPair(const CollisionResolution& Resolution);
 
 		/// <summary>
-		/// “–‚½‚è”»’è‚ÌŒ^î•ñ‚ÌƒZƒbƒg‚Æƒƒ\ƒbƒh‚Ì’Ç‰Á
+		/// å½“ãŸã‚Šåˆ¤å®šã®å‹æƒ…å ±ã®ã‚»ãƒƒãƒˆã¨ãƒ¡ã‚½ãƒƒãƒ‰ã®è¿½åŠ 
 		/// </summary>
-		/// <typeparam name="C1">Œ^î•ñ1</typeparam>
+		/// <typeparam name="C1">å‹æƒ…å ±1</typeparam>
 		/// <typeparam name="C2"></typeparam>
 		template<typename C1, typename C2>
 		static void RegisterRule();
 
 		/// <summary>
-		/// Gui‚Å‘SƒIƒuƒWƒFƒNƒg‘€ì
+		/// Guiã§å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ“ä½œ
 		/// </summary>
 		static void OnGui(entt::registry& Registry);
 
 	private:
 		/// <summary>
-		/// ƒ^ƒO‚Ì‘g‚İ‡‚í‚¹‚Æİ’è‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		/// ã‚¿ã‚°ã®çµ„ã¿åˆã‚ã›ã¨è¨­å®šã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		/// </summary>
 		static inline std::map<std::pair<entt::id_type, entt::id_type>, CollisionResolution> sCollisionResolutions;
 
-		//	K:Œ`ó{Œ`ó@V:‘Î‰‚µ‚½”»’èƒƒ\ƒbƒh
+		//	K:å½¢çŠ¶ï¼‹å½¢çŠ¶ã€€V:å¯¾å¿œã—ãŸåˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰
 		static inline std::map<std::pair<std::type_index, std::type_index>, CollisionFunc> sCheckCollision;
 	};
 
 	/// <summary>
-	/// “–‚½‚è”»’è‚ÌŒ^î•ñ‚ÌƒZƒbƒg‚Æƒƒ\ƒbƒh‚Ì’Ç‰Á
+	/// å½“ãŸã‚Šåˆ¤å®šã®å‹æƒ…å ±ã®ã‚»ãƒƒãƒˆã¨ãƒ¡ã‚½ãƒƒãƒ‰ã®è¿½åŠ 
 	/// </summary>
-	/// <typeparam name="C1">Œ^î•ñ1</typeparam>
+	/// <typeparam name="C1">å‹æƒ…å ±1</typeparam>
 	/// <typeparam name="C2"></typeparam>
 	template<typename T1, typename T2>
 	inline void ColliderSystem::AddCollisionPair(const CollisionResolution& Resolution)
@@ -104,7 +104,7 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// “–‚½‚è”»’è‚ÌŒ^î•ñ‚Æ‚»‚ê‚É‘Î‰‚µ‚½ˆ—ƒƒ\ƒbƒh‚Ìƒe[ƒuƒ‹ì¬
+	/// å½“ãŸã‚Šåˆ¤å®šã®å‹æƒ…å ±ã¨ãã‚Œã«å¯¾å¿œã—ãŸå‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã®ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆ
 	/// </summary>
 	/// <typeparam name="C1"></typeparam>
 	/// <typeparam name="C2"></typeparam>

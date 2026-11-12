@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "UISprite.hpp"
 
 #include"Graphics/Renderer/Renderer.hpp"
@@ -12,24 +12,24 @@
 
 void Engine::Graphics::UISprite::UpdateVertices(Graphics::SpriteVertex* Vertices)
 {
-    // ZŒ^‚Å’è‹`i‚±‚ê‚ªÅ‚àˆê”Ê“I‚Å‚·j
-    // 0: ¶ã
+    // Zå‹ã§å®šç¾©ï¼ˆã“ã‚ŒãŒæœ€ã‚‚ä¸€èˆ¬çš„ã§ã™ï¼‰
+    // 0: å·¦ä¸Š
     Vertices[0].Position = { 0.0f, 0.0f, 0.0f };
     Vertices[0].UV = { 0.0f, 0.0f };
 
-    // 1: ‰Eã (FillRatio‚ğ”½‰f)
+    // 1: å³ä¸Š (FillRatioã‚’åæ˜ )
     Vertices[1].Position = { mSize.x * mFillRatio, 0.0f, 0.0f };
     Vertices[1].UV = { mFillRatio, 0.0f };
 
-    // 2: ¶‰º
+    // 2: å·¦ä¸‹
     Vertices[2].Position = { 0.0f, mSize.y, 0.0f };
     Vertices[2].UV = { 0.0f, 1.0f };
 
-    // 3: ‰E‰º (FillRatio‚ğ”½‰f)
+    // 3: å³ä¸‹ (FillRatioã‚’åæ˜ )
     Vertices[3].Position = { mSize.x * mFillRatio, mSize.y, 0.0f };
     Vertices[3].UV = { mFillRatio, 1.0f };
 
-    // --- ˆÈ‰ºA‰ñ“]EŠgkEƒXƒNƒŠ[ƒ“•ÏŠ·‚Ì‹¤’ÊŒvZ ---
+    // --- ä»¥ä¸‹ã€å›è»¢ãƒ»æ‹¡ç¸®ãƒ»ã‚¹ã‚¯ãƒªãƒ¼ãƒ³å¤‰æ›ã®å…±é€šè¨ˆç®— ---
     const float theta = mAngle * Math::RAD;
     const float s = sinf(theta);
     const float c = cosf(theta);
@@ -53,20 +53,20 @@ void Engine::Graphics::UISprite::UpdateVertices(Graphics::SpriteVertex* Vertices
 }
 
 /// <summary>
-/// •\¦
+/// è¡¨ç¤º
 /// </summary>
 void Engine::Graphics::UISprite::Render()
 {
 	Renderer* rederer = Renderer::GetInstance();
 	auto cmdList = Graphics::DirectX::GetInstance()->GetCommandList();
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+	//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 	rederer->SetUISpritePipeline();
 
-	//	ƒq[ƒv‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+	//	ãƒ’ãƒ¼ãƒ—ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 	mTexture->Set(0);
 
-	//	ƒo[‚ÌŠ„‡‚ğ’è”ƒoƒbƒtƒ@‚ÅGPU‚É‘—‚é
+	//	ãƒãƒ¼ã®å‰²åˆã‚’å®šæ•°ãƒãƒƒãƒ•ã‚¡ã§GPUã«é€ã‚‹
 	cmdList->SetGraphicsRoot32BitConstants(1, 4, &mColor, 0);
 	cmdList->SetGraphicsRoot32BitConstants(1, 1, &mFillRatio, 4);
 
@@ -77,7 +77,7 @@ void Engine::Graphics::UISprite::Render()
 		0, 1, 2,
 		1, 3, 2
 	};
-	//	•`‰æ
+	//	æç”»
 	Graphics::Renderer::GetInstance()->DrawSprite(
 		Vertices, 4, Indices, 6);
 

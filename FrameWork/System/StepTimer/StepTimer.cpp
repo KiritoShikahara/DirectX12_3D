@@ -1,15 +1,15 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "StepTimer.hpp"
 
 namespace Engine::System
 {
 	/// <summary>
-	/// Œo‰ßŠÔ‚Ì‰ÁZ
+	/// çµŒéæ™‚é–“ã®åŠ ç®—
 	/// </summary>
 	/// <param name="DeltaTime"></param>
 	void FixedStepTimer::Advance(Time DeltaTime)
 	{
-		//	ˆ—‚ªd‚·‚¬‚Ä1ƒtƒŒ[ƒ€‚ª’·‚·‚¬‚½ê‡AãŒÀ‚ÅƒJƒbƒg‚·‚é
+		//	å‡¦ç†ãŒé‡ã™ãã¦1ãƒ•ãƒ¬ãƒ¼ãƒ ãŒé•·ã™ããŸå ´åˆã€ä¸Šé™ã§ã‚«ãƒƒãƒˆã™ã‚‹
 		if (DeltaTime < mMaxDeltaTime)
 		{
 			mAccumulator += DeltaTime;
@@ -21,15 +21,15 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// ŒÅ’èXV‚ğs‚¤‚©‚Ç‚¤‚©‚Ì”»’è
+	/// å›ºå®šæ›´æ–°ã‚’è¡Œã†ã‹ã©ã†ã‹ã®åˆ¤å®š
 	/// </summary>
-	/// <returns>true:ŒÅ’èXV‚ğs‚¤</returns>
+	/// <returns>true:å›ºå®šæ›´æ–°ã‚’è¡Œã†</returns>
 	bool FixedStepTimer::TryStep()
 	{
-		//	—İÏŠÔ‚ªXV‰Â”\ŠÔ‚ğ‰z‚µ‚Ä‚¢‚½‚çˆ—‚ğ‚·‚éitruej
+		//	ç´¯ç©æ™‚é–“ãŒæ›´æ–°å¯èƒ½æ™‚é–“ã‚’è¶Šã—ã¦ã„ãŸã‚‰å‡¦ç†ã‚’ã™ã‚‹ï¼ˆtrueï¼‰
 		if (mAccumulator.ToDuration() >= mFixedStep.ToDuration())
 		{
-			//@—İÏŠÔ‚ğ1‰ñ•ªŒ¸‚ç‚·
+			//ã€€ç´¯ç©æ™‚é–“ã‚’1å›åˆ†æ¸›ã‚‰ã™
 			mAccumulator = Time(mAccumulator.ToDuration() - mFixedStep.ToDuration());
 			return true;
 		}
@@ -37,7 +37,7 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// •âŠÔŒW”‚Ìæ“¾i0.0`1.0j
+	/// è£œé–“ä¿‚æ•°ã®å–å¾—ï¼ˆ0.0ã€œ1.0ï¼‰
 	/// </summary>
 	/// <returns></returns>
 	double FixedStepTimer::GetAlpha()const
@@ -48,7 +48,7 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// ŒÅ’èƒfƒ‹ƒ^ƒ^ƒCƒ€‚Ìæ“¾
+	/// å›ºå®šãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ ã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	double FixedStepTimer::GetFixedDeltaTime() const

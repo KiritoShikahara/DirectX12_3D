@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::Scene
 {
 	class GameClearFactory
 	{
 	public:
-		//	”wŒi
+		//	èƒŒæ™¯
 		static void CreateBG();
 	};
 

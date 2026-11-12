@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<d3d12.h>
 #include<dxgi1_6.h>
 #include<wrl/client.h>
@@ -16,41 +16,41 @@ namespace Engine::Graphics
 		GENERATE_SINGLETON_BODY(DirectX);
 
 		/// <summary>
-		/// ‰Šú’l
+		/// åˆæœŸå€¤
 		/// </summary>
 		void OnCreate()override;
 
 		/// <summary>
-		/// ƒƒ‚ƒŠ‚Ì‰ğ•ú
+		/// ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
 		/// </summary>
 		void OnDestory()override;
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="WindowHandle">ƒEƒBƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹</param>
-		/// <param name="Width">ƒXƒNƒŠ[ƒ“‰¡•</param>
-		/// <param name="Height">ƒXƒNƒŠ[ƒ“c•</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="WindowHandle">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="Width">ã‚¹ã‚¯ãƒªãƒ¼ãƒ³æ¨ªå¹…</param>
+		/// <param name="Height">ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ç¸¦å¹…</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize(HWND WindowHandle, UINT Width, UINT Height);
 
 		/// <summary>
-		/// •`‰æŠJn
+		/// æç”»é–‹å§‹
 		/// </summary>
 		void BegineRendering();
 
 		/// <summary>
-		/// ‰æ–Ê‚ÌƒtƒŠƒbƒv
+		/// ç”»é¢ã®ãƒ•ãƒªãƒƒãƒ—
 		/// </summary>
 		void Flip();
 
 		/// <summary>
-		/// GPU‚Ìˆ—‘Ò‚¿
+		/// GPUã®å‡¦ç†å¾…ã¡
 		/// </summary>
 		void WaitForGPU();
 
 		/// <summary>
-		/// ƒrƒ…[ƒ|[ƒg‚Ìİ’è
+		/// ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®è¨­å®š
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
@@ -59,7 +59,7 @@ namespace Engine::Graphics
 		void SetViewPort(float x, float y, float Width, float Height);
 
 		/// <summary>
-		/// Dx12ƒfƒoƒCƒX‚Ìæ“¾
+		/// Dx12ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12Device* GetDevice()
@@ -68,7 +68,7 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// Dx12ƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ìæ“¾
+		/// Dx12ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®å–å¾—
 		/// </summary>
 		ID3D12GraphicsCommandList* GetCommandList()
 		{
@@ -76,13 +76,13 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// Dx12ƒRƒ}ƒ“ƒhƒAƒƒP[ƒ^[‚Ìæ“¾
+		/// Dx12ã‚³ãƒãƒ³ãƒ‰ã‚¢ãƒ­ã‚±ãƒ¼ã‚¿ãƒ¼ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12CommandAllocator* GetCommandAllocator();
  
 		/// <summary>
-		/// Dx12ƒRƒ}ƒ“ƒhƒLƒ…[‚Ìæ“¾
+		/// Dx12ã‚³ãƒãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12CommandQueue* GetCommandQueue()
@@ -91,7 +91,7 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€ƒCƒ“ƒfƒbƒNƒX‚Ìæ“¾
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		int GetFrameIndex()const
@@ -100,7 +100,7 @@ namespace Engine::Graphics
 		}
 
 		/// <summary>
-		/// ”wŒiF‚ÌƒZƒbƒg
+		/// èƒŒæ™¯è‰²ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		/// <param name="BackColor"></param>
 		void SetBackColor(const Color& BackColor);
@@ -112,141 +112,141 @@ namespace Engine::Graphics
 
 	private:
 		/// <summary>
-		/// ƒfƒoƒbƒOƒŒƒCƒ„[‚Ì‹N“®
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®èµ·å‹•
 		/// </summary>
 		void DebugLayerOn();
 
 		/// <summary>
-		/// ƒfƒoƒCƒX‚Ì‰Šú‰»
+		/// ãƒ‡ãƒã‚¤ã‚¹ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeDevice();
 
 		/// <summary>
-		/// ƒtƒ@ƒNƒgƒŠ[‚Ì‰Šú‰»
+		/// ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeFactory();
 
 		/// <summary>
-		/// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì‰Šú‰»
+		/// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®åˆæœŸåŒ–
 		/// </summary>
 		/// <param name="WindowHandle"></param>
 		/// <param name="Width"></param>
 		/// <param name="Height"></param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeSwapChain(HWND WindowHandle, UINT Width, UINT Height);
 
 		/// <summary>
-		/// ƒoƒbƒNƒoƒbƒtƒ@—pƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv‚Ì‰Šú‰»
+		/// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ç”¨ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeBackBufferHeap();
 
 		/// <summary>
-		/// [“xƒoƒbƒtƒ@—pƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv‚Ì‰Šú‰»
+		/// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ç”¨ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeDepthHeap();
 
 		/// <summary>
-		/// ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ì‰Šú‰»
+		/// ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸåŒ–
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeRenderTarget(UINT Width, UINT Height);
 
 		/// <summary>
-		/// ƒtƒFƒ“ƒX‚Ì‰Šú‰»
+		/// ãƒ•ã‚§ãƒ³ã‚¹ã®åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool InitializeFence();
 
 	public:
 		/// <summary>
-		/// ƒoƒbƒNƒoƒbƒtƒ@‚Ì”
+		/// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®æ•°
 		/// </summary>
 		static constexpr int NUM_BACK_BAFFER = 2;
 	private:
 		/// <summary>
-		/// ƒfƒoƒCƒX
+		/// ãƒ‡ãƒã‚¤ã‚¹
 		/// </summary>
 		mw::DevicePtr mDevice;
 		/// <summary>
-		/// ƒtƒ@ƒNƒgƒŠ
+		/// ãƒ•ã‚¡ã‚¯ãƒˆãƒª
 		/// </summary>
 		mw::Factory6Ptr mFactory;
 		/// <summary>
-		/// ƒXƒƒbƒvƒ`ƒFƒCƒ“
+		/// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³
 		/// </summary>
 		mw::SwapChain mSwapChain;
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒŠƒXƒg
+		/// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
 		/// </summary>
 		mw::CmdListPtr mCommandList;
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒLƒ…[
+		/// ã‚³ãƒãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼
 		/// </summary>
 		mw::CmdQueuePtr mCommandQueue;
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒAƒƒP[ƒ^[
+		/// ã‚³ãƒãƒ³ãƒ‰ã‚¢ãƒ­ã‚±ãƒ¼ã‚¿ãƒ¼
 		/// </summary>
 		std::array<mw::CmdAllocatorPtr, NUM_BACK_BAFFER> mCommandAllocator;
 		/// <summary>
-		/// ƒoƒbƒNƒoƒbƒtƒ@
+		/// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		std::array<mw::ResourcePtr, NUM_BACK_BAFFER> mBackBaffers;
 		/// <summary>
-		/// [“xƒoƒbƒtƒ@
+		/// æ·±åº¦ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		mw::ResourcePtr mDepthBuffer;
 		/// <summary>
-		/// ƒoƒbƒNƒoƒbƒtƒ@—pƒq[ƒv
+		/// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ç”¨ãƒ’ãƒ¼ãƒ—
 		/// </summary>
 		mw::DescriptorHeapPtr mBackBufferHeap;
 		/// <summary>
-		/// [“xƒoƒbƒtƒ@—p‚Ìƒq[ƒv
+		/// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ç”¨ã®ãƒ’ãƒ¼ãƒ—
 		/// </summary>
 		mw::DescriptorHeapPtr mDepthHeap;
 		/// <summary>
-		/// ƒtƒFƒ“ƒX
+		/// ãƒ•ã‚§ãƒ³ã‚¹
 		/// </summary>
 		mw::FencePtr mFence;
 		/// <summary>
-		/// ƒŠƒ\[ƒX‰ğ•úŒŸ’m
+		/// ãƒªã‚½ãƒ¼ã‚¹è§£æ”¾æ¤œçŸ¥
 		/// </summary>
 		mw::DebugDevicePtr mDebugDevice;
 		
 		/// /// <summary>
-		/// ƒŠƒ\[ƒXƒoƒŠƒA
+		/// ãƒªã‚½ãƒ¼ã‚¹ãƒãƒªã‚¢
 		/// </summary>
 		D3D12_RESOURCE_BARRIER mResourceBarrier;
 		/// <summary>
-		/// GPU‘Ò‚¿ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‹
+		/// GPUå¾…ã¡ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«
 		/// </summary>
 		HANDLE mWaitForGPUEventHandle;
 
 		/// <summary>
-		/// ŠeƒtƒFƒ“ƒX‚Ìƒoƒbƒtƒ@‚ÌƒtƒFƒ“ƒX’l
+		/// å„ãƒ•ã‚§ãƒ³ã‚¹ã®ãƒãƒƒãƒ•ã‚¡ã®ãƒ•ã‚§ãƒ³ã‚¹å€¤
 		/// </summary>
 		std::array<UINT64, NUM_BACK_BAFFER> mFenceValues;
 		/// <summary>
-		/// Ÿ‚ÌGPU‚ÉSignal‚·‚é’l
+		/// æ¬¡ã®GPUã«Signalã™ã‚‹å€¤
 		/// </summary>
 		UINT64 mNextFenceValue;
 		/// <summary>
-		/// ¡‚ÌƒoƒbƒNƒoƒbƒtƒ@‚ÌƒCƒ“ƒfƒbƒNƒX
+		/// ä»Šã®ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 		/// </summary>
 		UINT mFrameIndex;
 
 		/// <summary>
-		/// ”wŒiF
+		/// èƒŒæ™¯è‰²
 		/// </summary>
 		Color mBackColor;
 
 		/// <summary>
-		/// ƒtƒH[ƒ}ƒbƒg
+		/// ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		/// </summary>
 		DXGI_FORMAT mFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
 	};

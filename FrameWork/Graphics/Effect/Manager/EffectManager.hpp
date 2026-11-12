@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Effekseer/src/Effekseer/Effekseer.h"
 #include"Effekseer/src/EffekseerRendererDX12/EffekseerRendererDX12.h"
@@ -17,64 +17,64 @@ namespace Engine::Graphics
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize();
 
 		/// <summary>
-		/// ƒGƒtƒFƒNƒg‚Ìæ“¾
+		/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å–å¾—
 		/// </summary>
-		/// <param name="FilePath">ƒtƒHƒ‹ƒ_ƒpƒX</param>
+		/// <param name="FilePath">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
 		/// <returns></returns>
 		Effekseer::EffectRef GetEffect(const std::filesystem::path& FilePath);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update(float DeltaTime);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 		/// <summary>
-		/// •ÏŠ·
+		/// å¤‰æ›
 		/// </summary>
 		/// <param name="CustomMat"></param>
 		/// <returns></returns>
 		Effekseer::Matrix44 ToEfkMatrix(const Math::Matrix& CustomMat);
 
 		/// <summary>
-		/// ƒ}ƒl[ƒWƒƒ[‚Ìæ“¾
+		/// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Effekseer::ManagerRef GetManager();
 
 	private:
 		/// <summary>
-		/// ‘S‘ÌŠÇ—
+		/// å…¨ä½“ç®¡ç†
 		/// </summary>
 		Effekseer::ManagerRef mEfkManager;
 
 		/// <summary>
-		/// ƒŒƒ“ƒ_ƒ‰[
+		/// ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼
 		/// </summary>
 		EffekseerRenderer::RendererRef mEfkRenderer;
 
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒŠƒXƒg
+		/// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
 		/// </summary>
 		Effekseer::RefPtr<EffekseerRenderer::CommandList> mEfkCmdList;
 
 		/// <summary>
-		/// ƒƒ‚ƒŠ—Ìˆæ
+		/// ãƒ¡ãƒ¢ãƒªé ˜åŸŸ
 		/// </summary>
 		Effekseer::RefPtr<EffekseerRenderer::SingleFrameMemoryPool> mEfkMemoryPool;
 
 		/// <summary>
-		/// “Ç‚İ‚ñ‚¾ƒGƒtƒFƒNƒg‚ÌƒLƒƒƒbƒVƒ…
+		/// èª­ã¿è¾¼ã‚“ã ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 		/// </summary>
 		std::unordered_map<std::u16string, Effekseer::EffectRef> mEffectCache;
 

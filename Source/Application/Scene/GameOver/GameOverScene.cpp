@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameOverScene.hpp"
 #include "Factory/CreateGameOver.hpp"
 #include"System/Input/Manager/InputManager.hpp"
@@ -14,9 +14,9 @@
 namespace Engine::Scene
 {
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool GameOver::Initialize()
 	{
 		mRetryEntity = GameOverFactory::CreateRetry();
@@ -46,14 +46,14 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// –ŒãXV
+	/// äº‹å¾Œæ›´æ–°
 	/// </summary>
 	void GameOver::PostUpdate(double FixedDeltaTime)
 	{
-		//	‘O‚Ìó‘Ô
+		//	å‰ã®çŠ¶æ…‹
 		SelectMode oldMode = mSelectMode;
 
-		//	ƒ‚[ƒh•ÏX
+		//	ãƒ¢ãƒ¼ãƒ‰å¤‰æ›´
 		if (GET_INPUT_MANAGER->IsActionPressed("Right"))
 		{
 			if (mSelectMode == SelectMode::Title) {
@@ -67,18 +67,18 @@ namespace Engine::Scene
 			}
 		}
 
-		// ƒtƒ‰ƒO‚ÌØ‚è‘Ö‚¦
+		// ãƒ•ãƒ©ã‚°ã®åˆ‡ã‚Šæ›¿ãˆ
 		if (oldMode != mSelectMode)
 		{
 			auto& reg = Engine::System::EntityManager::GetInstance()->GetRegistry();
 
-			// Retry‚Ì‰‰oƒtƒ‰ƒOXV
+			// Retryã®æ¼”å‡ºãƒ•ãƒ©ã‚°æ›´æ–°
 			if (auto* scale = reg.try_get<Engine::System::ScaleEffectComponent>(mRetryEntity)) {
 				scale->IsActive = (mSelectMode == SelectMode::Retry);
-				if (scale->IsActive) scale->Timer = 0.0f; // ‘I‘ğ‚³‚ê‚½uŠÔ‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğ“ª‚©‚çÄ¶
+				if (scale->IsActive) scale->Timer = 0.0f; // é¸æŠã•ã‚ŒãŸç¬é–“ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é ­ã‹ã‚‰å†ç”Ÿ
 			}
 
-			// Title‚Ì‰‰oƒtƒ‰ƒOXV
+			// Titleã®æ¼”å‡ºãƒ•ãƒ©ã‚°æ›´æ–°
 			if (auto* scale = reg.try_get<Engine::System::ScaleEffectComponent>(mTitleEntity)) {
 				scale->IsActive = (mSelectMode == SelectMode::Title);
 				if (scale->IsActive) scale->Timer = 0.0f;
@@ -86,7 +86,7 @@ namespace Engine::Scene
 		}
 
 
-		//	‰æ–Ê‘JˆÚ
+		//	ç”»é¢é·ç§»
 		if (GET_INPUT_MANAGER->IsActionPressed("Select"))
 		{
 			switch (mSelectMode)
@@ -109,11 +109,11 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	void GameOver::Release()
 	{
-		//  ƒ[ƒJƒ‹ƒIƒuƒWƒFƒNƒg‚Ì‰ğ•ú
+		//  ãƒ­ãƒ¼ã‚«ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è§£æ”¾
 		Engine::System::EntityManager::GetInstance()->ClearLocalEntities();
 	}
 }

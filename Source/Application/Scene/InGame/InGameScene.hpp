@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 #include"Graphics/SkyBox/SkyBox.hpp"
 #include"Application/Objects/EnemyRank.hpp"
@@ -14,18 +14,18 @@ namespace Engine::Scene
 		InGame(System::EnemyRank Rank = System::EnemyRank::Basic);
 
 		/// <summary>
-		///	‰Šú‰»
+		///	åˆæœŸåŒ–
 		/// </summary>
 		/// <returns></returns>
 		bool Initialize()override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render()override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Release()override;
 
@@ -37,7 +37,7 @@ namespace Engine::Scene
 
 
 		/// <summary>
-		/// ƒXƒJƒCƒ{ƒbƒNƒX
+		/// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹
 		/// </summary>
 		std::unique_ptr<Graphics::SkyBox> mSkyBox;
 		System::EnemyRank mSelectEnemy;

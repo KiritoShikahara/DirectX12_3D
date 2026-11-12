@@ -5,10 +5,10 @@ SamplerState sam : register(s0);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-    // ƒeƒNƒXƒ`ƒƒ‚ÌF‚ğƒTƒ“ƒvƒŠƒ“ƒO
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è‰²ã‚’ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°
     float4 texColor = tex.Sample(sam, input.UV);
     
-    // ƒeƒNƒXƒ`ƒƒ‚ÌF‚ÉAƒvƒƒOƒ‰ƒ€‚Åİ’è‚µ‚½F‚ğæZ
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è‰²ã«ã€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§è¨­å®šã—ãŸè‰²ã‚’ä¹—ç®—
     float4 finalColor = texColor * input.Color;
     
     finalColor.rgb *= finalColor.a;

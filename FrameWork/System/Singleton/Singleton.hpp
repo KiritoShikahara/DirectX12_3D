@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifdef GENERATE_SINGLETON_BODY
 #undef GENERATE_SINGLETON_BODY
@@ -14,16 +14,16 @@ Class& operator=(const Class&) = delete;\
 Class& operator=(Class&&) = delete;\
 
 /// <summary>
-/// ƒVƒ“ƒOƒ‹ƒgƒ“ƒXƒe[ƒg
+/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 template<typename T>
 class Singleton
 {
 public:
 	/// <summary>
-	/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬
+	/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	static bool Create()
 	{
 		if (mInstance == nullptr)
@@ -36,9 +36,9 @@ public:
 	}
 	
 	/// <summary>
-	/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”jŠü
+	/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç ´æ£„
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	static void Release()
 	{
 		if (mInstance != nullptr)
@@ -50,7 +50,7 @@ public:
 	}
 
 	/// <summary>
-	/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+	/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 	/// </summary>
 	static T* GetInstance()
 	{

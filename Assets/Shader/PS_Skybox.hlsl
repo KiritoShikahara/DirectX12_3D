@@ -9,6 +9,6 @@ struct VS_OUTPUT
 
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
-    // float3の方向ベクトルを使ってCubeMapをサンプリング
+    // float3縺ｮ譁ｹ蜷代�吶け繝医Ν繧剃ｽｿ縺｣縺ｦCubeMap繧偵し繝ｳ繝励Μ繝ｳ繧ｰ
     return g_Skybox.Sample(g_Sampler, input.TexCoord);
 }

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "LinePipeline.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
 
@@ -6,15 +6,15 @@
 
 namespace
 {
-	//	ƒVƒF[ƒ_[ƒRƒ“ƒpƒCƒ‹—pˆ—
+	//	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ç”¨å‡¦ç†
 	auto CompileShader = [](const char* FileName, const char* FunctionName, const char* ShaderModel)
 		{
 			size_t wLen = 0;
 			wchar_t wideFileName[256] = {};
-			//	ƒtƒ@ƒCƒ‹–¼•ÏŠ·
+			//	ãƒ•ã‚¡ã‚¤ãƒ«åå¤‰æ›
 			mbstowcs_s(&wLen, wideFileName, ARRAYSIZE(wideFileName), FileName, _TRUNCATE);
 
-			//	ƒVƒF[ƒ_[ì¬
+			//	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 			mw::BlobPtr ShaderBlob = nullptr;
 			mw::BlobPtr ErrorBlob = nullptr;
 
@@ -38,9 +38,9 @@ namespace Engine::Graphics
 {
 
 	/// <summary>
-	/// ì¬
+	/// ä½œæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool LinePipeline::Create()
 	{
 		bool ret = false;
@@ -61,7 +61,7 @@ namespace Engine::Graphics
 
 
 	/// <summary>
-	/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìæ“¾
+	/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12RootSignature* LinePipeline::GetRootSignature()const
@@ -70,7 +70,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìæ“¾
+	/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12PipelineState* LinePipeline::GetPipelineState()const 
@@ -79,16 +79,16 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// •`‰æ•û–@
+	/// æç”»æ–¹æ³•
 	/// </summary>
-	/// <returns>OŠpŒ`</returns>
+	/// <returns>ä¸‰è§’å½¢</returns>
 	D3D_PRIMITIVE_TOPOLOGY LinePipeline::GetTopology()const
 	{
 		return D3D_PRIMITIVE_TOPOLOGY_LINELIST;
 	}
 
 	/// <summary>
-	/// [“xƒXƒeƒ“ƒVƒ‹‚Ì‰Šúİ’è‚Ìæ“¾
+	/// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_DEPTH_STENCIL_DESC LinePipeline::GetDepthStencilDesc()
@@ -113,7 +113,7 @@ namespace Engine::Graphics
 
 
 	/// <summary>
-	/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_BLEND_DESC  LinePipeline::GetBlendStateDesc()
@@ -142,7 +142,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‰ƒXƒ^ƒ‰ƒCƒU[‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_RASTERIZER_DESC  LinePipeline::GetRasterizerDesc()
@@ -167,9 +167,9 @@ namespace Engine::Graphics
 	{
 
 		D3D12_ROOT_PARAMETER RootParam = {};
-		RootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // ‚±‚±‚ğ CBV ‚É•ÏXI
+		RootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // ã“ã“ã‚’ CBV ã«å¤‰æ›´ï¼
 		RootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;
-		RootParam.Descriptor.ShaderRegister = 0; // b0 ƒŒƒWƒXƒ^
+		RootParam.Descriptor.ShaderRegister = 0; // b0 ãƒ¬ã‚¸ã‚¹ã‚¿
 		RootParam.Descriptor.RegisterSpace = 0;
 
 		D3D12_ROOT_SIGNATURE_DESC RootSignatureDesc = {};
@@ -177,7 +177,7 @@ namespace Engine::Graphics
 		RootSignatureDesc.pParameters = &RootParam;
 		RootSignatureDesc.NumParameters = 1;
 
-		//	ƒ‹[ƒgƒVƒOƒlƒ`ƒƒİ’è
+		//	ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£è¨­å®š
 		mw::BlobPtr RootSignatureBlob = nullptr;
 		mw::BlobPtr ErrorBlob = nullptr;
 		HRESULT hr = D3D12SerializeRootSignature(&RootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, RootSignatureBlob.GetAddressOf(), ErrorBlob.GetAddressOf());
@@ -201,7 +201,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// •`‰æƒpƒCƒvƒ‰ƒCƒ“‚Ìì¬
+	/// æç”»ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ä½œæˆ
 	/// </summary>
 	/// <returns></returns>
 	bool LinePipeline::CreatePipeline()
@@ -215,7 +215,7 @@ namespace Engine::Graphics
 		}
 
 		D3D12_INPUT_ELEMENT_DESC InputLayout[2] = {};
-		//	’¸“_ƒVƒF[ƒ_[‚Ö‚Ì“ü—Íî•ñ‚Ìİ’è
+		//	é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã¸ã®å…¥åŠ›æƒ…å ±ã®è¨­å®š
 		for (auto& IL : InputLayout)
 		{
 			IL.AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
@@ -235,28 +235,28 @@ namespace Engine::Graphics
 
 		PipelineStateDesc.pRootSignature = mRootSignature.Get();
 
-		//ƒRƒ“ƒpƒCƒ‹‚µ‚½’¸“_ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸé ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
 		PipelineStateDesc.VS.pShaderBytecode = VS->GetBufferPointer();
 		PipelineStateDesc.VS.BytecodeLength = VS->GetBufferSize();
 		PipelineStateDesc.InputLayout.NumElements = ARRAYSIZE(InputLayout);
 		PipelineStateDesc.InputLayout.pInputElementDescs = InputLayout;
 
-		//ƒRƒ“ƒpƒCƒ‹‚µ‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
 		PipelineStateDesc.PS.pShaderBytecode = PS->GetBufferPointer();
 		PipelineStateDesc.PS.BytecodeLength = PS->GetBufferSize();
 
-		//	ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+		//	ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 		PipelineStateDesc.BlendState = GetBlendStateDesc();
-		//	ƒ‰ƒXƒ^ƒ‰ƒCƒU[İ’è
+		//	ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼è¨­å®š
 		PipelineStateDesc.RasterizerState = GetRasterizerDesc();
-		//	[“xƒXƒeƒ“ƒVƒ‹İ’è
+		//	æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«è¨­å®š
 		PipelineStateDesc.DepthStencilState = GetDepthStencilDesc();
 
 		PipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 		PipelineStateDesc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
 		PipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE;
 
-		//	•`‰ææ‚ÌƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+		//	æç”»å…ˆã®ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
 		PipelineStateDesc.NumRenderTargets = 1;
 		PipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 		PipelineStateDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;

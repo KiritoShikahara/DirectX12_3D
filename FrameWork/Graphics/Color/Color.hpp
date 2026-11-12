@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::Graphics 
 {
@@ -9,23 +9,23 @@ namespace Engine::Graphics
 		Color(float r, float g, float b, float a) noexcept : r(r), g(g), b(b), a(a) {}
 		Color(const Color& color) noexcept : r(color.r), g(color.g), b(color.b), a(color.a) {}
 
-		//	Ô
+		//	èµ¤
 		static const Color Red();
-		//	Â
+		//	é’
 		static const Color Blue();
-		//	—Î
+		//	ç·‘
 		static const Color Green();
-		//	•
+		//	é»’
 		static const Color Black();
-		//	”’
+		//	ç™½
 		static const Color White();
-		//	ƒVƒAƒ“
+		//	ã‚·ã‚¢ãƒ³
 		static const Color Cyan();
-		//	ƒ}ƒ[ƒ“ƒ^
+		//	ãƒã‚¼ãƒ³ã‚¿
 		static const Color Magenta();
-		//	‰©
+		//	é»„
 		static const Color Yellow();
-		//	ŠD
+		//	ç°
 		static const Color Gray();
 
 		static const Color CoralRed();
@@ -34,7 +34,7 @@ namespace Engine::Graphics
 
 		static const Color Lime();
 
-		//	GPU ‚â SIMD —pƒf[ƒ^‚È‚Ç‚Åg—p‚·‚é‚Ì‚Åunion
+		//	GPU ã‚„ SIMD ç”¨ãƒ‡ãƒ¼ã‚¿ãªã©ã§ä½¿ç”¨ã™ã‚‹ã®ã§union
 		union
 		{
 			struct

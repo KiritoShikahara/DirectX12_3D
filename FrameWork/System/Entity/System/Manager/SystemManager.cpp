@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SystemManager.hpp"
 
 #include "System/Conponent/Fbx/System/FbxRenderSystem.h"
@@ -15,15 +15,15 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ‰Â•ÏXV
+	/// å¯å¤‰æ›´æ–°
 	/// </summary>
-	/// <param name="Reg">ecsŠÇ—</param>
-	/// <param name="DeltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+	/// <param name="Reg">ecsç®¡ç†</param>
+	/// <param name="DeltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
 	void SystemManager::PreUpdate(entt::registry& Reg, double DeltaTime)
 	{
 		System::TimerComponentSystem::PreUpdate(Reg, DeltaTime);
 
-		//	ƒ†[ƒU[’è‹`
+		//	ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©
 		for (const auto& System : mSystems)
 		{
 			System->PreUpdate(Reg, DeltaTime);
@@ -32,29 +32,29 @@ namespace Engine::System
 	}
 	
 	/// <summary>
-	/// ŒÅ’èXV
+	/// å›ºå®šæ›´æ–°
 	/// </summary>
-	/// <param name="Reg">ecsŠÇ—</param>
-	/// <param name="DeltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+	/// <param name="Reg">ecsç®¡ç†</param>
+	/// <param name="DeltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
 	void SystemManager::MainUpdate(entt::registry& Reg, double DeltaTime)
 	{
-		//	ƒ†[ƒU[’è‹`ƒVƒXƒeƒ€
+		//	ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ã‚·ã‚¹ãƒ†ãƒ 
 		for (const auto& System : mSystems)
 		{
 			System->MainUpdate(Reg, DeltaTime);
 		}
 
-		//	ˆÚ“®
+		//	ç§»å‹•
 		System::RigidBodySystem::MainUpdate(Reg, DeltaTime);
 
-		//	“–‚½‚è”»’èˆÊ’u‚ÌXV
+		//	å½“ãŸã‚Šåˆ¤å®šä½ç½®ã®æ›´æ–°
 		System::ColliderSystem::Update(Reg);
 
-		//	“–‚½‚è”»’è
+		//	å½“ãŸã‚Šåˆ¤å®š
 		System::ColliderSystem::CheckCollition(Reg);
 
 
-		//	FbxƒAƒjƒ[ƒVƒ‡ƒ“
+		//	Fbxã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		System::FbxRenderSystem::Update(Reg, DeltaTime);
 
 		//	vfx
@@ -73,20 +73,20 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// –ŒãXV
+	/// äº‹å¾Œæ›´æ–°
 	/// </summary>
 	/// <param name="Reg"></param>
 	/// <param name="DeltaTime"></param>
 	void SystemManager::PostUpdate(entt::registry& Reg, double DeltaTime)
 	{
-		//	ƒ†[ƒU[’è‹`
+		//	ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©
 		for (const auto& System : mSystems)
 		{
 			System->PostUpdate(Reg, DeltaTime);
 		}
 
 
-		//	–ŒãXV
+		//	äº‹å¾Œæ›´æ–°
 		System::ColliderSystem::OnGui(Reg);
 
 		System::ColliderSystem::PostUpdate(Reg);
@@ -94,23 +94,23 @@ namespace Engine::System
 
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	/// <param name="Reg"></param>
 	/// <param name="Alpha"></param>
 	void SystemManager::Render(entt::registry& Reg)
 	{
-		//	FBX‚Ì•`‰æ
+		//	FBXã®æç”»
 		System::FbxRenderSystem::Render(Reg);
 		System::ColliderSystem::Debug(Reg);
 
-		//	•`‰æ
+		//	æç”»
 		for (const auto& System : mSystems)
 		{
 			System->Render(Reg);
 		}
 
-		//	‚±‚±‚ÉVFXƒVƒXƒeƒ€
+		//	ã“ã“ã«VFXã‚·ã‚¹ãƒ†ãƒ 
 		System::VfxRenderSystem::Render(Reg);
 		//	Sprite
 		System::SpriteRenderSystem::Render(Reg);

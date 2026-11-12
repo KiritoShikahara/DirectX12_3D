@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::Input
 {
 	/// <summary>
-	/// “ü—ÍƒfƒoƒCƒX‚Ìí—Ş
+	/// å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ã®ç¨®é¡
 	/// </summary>
 	enum class DeviceType
 	{

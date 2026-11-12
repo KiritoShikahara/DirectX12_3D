@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Window.hpp"
 #include<Plugin/ImGui/imgui_impl_win32.h>
 
@@ -8,16 +8,16 @@
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-//	ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ[
+//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ãƒ¼
 static LRESULT CALLBACK WndProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
-	//ImGui—pƒvƒƒV[ƒWƒƒ[—pˆ—ŒÄ‚Ño‚µ
+	//ImGuiç”¨ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ãƒ¼ç”¨å‡¦ç†å‘¼ã³å‡ºã—
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, uiMsg, wParam, lParam))
 	{
 		return 0;
 	}
 
-	//	“ü—ÍŠÖŒW‚ÌƒCƒxƒ“ƒg
+	//	å…¥åŠ›é–¢ä¿‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ
 	if (IsNotNullptr(GET_INPUT_MANAGER))
 	{
 		if (GET_INPUT_MANAGER->ProcessEvent(uiMsg, wParam, lParam))
@@ -52,23 +52,23 @@ void Engine::System::Window::OnDestory()
 }
 
 /// <summary>
-/// ƒEƒBƒ“ƒhƒE‚Ì‰Šú‰»
+/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸåŒ–
 /// </summary>
-/// <param name="WindowName">ƒEƒBƒ“ƒhƒE–¼</param>
-/// <param name="x">xÀ•W</param>
-/// <param name="y">yÀ•W</param>
-/// <param name="setting">ƒEƒBƒ“ƒhƒE‚Ì”X‚Ìİ’è</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="WindowName">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å</param>
+/// <param name="x">xåº§æ¨™</param>
+/// <param name="y">yåº§æ¨™</param>
+/// <param name="setting">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è«¸ã€…ã®è¨­å®š</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::System::Window::Initialize(const char* WindowName, int x, int y, const WindowSetting& setting)
 {
-	//	ƒTƒCƒY‚ğ•Û‘¶
+	//	ã‚µã‚¤ã‚ºã‚’ä¿å­˜
 	mWidth = setting.width;
 	mHeight = setting.height;
 	mVirtualWidth = setting.width;
 	mVirtualHeight = setting.height;
 
 
-	//	ƒEƒBƒ“ƒhƒE‚Ìİ’è
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¨­å®š
 	mWindowClass.cbSize = sizeof(WNDCLASSEX);
 	mWindowClass.style = CS_HREDRAW | CS_VREDRAW;
 	mWindowClass.lpfnWndProc = WndProc;
@@ -84,30 +84,30 @@ bool Engine::System::Window::Initialize(const char* WindowName, int x, int y, co
 
 	RegisterClassEx(&mWindowClass);
 
-	//	ƒtƒ‹ƒXƒNƒŠ[ƒ“‚Ìê‡‚ÌƒTƒCƒY
-	DWORD tWindowStyle = WS_OVERLAPPEDWINDOW; // ƒfƒtƒHƒ‹ƒg
+	//	ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®å ´åˆã®ã‚µã‚¤ã‚º
+	DWORD tWindowStyle = WS_OVERLAPPEDWINDOW; // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 
 	if (setting.isFullscreen) {
-		// ˜g‚È‚µAƒ^ƒCƒgƒ‹ƒo[‚È‚µ‚ÌƒXƒ^ƒCƒ‹
+		// æ ãªã—ã€ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼ãªã—ã®ã‚¹ã‚¿ã‚¤ãƒ«
 		tWindowStyle = WS_POPUP;
 
-		// ‰æ–ÊƒTƒCƒY‚ğƒ‚ƒjƒ^[‚É‡‚í‚¹‚é
+		// ç”»é¢ã‚µã‚¤ã‚ºã‚’ãƒ¢ãƒ‹ã‚¿ãƒ¼ã«åˆã‚ã›ã‚‹
 		mWidth = GetSystemMetrics(SM_CXSCREEN);
 		mHeight = GetSystemMetrics(SM_CYSCREEN);
 
-		// À•W‚ğ¶ã(0,0)‚É‹­§‚·‚é
+		// åº§æ¨™ã‚’å·¦ä¸Š(0,0)ã«å¼·åˆ¶ã™ã‚‹
 		x = 0;
 		y = 0;
 	}
 
-	//	ƒXƒ^ƒCƒ‹‚Ìæ“¾
+	//	ã‚¹ã‚¿ã‚¤ãƒ«ã®å–å¾—
 	RECT tRect = {};
 	tRect.left = 0;
 	tRect.top = 0;
 	tRect.right = static_cast<LONG>(mWidth);
 	tRect.bottom = static_cast<LONG>(mHeight);
 
-	//	ƒEƒBƒ“ƒhƒE‚Ìê‡
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å ´åˆ
 	if (setting.isFullscreen == false)
 	{
 		AdjustWindowRect(&tRect, tWindowStyle, false);
@@ -115,7 +115,7 @@ bool Engine::System::Window::Initialize(const char* WindowName, int x, int y, co
 
 	const LONG AdjustWidth = tRect.right - tRect.left;
 	const LONG AdjustHeight = tRect.bottom - tRect.top;
-	// ƒEƒCƒ“ƒhƒE‚Ì¶¬
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ç”Ÿæˆ
 	mWindowHandle = CreateWindow(
 		mWindowClass.lpszClassName,
 		WindowName,
@@ -128,21 +128,21 @@ bool Engine::System::Window::Initialize(const char* WindowName, int x, int y, co
 		GetModuleHandle(NULL), NULL);
 	if (mWindowHandle == nullptr)
 	{
-		LOG_CRITICAL("ƒEƒBƒ“ƒhƒE‚Ìì¬‚É¸”s");
+		LOG_CRITICAL("ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½œæˆã«å¤±æ•—");
 		return false;
 	}
 
 	ShowWindow(mWindowHandle, SW_SHOW);
 	UpdateWindow(mWindowHandle);
 
-	// ƒtƒH[ƒJƒX‚ğ‹­§“I‚É—^‚¦‚é
+	// ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚’å¼·åˆ¶çš„ã«ä¸ãˆã‚‹
 	SetForegroundWindow(mWindowHandle);
 	SetFocus(mWindowHandle);
     return true;
 }
 
 /// <summary>
-/// XVƒƒbƒZ[ƒW‚Ìæ“¾
+/// æ›´æ–°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 void Engine::System::Window::IsUpdateMessage()
@@ -163,7 +163,7 @@ void Engine::System::Window::IsUpdateMessage()
 }
 
 /// <summary>
-/// I—¹ƒƒbƒZ[ƒW
+/// çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 /// </summary>
 /// <returns></returns>
 bool Engine::System::Window::IsQuitMessage() const
@@ -172,7 +172,7 @@ bool Engine::System::Window::IsQuitMessage() const
 }
 
 /// <summary>
-/// ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚Ìæ“¾
+/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 const HWND Engine::System::Window::GetWindowHandle() const

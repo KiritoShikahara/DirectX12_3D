@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/spdlog/spdlog.h>
 #include<Plugin/spdlog/sinks/rotating_file_sink.h>
 #include<Plugin/spdlog/sinks/stdout_color_sinks.h>
@@ -11,17 +11,17 @@
 namespace Engine::Debug
 {
 	/// <summary>
-	/// spdlog‚ğƒ‰ƒbƒv‚µ‚½ƒNƒ‰ƒX
+	/// spdlogã‚’ãƒ©ãƒƒãƒ—ã—ãŸã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class Logger
 	{
 		/// <summary>
-		/// ƒRƒ“ƒ\[ƒ‹‚Ì‰Šú‰»
+		/// ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®åˆæœŸåŒ–
 		/// </summary>
 		static void InitializeConsole();
 
 		/// <summary>
-		/// spdlog‚Ì‰Šú‰»
+		/// spdlogã®åˆæœŸåŒ–
 		/// </summary>
 		static void InitializeSpdlog();
 	public:
@@ -29,17 +29,17 @@ namespace Engine::Debug
 		virtual ~Logger();
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		static void Initialize();
 
 		/// <summary>
-		/// ‰ğ•ú
+		/// è§£æ”¾
 		/// </summary>
 		static void Release();
 
 		/// <summary>
-		/// ’Êí‚ÌƒƒO
+		/// é€šå¸¸ã®ãƒ­ã‚°
 		/// </summary>
 		template<typename... Args>
 		static void Info(spdlog::format_string_t<Args...> fmt, Args&&... args)
@@ -48,7 +48,7 @@ namespace Engine::Debug
 		}
 
 		/// <summary>
-		/// ƒGƒ‰[‚Å‚Í‚È‚¢‚¯‚Ç’ˆÓ—pƒƒO
+		/// ã‚¨ãƒ©ãƒ¼ã§ã¯ãªã„ã‘ã©æ³¨æ„ç”¨ãƒ­ã‚°
 		/// </summary>
 		template<typename... Args>
 		static void Warn(spdlog::format_string_t<Args...> fmt, Args&&... args)
@@ -57,7 +57,7 @@ namespace Engine::Debug
 		}
 
 		/// <summary>
-		/// ƒfƒoƒbƒNƒrƒ‹ƒh‚Ì‚İ‚ÌƒƒO
+		/// ãƒ‡ãƒãƒƒã‚¯ãƒ“ãƒ«ãƒ‰ã®ã¿ã®ãƒ­ã‚°
 		/// </summary>
 		template<typename... Args>
 		static void Debug(spdlog::format_string_t<Args...> fmt, Args&&... args)
@@ -68,7 +68,7 @@ namespace Engine::Debug
 		}
 
 		/// <summary>
-		/// ƒGƒ‰[‚¾‚¯‚Ç•œ‹Œ‰Â”\‚Èó‘Ô
+		/// ã‚¨ãƒ©ãƒ¼ã ã‘ã©å¾©æ—§å¯èƒ½ãªçŠ¶æ…‹
 		/// </summary>
 		template<typename... Args>
 		static void Error(
@@ -80,7 +80,7 @@ namespace Engine::Debug
 		}
 
 		/// <summary>
-		/// •œ‹Œ•s‰Â”\‚Èó‘Ô‚Å~‚ß‚é‚µ‚©‚È‚¢
+		/// å¾©æ—§ä¸å¯èƒ½ãªçŠ¶æ…‹ã§æ­¢ã‚ã‚‹ã—ã‹ãªã„æ™‚
 		/// </summary>
 		template<typename... Args>
 		static void Critical(
@@ -94,7 +94,7 @@ namespace Engine::Debug
 
 	private:
 		/// <summary>
-		/// spdlog‚Ìo—Í—pƒIƒuƒWƒFƒNƒg
+		/// spdlogã®å‡ºåŠ›ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		/// </summary>
 		static std::shared_ptr<spdlog::logger> sLogger;
 		static FILE* sConOutFP;
@@ -104,7 +104,7 @@ namespace Engine::Debug
 
 
 /*
-* g‚¢‚â‚·‚­‚·‚é—p‚Ìƒ}ƒNƒ
+* ä½¿ã„ã‚„ã™ãã™ã‚‹ç”¨ã®ãƒã‚¯ãƒ­
 */
 #define LOG_INFO(...)     Engine::Debug::Logger::Info(__VA_ARGS__)
 #define LOG_WARN(...)     Engine::Debug::Logger::Warn(__VA_ARGS__)

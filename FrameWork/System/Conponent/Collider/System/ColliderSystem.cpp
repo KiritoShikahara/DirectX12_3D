@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ColliderSystem.hpp"
 #include"Math/Matrix/Matrix.h"
 #include"System/Collider/Collision/Collision.hpp"
@@ -10,16 +10,16 @@
 #include"System/Conponent/Fbx/FbxMeshConponent.hpp"
 
 /// <summary>
-/// Õ“ËƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌƒAƒ^ƒbƒ`
+/// è¡çªã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ã‚¢ã‚¿ãƒƒãƒ
 /// </summary>
 void Engine::System::ColliderSystem::NotifyCollision(entt::registry& Reg, entt::entity EntityA, entt::entity EntityB)
 {
-	//	Šù‚É‚ ‚é‚©‚ç’Ç‰Á‚·‚é‚¾‚¯
+	//	æ—¢ã«ã‚ã‚‹ã‹ã‚‰è¿½åŠ ã™ã‚‹ã ã‘
 	if (auto* ev = Reg.try_get<CollisionEvent>(EntityA))
 	{
 		ev->HitEntitys.push_back(EntityB);
 	}
-	//	‚Ü‚¾‚È‚¢‚©‚çì¬‚µ‚Ä’Ç‰Á‚·‚é
+	//	ã¾ã ãªã„ã‹ã‚‰ä½œæˆã—ã¦è¿½åŠ ã™ã‚‹
 	else
 	{
 		Reg.emplace<CollisionEvent>(EntityA, std::vector{ EntityB });
@@ -27,7 +27,7 @@ void Engine::System::ColliderSystem::NotifyCollision(entt::registry& Reg, entt::
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void Engine::System::ColliderSystem::Initialize()
 {
@@ -36,14 +36,14 @@ void Engine::System::ColliderSystem::Initialize()
 }
 
 /// <summary>
-/// ’†SÀ•W‚ÌXV
+/// ä¸­å¿ƒåº§æ¨™ã®æ›´æ–°
 /// </summary>
 /// <param name="Registry"></param>
 
 #if true
 void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 {
-	// FbxComponent ‚àŠÜ‚ß‚Ä View ‚ğì¬
+	// FbxComponent ã‚‚å«ã‚ã¦ View ã‚’ä½œæˆ
 	auto view = Registry.view<Transform3D, ColliderComponent>();
 
 	view.each([&](entt::entity entity, Transform3D& trans, ColliderComponent& col)
@@ -52,12 +52,12 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 
 			Math::Vector3 finalPos = trans.Position;
 
-			// --- ƒ{[ƒ“’Ç]ƒƒWƒbƒN ---
+			// --- ãƒœãƒ¼ãƒ³è¿½å¾“ãƒ­ã‚¸ãƒƒã‚¯ ---
 			bool boneFound = false;
 			FbxComponent* fbx = Registry.try_get<FbxComponent>(entity);
 			if (fbx != nullptr)
 			{
-				// ƒ{[ƒ“–¼‚ªw’è‚³‚ê‚Ä‚¨‚èA‚©‚Âƒ‚ƒfƒ‹‚É‚»‚Ìƒ{[ƒ“‚ª‘¶İ‚·‚é‚©Šm”F
+				// ãƒœãƒ¼ãƒ³åãŒæŒ‡å®šã•ã‚Œã¦ãŠã‚Šã€ã‹ã¤ãƒ¢ãƒ‡ãƒ«ã«ãã®ãƒœãƒ¼ãƒ³ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
 				if (!col.BoneName.empty())
 				{
 					boneFound = true;
@@ -67,10 +67,10 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 
 
 
-			// ŠeƒRƒ‰ƒCƒ_[Œ^‚Ö‚Ì“K—p
+			// å„ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å‹ã¸ã®é©ç”¨
 			if (auto* pAABB = col.GetPtr<AABBCollider>())
 			{
-				//	‚»‚Ì‚Ü‚Ü‘ã“ü
+				//	ãã®ã¾ã¾ä»£å…¥
 				if (boneFound == true)
 				{
 					finalPos = fbx->Mesh->GetBoneWorldPosition(col.BoneName);
@@ -82,7 +82,7 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 			}
 			else if (auto* pOBB = col.GetPtr<OBBCollider>())
 			{
-				//	‚±‚Á‚¿‚Å‚Í‰ñ“]‚È‚Ç‚ÌŒvZ‚ğ‚·‚é
+				//	ã“ã£ã¡ã§ã¯å›è»¢ãªã©ã®è¨ˆç®—ã‚’ã™ã‚‹
 				Math::Matrix rotMat = trans.Rotation.ToMatrix();
 				Math::Vector3 rotatedOffset = Math::Vector3::TransformNormal(col.Offset, rotMat);
 				finalPos = trans.Position + rotatedOffset;
@@ -102,15 +102,15 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 		{
 			if (!col.IsCollisiton) return;
 
-			// 1. ƒNƒH[ƒ^ƒjƒIƒ“‚ğ‰ñ“]s—ñ‚É•ÏŠ·
-			// Matrix ‚Ö‚Ì•ÏŠ·‚ğ trans.Rotation.ToMatrix() ‚Ås‚¤
+			// 1. ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’å›è»¢è¡Œåˆ—ã«å¤‰æ›
+			// Matrix ã¸ã®å¤‰æ›ã‚’ trans.Rotation.ToMatrix() ã§è¡Œã†
 			Math::Matrix rotMat = trans.Rotation.ToMatrix();
 
-			// 2. TransformNormal ‚ğg—p‚µ‚Ä Offset ‚ğ‰ñ“]‚³‚¹‚é
-			// TransformNormal ‚Ís—ñ‚Ì•½sˆÚ“®¬•ª‚ğ–³‹‚µ‚ÄƒxƒNƒgƒ‹‚ğ•ÏŠ·‚µ‚Ü‚·
+			// 2. TransformNormal ã‚’ä½¿ç”¨ã—ã¦ Offset ã‚’å›è»¢ã•ã›ã‚‹
+			// TransformNormal ã¯è¡Œåˆ—ã®å¹³è¡Œç§»å‹•æˆåˆ†ã‚’ç„¡è¦–ã—ã¦ãƒ™ã‚¯ãƒˆãƒ«ã‚’å¤‰æ›ã—ã¾ã™
 			Math::Vector3 rotatedOffset = Math::Vector3::TransformNormal(col.Offset, rotMat);
 
-			// 3. ÅI“I‚È’†SÀ•W = Œ»İ‚ÌˆÊ’u + ‰ñ“]‚µ‚½ƒIƒtƒZƒbƒg
+			// 3. æœ€çµ‚çš„ãªä¸­å¿ƒåº§æ¨™ = ç¾åœ¨ã®ä½ç½® + å›è»¢ã—ãŸã‚ªãƒ•ã‚»ãƒƒãƒˆ
 			Math::Vector3 finalPos = trans.Position + rotatedOffset;
 
 			if (auto* pAABB = col.GetPtr<AABBCollider>())
@@ -120,7 +120,7 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 			else if (auto* pOBB = col.GetPtr<OBBCollider>())
 			{
 				pOBB->SetCenter(finalPos);
-				// OBB©‘Ì‚ÌŒü‚«‚à Transform ‚Ì‰ñ“]‚É‡‚í‚¹‚é
+				// OBBè‡ªä½“ã®å‘ãã‚‚ Transform ã®å›è»¢ã«åˆã‚ã›ã‚‹
 				pOBB->SetRotation(trans.Rotation);
 			}
 		});
@@ -128,18 +128,18 @@ void Engine::System::ColliderSystem::Update(entt::registry& Registry)
 #endif // true
 
 /// <summary>
-/// “–‚½‚è”»’è
+/// å½“ãŸã‚Šåˆ¤å®š
 /// </summary>
 void Engine::System::ColliderSystem::CheckCollition(entt::registry& Registry)
 {
-	//	“–‚½‚è”»’è‚ğ‚·‚éƒ^ƒO‚ÌƒRƒŒƒNƒVƒ‡ƒ“‚Åƒ‹[ƒv
+	//	å½“ãŸã‚Šåˆ¤å®šã‚’ã™ã‚‹ã‚¿ã‚°ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã§ãƒ«ãƒ¼ãƒ—
 	for (auto& [tags,Resolution]: sCollisionResolutions)
 	{
-		//	ƒ^ƒO‚Ìæ“¾
+		//	ã‚¿ã‚°ã®å–å¾—
 		entt::id_type tag1 = tags.first;
 		entt::id_type tag2 = tags.second;
 
-		//	Runtime View 1‚Ìì¬
+		//	Runtime View 1ã®ä½œæˆ
 		entt::runtime_view view1 = {};
 		view1.iterate(Registry.storage<ColliderComponent>());
 		view1.iterate(Registry.storage<Transform3D>());
@@ -149,7 +149,7 @@ void Engine::System::ColliderSystem::CheckCollition(entt::registry& Registry)
 			view1.iterate(*s1);
 		}
 
-		//	Runtime View 1‚Ìì¬
+		//	Runtime View 1ã®ä½œæˆ
 		entt::runtime_view view2 = {};
 		view2.iterate(Registry.storage<ColliderComponent>());
 		view2.iterate(Registry.storage<Transform3D>());
@@ -159,63 +159,63 @@ void Engine::System::ColliderSystem::CheckCollition(entt::registry& Registry)
 			view2.iterate(*s2);
 		}
 
-		//	ƒ^ƒO‚P
+		//	ã‚¿ã‚°ï¼‘
 		for (auto entityA : view1)
 		{
-			//	ƒ^ƒO‚Q
+			//	ã‚¿ã‚°ï¼’
 			for (auto entityB : view2)
 			{
-				//	“¯ˆêƒIƒuƒWƒFƒNƒg‚©‚Ç‚¤‚©‚Ì”»’è
+				//	åŒä¸€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã©ã†ã‹ã®åˆ¤å®š
 				if (entityA == entityB)
 				{
 					continue;
 				}
 
-				//	ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+				//	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
 				auto& colA = Registry.get<ColliderComponent>(entityA);
 				auto& colB = Registry.get<ColliderComponent>(entityB);
 
-				//	Õ“Ëƒtƒ‰ƒO”»’è
+				//	è¡çªãƒ•ãƒ©ã‚°åˆ¤å®š
 				if (colA.IsCollisiton == false || colB.IsCollisiton == false)
 				{
 					continue;
 				}
 
-				//	Õ“Ë”»’è‚ğ‚·‚éŒ^‚Ìƒe[ƒuƒ‹
+				//	è¡çªåˆ¤å®šã‚’ã™ã‚‹å‹ã®ãƒ†ãƒ¼ãƒ–ãƒ«
 				auto it = sCheckCollision.find({ colA.Type,colB.Type });
 				if (it != sCheckCollision.end())
 				{
 					Math::Vector3 OutVec = {};
 					if (it->second(colA.GetRaw(), colB.GetRaw(), OutVec))
 					{
-						//	À•WŒn‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+						//	åº§æ¨™ç³»ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
 						auto& transA = Registry.get<Transform3D>(entityA);
 						auto& transB = Registry.get<Transform3D>(entityB);
 
-						//	—¼•û‰Ÿ‚µ–ß‚µ
+						//	ä¸¡æ–¹æŠ¼ã—æˆ»ã—
 						if (Resolution.PushFirst == true && Resolution.PushSecond)
 						{
 							transA.Position += OutVec * 0.5f;
 							transB.Position -= OutVec * 0.5f;
 						}
-						//	A‚¾‚¯
+						//	Aã ã‘
 						else if (Resolution.PushFirst == true)
 						{
 							transA.Position += OutVec;
 						}
-						//	B‚¾‚¯
+						//	Bã ã‘
 						else if (Resolution.PushSecond == true)
 						{
 							transB.Position -= OutVec;
 						}
 
-						//	First‚Ì“–‚½‚è”»’èƒCƒxƒ“ƒg
+						//	Firstã®å½“ãŸã‚Šåˆ¤å®šã‚¤ãƒ™ãƒ³ãƒˆ
 						if (Resolution.HitEventFirst == true)
 						{
 							NotifyCollision(Registry, entityA, entityB);
 						}
 
-						// Second‚Ì“–‚½‚è”»’èƒCƒxƒ“ƒg
+						// Secondã®å½“ãŸã‚Šåˆ¤å®šã‚¤ãƒ™ãƒ³ãƒˆ
 						if (Resolution.HitEventSecond == true)
 						{
 							NotifyCollision(Registry, entityB, entityA);
@@ -231,7 +231,7 @@ void Engine::System::ColliderSystem::CheckCollition(entt::registry& Registry)
 }
 
 /// <summary>
-/// XV‚ÌÅŒã‚ÉÕ“ËƒCƒxƒ“ƒg‚ğ‘S‚Äíœ‚·‚é
+/// æ›´æ–°ã®æœ€å¾Œã«è¡çªã‚¤ãƒ™ãƒ³ãƒˆã‚’å…¨ã¦å‰Šé™¤ã™ã‚‹
 /// </summary>
 /// <param name="Registry"></param>
 void Engine::System::ColliderSystem::PostUpdate(entt::registry& Registry)
@@ -240,7 +240,7 @@ void Engine::System::ColliderSystem::PostUpdate(entt::registry& Registry)
 }
 
 /// <summary>
-/// ƒfƒoƒbƒN—p‚Ì“–‚½‚è”»’è‚Ì•\¦
+/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®å½“ãŸã‚Šåˆ¤å®šã®è¡¨ç¤º
 /// </summary>
 void Engine::System::ColliderSystem::Debug(entt::registry& Registry)
 {
@@ -256,7 +256,7 @@ void Engine::System::ColliderSystem::Debug(entt::registry& Registry)
 		{
 			if (!col.IsCollisiton) return;
 
-			// Œ^‚ª AABB ‚Ìê‡‚Ì‚İæ“¾‚µ‚ÄXV
+			// å‹ãŒ AABB ã®å ´åˆã®ã¿å–å¾—ã—ã¦æ›´æ–°
 			if (auto* pAABB = col.GetPtr<AABBCollider>())
 			{
 				pAABB->DebugRender();
@@ -271,7 +271,7 @@ void Engine::System::ColliderSystem::Debug(entt::registry& Registry)
 }
 
 /// <summary>
-/// Gui‚Å‘SƒIƒuƒWƒFƒNƒg‘€ì
+/// Guiã§å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ“ä½œ
 /// </summary>
 void Engine::System::ColliderSystem::OnGui(entt::registry& Registry)
 {
@@ -281,30 +281,30 @@ void Engine::System::ColliderSystem::OnGui(entt::registry& Registry)
 
 	auto view = Registry.view<ColliderComponent>();
 
-	// ImGui ‚Ì’†‚ÅˆêˆÓ‚ÌID‚ğˆÛ‚·‚é‚½‚ß‚ÌƒJƒEƒ“ƒ^
+	// ImGui ã®ä¸­ã§ä¸€æ„ã®IDã‚’ç¶­æŒã™ã‚‹ãŸã‚ã®ã‚«ã‚¦ãƒ³ã‚¿
 	int i = 0;
 
 	view.each([&](entt::entity entity, ColliderComponent& col)
 		{
-			ImGui::PushID(static_cast<int>(entity)); // ƒGƒ“ƒeƒBƒeƒBID‚ğIDƒXƒ^ƒbƒN‚ÉÏ‚Ş
+			ImGui::PushID(static_cast<int>(entity)); // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£IDã‚’IDã‚¹ã‚¿ãƒƒã‚¯ã«ç©ã‚€
 
-			// ƒcƒŠ[‚Ìƒ‰ƒxƒ‹‚ÉƒGƒ“ƒeƒBƒeƒB‚Ì”Ô†‚âŒ^–¼‚ğo‚·‚Æ•ª‚©‚è‚â‚·‚¢
+			// ãƒ„ãƒªãƒ¼ã®ãƒ©ãƒ™ãƒ«ã«ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ç•ªå·ã‚„å‹åã‚’å‡ºã™ã¨åˆ†ã‹ã‚Šã‚„ã™ã„
 			std::string label = "Entity " + std::to_string(static_cast<uint32_t>(entity)) + ": Collider";
 
 			if (ImGui::TreeNode(label.c_str()))
 			{
-				// “–‚½‚è”»’è‚Ì—LŒø/–³Œø
+				// å½“ãŸã‚Šåˆ¤å®šã®æœ‰åŠ¹/ç„¡åŠ¹
 				ImGui::Checkbox("Is Collision", &col.IsCollisiton);
 
-				// Offset ‚Ì‘€ì (¡‰ñ‚ÌƒƒCƒ“)
-				// .data() ‚Å float* ‚ğæ“¾‚Å‚«‚é‘O’ñiMath::Vector3 ‚ÌÀ‘•‚É‚æ‚è‚Ü‚·j
-				// ‚à‚µ .data() ‚ª‚È‚¯‚ê‚Î &col.Offset.x ‚ğ“n‚µ‚Ü‚·
+				// Offset ã®æ“ä½œ (ä»Šå›ã®ãƒ¡ã‚¤ãƒ³)
+				// .data() ã§ float* ã‚’å–å¾—ã§ãã‚‹å‰æï¼ˆMath::Vector3 ã®å®Ÿè£…ã«ã‚ˆã‚Šã¾ã™ï¼‰
+				// ã‚‚ã— .data() ãŒãªã‘ã‚Œã° &col.Offset.x ã‚’æ¸¡ã—ã¾ã™
 				ImGui::DragFloat3("Offset", &col.Offset.x, 0.05f);
 
-				// Œ^î•ñ‚Ì•\¦iƒfƒoƒbƒO—pj
+				// å‹æƒ…å ±ã®è¡¨ç¤ºï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
 				ImGui::Text("Type: %s", col.Type.name());
 
-				// Œ^‚²‚Æ‚ÌŒÅ—Lƒpƒ‰ƒ[ƒ^ (Size‚È‚Ç) ‚à•ÒW‚µ‚½‚¢ê‡‚Í‚±‚±‚É’Ç‰Á
+				// å‹ã”ã¨ã®å›ºæœ‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ (Sizeãªã©) ã‚‚ç·¨é›†ã—ãŸã„å ´åˆã¯ã“ã“ã«è¿½åŠ 
 				/*
 				if (auto* pAABB = col.GetPtr<AABBCollider>()) {
 					 // ImGui::DragFloat3("Size", ...);
@@ -315,7 +315,7 @@ void Engine::System::ColliderSystem::OnGui(entt::registry& Registry)
 			}
 
 			ImGui::PopID();
-			ImGui::Separator(); // ‹«ŠEü
+			ImGui::Separator(); // å¢ƒç•Œç·š
 
 		});
 #endif // _DEBUG

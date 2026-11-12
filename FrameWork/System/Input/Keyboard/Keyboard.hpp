@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"KeyCode.hpp"
 
 #include<array>
@@ -8,59 +8,59 @@ namespace Engine::Input
 	class Keyboard
 	{
 		/// <summary>
-		/// ƒL[‚Ì“ü—ÍƒCƒxƒ“ƒg
+		/// ã‚­ãƒ¼ã®å…¥åŠ›ã‚¤ãƒ™ãƒ³ãƒˆ
 		/// </summary>
 		void KeyProcess(WPARAM VKCode, bool IsDown);
 
 		/// <summary>
-		/// Windows‚Ì‰¼‘zƒL[ƒR[ƒh‚ğkeyboard::eKey‚É•ÏŠ·‚·‚é
+		/// Windowsã®ä»®æƒ³ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’keyboard::eKeyã«å¤‰æ›ã™ã‚‹
 		/// </summary>
 		/// <param name="vkCode"></param>
 		/// <returns></returns>
 		eKeyCode ToKeyCode(WPARAM VKCode);
 
 		/// <summary>
-		/// ƒL[ƒR[ƒh‚ª”ÍˆÍ“à‚©”»’è‚·‚é
+		/// ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ãŒç¯„å›²å†…ã‹åˆ¤å®šã™ã‚‹
 		/// </summary>
 		/// <param name="keyCode"></param>
-		/// <returns>true:”ÍˆÍ“à</returns>
+		/// <returns>true:ç¯„å›²å†…</returns>
 		bool IsValid(eKeyCode keyCode)const;
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		Keyboard();
 		virtual ~Keyboard() = default;
 
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚©‚çƒCƒxƒ“ƒgæ“¾
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‹ã‚‰ã‚¤ãƒ™ãƒ³ãƒˆå–å¾—
 		/// </summary>
-		/// <returns>true:“ü—ÍŠÖŒW‚ÌƒCƒxƒ“ƒg</returns>
+		/// <returns>true:å…¥åŠ›é–¢ä¿‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ</returns>
 		bool ProcessEvent(UINT Message, WPARAM VKCode);
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚½uŠÔ
+		/// æŠ¼ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+		/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 		/// <returns></returns>
 		bool IsPressed(eKeyCode keyCode)const;
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+		/// æŠ¼ã—ã¦ã„ã‚‹é–“
 		/// </summary>
-		/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+		/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 		/// <returns></returns>
 		bool IsHeld(eKeyCode keyCode)const;
 
 		/// <summary>
-		/// —£‚µ‚½uŠÔ
+		/// é›¢ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+		/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 		/// <returns></returns>
 		bool IsReleased(eKeyCode keyCode)const;
 
 		/// <summary>
-		/// ó‘Ô‚ÌXV
+		/// çŠ¶æ…‹ã®æ›´æ–°
 		/// </summary>
 		void Update();
 	private:

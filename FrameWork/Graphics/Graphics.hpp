@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<array>
 #include"Graphics/Color/Color.hpp"
 #include"Math/Vector3/Vector3.h"
@@ -9,18 +9,18 @@
 namespace Engine::Graphics
 {
 	/// <summary>
-/// 1ƒtƒŒ[ƒ€‚Ég—po—ˆ‚é’¸“_ƒoƒbƒtƒ@—Ê
+/// 1ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä½¿ç”¨å‡ºæ¥ã‚‹é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡é‡
 /// </summary>
 	static constexpr size_t PerMaxVertexBufferSize = System::Memory::MiB(64);
 
 	/// <summary>
-	/// 1ƒtƒŒ[ƒ€‚Ég—po—ˆ‚éƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@—Ê
+	/// 1ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä½¿ç”¨å‡ºæ¥ã‚‹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡é‡
 	/// </summary>
 	static constexpr size_t PerMaxIndexBufferSize = System::Memory::MiB(64 + 32);
 
 
 	/// <summary>
-	/// ƒ‰ƒCƒ“•`‰æ—p‚Ì’¸“_\‘¢‘Ì
+	/// ãƒ©ã‚¤ãƒ³æç”»ç”¨ã®é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct LineVertex
 	{
@@ -29,7 +29,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// ƒVƒ“ƒvƒ‹‚È2DƒXƒvƒ‰ƒCƒg•`‰æ—p‚Ì’¸“_\‘¢‘Ì
+	/// ã‚·ãƒ³ãƒ—ãƒ«ãª2Dã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»ç”¨ã®é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct SimpleSpriteVertex
 	{
@@ -38,7 +38,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// 2DƒXƒvƒ‰ƒCƒg•`‰æ—p‚Ì’¸“_\‘¢‘Ì
+	/// 2Dã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»ç”¨ã®é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct SpriteVertex
 	{
@@ -47,7 +47,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// ƒVƒ“ƒvƒ‹‚È3DƒƒbƒVƒ…•`‰æ—p’¸“_\‘¢‘Ì
+	/// ã‚·ãƒ³ãƒ—ãƒ«ãª3Dãƒ¡ãƒƒã‚·ãƒ¥æç”»ç”¨é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct SimpleMeshVertex
 	{
@@ -56,7 +56,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// ƒ{[ƒ“‚Ì‚È‚¢3DƒƒbƒVƒ…•`‰æ—p’¸“_\‘¢‘Ì
+	/// ãƒœãƒ¼ãƒ³ã®ãªã„3Dãƒ¡ãƒƒã‚·ãƒ¥æç”»ç”¨é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct StaticMeshVertex
 	{
@@ -66,7 +66,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// ƒ{[ƒ“î•ñ‚Ì3DƒƒbƒVƒ…•`‰æ—p‚Ì’¸“_\‘¢‘Ì
+	/// ãƒœãƒ¼ãƒ³æƒ…å ±ã®3Dãƒ¡ãƒƒã‚·ãƒ¥æç”»ç”¨ã®é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct SkeletalMeshVertex
 	{
@@ -78,7 +78,7 @@ namespace Engine::Graphics
 	};
 
 	/// <summary>
-	/// ƒXƒJƒCƒ{ƒbƒNƒX•`‰æ—p‚Ì’¸“_\‘¢‘Ì
+	/// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹æç”»ç”¨ã®é ‚ç‚¹æ§‹é€ ä½“
 	/// </summary>
 	struct SkyBoxVertex
 	{

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "InteractableSystem.hpp"
 #include "System/Input/Manager/InputManager.hpp"
 
@@ -16,14 +16,14 @@
 #include"Audio/Manager/AudioManager.hpp"
 
 /// <summary>
-/// ‘JˆÚ”»’è
+/// é·ç§»åˆ¤å®š
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
 void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double DeltaTime)
 {
 
-	//	ƒvƒŒƒCƒ„[À•W
+	//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åº§æ¨™
 	auto playerView = Reg.view<Transform3D, PlayerTag>(entt::exclude<DeadTag>);
 	Math::Vector3 playerPos = {};
 	playerPos = Reg.get<Transform3D>(playerView.front()).Position;
@@ -34,17 +34,17 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 	view.each([&](auto entity,Transform3D& trans, InteractableComponent&interract) 
 		{
 
-			// ”ÍˆÍ“à‚È‚ç•\¦ƒtƒ‰ƒO‚ğON
+			// ç¯„å›²å†…ãªã‚‰è¡¨ç¤ºãƒ•ãƒ©ã‚°ã‚’ON
 			if (VfxMeshComponent* vfx = Reg.try_get<VfxMeshComponent>(entity)) {
 				vfx->IsShow = true;
 			}
 
 
 
-			//	‹——£”»’è
+			//	è·é›¢åˆ¤å®š
 			Math::Vector3 diff = trans.Position - playerPos;
 			float sqrtDistance = Math::Vector3::SqrLength(diff);
-			//	”ÍˆÍ“à‚È‚ç•\¦‚ğ‚·‚éB–‘O‚É“Ç‚İ‚Ş
+			//	ç¯„å›²å†…ãªã‚‰è¡¨ç¤ºã‚’ã™ã‚‹ã€‚äº‹å‰ã«èª­ã¿è¾¼ã‚€
 			if (sqrtDistance <= interract.InteractRange * interract.InteractRange)
 			{
 				bool IsInput = Input::InputManager::GetInstance()->IsActionPressed("Interact");
@@ -57,7 +57,7 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 			}
 			else
 			{
-				//	”ÍˆÍŠO‚È‚ç”ñ•\¦‚É‚·‚é
+				//	ç¯„å›²å¤–ãªã‚‰éè¡¨ç¤ºã«ã™ã‚‹
 				if (VfxMeshComponent* vfx = Reg.try_get<VfxMeshComponent>(entity)) {
 					vfx->IsShow = false;
 				}
@@ -69,7 +69,7 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 }
 
 /// <summary>
-/// ”»’è—p‚Ì‰~‚Ì•`‰æ
+/// åˆ¤å®šç”¨ã®å††ã®æç”»
 /// </summary>
 /// <param name="Reg"></param>
 void Engine::System::InteractableSystem::Render(entt::registry& Reg)

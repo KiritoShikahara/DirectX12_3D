@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector2/Vector2.h"
 #include"Utility/MacroHelpers.hpp"
 #include"Math/Matrix/Matrix.h"
@@ -19,18 +19,18 @@ namespace Engine::Graphics
 		virtual ~Sprite() = default;
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="Texture">ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="Texture">ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(Graphics::Texture* Texture);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ•`‰æ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£æç”»
 		/// </summary>
 		virtual void Render();
 
-		//	ƒAƒNƒZƒT
+		//	ã‚¢ã‚¯ã‚»ã‚µ
 		DEFINE_PROPERTY(Math::Vector2, Position, mPosition);
 		DEFINE_PROPERTY(Math::Vector2, Pivot, mPivot);
 		DEFINE_PROPERTY(Math::Vector2, Scale, mScale);
@@ -41,62 +41,62 @@ namespace Engine::Graphics
 
 	protected:
 		/// <summary>
-		/// ’¸“_À•W•ÏŠ·
+		/// é ‚ç‚¹åº§æ¨™å¤‰æ›
 		/// </summary>
 		virtual void UpdateVertices(Graphics::SpriteVertex* Vertices);
 
 	protected:
 		struct SpriteConstantBuffer {
-			Math::Matrix WVP;      // À•W•ÏŠ·—p
-			Graphics::Color Color;   // RGBA (A‚ª“§–¾“x)
-			float Intensity = 1.0f;		//@Œõ“x
+			Math::Matrix WVP;      // åº§æ¨™å¤‰æ›ç”¨
+			Graphics::Color Color;   // RGBA (AãŒé€æ˜åº¦)
+			float Intensity = 1.0f;		//ã€€å…‰åº¦
 			float Padding[3];
 		};
 
 
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		/// </summary>
 		Texture* mTexture;
 
 		/// <summary>
-		/// À•W
+		/// åº§æ¨™
 		/// </summary>
 		Math::Vector2 mPosition;
 
 		/// <summary>
-		/// ’†S‚Æ‚È‚é²
+		/// ä¸­å¿ƒã¨ãªã‚‹è»¸
 		/// </summary>
 		Math::Vector2 mPivot;
 
 		/// <summary>
-		/// Šgk
+		/// æ‹¡ç¸®
 		/// </summary>
 		Math::Vector2 mScale;
 
 		/// <summary>
-		/// ƒTƒCƒY(•,‚‚³)
+		/// ã‚µã‚¤ã‚º(å¹…,é«˜ã•)
 		/// </summary>
 		Math::Vector2 mSize;
 
 		/// <summary>
-		/// ‰ñ“]‚ÌŠp“x
+		/// å›è»¢ã®è§’åº¦
 		/// </summary>
 		float mAngle;
 
 		/// <summary>
-		/// Œõ“x
+		/// å…‰åº¦
 		/// </summary>
 		float mIntensity = 1.0f;
 
 		/// <summary>
-		/// F
+		/// è‰²
 		/// </summary>
 		Graphics::Color mColor;
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		std::unique_ptr<Graphics::ConstantBuffer> mConstantBuffer;
 	};

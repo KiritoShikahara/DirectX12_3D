@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
-	//	–³“Gƒ^ƒO
+	//	ç„¡æ•µã‚¿ã‚°
 	struct InvincibleComponet
 	{
-		//	–³“G‚É‚È‚ê‚éŠÔ
+		//	ç„¡æ•µã«ãªã‚Œã‚‹æ™‚é–“
 		float InviMax = 0.5f;
-		//	–³“GƒJƒEƒ“ƒg—p‚Ìƒ^ƒCƒ}[
+		//	ç„¡æ•µã‚«ã‚¦ãƒ³ãƒˆç”¨ã®ã‚¿ã‚¤ãƒãƒ¼
 		float InviTimer = 0.0f;
 	};
 }

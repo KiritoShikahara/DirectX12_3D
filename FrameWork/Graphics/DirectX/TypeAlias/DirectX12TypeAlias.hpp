@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include<d3d12.h>
 #include<wrl/client.h>
 #include<dxgi1_6.h>
 
 /*
-* –½–¼’·‚¢‚©‚ç‚±‚ê’Z‚­‚µ‚Ü‚·B
+* å‘½åé•·ã„ã‹ã‚‰ã“ã‚ŒçŸ­ãã—ã¾ã™ã€‚
 */
 namespace mw
 {

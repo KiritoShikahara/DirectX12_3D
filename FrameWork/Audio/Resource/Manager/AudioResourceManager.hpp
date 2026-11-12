@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Audio/Resource/AudioResource.hpp"
 #include "System/Singleton/Singleton.hpp"
 
@@ -12,14 +12,14 @@ namespace fs = std::filesystem;
 namespace Engine::Audio
 {
 	/// <summary>
-	/// ƒTƒEƒ“ƒh‚ÌƒŠƒ\[ƒXŠÇ—
+	/// ã‚µã‚¦ãƒ³ãƒ‰ã®ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
 	/// </summary>
 	class AudioResourceManager : public Singleton<AudioResourceManager>
 	{
 		GENERATE_SINGLETON_BODY(AudioResourceManager);
 
 		/// <summary>
-		/// ƒtƒ@ƒCƒ‹ƒpƒX‚ğ‘S‚Ä‘Š‘ÎƒpƒX‚É•ÏŠ·‚·‚éB
+		/// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’å…¨ã¦ç›¸å¯¾ãƒ‘ã‚¹ã«å¤‰æ›ã™ã‚‹ã€‚
 		/// </summary>
 		/// <param name="FilePath"></param>
 		/// <returns></returns>
@@ -27,28 +27,28 @@ namespace Engine::Audio
 
 	public:
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ìæ“¾
-		/// ‚Ü‚¾“Ç‚İ‚ñ‚Å‚¢‚È‚¢ƒŠƒ\[ƒX‚È‚ç“Ç‚İ‚ŞB
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®å–å¾—
+		/// ã¾ã èª­ã¿è¾¼ã‚“ã§ã„ãªã„ãƒªã‚½ãƒ¼ã‚¹ãªã‚‰èª­ã¿è¾¼ã‚€ã€‚
 		/// </summary>
-		/// <param name="FileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+		/// <param name="FileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 		/// <returns></returns>
 		AudioResource* GetResource(const std::string& FileName);
 
 		/// <summary>
-		/// w’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ”z‰º‚Ì.aud‚ğ‘S‚Ä“Ç‚İ‚ŞB
+		/// æŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã®.audã‚’å…¨ã¦èª­ã¿è¾¼ã‚€ã€‚
 		/// </summary>
 		/// <param name="Root"></param>
 		void LoadAllFromDirectory(const fs::path& Root);
 
 		/// <summary>
-		/// w’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ”z‰º‚ÌƒŠƒ\[ƒX‚ğ‚·‚×‚Ä‰ğ•ú‚·‚éB
+		/// æŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’ã™ã¹ã¦è§£æ”¾ã™ã‚‹ã€‚
 		/// </summary>
 		/// <param name="Root"></param>
 		void UnloadAllFromDirectory(const fs::path& Root);
 
 	private:
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		/// </summary>
 		std::unordered_map<std::string, std::unique_ptr<AudioResource>> mResources;
 	};

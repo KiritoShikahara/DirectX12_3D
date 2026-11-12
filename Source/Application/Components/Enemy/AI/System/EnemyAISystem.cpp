@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EnemyAISystem.hpp"
 
 #include "Graphics/DebugRender/DebugRender.hpp"
@@ -9,7 +9,7 @@
 #include"Math/Vector3/Vector3.h"
 #include"Math/Random/Random.hpp"
 
-//	UŒ‚ó‘Ô‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+//	æ”»æ’ƒçŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 bool Engine::System::EnemyAISystem::CanAttackState(EnemyAIComponent& AI, EnemyParameters& param,FbxComponent& Fbx,float DistanceSQ)
 {
 	if (AI.CurrState == eEnemyState::Attacking)
@@ -20,13 +20,13 @@ bool Engine::System::EnemyAISystem::CanAttackState(EnemyAIComponent& AI, EnemyPa
 		}
 	}
 
-	//	UŒ‚”ÍˆÍŠO
+	//	æ”»æ’ƒç¯„å›²å¤–
 	if (param.AttackRange * param.AttackRange < DistanceSQ)
 	{
 		return false;
 	}
 
-	//	‘O‚Ìó‘Ô‚ª’ÇÕó‘Ô‚©UŒ‚ó‘Ô
+	//	å‰ã®çŠ¶æ…‹ãŒè¿½è·¡çŠ¶æ…‹ã‹æ”»æ’ƒçŠ¶æ…‹
 	bool CanAttack = AI.CurrState == eEnemyState::Chasing || AI.CurrState == eEnemyState::Attacking;
 	if (CanAttack == false)
 	{
@@ -39,15 +39,15 @@ bool Engine::System::EnemyAISystem::CanAttackState(EnemyAIComponent& AI, EnemyPa
 Engine::System::eEnemyState Engine::System::EnemyAISystem::DetermineNextRequest(entt::registry& Reg, EnemyAIComponent& AI, EnemyParameters& Param, FbxComponent& Fbx, float DistanceSQ)
 {
 
-	//	ƒvƒŒƒCƒ„[‚ÌUŒ‚‚µ‚½uŠÔ‚©‚Ç‚¤‚©‚Ì”»’è
+	//	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒã—ãŸç¬é–“ã‹ã©ã†ã‹ã®åˆ¤å®š
 	bool isPlayerAttack = false;
 	auto playerView = Reg.view<FbxComponent,PlayerStateComponent,PlayerTag>();
 	playerView.each([&](auto pEntity, FbxComponent& pFbx, PlayerStateComponent& pState)
 		{
-			//	UŒ‚’†‚ÉAnimation‚ÌÄ¶•b”‚ª’Z‚¢‚Æ‚«
+			//	æ”»æ’ƒä¸­ã«Animationã®å†ç”Ÿç§’æ•°ãŒçŸ­ã„ã¨ã
 			if (pState.State == ePlayerState::Attack && AI.PrevPlayerState != ePlayerState::Attack)
 			{
-				//	‹——£”»’è
+				//	è·é›¢åˆ¤å®š
 				float Range = Param.AttackRange * 1.5f;
 				if (DistanceSQ < Range * Range)
 				{
@@ -57,12 +57,12 @@ Engine::System::eEnemyState Engine::System::EnemyAISystem::DetermineNextRequest(
 			AI.PrevPlayerState = pState.State;
 		});
 
-	//	Ô‚ÌƒLƒƒƒ“ƒZƒ‹‰ñ”ğ
+	//	èµ¤ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿
 	if (Param.CanCancelEvade == true)
 	{
 		if (isPlayerAttack == true)
 		{
-			//	ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ”»’è
+			//	ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿åˆ¤å®š
 			float rand = Random::Range(0.0f, 1.0f);
 			if (Param.CancelEvadeProbability >= rand)
 			{
@@ -71,10 +71,10 @@ Engine::System::eEnemyState Engine::System::EnemyAISystem::DetermineNextRequest(
 		}
 	}
 
-	//	‘Ò‹@ó‘Ô‚Ì
+	//	å¾…æ©ŸçŠ¶æ…‹ã®æ™‚
 	if (AI.CurrState == eEnemyState::Idle)
 	{
-		//	UŒ‚‚Éƒ‰ƒ“ƒ_ƒ€U‚Á‚Ä‰ñ”ğ‚É‚È‚Á‚½‚ç‰ñ”ğó‘Ô‚É‚·‚é
+		//	æ”»æ’ƒæ™‚ã«ãƒ©ãƒ³ãƒ€ãƒ æŒ¯ã£ã¦å›é¿ã«ãªã£ãŸã‚‰å›é¿çŠ¶æ…‹ã«ã™ã‚‹
 		if (isPlayerAttack == true)
 		{
 			float rand = Random::Range(0.0f, 1.0f);
@@ -84,17 +84,17 @@ Engine::System::eEnemyState Engine::System::EnemyAISystem::DetermineNextRequest(
 			}
 		}
 
-		//	Œø—ÍŠÔ’†‚È‚ç‚±‚ê‚æ‚èãˆÊs“®‚¶‚á‚È‚¢‚Æ‘Ò‹@ó‘Ô‚É‚·‚éB
+		//	åŠ¹åŠ›æ™‚é–“ä¸­ãªã‚‰ã“ã‚Œã‚ˆã‚Šä¸Šä½è¡Œå‹•ã˜ã‚ƒãªã„ã¨å¾…æ©ŸçŠ¶æ…‹ã«ã™ã‚‹ã€‚
 		if (AI.StateTimer < Param.IdleTime)
 		{
 			return eEnemyState::Idle;
 		}
 	}
 		
-	//	UŒ‚I—¹ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚½‚ç
+	//	æ”»æ’ƒçµ‚äº†ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãŸã‚‰
 	if (AI.IsActionFinished == true && AI.CurrState == eEnemyState::Attacking)
 	{
-		//	UŒ‚‚Ì’i”‚ğ‘‚â‚·i˜A‘±UŒ‚—pj
+		//	æ”»æ’ƒã®æ®µæ•°ã‚’å¢—ã‚„ã™ï¼ˆé€£ç¶šæ”»æ’ƒç”¨ï¼‰
 		AI.CurrAttackCombo++;
 		if (AI.CurrAttackCombo >= Param.AttackComboMax)
 		{
@@ -105,40 +105,40 @@ Engine::System::eEnemyState Engine::System::EnemyAISystem::DetermineNextRequest(
 	}
 
 
-	//	UŒ‚”»’è
+	//	æ”»æ’ƒåˆ¤å®š
 	if (CanAttackState(AI, Param, Fbx, DistanceSQ))
 	{
 		return eEnemyState::Attacking;
 	}
 
 
-	//	ƒfƒtƒHƒ‹ƒgF’ÇÕ
+	//	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆï¼šè¿½è·¡
 	return eEnemyState::Chasing;
 }
 
 /// <summary>
-/// ’ÇÕó‘Ô‚Å‚Ìó‘ÔXV
+/// è¿½è·¡çŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 /// </summary>
-/// <param name="ToPlayer">ƒvƒŒƒCƒ„[‚Æ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
+/// <param name="ToPlayer">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
 void Engine::System::EnemyAISystem::UpdateChasing(EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& Transform, Rigidbody3D& Rigidbody, const Math::Vector3& ToPlayer, float Distance)
 {
-	//	‹ß‚·‚¬‚½‚ç‰½‚à‚µ‚È‚¢
+	//	è¿‘ã™ããŸã‚‰ä½•ã‚‚ã—ãªã„
 	if (Distance <= 0.001) return;
 
 	Math::Vector3 dir = ToPlayer;
 	dir.y = 0;
 
-	//	ˆÚ“®ƒxƒNƒgƒ‹‚É‘Î‚µ‚Ä‚ÌƒNƒH[ƒ^ƒjƒIƒ“‚ğì¬
+	//	ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã«å¯¾ã—ã¦ã®ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’ä½œæˆ
 	Transform.Rotation = Math::Quaternion::LookRotation(dir, Math::Vector3::Forward);
 
 	dir.Normalize();
 
-	//	ˆÚ“®‘¬“x
+	//	ç§»å‹•é€Ÿåº¦
 	Rigidbody.Velocity = dir * Param.MoveSpeed;
 }
 
 /// <summary>
-/// UŒ‚ó‘Ô‚Å‚àƒvƒŒƒCƒ„[‚Ì•û‚ğŒü‚­
+/// æ”»æ’ƒçŠ¶æ…‹ã§ã‚‚ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹ã‚’å‘ã
 /// </summary>
 /// <param name="AI"></param>
 /// <param name="Param"></param>
@@ -150,13 +150,13 @@ void Engine::System::EnemyAISystem::UpdateAttacking(EnemyAIComponent& AI, EnemyP
 	Math::Vector3 dir = ToPlayer;
 	dir.y = 0;
 
-	//	ˆÚ“®ƒxƒNƒgƒ‹‚É‘Î‚µ‚Ä‚ÌƒNƒH[ƒ^ƒjƒIƒ“‚ğì¬
+	//	ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã«å¯¾ã—ã¦ã®ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’ä½œæˆ
 	Transform.Rotation = Math::Quaternion::LookRotation(dir, Math::Vector3::Forward);
 
 }
 
 /// <summary>
-/// ‘Ò‹@ó‘Ô‚Å‚Ìó‘ÔXV
+/// å¾…æ©ŸçŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 /// </summary>
 void Engine::System::EnemyAISystem::UpdateIdle(EnemyAIComponent& AI, EnemyParameters& Param, float DeltaTime)
 {
@@ -165,7 +165,7 @@ void Engine::System::EnemyAISystem::UpdateIdle(EnemyAIComponent& AI, EnemyParame
 
 void Engine::System::EnemyAISystem::UpdateDodge(EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& Transform, Rigidbody3D& Rigidbody, const Math::Vector3& ToPlayer, float Distance)
 {
-	//	‹ß‚·‚¬‚½‚ç‰½‚à‚µ‚È‚¢
+	//	è¿‘ã™ããŸã‚‰ä½•ã‚‚ã—ãªã„
 	if (Distance <= 0.001) return;
 
 	Math::Vector3 dir = -ToPlayer;
@@ -173,13 +173,13 @@ void Engine::System::EnemyAISystem::UpdateDodge(EnemyAIComponent& AI, EnemyParam
 
 	dir.Normalize();
 
-	//	ˆÚ“®‘¬“x
+	//	ç§»å‹•é€Ÿåº¦
 	Rigidbody.Velocity = dir * Param.EvadeSpeed;
 	Param.EvadeSpeed *= 0.99;
 }
 
 /// <summary>
-///	ó‘Ô‚Ì•ÏX
+///	çŠ¶æ…‹ã®å¤‰æ›´
 /// </summary>
 /// <param name="AI"></param>
 /// <param name="Param"></param>
@@ -187,15 +187,15 @@ void Engine::System::EnemyAISystem::UpdateDodge(EnemyAIComponent& AI, EnemyParam
 void Engine::System::EnemyAISystem::ChangeState(entt::registry& Reg, EnemyAIComponent& AI, EnemyParameters& Param, FbxComponent& fbx, eEnemyState Next)
 {
 
-	//	‘Oó‘Ô‚ÌƒŠƒZƒbƒg
+	//	å‰çŠ¶æ…‹ã®ãƒªã‚»ãƒƒãƒˆ
 	ExitState(Reg,AI, Param, fbx);
 
 	AI.CurrState = Next;
 
-	//	¡‚Ìó‘Ô‚Ì‰Šú‰»
+	//	ä»Šã®çŠ¶æ…‹ã®åˆæœŸåŒ–
 	InitState(Reg,AI, Param, fbx);
 
-	//	ó‘Ôƒtƒ‰ƒO‚ğˆê’U–ß‚·
+	//	çŠ¶æ…‹ãƒ•ãƒ©ã‚°ã‚’ä¸€æ—¦æˆ»ã™
 	AI.IsActionFinished = false;
 
 }
@@ -241,7 +241,7 @@ void Engine::System::EnemyAISystem::ExitState(entt::registry& Reg,EnemyAICompone
 }
 
 /// <summary>
-/// ó‘Ô‰Šú‰»
+/// çŠ¶æ…‹åˆæœŸåŒ–
 /// </summary>
 void Engine::System::EnemyAISystem::InitState(entt::registry& Reg,EnemyAIComponent& AI, EnemyParameters& Param, FbxComponent& fbx)
 {
@@ -266,9 +266,9 @@ void Engine::System::EnemyAISystem::InitState(entt::registry& Reg,EnemyAICompone
 		{
 			if (Param.Weapon != entt::null)
 			{
-				//	•Ší‚É•K—v‚È‚à‚Ì‚ğƒAƒ^ƒbƒ`
+				//	æ­¦å™¨ã«å¿…è¦ãªã‚‚ã®ã‚’ã‚¢ã‚¿ãƒƒãƒ
 				Reg.emplace_or_replace<HitHistoryComponent>(Param.Weapon);
-				//	•Ší‚É“–‚½‚è”»’è‚ğƒAƒ^ƒbƒ`‚·‚é
+				//	æ­¦å™¨ã«å½“ãŸã‚Šåˆ¤å®šã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
 				auto col = ColliderComponent::Create<OBBCollider>();
 				auto collider = col.GetPtr<OBBCollider>();
 				collider->SetVolume({ 1.0f,4.0f,1.0f });
@@ -293,7 +293,7 @@ void Engine::System::EnemyAISystem::InitState(entt::registry& Reg,EnemyAICompone
 }
 
 /// <summary>
-/// ó‘Ô‚ÌI—¹”»’è
+/// çŠ¶æ…‹ã®çµ‚äº†åˆ¤å®š
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -347,33 +347,33 @@ void Engine::System::EnemyAISystem::MainUpdate(entt::registry& Reg, double Delta
 	auto view = Reg.view<EnemyAIComponent, EnemyParameters, Transform3D, Rigidbody3D,FbxComponent>(entt::exclude<DeadTag>);
 	view.each([&](auto entity, EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& trans,Rigidbody3D& rigid, FbxComponent&fbx)
 		{
-			//	ˆÚ“®ƒxƒNƒgƒ‹
+			//	ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«
 			Math::Vector3 Dir =  playerPos - trans.Position;
 			float distanceSQ = Dir.SqrLength();
 
-			//	ó‘Ô‚Ì‘JˆÚ
+			//	çŠ¶æ…‹ã®é·ç§»
 			Engine::System::eEnemyState nextState = AI.CurrState;
-			// ‰ñ”ğ’†‚©‚ÂƒAƒNƒVƒ‡ƒ“‚ª‚Ü‚¾I‚í‚Á‚Ä‚¢‚È‚¢‚È‚çAó‘Ô”»’è‚ğƒXƒLƒbƒv‚·‚é
+			// å›é¿ä¸­ã‹ã¤ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãŒã¾ã çµ‚ã‚ã£ã¦ã„ãªã„ãªã‚‰ã€çŠ¶æ…‹åˆ¤å®šã‚’ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹
 			bool isEvading = (AI.CurrState == eEnemyState::Evade || AI.CurrState == eEnemyState::CancelEvade);
 			if (isEvading && AI.IsActionFinished == false)
 			{
-				// ó‘Ô‚ğˆÛ
+				// çŠ¶æ…‹ã‚’ç¶­æŒ
 				nextState = AI.CurrState;
 			}
 			else
 			{
-				// ‚»‚êˆÈŠOi‘Ò‹@’†‚â’ÇÕ’†A‚Ü‚½‚Í‰ñ”ğ‚ªI‚í‚Á‚½uŠÔj‚È‚çŸ‚Ìó‘Ô‚ğ‹Â‚®
+				// ãã‚Œä»¥å¤–ï¼ˆå¾…æ©Ÿä¸­ã‚„è¿½è·¡ä¸­ã€ã¾ãŸã¯å›é¿ãŒçµ‚ã‚ã£ãŸç¬é–“ï¼‰ãªã‚‰æ¬¡ã®çŠ¶æ…‹ã‚’ä»°ã
 				nextState = DetermineNextRequest(Reg, AI, Param, fbx, distanceSQ);
 			}
 
 
-			//	ó‘Ô‚ÌØ‚è‘Ö‚¦
+			//	çŠ¶æ…‹ã®åˆ‡ã‚Šæ›¿ãˆ
 			if (AI.CurrState != nextState || AI.IsActionFinished == true)
 			{
 				ChangeState(Reg,AI, Param, fbx, nextState);
 			}
 
-			//	‚»‚Ìó‘Ô‚Å‚ÌXV
+			//	ãã®çŠ¶æ…‹ã§ã®æ›´æ–°
 			switch (AI.CurrState)
 			{
 			case Engine::System::eEnemyState::Idle:
@@ -383,7 +383,7 @@ void Engine::System::EnemyAISystem::MainUpdate(entt::registry& Reg, double Delta
 				UpdateChasing(AI, Param, trans, rigid, Dir, distanceSQ);
 				break;
 			case Engine::System::eEnemyState::Attacking:
-				//	­‚µ‚ÌŠÔ‚¾‚¯
+				//	å°‘ã—ã®é–“ã ã‘
 				if (fbx.Mesh->GetAnimationTime() < 0.2f)
 				{
 					UpdateAttacking(AI, Param, trans, Dir, distanceSQ);
@@ -402,7 +402,7 @@ void Engine::System::EnemyAISystem::MainUpdate(entt::registry& Reg, double Delta
 }
 
 /// <summary>
-/// ƒfƒoƒbƒN•`‰æ
+/// ãƒ‡ãƒãƒƒã‚¯æç”»
 /// </summary>
 /// <param name="Reg"></param>
 void Engine::System::EnemyAISystem::Render(entt::registry& Reg)
@@ -413,7 +413,7 @@ void Engine::System::EnemyAISystem::Render(entt::registry& Reg)
 	auto view = Reg.view<EnemyParameters, EnemyAIComponent,Transform3D>();
 	view.each([&](EnemyParameters& param, EnemyAIComponent& ai, Transform3D& trans)
 		{
-			//	UŒ‚‚É“ü‚é”ÍˆÍ‚Ì•\¦
+			//	æ”»æ’ƒã«å…¥ã‚‹ç¯„å›²ã®è¡¨ç¤º
 			Graphics::DebugRender::DrawDebugCircle(trans.Position, param.AttackRange, Graphics::Color::Red());
 
 		});

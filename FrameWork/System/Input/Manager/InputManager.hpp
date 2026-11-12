@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/Singleton/Singleton.hpp"
 #include"EnumInputDevice.hpp"
@@ -19,14 +19,14 @@
 namespace Engine::Input
 {
 	/// <summary>
-	/// Še“ü—Í‚ÌŠÇ—
+	/// å„å…¥åŠ›ã®ç®¡ç†
 	/// </summary>
 	class InputManager : public Singleton<InputManager>
 	{
 		GENERATE_SINGLETON_BODY(InputManager);
 
 		/// <summary>
-		/// ƒAƒNƒVƒ‡ƒ“–¼‚É•R‚Ã‚¯‚éŠeƒfƒoƒCƒX‚ÌƒR[ƒh
+		/// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³åã«ç´ã¥ã‘ã‚‹å„ãƒ‡ãƒã‚¤ã‚¹ã®ã‚³ãƒ¼ãƒ‰
 		/// </summary>
 		struct ActionBinding
 		{
@@ -38,98 +38,98 @@ namespace Engine::Input
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize();
 
 		/// <summary>
-		/// ó‘ÔXV
+		/// çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚ÌƒCƒxƒ“ƒg‚©‚ç“ü—Íó‘Ô‚Ìæ“¾
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å…¥åŠ›çŠ¶æ…‹ã®å–å¾—
 		/// </summary>
-		/// <returns>true:ŠY“–ƒCƒxƒ“ƒg</returns>
+		/// <returns>true:è©²å½“ã‚¤ãƒ™ãƒ³ãƒˆ</returns>
 		bool ProcessEvent(UINT Message, WPARAM WParam, LPARAM LParam);
 
 		/// <summary>
-		/// PadŠÇ—‚Ìæ“¾
+		/// Padç®¡ç†ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		PadManager* GetPadManager();
 
 		/// <summary>
-		/// ƒ}ƒEƒXŠÇ—‚Ìæ“¾
+		/// ãƒã‚¦ã‚¹ç®¡ç†ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Mouse* GetMouse();
 
 		/// <summary>
-		/// ƒL[ƒ{[ƒhŠÇ—‚Ìæ“¾
+		/// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ç®¡ç†ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Keyboard* GetKeyboard();
 
 		/// <summary>
-		/// ˆÚ“®²‚Ì“ü—Í—Ê‚Ìæ“¾
+		/// ç§»å‹•è»¸ã®å…¥åŠ›é‡ã®å–å¾—
 		/// </summary>
 		/// <param name="Name"></param>
 		/// <returns></returns>
 		Math::Vector2 GetAxis();
 
 		/// <summary>
-		/// ƒAƒ“ƒOƒ‹²‚Ì“ü—Í—Ê‚ğæ“¾
+		/// ã‚¢ãƒ³ã‚°ãƒ«è»¸ã®å…¥åŠ›é‡ã‚’å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Math::Vector2 GetLookAxis();
 
 		/// <summary>
-		/// ƒAƒNƒVƒ‡ƒ“–¼‚Ì—v˜^
+		/// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³åã®è¦éŒ²
 		/// </summary>
-		/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-		/// <param name="Bind">‘Î‰‚µ‚½ƒL[ƒR[ƒhŒQ</param>
+		/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+		/// <param name="Bind">å¯¾å¿œã—ãŸã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ç¾¤</param>
 		void AddAction(const std::string& ActionName, const ActionBinding& Bind);
 
 		/// <summary>
-		/// ‰Ÿ‚µ‚½uŠÔ
+		/// æŠ¼ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-		/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+		/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+		/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 		bool IsActionPressed(const std::string& ActionName);
 
 		/// <summary>
-		/// ‰Ÿ‚³‚ê‚Ä‚¢‚é
+		/// æŠ¼ã•ã‚Œã¦ã„ã‚‹
 		/// </summary>
-		/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-		/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+		/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+		/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 		bool IsActionHeld(const std::string& ActionName);
 
 		/// <summary>
-		/// —£‚µ‚½uŠÔ
+		/// é›¢ã—ãŸç¬é–“
 		/// </summary>
-		/// <param name="ActionName">ƒAƒNƒVƒ‡ƒ“–¼</param>
-		/// <returns>true:—£‚µ‚½uŠÔ</returns>
+		/// <param name="ActionName">ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å</param>
+		/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 		bool IsActionReleased(const std::string& ActionName);
 
 
 	private:
 		/// <summary>
-		/// ƒAƒNƒVƒ‡ƒ“–ˆ‚Ì“ü—Í
+		/// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³æ¯ã®å…¥åŠ›
 		/// </summary>
 		std::unordered_map<std::string, ActionBinding> mActionMaps;
 
 		/// <summary>
-		/// PadŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+		/// Padç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		/// </summary>
 		std::unique_ptr<PadManager> mPadManager;
 		/// <summary>
-		/// ƒ}ƒEƒXŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+		/// ãƒã‚¦ã‚¹ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		/// </summary>
 		std::unique_ptr<Mouse> mMouse;
 		/// <summary>
-		/// ƒL[ƒ{[ƒhŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+		/// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		/// </summary>
 		std::unique_ptr<Keyboard> mKeyboard;
 	};

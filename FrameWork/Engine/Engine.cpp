@@ -1,4 +1,4 @@
-#include"pch.h"
+ï»¿#include"pch.h"
 #include"Engine/Engine.hpp"
 
 // framework
@@ -30,20 +30,20 @@
 #include"Audio/Device/AudioDevice.hpp"
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰Šú‰»
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®åˆæœŸåŒ–
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Core::Engine::Initialize()
 {
 	bool ret = false;
 
 #if _DEBUG
-	//	ƒƒ‚ƒŠ‰ğ•ú˜R‚êƒ`ƒFƒbƒN—p
+	//	ãƒ¡ãƒ¢ãƒªè§£æ”¾æ¼ã‚Œãƒã‚§ãƒƒã‚¯ç”¨
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 	Debug::Logger::Initialize();
 
-	//	ƒEƒBƒ“ƒhƒE
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 	System::Window::Create();
 	mWindow = System::Window::GetInstance();
 	ret = mWindow->Initialize("DirectX12 Engine", 0, 0,{1280,720,true});
@@ -69,7 +69,7 @@ bool Engine::Core::Engine::Initialize()
 
 	mDirectX->SetBackColor({0.5,0.5,0.5,1.0});
 
-	//	•`‰æ—pƒq[ƒv‚Ì‰Šú‰»
+	//	æç”»ç”¨ãƒ’ãƒ¼ãƒ—ã®åˆæœŸåŒ–
 	Graphics::GraphicsDescriptorHeapManager::Create();
 	mGDHManager = Graphics::GraphicsDescriptorHeapManager::GetInstance();
 	ret = mGDHManager->Initialize();
@@ -78,11 +78,11 @@ bool Engine::Core::Engine::Initialize()
 		return false;
 	}
 
-	//	•\¦
+	//	è¡¨ç¤º
 	Graphics::Renderer::Create();
 	mRenderer = Graphics::Renderer::GetInstance();
 
-	//	ƒGƒtƒFƒNƒg
+	//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	Graphics::EffectManager::Create();
 	mEffect = Graphics::EffectManager::GetInstance();
 	mEffect->Initialize();
@@ -100,13 +100,13 @@ bool Engine::Core::Engine::Initialize()
 		return false;
 	}
 
-	//	ƒƒO‚Ì‰Šú‰»
+	//	ãƒ­ã‚°ã®åˆæœŸåŒ–
 
 
-	//	ƒI[ƒfƒBƒI‰Šú‰»
-	//	ƒŠƒ\[ƒXŠÇ—
+	//	ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªåˆæœŸåŒ–
+	//	ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
 	Audio::AudioResourceManager::Create();
-	//	Ä¶ŠÇ—
+	//	å†ç”Ÿç®¡ç†
 	Audio::AudioManager::Create();
 	auto AudioManager = Audio::AudioManager::GetInstance();
 	ret = AudioManager->Initialize(Audio::AudioResourceManager::GetInstance());
@@ -114,7 +114,7 @@ bool Engine::Core::Engine::Initialize()
 	{
 		return false;
 	}	
-	//	ƒI[ƒfƒBƒI‚ÌƒfƒoƒCƒX
+	//	ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã®ãƒ‡ãƒã‚¤ã‚¹
 	Audio::AudioDevice::Create();
 	ret = Audio::AudioDevice::GetInstance()->Initialize(AudioManager);
 	if (ret == false)
@@ -122,17 +122,17 @@ bool Engine::Core::Engine::Initialize()
 		return false;
 	}
 
-	//	“ü—Í‰Šú‰»
+	//	å…¥åŠ›åˆæœŸåŒ–
 	Input::InputManager::Create();
 	Input::InputManager::GetInstance()->Initialize();
 
-	//	ƒCƒxƒ“ƒgŠÇ—‚Ìì¬
+	//	ã‚¤ãƒ™ãƒ³ãƒˆç®¡ç†ã®ä½œæˆ
 	System::EventManager::Create();
 
-	//	ƒIƒuƒWƒFƒNƒgŠÇ—‚Ìì¬
+	//	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã®ä½œæˆ
 	System::EntityManager::Create();
 
-	//	ƒŠƒ\[ƒXŠÇ—
+	//	ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
 	Graphics::FbxResourceManager::Create();
 	Graphics::TextureManager::Create();
 	Graphics::SkyBoxResourceManager::Create();
@@ -141,7 +141,7 @@ bool Engine::Core::Engine::Initialize()
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰ğ•ú
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®è§£æ”¾
 /// </summary>
 void Engine::Core::Engine::OnDestory()
 {
@@ -152,19 +152,19 @@ void Engine::Core::Engine::OnDestory()
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰ğ•ú
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®è§£æ”¾
 /// </summary>
 void Engine::Core::Engine::NewFrame()
 {
 #ifdef _DEBUG
-	//	“ü—Í
+	//	å…¥åŠ›
 	//	ImGui
 	mImgui->NewFrame();
 #endif // _DEBUG
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€‚ÌŠJn
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 /// </summary>
 void Engine::Core::Engine::BegineRendering()
 {
@@ -175,7 +175,7 @@ void Engine::Core::Engine::BegineRendering()
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€‚ÌI—¹
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµ‚äº†
 /// </summary>
 void Engine::Core::Engine::EndFrame()
 {

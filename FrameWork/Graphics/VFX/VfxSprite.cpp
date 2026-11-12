@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "VfxSprite.hpp"
 #include "Graphics/Renderer/Renderer.hpp"
 #include "Graphics/Texture/Texture.hpp"
@@ -25,9 +25,9 @@ namespace Engine::Graphics {
 	}
 
 	/// <summary>
-	/// ì¬
+	/// ä½œæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool VfxMesh::Create(Texture* texture)
 	{
 		if (texture == nullptr) return false;
@@ -35,12 +35,12 @@ namespace Engine::Graphics {
 
 		float w = static_cast<float>(texture->GetWidth());
 		float h = static_cast<float>(texture->GetHeight());
-		mSize.x = w / h; // ‰¡•‚ğ”ä—¦‚É‚·‚é (—á: 256x64‚È‚ç 4.0)
-		mSize.y = 1.0f;  // ‚‚³‚ğŠî€ 1.0 ‚É‚·‚é
+		mSize.x = w / h; // æ¨ªå¹…ã‚’æ¯”ç‡ã«ã™ã‚‹ (ä¾‹: 256x64ãªã‚‰ 4.0)
+		mSize.y = 1.0f;  // é«˜ã•ã‚’åŸºæº– 1.0 ã«ã™ã‚‹
 
 		bool ret = false;
 
-		//	’è”ƒoƒbƒtƒ@
+		//	å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		mTransformBuffer = std::make_unique<ConstantBuffer>();
 		ret = mTransformBuffer->Create(ConstantBufferSize);
 		if (ret == false)
@@ -49,7 +49,7 @@ namespace Engine::Graphics {
 			return false;
 		}
 
-		//	’¸“_ƒoƒbƒtƒ@‚Ìì¬
+		//	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 		ret = CreateMesh();
 		if (ret == false)
 		{
@@ -61,7 +61,7 @@ namespace Engine::Graphics {
 	}
 
 	/// <summary>
-	/// ”Âƒ|ƒŠƒSƒ“‚Ì¶¬
+	/// æ¿ãƒãƒªã‚´ãƒ³ã®ç”Ÿæˆ
 	/// </summary>
 	/// <returns></returns>
 	bool VfxMesh::CreateMesh()
@@ -80,7 +80,7 @@ namespace Engine::Graphics {
 			{ Math::Vector3(right, top,    0.0f), Math::Vector2(1.0f, 0.0f) },
 		};
 
-		// --- DX12 ƒŠƒ\[ƒXì¬ ---
+		// --- DX12 ãƒªã‚½ãƒ¼ã‚¹ä½œæˆ ---
 		ID3D12Device* device = DirectX::GetInstance()->GetDevice();
 
 		D3D12_HEAP_PROPERTIES heapProps = { D3D12_HEAP_TYPE_UPLOAD };
@@ -97,7 +97,7 @@ namespace Engine::Graphics {
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&mVertexBuffer));
 
 		void* pData = nullptr;
-		D3D12_RANGE readRange = { 0, 0 }; // CPU‚©‚ç‚Í“Ç‚İæ‚ç‚È‚¢
+		D3D12_RANGE readRange = { 0, 0 }; // CPUã‹ã‚‰ã¯èª­ã¿å–ã‚‰ãªã„
 		mVertexBuffer->Map(0, &readRange, &pData);
 		memcpy(pData, vertices, sizeof(vertices));
 		mVertexBuffer->Unmap(0, nullptr);
@@ -110,25 +110,25 @@ namespace Engine::Graphics {
 	}
 
 	/// <summary>
-	/// s—ñ‚ÌŒvZ‚âƒrƒ…[ƒ{[ƒh§Œä
+	/// è¡Œåˆ—ã®è¨ˆç®—ã‚„ãƒ“ãƒ¥ãƒ¼ãƒœãƒ¼ãƒ‰åˆ¶å¾¡
 	/// </summary>
 	void VfxMesh::Update(float DeltaTime)
 	{
-		//	ŠÔ‚ÌŒo‰ß‚È‚Ç‚ğ‚³‚¹‚Ä‚à‚¢‚¢
+		//	æ™‚é–“ã®çµŒéãªã©ã‚’ã•ã›ã¦ã‚‚ã„ã„
 		mTimer += DeltaTime;
 
 		if (mIsBillBoard && System::Camera::Main != nullptr) {
 
-			// ©•ª‚©‚çƒJƒƒ‰‚Ö‚Ì•ûŒüƒxƒNƒgƒ‹‚ğì¬
+			// è‡ªåˆ†ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã¸ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä½œæˆ
 			Math::Vector3 cameraPos = System::Camera::Main->GetPosition();
 			Math::Vector3 toCamera = mPosition - cameraPos;
 
-			// ‚»‚Ì•ûŒü‚ğŒü‚­ƒNƒH[ƒ^ƒjƒIƒ“‚ğì¬
+			// ãã®æ–¹å‘ã‚’å‘ãã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’ä½œæˆ
 			mRotation = Math::Quaternion::LookRotation(toCamera,Math::Vector3::Up);
 
 			Math::Vector3 finalScale(mScale.x * mSize.x, mScale.y * mSize.y, mScale.z);
 
-			// s—ñ‚ğXViƒTƒCƒY‚ÆˆÊ’u‚ğ“K—pj
+			// è¡Œåˆ—ã‚’æ›´æ–°ï¼ˆã‚µã‚¤ã‚ºã¨ä½ç½®ã‚’é©ç”¨ï¼‰
 			mWorldMatrix.Update(mPosition, mRotation, finalScale);
 		}
 		else {
@@ -139,7 +139,7 @@ namespace Engine::Graphics {
 	}
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	void VfxMesh::Render()
 	{
@@ -149,7 +149,7 @@ namespace Engine::Graphics {
 		Renderer* renderer = Renderer::GetInstance();
 		renderer->SetVfxPipeline();
 
-		//	’è”ƒoƒbƒtƒ@‚ÌXV
+		//	å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		VfxConstantBufferInfo cb;
 		cb.World = Math::Matrix::Transpose(mWorldMatrix);
 		cb.View = Math::Matrix::Transpose(System::Camera::Main->GetView());
@@ -162,7 +162,7 @@ namespace Engine::Graphics {
 
 		mTexture->Set(1);
 
-		//	•`‰æ
+		//	æç”»
 		renderer->DrawVfx(mVBView, 6);
 
 #if _DEBUG

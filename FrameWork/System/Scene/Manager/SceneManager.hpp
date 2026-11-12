@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/Singleton/Singleton.hpp"
 #include"System/Scene/IScene.hpp"
@@ -19,7 +19,7 @@ namespace Engine::System
 	concept IsScene = std::derived_from<T, IScene>;
 
 	/// <summary>
-	/// Scene‚ÌŠÇ—‚ğ‚·‚é
+	/// Sceneã®ç®¡ç†ã‚’ã™ã‚‹
 	/// </summary>
 	class SceneManager : public Singleton<SceneManager>
 	{
@@ -27,47 +27,47 @@ namespace Engine::System
 
 	public:
 		/// <summary>
-		///	‰Šú‰»
+		///	åˆæœŸåŒ–
 		/// </summary>
 		/// <returns></returns>
 		bool Initialize();
 
 		/// <summary>
-		/// ‰Â•ÏXV
+		/// å¯å¤‰æ›´æ–°
 		/// </summary>
 		/// <param name="DeltaTime"></param>
 		void Update(double DeltaTime);
 
 		/// <summary>
-		/// ŒÅ’èXV
+		/// å›ºå®šæ›´æ–°
 		/// </summary>
 		void PostUpdate(double FixedDeltaTime);
 
 		/// <summary>
-		/// ImGui‚ÌXV•\¦
+		/// ImGuiã®æ›´æ–°è¡¨ç¤º
 		/// </summary>
 		void ImGuiUpdate();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render();
 
 		/// <summary>
-		/// ƒtƒF[ƒh•\¦
+		/// ãƒ•ã‚§ãƒ¼ãƒ‰è¡¨ç¤º
 		/// </summary>
 		void FadeRender();
 
 		/// <summary>
-		/// Ÿ‚ÌScene‚ª‚ ‚éê‡‚ÉØ‚è‘Ö‚¦‚é
+		/// æ¬¡ã®SceneãŒã‚ã‚‹å ´åˆã«åˆ‡ã‚Šæ›¿ãˆã‚‹
 		/// </summary>
 		void PostPresentUpdate();
 
 		/// <summary>
-		/// Ÿ‚ÌScene‚Ìì¬
+		/// æ¬¡ã®Sceneã®ä½œæˆ
 		/// </summary>
-		/// <typeparam name="...Args">ˆø”</typeparam>
-		/// <typeparam name="T">IScene‚ğŒp³‚¢‚éŒ^</typeparam>
+		/// <typeparam name="...Args">å¼•æ•°</typeparam>
+		/// <typeparam name="T">ISceneã‚’ç¶™æ‰¿ã„ã‚‹å‹</typeparam>
 		template<IsScene T, class... Args>
 		void ChangeScene(Args&&... args)
 		{
@@ -102,17 +102,17 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ƒtƒF[ƒh—p‚ÌƒGƒ“ƒeƒBƒeƒBì¬
+		/// ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ä½œæˆ
 		/// </summary>
 		void CreateFadeEntity();
 
 		/// <summary>
-		/// ¡‚ÌScene‚ğ“Ç‚İ‚İ’¼‚·
+		/// ä»Šã®Sceneã‚’èª­ã¿è¾¼ã¿ç›´ã™
 		/// </summary>
 		void ReloadCurrentScene();
 
 		/// <summary>
-		/// ¡‚ÌScene‚Ì–¼‘O‚Ìæ“¾
+		/// ä»Šã®Sceneã®åå‰ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		std::string CurrentSceneName();
@@ -120,32 +120,32 @@ namespace Engine::System
 	private:
 
 		/// <summary>
-		/// ¡‚ÌScene‚ğÄ“x“Ç‚İ‚Ş
+		/// ä»Šã®Sceneã‚’å†åº¦èª­ã¿è¾¼ã‚€
 		/// </summary>
 		std::function<std::unique_ptr<IScene>()> mReloader;
 
 		/// <summary>
-		///	¡‚ÌScene‚Ìƒ|ƒCƒ“ƒ^
+		///	ä»Šã®Sceneã®ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
 		std::unique_ptr<IScene> mScene = nullptr;
 
 		/// <summary>
-		/// Ÿ‚ÌScene‚Ìƒ|ƒCƒ“ƒ^
+		/// æ¬¡ã®Sceneã®ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
 		std::unique_ptr<IScene> mNextScene = nullptr;
 
 		/// <summary>
-		/// ¡‚ÌScene‚Ì–¼‘O
+		/// ä»Šã®Sceneã®åå‰
 		/// </summary>
 		std::string mCurrentSceneName;
 
 		/// <summary>
-		/// ƒtƒF[ƒh—p‚ÌƒŒƒWƒXƒgƒŠ
+		/// ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ãƒ¬ã‚¸ã‚¹ãƒˆãƒª
 		/// </summary>
 		entt::registry mRegistry;
 
 		/// <summary>
-		/// ƒtƒF[ƒh—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+		/// ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		/// </summary>
 		entt::entity mFadeEntity = entt::null;
 	};

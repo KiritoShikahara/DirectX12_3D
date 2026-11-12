@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector2/Vector2.h"
 #include"Math/Vector3/Vector3.h"
 #include"Math/Quaternion/Quaternion.h"
@@ -10,27 +10,27 @@ namespace Engine::System
 {
 
 	/// <summary>
-	/// ƒtƒ‰ƒOˆê——
+	/// ãƒ•ãƒ©ã‚°ä¸€è¦§
 	/// </summary>
 	enum class RigidbodyFlags : uint32_t
 	{
 		None = 0,
-		UseGravity = 1 << 0,	//	d—ÍŒvZ‚ğs‚¤‚©
-		IsStatic = 1 << 1,		//	â‘Î‚É“®‚©‚È‚¢•¨‘Ì
-		IsSleeping = 1 << 2,	//	“Á’èğŒ‚Ü‚Å“®‚©‚È‚¢•¨‘Ì(ŒvZƒXƒLƒbƒv)
-		FreezeRotX = 1 << 3,	//	X‰ñ“]‚ÌŒÅ’è
-		FreezeRotY = 1 << 4,	//	Y‰ñ“]‚ÌŒÅ’è
-		FreezeRotZ = 1 << 5,	//	Z‰ñ“]‚ÌŒÅ’è
-		Continuous = 1 << 6,	// ‚‘¬ˆÚ“®•¨‚Ì“Ë‚«”²‚¯–h~(CCD)‚ğ—LŒø‚É‚·‚é‚©
-		UseCameraBasis = 1 << 7,//	ƒJƒƒ‰Šî€‚Å“®‚­‚©‚Ç‚¤‚©
-		IsGrounded = 1 << 8		//	’…’n”»’è
+		UseGravity = 1 << 0,	//	é‡åŠ›è¨ˆç®—ã‚’è¡Œã†ã‹
+		IsStatic = 1 << 1,		//	çµ¶å¯¾ã«å‹•ã‹ãªã„ç‰©ä½“
+		IsSleeping = 1 << 2,	//	ç‰¹å®šæ¡ä»¶ã¾ã§å‹•ã‹ãªã„ç‰©ä½“(è¨ˆç®—ã‚¹ã‚­ãƒƒãƒ—)
+		FreezeRotX = 1 << 3,	//	Xå›è»¢ã®å›ºå®š
+		FreezeRotY = 1 << 4,	//	Yå›è»¢ã®å›ºå®š
+		FreezeRotZ = 1 << 5,	//	Zå›è»¢ã®å›ºå®š
+		Continuous = 1 << 6,	// é«˜é€Ÿç§»å‹•ç‰©ã®çªãæŠœã‘é˜²æ­¢(CCD)ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã‹
+		UseCameraBasis = 1 << 7,//	ã‚«ãƒ¡ãƒ©åŸºæº–ã§å‹•ãã‹ã©ã†ã‹
+		IsGrounded = 1 << 8		//	ç€åœ°åˆ¤å®š
 
 	};
-	//	‰‰Zq
+	//	æ¼”ç®—å­
 	DEFINE_ENUM_BITWISE_OPERATORS(RigidbodyFlags);
 
 	/// <summary>
-	/// 2D—p‚Ì•¨—
+	/// 2Dç”¨ã®ç‰©ç†
 	/// </summary>
 	struct Rigidbody2D
 	{
@@ -38,24 +38,24 @@ namespace Engine::System
 	};
 
 	/// <summary>
-	/// 3D—p‚Ì•¨—
+	/// 3Dç”¨ã®ç‰©ç†
 	/// </summary>
 	struct Rigidbody3D
 	{
 
-		//	ˆÚ“®—Ê
+		//	ç§»å‹•é‡
 		Math::Vector3 Velocity;
 
 
-		//	¿—Ê
+		//	è³ªé‡
 		float Mass = 1.0f;
-		//	d—Í‚ÌƒXƒP[ƒ‹
+		//	é‡åŠ›ã®ã‚¹ã‚±ãƒ¼ãƒ«
 		float GravityScale = 1.0f;
 
-		//	ƒrƒbƒgƒtƒ‰ƒO
+		//	ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°
 		RigidbodyFlags Flags = RigidbodyFlags::UseGravity | RigidbodyFlags::IsGrounded;
 
-		//	•¨—ŒvZ‚ğs‚¤‚©‚Ç‚¤‚©
+		//	ç‰©ç†è¨ˆç®—ã‚’è¡Œã†ã‹ã©ã†ã‹
 		bool IsDynamic()const
 		{
 			return !(Flags & (RigidbodyFlags::IsStatic | RigidbodyFlags::IsSleeping));

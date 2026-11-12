@@ -1,71 +1,71 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 namespace Engine::Graphics
 {
 	class SpritePipeline
 	{
 		/// <summary>
-		/// [“xƒXƒeƒ“ƒVƒ‹‚Ì‰Šúİ’è‚Ìæ“¾
+		/// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã®åˆæœŸè¨­å®šã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		D3D12_DEPTH_STENCIL_DESC GetDepthStencilDesc();
 
 		/// <summary>
-		/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚Ì‰Šúİ’è‚Ìæ“¾
+		/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸè¨­å®šã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		D3D12_BLEND_DESC GetBlendStateDesc();
 
 		/// <summary>
-		/// ƒ‰ƒXƒ^ƒ‰ƒCƒU[‚Ì‰Šúİ’è‚Ìæ“¾
+		/// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼ã®åˆæœŸè¨­å®šã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		D3D12_RASTERIZER_DESC GetRasterizerDesc();
 
 		/// <summary>
-		/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+		/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool CreateRootSignature();
 
 		/// <summary>
-		/// •`‰æƒpƒCƒvƒ‰ƒCƒ“‚Ìì¬
+		/// æç”»ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ä½œæˆ
 		/// </summary>
 		/// <returns></returns>
 		bool CreatePipeline();
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		/// <returns></returns>
 		bool Create();
 
 		/// <summary>
-		/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìæ“¾
+		/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12RootSignature* GetRootSignature()const;
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìæ“¾
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12PipelineState* GetPipelineState()const;
 
 		/// <summary>
-		/// •`‰æ•û–@
+		/// æç”»æ–¹æ³•
 		/// </summary>
-		/// <returns>OŠpŒ`</returns>
+		/// <returns>ä¸‰è§’å½¢</returns>
 		D3D_PRIMITIVE_TOPOLOGY GetTopology()const;
 
 	private:
 
 		/// <summary>
-		/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ
+		/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£
 		/// </summary>
 		mw::RootSignaturePtr mRootSignature = nullptr;
 		/// <summary>
-		///	ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg
+		///	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 		/// </summary>
 		mw::PipelineStatePtr mPipelineState = nullptr;
 	};

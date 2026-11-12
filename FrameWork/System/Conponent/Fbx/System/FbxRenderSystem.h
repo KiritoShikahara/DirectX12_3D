@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/entt/entt.hpp>
 
 namespace Engine::System
@@ -7,17 +7,17 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘ÔXV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		static void Update(entt::registry& Reg, double DeltaTime);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="Reg">enttƒŒƒWƒXƒgƒŠ</param>
-		/// <param name="Alpha">•âŠÔŒW”</param>
+		/// <param name="Reg">enttãƒ¬ã‚¸ã‚¹ãƒˆãƒª</param>
+		/// <param name="Alpha">è£œé–“ä¿‚æ•°</param>
 		static void Render(entt::registry& Reg);
 	};
 }

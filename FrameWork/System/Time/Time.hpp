@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include<chrono>
 #include<stdint.h>
 
 namespace Engine::System 
 {
 
-	// ƒ^ƒCƒ€‚ğ•ª‰ğ‚·‚é\‘¢‘Ìig‚¢Ÿè‚ª‚¢‚¢‚æ‚¤‚Éj
+	// ã‚¿ã‚¤ãƒ ã‚’åˆ†è§£ã™ã‚‹æ§‹é€ ä½“ï¼ˆä½¿ã„å‹æ‰‹ãŒã„ã„ã‚ˆã†ã«ï¼‰
 	struct TimeDisplay {
 		int Minutes;
 		int Seconds;
@@ -14,7 +14,7 @@ namespace Engine::System
 	class Time
 	{
 	public:
-		//	ƒ[ƒ‰Šú‰»
+		//	ã‚¼ãƒ­åˆæœŸåŒ–
 		constexpr Time() = default;
 
 		template <typename Rep, typename Period>
@@ -24,7 +24,7 @@ namespace Engine::System
 		{
 		}
 
-		//	ƒtƒ@ƒNƒgƒŠ
+		//	ãƒ•ã‚¡ã‚¯ãƒˆãƒª
 		[[nodiscard]] static constexpr Time Seconds(double Seconds)
 		{
 			return Time(std::chrono::duration<double>(Seconds));
@@ -35,7 +35,7 @@ namespace Engine::System
 			return Time(std::chrono::milliseconds(Ms));
 		}
 
-		//	ƒAƒNƒZƒT
+		//	ã‚¢ã‚¯ã‚»ã‚µ
 		[[nodiscard]] constexpr double AsSeconds()const
 		{
 			return std::chrono::duration<double>(mMicroseconds).count();
@@ -50,7 +50,7 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ŠÔ‚ğ•ª‚Æ•b‚É•ÏŠ·‚·‚éB
+		/// æ™‚é–“ã‚’åˆ†ã¨ç§’ã«å¤‰æ›ã™ã‚‹ã€‚
 		/// </summary>
 		/// <param name="totalSeconds"></param>
 		/// <returns></returns>
@@ -62,14 +62,14 @@ namespace Engine::System
 		}
 
 
-		// ”äŠr
+		// æ¯”è¼ƒ
 		constexpr bool operator==(const Time& Other) const = default;
 		constexpr bool operator<(const Time& Other) const
 		{
 			return mMicroseconds < Other.mMicroseconds;
 		}
 
-		// ‰ÁZi•K—vÅ¬ŒÀj
+		// åŠ ç®—ï¼ˆå¿…è¦æœ€å°é™ï¼‰
 		constexpr Time operator+(const Time& Other) const
 		{
 			return Time(mMicroseconds + Other.mMicroseconds);
@@ -81,7 +81,7 @@ namespace Engine::System
 			return *this;
 		}
 
-		// ’è”
+		// å®šæ•°
 		static const Time Zero;
 		static inline double Scale = 1.0;
 	private:

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SpritePipeline.hpp"
 #include <d3dcompiler.h>
 
@@ -11,10 +11,10 @@ namespace
         {
             size_t wLen = 0;
             wchar_t wideFileName[256] = {};
-            //	ƒtƒ@ƒCƒ‹–¼•ÏŠ·
+            //	ãƒ•ã‚¡ã‚¤ãƒ«åå¤‰æ›
             mbstowcs_s(&wLen, wideFileName, ARRAYSIZE(wideFileName), FileName, _TRUNCATE);
 
-            //  ƒVƒF[ƒ_[ì¬
+            //  ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
             mw::BlobPtr shader = nullptr;
             mw::BlobPtr error = nullptr;
 
@@ -26,7 +26,7 @@ namespace
 
             if (FAILED(hr))
             {
-                LOG_CRITICAL("ƒVƒF[ƒ_[ì¬¸”s");
+                LOG_CRITICAL("ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆå¤±æ•—");
                 error.Reset();
             }
 
@@ -36,7 +36,7 @@ namespace
 }
 
 /// <summary>
-/// [“xƒXƒeƒ“ƒVƒ‹‚Ì‰Šúİ’è‚Ìæ“¾
+/// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã®åˆæœŸè¨­å®šã®å–å¾—
 /// </summary>
 /// <returns></returns>
 D3D12_DEPTH_STENCIL_DESC Engine::Graphics::SpritePipeline::GetDepthStencilDesc()
@@ -59,7 +59,7 @@ D3D12_DEPTH_STENCIL_DESC Engine::Graphics::SpritePipeline::GetDepthStencilDesc()
 }
 
 /// <summary>
-/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚Ì‰Šúİ’è‚Ìæ“¾
+/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸè¨­å®šã®å–å¾—
 /// </summary>
 /// <returns></returns>
 D3D12_BLEND_DESC Engine::Graphics::SpritePipeline::GetBlendStateDesc()
@@ -87,7 +87,7 @@ D3D12_BLEND_DESC Engine::Graphics::SpritePipeline::GetBlendStateDesc()
 }
 
 /// <summary>
-/// ƒ‰ƒXƒ^ƒ‰ƒCƒU[‚Ì‰Šúİ’è‚Ìæ“¾
+/// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼ã®åˆæœŸè¨­å®šã®å–å¾—
 /// </summary>
 /// <returns></returns>
 D3D12_RASTERIZER_DESC Engine::Graphics::SpritePipeline::GetRasterizerDesc()
@@ -111,40 +111,40 @@ D3D12_RASTERIZER_DESC Engine::Graphics::SpritePipeline::GetRasterizerDesc()
 }
 
 /// <summary>
-/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::SpritePipeline::CreateRootSignature()
 {
-    //	ƒeƒNƒXƒ`ƒƒƒpƒ‰ƒ[ƒ^[İ’è
+    //	ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¨­å®š
     D3D12_DESCRIPTOR_RANGE Range = {};
     Range.BaseShaderRegister = 0;
     Range.NumDescriptors = 1;
     Range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
     Range.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
-    // RootParam‚ğ2‚Â‚É‘‚â‚·
+    // RootParamã‚’2ã¤ã«å¢—ã‚„ã™
     D3D12_ROOT_PARAMETER RootParam[2] = {};
 
-    // 0: ’è”ƒoƒbƒtƒ@ (b0)
+    // 0: å®šæ•°ãƒãƒƒãƒ•ã‚¡ (b0)
     RootParam[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
     RootParam[0].Descriptor.ShaderRegister = 0; // register(b0)
     RootParam[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 
-    // 1: ƒeƒNƒXƒ`ƒƒ (t0) - Šù‘¶‚ÌDescriptorTable‚Ìİ’è
+    // 1: ãƒ†ã‚¯ã‚¹ãƒãƒ£ (t0) - æ—¢å­˜ã®DescriptorTableã®è¨­å®š
     RootParam[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
     RootParam[1].DescriptorTable.pDescriptorRanges = &Range;
     RootParam[1].DescriptorTable.NumDescriptorRanges = 1;
     RootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 
-    //	ƒ‹[ƒgƒpƒ‰ƒ[ƒ^[İ’è
+    //	ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¨­å®š
     //D3D12_ROOT_PARAMETER RootParam = {};
     //RootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
     //RootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
     //RootParam.DescriptorTable.pDescriptorRanges = &Range;
     //RootParam.DescriptorTable.NumDescriptorRanges = 1;
 
-    //	ƒTƒ“ƒvƒ‰[İ’è
+    //	ã‚µãƒ³ãƒ—ãƒ©ãƒ¼è¨­å®š
     D3D12_STATIC_SAMPLER_DESC SamplerDesc = {};
     SamplerDesc.Filter = D3D12_FILTER_MIN_MAG_LINEAR_MIP_POINT;
     SamplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
@@ -188,9 +188,9 @@ bool Engine::Graphics::SpritePipeline::CreateRootSignature()
 }
 
 /// <summary>
-/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::SpritePipeline::CreatePipeline()
 {
     auto VS = CompileShader("Assets/Shader/VS_Texture.hlsl", "main", "vs_5_0");
@@ -201,7 +201,7 @@ bool Engine::Graphics::SpritePipeline::CreatePipeline()
         return false;
     }
 
-    //  0:À•W 1:UV
+    //  0:åº§æ¨™ 1:UV
     D3D12_INPUT_ELEMENT_DESC inputLayout[2] = {};
     for (auto& IL : inputLayout)
     {
@@ -222,28 +222,28 @@ bool Engine::Graphics::SpritePipeline::CreatePipeline()
     D3D12_GRAPHICS_PIPELINE_STATE_DESC desc = {};
     desc.pRootSignature = mRootSignature.Get();
 
-    //ƒRƒ“ƒpƒCƒ‹‚µ‚½’¸“_ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+    //ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸé ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
     desc.VS.pShaderBytecode = VS->GetBufferPointer();
     desc.VS.BytecodeLength = VS->GetBufferSize();
     desc.InputLayout.NumElements = ARRAYSIZE(inputLayout);
     desc.InputLayout.pInputElementDescs = inputLayout;
 
-    //ƒRƒ“ƒpƒCƒ‹‚µ‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+    //ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
     desc.PS.pShaderBytecode = PS->GetBufferPointer();
     desc.PS.BytecodeLength = PS->GetBufferSize();
 
-    //	ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+    //	ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
     desc.BlendState = GetBlendStateDesc();
-    //	ƒ‰ƒXƒ^ƒ‰ƒCƒU[İ’è
+    //	ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼è¨­å®š
     desc.RasterizerState = GetRasterizerDesc();
-    //	[“xƒXƒeƒ“ƒVƒ‹İ’è
+    //	æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«è¨­å®š
     desc.DepthStencilState = GetDepthStencilDesc();
 
     desc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
     desc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
     desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
-    //	•`‰ææ‚ÌƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+    //	æç”»å…ˆã®ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
     desc.NumRenderTargets = 1;
     desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
     desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
@@ -281,7 +281,7 @@ bool Engine::Graphics::SpritePipeline::Create()
 }
 
 /// <summary>
-/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìæ“¾
+/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®å–å¾—
 /// </summary>
 /// <returns></returns>
 ID3D12RootSignature* Engine::Graphics::SpritePipeline::GetRootSignature() const
@@ -290,7 +290,7 @@ ID3D12RootSignature* Engine::Graphics::SpritePipeline::GetRootSignature() const
 }
 
 /// <summary>
-/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìæ“¾
+/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 /// </summary>
 /// <returns></returns>
 ID3D12PipelineState* Engine::Graphics::SpritePipeline::GetPipelineState() const
@@ -299,9 +299,9 @@ ID3D12PipelineState* Engine::Graphics::SpritePipeline::GetPipelineState() const
 }
 
 /// <summary>
-/// •`‰æ•û–@
+/// æç”»æ–¹æ³•
 /// </summary>
-/// <returns>OŠpŒ`</returns>
+/// <returns>ä¸‰è§’å½¢</returns>
 
 D3D_PRIMITIVE_TOPOLOGY Engine::Graphics::SpritePipeline::GetTopology() const
 {

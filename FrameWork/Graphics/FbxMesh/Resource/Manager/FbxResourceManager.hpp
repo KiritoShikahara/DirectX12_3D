@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Graphics/FbxMesh/Resource/FbxResource.hpp"
 
@@ -15,20 +15,20 @@ namespace Engine::Graphics
 
 	public:
 		/// <summary>
-		/// Å‰‚ÉƒŠƒ\[ƒX‚ğ“Ç‚İ‚Ş
+		/// æœ€åˆã«ãƒªã‚½ãƒ¼ã‚¹ã‚’èª­ã¿è¾¼ã‚€
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="Path">ƒtƒHƒ‹ƒ_ƒpƒX</param>
-		/// <param name="CustomName">ƒL[‚ğİ’è‰Â”\B–¢İ’è‚Ìê‡‚ÍƒtƒHƒ‹ƒ_ƒpƒX</param>
+		/// <param name="Path">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
+		/// <param name="CustomName">ã‚­ãƒ¼ã‚’è¨­å®šå¯èƒ½ã€‚æœªè¨­å®šã®å ´åˆã¯ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
 		/// <returns></returns>
 		FbxResource* Load(const std::filesystem::path& Path,const std::string& CustomName = "");
 	private:
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚ÌƒfƒBƒNƒVƒ‡ƒiƒŠ[
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®ãƒ‡ã‚£ã‚¯ã‚·ãƒ§ãƒŠãƒªãƒ¼
 		/// </summary>
 		std::unordered_map<std::string, std::unique_ptr<FbxResource>> mResources;
 	};

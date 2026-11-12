@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Application.hpp"
 #include "Engine/Engine.hpp"
 
@@ -34,9 +34,9 @@
 #include"Application/Data/SkillData.hpp"
 
 #ifdef _DEBUG
-#define ESC_BREAK	//	ƒRƒƒ“ƒg‚É‚µ‚½‚çESC‚ÅI—¹‚µ‚È‚­‚È‚è‚Ü‚·B“W¦‰ï‚È‚Ì‚Å—‚Æ‚¹‚È‚¢‚æ‚¤‚É
+#define ESC_BREAK	//	ã‚³ãƒ¡ãƒ³ãƒˆã«ã—ãŸã‚‰ESCã§çµ‚äº†ã—ãªããªã‚Šã¾ã™ã€‚å±•ç¤ºä¼šãªã®ã§è½ã¨ã›ãªã„ã‚ˆã†ã«
 #else
-#define ESC_BREAK	//	ƒRƒƒ“ƒg‚É‚µ‚½‚çESC‚ÅI—¹‚µ‚È‚­‚È‚è‚Ü‚·B“W¦‰ï‚È‚Ì‚Å—‚Æ‚¹‚È‚¢‚æ‚¤‚É
+#define ESC_BREAK	//	ã‚³ãƒ¡ãƒ³ãƒˆã«ã—ãŸã‚‰ESCã§çµ‚äº†ã—ãªããªã‚Šã¾ã™ã€‚å±•ç¤ºä¼šãªã®ã§è½ã¨ã›ãªã„ã‚ˆã†ã«
 #endif // _DEBUG
 
 
@@ -61,7 +61,7 @@ void Engine::App::Application::CreateStartScene()
 }
 
 /// <summary>
-/// ƒf[ƒ^‚Ì“Ç‚İ‚İ
+/// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 /// </summary>
 bool Engine::App::Application::DataLoad()
 {
@@ -96,7 +96,7 @@ bool Engine::App::Application::DataLoad()
 }
 
 /// <summary>
-/// ƒƒCƒ“ƒ‹[ƒv
+/// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 /// </summary>
 void Engine::App::Application::Run()
 {
@@ -122,9 +122,9 @@ void Engine::App::Application::Run()
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::App::Application::Initialize()
 {
     bool ret = false;
@@ -135,17 +135,17 @@ bool Engine::App::Application::Initialize()
     ret = mEngine->Initialize();
     if (ret == false)
     {
-        LOG_CRITICAL("ƒGƒ“ƒWƒ“‚Ì‰Šú‰»‚É¸”s");
+        LOG_CRITICAL("ã‚¨ãƒ³ã‚¸ãƒ³ã®åˆæœŸåŒ–ã«å¤±æ•—");
         return false;
     }
 
     mEffect = Graphics::EffectManager::GetInstance();
 
-    //  ƒVƒXƒeƒ€ŠÇ—
+    //  ã‚·ã‚¹ãƒ†ãƒ ç®¡ç†
     System::SystemManager::Create();
     mSystems = System::SystemManager::GetInstance();
 
-    //  EntityŠÇ—
+    //  Entityç®¡ç†
     mEntitys = System::EntityManager::GetInstance();
 
     ret = DataLoad();
@@ -156,7 +156,7 @@ bool Engine::App::Application::Initialize()
     }
 
 
-    //  SceneŠÇ—
+    //  Sceneç®¡ç†
     System::SceneManager::Create();
     mScene = System::SceneManager::GetInstance();
     CreateStartScene();
@@ -172,7 +172,7 @@ bool Engine::App::Application::Initialize()
 }
 
 /// <summary>
-/// I—¹ˆ—
+/// çµ‚äº†å‡¦ç†
 /// </summary>
 void Engine::App::Application::Shutdown()
 {
@@ -180,7 +180,7 @@ void Engine::App::Application::Shutdown()
 }
 
 /// <summary>
-/// ‚PƒtƒŒ[ƒ€‚ÌXVˆ—
+/// ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ›´æ–°å‡¦ç†
 /// </summary>
 void Engine::App::Application::Tick()
 {
@@ -188,31 +188,31 @@ void Engine::App::Application::Tick()
 
     if (mIsRunning == true)
     {
-        //  ŠÔXV
+        //  æ™‚é–“æ›´æ–°
         System::Time dt = mClock.Restart();
         auto seconds = dt.AsSeconds();
 
-        //  Š®‘S‚ÉƒtƒŒ[ƒ€‚ª”ò‚ñ‚¾‚Ì•ÛŒ¯
+        //  å®Œå…¨ã«ãƒ•ãƒ¬ãƒ¼ãƒ ãŒé£›ã‚“ã æ™‚ã®ä¿é™º
         if (seconds > 0.1)
         {
             seconds = 0.1;
         }
 
-        //  ŠÔ‚ÌƒXƒP[ƒ‹
+        //  æ™‚é–“ã®ã‚¹ã‚±ãƒ¼ãƒ«
         seconds *= System::Time::Scale;
 
 
-        //  –‘OXV
+        //  äº‹å‰æ›´æ–°
         this->PreUpdate(seconds);
         this->ImGuiUpdate();
 
-        //  ƒƒCƒ“XV(•¨—)
+        //  ãƒ¡ã‚¤ãƒ³æ›´æ–°(ç‰©ç†)
         this->MainUpdate(seconds);
 
-        //  –ŒãXV
+        //  äº‹å¾Œæ›´æ–°
         this->PostUpdate(seconds);
 
-        //  •`‰æ
+        //  æç”»
         this->Render();
 
 
@@ -223,7 +223,7 @@ void Engine::App::Application::Tick()
 
 
 /// <summary>
-/// ‰Â•ÏXV
+/// å¯å¤‰æ›´æ–°
 /// </summary>
 void Engine::App::Application::PreUpdate(double dt)
 {
@@ -231,7 +231,7 @@ void Engine::App::Application::PreUpdate(double dt)
 }
 
 /// <summary>
-/// ŒÅ’èXV
+/// å›ºå®šæ›´æ–°
 /// </summary>
 void Engine::App::Application::MainUpdate(double dt)
 {
@@ -241,7 +241,7 @@ void Engine::App::Application::MainUpdate(double dt)
 }
 
 /// <summary>
-/// –ŒãXV
+/// äº‹å¾Œæ›´æ–°
 /// </summary>
 void Engine::App::Application::PostUpdate(double dt)
 {
@@ -251,7 +251,7 @@ void Engine::App::Application::PostUpdate(double dt)
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::App::Application::Render()
 {
@@ -265,7 +265,7 @@ void Engine::App::Application::Render()
 }
 
 /// <summary>
-/// ImGUi‚ÌXVA•\¦
+/// ImGUiã®æ›´æ–°ã€è¡¨ç¤º
 /// </summary>
 void Engine::App::Application::ImGuiUpdate()
 {

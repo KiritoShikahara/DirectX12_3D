@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Graphics/Color/Color.hpp"
 
@@ -8,16 +8,16 @@ namespace Engine::Graphics
 	{
 	public:		
 		/// <summary>
-		/// ƒfƒoƒbƒN—p‚Ì‰~‚Ì•`‰æ
+		/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®å††ã®æç”»
 		/// </summary>
-		/// <param name="Center">’†SÀ•W</param>
-		/// <param name="Radius">”¼Œa</param>
-		/// <param name="Color">F</param>
-		/// <param name="Segments">’¸“_”</param>
+		/// <param name="Center">ä¸­å¿ƒåº§æ¨™</param>
+		/// <param name="Radius">åŠå¾„</param>
+		/// <param name="Color">è‰²</param>
+		/// <param name="Segments">é ‚ç‚¹æ•°</param>
 		static void DrawDebugCircle(const Math::Vector3& Center, float Radius, const Graphics::Color& Color,const int Segments = 32);
 
 		/// <summary>
-		/// ƒfƒoƒbƒN—p‚ÌlŠpŒ`•`‰æ
+		/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®å››è§’å½¢æç”»
 		/// </summary>
 		/// <param name="World"></param>
 		/// <param name="Width"></param>

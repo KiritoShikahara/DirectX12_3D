@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include<entt/entt.hpp>
 
 namespace Engine::System
 {
 	
 	/// <summary>
-	/// “G‚Ìó‘ÔŠÇ—
+	/// æ•µã®çŠ¶æ…‹ç®¡ç†
 	/// </summary>
 	struct EnemyStateComponent
 	{
 
-		//	•Ší
+		//	æ­¦å™¨
 		entt::entity Weapon = entt::null;
 	};
 }

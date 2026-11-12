@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 
 #include "Application/Components/Enemy/AI/EnemyAIComponent.hpp"
@@ -14,17 +14,17 @@ namespace Engine::System
 {
 	class EnemyAISystem : public ISystem
 	{
-		//	UŒ‚ó‘Ô‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		//	æ”»æ’ƒçŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		bool CanAttackState(EnemyAIComponent& AI, EnemyParameters& param, FbxComponent& Fbx,float Distance);
 
-		//	’ÇÕó‘Ô‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		//	è¿½è·¡çŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 
-		//	‘Ò‹@ó‘Ô‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		//	å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 
-		//	‰ñ”ğó‘Ô‚É‘JˆÚ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		//	å›é¿çŠ¶æ…‹ã«é·ç§»ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 
 		/// <summary>
-		/// Ÿ‚Ìó‘Ô‚ğŒˆ’è‚·‚éƒƒ\ƒbƒh
+		/// æ¬¡ã®çŠ¶æ…‹ã‚’æ±ºå®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 		/// </summary>
 		/// <returns></returns>
 		eEnemyState DetermineNextRequest(entt::registry& Reg,EnemyAIComponent& AI, EnemyParameters& Param,FbxComponent& Fbx,float Distance);
@@ -32,30 +32,30 @@ namespace Engine::System
 	private:
 
 		/// <summary>
-		/// ’ÇÕó‘Ô‚Å‚Ìó‘ÔXV
+		/// è¿½è·¡çŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
-		/// <param name="ToPlayer">ƒvƒŒƒCƒ„[‚Æ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
+		/// <param name="ToPlayer">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
 		void UpdateChasing(EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& Transform, Rigidbody3D& Rigidbody, const Math::Vector3& ToPlayer,float Distance);
 
 		/// <summary>
-		/// UŒ‚ó‘Ô‚Å‚Ìó‘ÔXV
+		/// æ”»æ’ƒçŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		void UpdateAttacking(EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& Transform, const Math::Vector3& ToPlayer, float Distance);
 
 		/// <summary>
-		/// ‘Ò‹@ó‘Ô‚Å‚Ìó‘ÔXV
+		/// å¾…æ©ŸçŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
 		void UpdateIdle(EnemyAIComponent& AI, EnemyParameters& Param,float DeltaTime);
 
 		/// <summary>
-		/// ’ÇÕó‘Ô‚Å‚Ìó‘ÔXV
+		/// è¿½è·¡çŠ¶æ…‹ã§ã®çŠ¶æ…‹æ›´æ–°
 		/// </summary>
-		/// <param name="ToPlayer">ƒvƒŒƒCƒ„[‚Æ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
+		/// <param name="ToPlayer">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
 		void UpdateDodge(EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& Transform, Rigidbody3D& Rigidbody, const Math::Vector3& ToPlayer, float Distance);
 
 	private:
 		/// <summary>
-		///	ó‘Ô‚Ì•ÏX
+		///	çŠ¶æ…‹ã®å¤‰æ›´
 		/// </summary>
 		/// <param name="AI"></param>
 		/// <param name="Param"></param>
@@ -63,30 +63,30 @@ namespace Engine::System
 		void ChangeState(entt::registry& Reg,EnemyAIComponent& AI, EnemyParameters& Param,FbxComponent& fbx,eEnemyState Next);
 
 		/// <summary>
-		/// ¡‚Ìó‘Ô‚ÌI—¹iŒã•Ğ•t‚¯j
+		/// ä»Šã®çŠ¶æ…‹ã®çµ‚äº†ï¼ˆå¾Œç‰‡ä»˜ã‘ï¼‰
 		/// </summary>
 		void ExitState(entt::registry& Reg,EnemyAIComponent& AI, EnemyParameters& Param, FbxComponent& fbx);
 
 		/// <summary>
-		/// ó‘Ô‰Šú‰»
+		/// çŠ¶æ…‹åˆæœŸåŒ–
 		/// </summary>
 		void InitState(entt::registry& Reg,EnemyAIComponent& AI, EnemyParameters& Param,FbxComponent& fbx);
 
 	public:
 		/// <summary>
-		/// ó‘Ô‚ÌI—¹”»’è
+		/// çŠ¶æ…‹ã®çµ‚äº†åˆ¤å®š
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		virtual void PreUpdate(entt::registry& Reg, double DeltaTime)override;
 		/// <summary>
-		/// ó‘Ô‘JˆÚ
+		/// çŠ¶æ…‹é·ç§»
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		virtual void MainUpdate(entt::registry& Reg, double DeltaTime)override;
 		/// <summary>
-		/// ƒfƒoƒbƒN•`‰æ
+		/// ãƒ‡ãƒãƒƒã‚¯æç”»
 		/// </summary>
 		/// <param name="Reg"></param>
 		virtual void Render(entt::registry& Reg) override;

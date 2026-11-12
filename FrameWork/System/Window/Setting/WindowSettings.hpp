@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
 	struct WindowSetting
 	{
-		int width = 1280;      //	ƒEƒBƒ“ƒhƒE‚Ìc•
-		int height = 720;      //	ƒEƒBƒ“ƒhƒE‚Ì‰¡•
-		bool isFullscreen = false;	//	true:ƒtƒ‹ƒXƒNƒŠ[ƒ“ false:ƒEƒBƒ“ƒhƒE
+		int width = 1280;      //	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç¸¦å¹…
+		int height = 720;      //	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ¨ªå¹…
+		bool isFullscreen = false;	//	true:ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ false:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 	};
 }

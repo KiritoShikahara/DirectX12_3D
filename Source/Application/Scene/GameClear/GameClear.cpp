@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameClear.hpp"
 #include "Factory/GameClearFactory.hpp"
 #include"System/Input/Manager/InputManager.hpp"
@@ -21,13 +21,13 @@ namespace Engine::Scene
 {
 
 	/// <summary>
-/// ƒf[ƒ^‚©‚çƒ‰ƒ“ƒN‚Ì”»’è
+/// ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒ©ãƒ³ã‚¯ã®åˆ¤å®š
 /// </summary>
 /// <param name="ClearTime"></param>
 /// <returns></returns>
 	std::string RankFac::EvaluateRankByTime(double ClearTime)
 	{
-		//	ƒf[ƒ^‚Ìæ“¾
+		//	ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 		auto datas = System::CSV::Get<System::ClearRankData>().GetRawData();
 		for (auto& data : datas)
 		{
@@ -41,7 +41,7 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	///	ƒNƒŠƒAƒ^ƒCƒ€‚Ì‰‚¶‚½ƒ‰ƒ“ƒN‚Ì•\¦
+	///	ã‚¯ãƒªã‚¢ã‚¿ã‚¤ãƒ ã®å¿œã˜ãŸãƒ©ãƒ³ã‚¯ã®è¡¨ç¤º
 	/// </summary>
 	/// <param name="ClearTime"></param>
 	void RankFac::CreateRank(double ClearTime)
@@ -58,7 +58,7 @@ namespace Engine::Scene
 
 		auto rank = EvaluateRankByTime(ClearTime);
 
-		//	ƒXƒRƒA‚É‰‚¶‚Ä•ªŠò
+		//	ã‚¹ã‚³ã‚¢ã«å¿œã˜ã¦åˆ†å²
 		std::string FilePath = "Assets/Texture/Rank/" + rank + ".png";
 		auto res = Graphics::TextureManager::GetInstance()->Load(FilePath);
 		auto& sprite = registry.emplace<SpriteComponent>(entity, res);
@@ -82,9 +82,9 @@ namespace Engine::Scene
 
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool GameClear::Initialize()
 	{
 		RankFac::CreateClearTime(mClearTime, 880, 770, 100);
@@ -97,11 +97,11 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// –ŒãXV
+	/// äº‹å¾Œæ›´æ–°
 	/// </summary>
 	void GameClear::PostUpdate(double FixedDeltaTime)
 	{
-		//	‰æ–Ê‘JˆÚ
+		//	ç”»é¢é·ç§»
 		if (GET_INPUT_MANAGER->IsActionPressed("Select"))
 		{
 			Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Select.aud", false, 1.0f);
@@ -110,18 +110,18 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// I—¹ˆ—
+	/// çµ‚äº†å‡¦ç†
 	/// </summary>
 	void GameClear::Release()
 	{
-		//  ƒ[ƒJƒ‹ƒIƒuƒWƒFƒNƒg‚Ì‰ğ•ú
+		//  ãƒ­ãƒ¼ã‚«ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è§£æ”¾
 		Engine::System::EntityManager::GetInstance()->ClearLocalEntities();
 
 	}
 
 
 	/// <summary>
-	/// ƒRƒƒ“‚Ì¶¬
+	/// ã‚³ãƒ­ãƒ³ã®ç”Ÿæˆ
 	/// </summary>
 	/// <param name="X"></param>
 	/// <param name="Y"></param>
@@ -152,11 +152,11 @@ namespace Engine::Scene
 	}
 
 	/// <summary>
-	/// 2Œ…ŒÅ’è‚Å”š‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+	/// 2æ¡å›ºå®šã§æ•°å­—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 	/// </summary>
-	/// <param name="Value">2Œ…‚Ì”š</param>
-	/// <param name="StartX">n“_X‚ÌÀ•W</param>
-	/// <param name="StartY">n“_Y‚ÌÀ•W</param>
+	/// <param name="Value">2æ¡ã®æ•°å­—</param>
+	/// <param name="StartX">å§‹ç‚¹Xã®åº§æ¨™</param>
+	/// <param name="StartY">å§‹ç‚¹Yã®åº§æ¨™</param>
 	void RankFac::DrawNumber2Digits(int Value, float StartX, float StartY, float Width)
 	{
 		using namespace System;
@@ -164,8 +164,8 @@ namespace Engine::Scene
 		auto manager = EntityManager::GetInstance();
 		auto& registry = manager->GetRegistry();
 
-		int tens = Value / 10; // 10‚ÌˆÊ
-		int ones = Value % 10; // 1‚ÌˆÊ
+		int tens = Value / 10; // 10ã®ä½
+		int ones = Value % 10; // 1ã®ä½
 
 
 		{
@@ -210,17 +210,17 @@ namespace Engine::Scene
 	}
 	void RankFac::CreateClearTime(float TotalSeconds, float X, float Y, float DigitWidth)
 	{
-		//	ŠÔ‚Ìæ“¾
+		//	æ™‚é–“ã®å–å¾—
 		auto time = System::Time::GetTimeDisplay(TotalSeconds);
 
-		//	•ª‚Ìì¬
+		//	åˆ†ã®ä½œæˆ
 		DrawNumber2Digits(time.Minutes, X, Y, DigitWidth);
 
-		//	ƒRƒƒ“
+		//	ã‚³ãƒ­ãƒ³
 		float colon = X + (DigitWidth * 2);
 		DrawColon2D(colon, Y);
 
-		//	•b
+		//	ç§’
 		float secondX = colon + DigitWidth;
 		DrawNumber2Digits(time.Seconds, secondX, Y, DigitWidth);
 

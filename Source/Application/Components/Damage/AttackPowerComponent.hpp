@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Effekseer.h"
 #include"Math/Vector3/Vector3.h"
 
@@ -7,13 +7,13 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ÅI“I‚Èƒ_ƒ[ƒW‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// æœ€çµ‚çš„ãªãƒ€ãƒ¡ãƒ¼ã‚¸ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct AttackPowerComponent
 	{
 		float DamageValue = 10;
-		std::vector<Effekseer::EffectRef> HitEffectAsset;	//	UŒ‚‚ª“–‚½‚Á‚½‚ÌƒGƒtƒFƒNƒg
-		Math::Vector3 Offset = {};	//	ƒIƒtƒZƒbƒg
+		std::vector<Effekseer::EffectRef> HitEffectAsset;	//	æ”»æ’ƒãŒå½“ãŸã£ãŸæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+		Math::Vector3 Offset = {};	//	ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 		Math::Vector3 Scale = {1.0f,1.0f,1.0f};
 	};
 }

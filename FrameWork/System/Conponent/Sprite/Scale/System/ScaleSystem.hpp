@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 
 
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒg‚Ì”­ŒõƒVƒXƒeƒ€
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ç™ºå…‰ã‚·ã‚¹ãƒ†ãƒ 
 	/// </summary>
 	class ScaleSystem
 	{

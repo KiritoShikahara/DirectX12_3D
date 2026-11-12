@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapInfo.hpp"
 
@@ -13,7 +13,7 @@ namespace Engine::Graphics
 	{
 
 		/// <summary>
-		/// “Ç‚İ‚ñ‚¾ƒeƒNƒXƒ`ƒƒ‚Ìî•ñæ“¾
+		/// èª­ã¿è¾¼ã‚“ã ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æƒ…å ±å–å¾—
 		/// </summary>
 		/// <param name="MetaData"></param>
 		/// <returns></returns>
@@ -21,50 +21,50 @@ namespace Engine::Graphics
 
 	public:
 		/// <summary>
-		/// ì¬
+		/// ä½œæˆ
 		/// </summary>
-		/// <param name="FilePath">ƒtƒHƒ‹ƒ_ƒpƒX</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="FilePath">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(const std::filesystem::path& FilePath);
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“‚Ö‚ÌƒZƒbƒg
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		/// <param name="RootParameterIndex"></param>
 		void Set(int RootParameterIndex);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚Ì•
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…
 		/// </summary>
 		/// <returns></returns>
 		float GetWidth()const;
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•
 		/// </summary>
 		/// <returns></returns>
 		float GetHeight()const;
 	private:
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ—pƒŠƒ\[ƒX
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”¨ãƒªã‚½ãƒ¼ã‚¹
 		/// </summary>
 		mw::ResourcePtr mResource;
 
 		/// <summary>
-		/// ƒq[ƒvî•ñ
+		/// ãƒ’ãƒ¼ãƒ—æƒ…å ±
 		/// </summary>
 		DescriptorHeapInfo mHeapInfo;
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ‰¡•
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£æ¨ªå¹…
 		/// </summary>
 		float mWidth;
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒc•
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç¸¦å¹…
 		/// </summary>
 		float mHeight;
 

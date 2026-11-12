@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Renderer.hpp"
 
 #include"Debug/spdlog/Logger.hpp"
@@ -7,7 +7,7 @@
 #include"Math/Quaternion/Quaternion.h"
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬‚Ìˆ—
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã®å‡¦ç†
 /// </summary>
 void Engine::Graphics::Renderer::OnCreate()
 {
@@ -86,7 +86,7 @@ void Engine::Graphics::Renderer::OnCreate()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‰ğ•ú‚Ìˆ—
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®è§£æ”¾æ™‚ã®å‡¦ç†
 /// </summary>
 void Engine::Graphics::Renderer::OnDestory()
 {
@@ -96,7 +96,7 @@ void Engine::Graphics::Renderer::OnDestory()
 }
 
 /// <summary>
-/// V‹K•`‰æƒtƒŒ[ƒ€‚ÌŠJn
+/// æ–°è¦æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 /// </summary>
 void Engine::Graphics::Renderer::NewRenderingFrame()
 {
@@ -116,12 +116,12 @@ void Engine::Graphics::Renderer::NewRenderingFrame()
 }
 
 /// <summary>
-/// 2D—pƒXƒvƒ‰ƒCƒg‚Ì•`‰æ
+/// 2Dç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»
 /// </summary>
-/// <param name="spriteVertices">’¸“_”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-/// <param name="vertexCount">’¸“_”z—ñ”</param>
-/// <param name="spriteIndices">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-/// <param name="indexCount">ƒCƒ“ƒfƒbƒNƒX”z—ñ”</param>
+/// <param name="spriteVertices">é ‚ç‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+/// <param name="vertexCount">é ‚ç‚¹é…åˆ—æ•°</param>
+/// <param name="spriteIndices">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+/// <param name="indexCount">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—æ•°</param>
 void Engine::Graphics::Renderer::DrawSprite(const SpriteVertex* spriteVertices, const size_t vertexCount, const uint16_t* spriteIndices, const size_t indexCount)
 {
 	Draw(
@@ -130,19 +130,19 @@ void Engine::Graphics::Renderer::DrawSprite(const SpriteVertex* spriteVertices, 
 }
 
 /// <summary>
-/// Šî–{•`‰æŠÖ”
+/// åŸºæœ¬æç”»é–¢æ•°
 /// </summary>
 void Engine::Graphics::Renderer::Draw(const void* VertexData, const size_t VertexStride, const size_t VertexCount, const void* IndexData, const eIndexBufferFormat IndexFormat, const size_t IndexCount)
 {
-	//	•s³‚Èƒƒ‚ƒŠ‚Ìg‚í‚ê•û‚ğ‚µ‚Ä‚¢‚é‚©ŒŸ’m
+	//	ä¸æ­£ãªãƒ¡ãƒ¢ãƒªã®ä½¿ã‚ã‚Œæ–¹ã‚’ã—ã¦ã„ã‚‹ã‹æ¤œçŸ¥
 	const size_t vertexSize = VertexStride * VertexCount;
 	if (mUsingVertexBufferSize + vertexSize > PerMaxVertexBufferSize)
 	{
-		//	1ƒtƒŒ[ƒ€‚Ég‚¦‚é’¸“_ƒoƒbƒtƒ@‚ª•s‘«i•’Ê‚Í‹N‚±‚ç‚È‚¢j
+		//	1ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä½¿ãˆã‚‹é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãŒä¸è¶³ï¼ˆæ™®é€šã¯èµ·ã“ã‚‰ãªã„ï¼‰
 		LOG_CRITICAL("Not Enough Renderer VertexBuffer.");
 	}
 
-	//	’¸“_ƒoƒbƒtƒ@‚ÌXV‚ÆƒZƒbƒg
+	//	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°ã¨ã‚»ãƒƒãƒˆ
 	mVertexBuffer->Update(VertexData, mVertexBufferOffset,vertexSize);
 	mVertexBuffer->Set(mVertexBufferOffset, VertexStride, vertexSize);
 
@@ -182,7 +182,7 @@ void Engine::Graphics::Renderer::Draw(const void* VertexData, const size_t Verte
 void Engine::Graphics::Renderer::SetRootSignature(ID3D12RootSignature* RootSignature)
 {
 
-	//	•Ê‚Ì‚â‚Â‚È‚ç•ÏX‚·‚é
+	//	åˆ¥ã®ã‚„ã¤ãªã‚‰å¤‰æ›´ã™ã‚‹
 	if (mCurrentPipeline.RootSignature != RootSignature)
 	{
 		mCmdList->SetGraphicsRootSignature(RootSignature);
@@ -210,7 +210,7 @@ void Engine::Graphics::Renderer::SetTopology(D3D_PRIMITIVE_TOPOLOGY Topology)
 }
 
 /// <summary>
-/// FbxMesh‚Ì•`‰æ
+/// FbxMeshã®æç”»
 /// </summary>
 /// <param name="VBv"></param>
 /// <param name="IBv"></param>
@@ -225,7 +225,7 @@ void Engine::Graphics::Renderer::DrawMesh(const D3D12_VERTEX_BUFFER_VIEW& VBv, c
 }
 
 /// <summary>
-/// Vfx‚Ì•`‰æ
+/// Vfxã®æç”»
 /// </summary>
 /// <param name="VBv"></param>
 /// <param name="VertexCount"></param>
@@ -238,32 +238,32 @@ void Engine::Graphics::Renderer::DrawVfx(const D3D12_VERTEX_BUFFER_VIEW& VBv, UI
 }
 
 /// <summary>
-/// SkyBox‚Ì•`‰æ
+/// SkyBoxã®æç”»
 /// </summary>
-/// <param name="VBv">ƒXƒJƒCƒ{ƒbƒNƒX‚Ì’¸“_ƒoƒbƒtƒ@ƒrƒ…[</param>
-/// <param name="vertexCount">’¸“_”i’Êí36j</param>
+/// <param name="VBv">ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã®é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼</param>
+/// <param name="vertexCount">é ‚ç‚¹æ•°ï¼ˆé€šå¸¸36ï¼‰</param>
 void Engine::Graphics::Renderer::DrawSkyBox(const D3D12_VERTEX_BUFFER_VIEW& VBv, UINT vertexCount)
 {
-	// ƒXƒJƒCƒ{ƒbƒNƒX‚ÍƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğg‚í‚È‚¢
+	// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã¯ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ã‚ãªã„
 	mCmdList->IASetVertexBuffers(0, 1, &VBv);
 
-	// ƒCƒ“ƒfƒbƒNƒX‚È‚µ‚Ì•`‰æ–½—ß
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãªã—ã®æç”»å‘½ä»¤
 	mCmdList->DrawInstanced(vertexCount, 1, 0, 0);
 }
 
 
 /// <summary>
-/// ƒ[ƒ‹ƒh‹óŠÔ‚Ö‚Ìƒ‰ƒCƒ“•`‰æ
+/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã¸ã®ãƒ©ã‚¤ãƒ³æç”»
 /// </summary>
-/// <param name="lineVertices">’¸“_”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-/// <param name="vertexCount">’¸“_”z—ñ”</param>
-/// <param name="lineIndices">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-/// <param name="indexCount">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
+/// <param name="lineVertices">é ‚ç‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+/// <param name="vertexCount">é ‚ç‚¹é…åˆ—æ•°</param>
+/// <param name="lineIndices">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+/// <param name="indexCount">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
 void Engine::Graphics::Renderer::DrawLines(const LineVertex* LineVertices, const size_t VertexCount, const uint16_t* LineIndices, const size_t IndexCount)
 {
 	this->SetLinePipeline();
 
-	//	ƒJƒƒ‰—pƒoƒbƒtƒ@‚ÌXV
+	//	ã‚«ãƒ¡ãƒ©ç”¨ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 	const CameraBuffer cameraBuffer =
 	{
 		Math::Matrix::Transpose(System::Camera::Main->GetView()),
@@ -278,7 +278,7 @@ void Engine::Graphics::Renderer::DrawLines(const LineVertex* LineVertices, const
 }
 
 /// <summary>
-/// ƒfƒoƒbƒN—p‚Ì“_‚Æ‰ñ“]‚Ì•\¦
+/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®ç‚¹ã¨å›è»¢ã®è¡¨ç¤º
 /// </summary>
 /// <param name="pos"></param>
 /// <param name="rot"></param>
@@ -297,19 +297,19 @@ void Engine::Graphics::Renderer::DrawGizmo(Math::Vector3 pos, Math::Quaternion r
 
 	Graphics::LineVertex vertices[6];
 
-	// X² (Ô)
+	// Xè»¸ (èµ¤)
 	vertices[0].Position = pos;
 	vertices[0].color = Graphics::Color::Red();
 	vertices[1].Position = pos + dirX;
 	vertices[1].color = Graphics::Color::Red();
 
-	// Y² (—Î)
+	// Yè»¸ (ç·‘)
 	vertices[2].Position = pos;
 	vertices[2].color = Graphics::Color::Green();
 	vertices[3].Position = pos + dirY;
 	vertices[3].color = Graphics::Color::Green();
 
-	// Z² (Â)
+	// Zè»¸ (é’)
 	vertices[4].Position = pos;
 	vertices[4].color = Graphics::Color::Blue();
 	vertices[5].Position = pos + dirZ;
@@ -317,12 +317,12 @@ void Engine::Graphics::Renderer::DrawGizmo(Math::Vector3 pos, Math::Quaternion r
 
 	const uint16_t indices[6] = { 0, 1, 2, 3, 4, 5 };
 
-	// ‚·‚Å‚ÉÀÑ‚Ì‚ ‚é DrawLines ‚ğŒÄ‚Ô
+	// ã™ã§ã«å®Ÿç¸¾ã®ã‚ã‚‹ DrawLines ã‚’å‘¼ã¶
 	this->DrawLines(vertices, 6, indices, 6);
 }
 
 /// <summary>
-/// ƒXƒvƒ‰ƒCƒg‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::Renderer::SetSpritePipeline()
 {
@@ -332,7 +332,7 @@ void Engine::Graphics::Renderer::SetSpritePipeline()
 }
 
 /// <summary>
-/// Fbx‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+/// Fbxã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::Renderer::SetFbxPipeline()
 {
@@ -342,7 +342,7 @@ void Engine::Graphics::Renderer::SetFbxPipeline()
 }
 
 /// <summary>
-/// ü•`‰æ—p‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+/// ç·šæç”»ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::Renderer::SetLinePipeline()
 {
@@ -353,7 +353,7 @@ void Engine::Graphics::Renderer::SetLinePipeline()
 }
 
 /// <summary>
-/// UI—p‚ÌspriteƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+/// UIç”¨ã®spriteãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::Renderer::SetUISpritePipeline()
 {
@@ -373,7 +373,7 @@ void Engine::Graphics::Renderer::SetSkyBoxPipeline()
 }
 
 /// <summary>
-/// VFX—p‚ÌƒpƒCƒvƒ‰ƒCƒ“
+/// VFXç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 /// </summary>
 void Engine::Graphics::Renderer::SetVfxPipeline()
 {

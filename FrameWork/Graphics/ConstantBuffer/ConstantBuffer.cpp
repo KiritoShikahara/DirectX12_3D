@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ConstantBuffer.hpp"
 #include "Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeap.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -16,17 +16,17 @@ Engine::Graphics::ConstantBuffer::~ConstantBuffer()
 }
 
 /// <summary>
-/// ’è”ƒoƒbƒtƒ@‚Ìì¬
+/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 /// </summary>
-/// <param name="Size">’è”ƒoƒbƒtƒ@‚ÌƒTƒCƒY</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="Size">å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::ConstantBuffer::Create(size_t Size)
 {
 	mBufferSize = static_cast<UINT64>(Size);
-	//	256byte’PˆÊ‚Åì¬‚³‚ê‚é‚æ‚¤Zo
+	//	256byteå˜ä½ã§ä½œæˆã•ã‚Œã‚‹ã‚ˆã†ç®—å‡º
 	mAlignedBufferSize = (mBufferSize + 0xff) & ~0xff;
 
-	//	ƒq[ƒvİ’è
+	//	ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapDesc = {};
 	heapDesc.Type = D3D12_HEAP_TYPE_UPLOAD;
 	heapDesc.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -34,7 +34,7 @@ bool Engine::Graphics::ConstantBuffer::Create(size_t Size)
 	heapDesc.CreationNodeMask = 1;
 	heapDesc.VisibleNodeMask = 1;
 
-	//	ƒoƒbƒtƒ@‚ÌƒŠƒ\[ƒX
+	//	ãƒãƒƒãƒ•ã‚¡ã®ãƒªã‚½ãƒ¼ã‚¹
 	D3D12_RESOURCE_DESC resourceDesc = {};
 	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resourceDesc.Alignment = 0;
@@ -70,7 +70,7 @@ bool Engine::Graphics::ConstantBuffer::Create(size_t Size)
 		return false;
 	}
 
-	//	CBVì¬
+	//	CBVä½œæˆ
 	D3D12_CONSTANT_BUFFER_VIEW_DESC CBV = {};
 	CBV.BufferLocation = mBufferResource->GetGPUVirtualAddress();
 	CBV.SizeInBytes = static_cast<UINT>(mAlignedBufferSize);
@@ -81,7 +81,7 @@ bool Engine::Graphics::ConstantBuffer::Create(size_t Size)
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚Ì‰ğ•ú
+/// ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::ConstantBuffer::Release()
 {
@@ -93,7 +93,7 @@ void Engine::Graphics::ConstantBuffer::Release()
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ÌXV
+/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 /// </summary>
 /// <param name="SrcData"></param>
 void Engine::Graphics::ConstantBuffer::Update(const void* SrcData)
@@ -112,14 +112,14 @@ void Engine::Graphics::ConstantBuffer::Update(const void* SrcData)
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+/// ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 /// </summary>
-/// <param name="RootParameterIndex">ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚ÖƒZƒbƒg‚µ‚½ƒpƒ‰ƒ[ƒ^[ƒCƒ“ƒfƒbƒNƒX</param>
+/// <param name="RootParameterIndex">ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã¸ã‚»ãƒƒãƒˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
 void Engine::Graphics::ConstantBuffer::Set(int RootParameterIndex)
 {
 	auto cmdList = DirectX::GetInstance()->GetCommandList();
 
-	// Root Signature ‚Å TYPE_CBV ‚É‚µ‚½ê‡‚ÍA‚±‚¿‚ç‚ğŒÄ‚Ô‚Ì‚ªƒ‹[ƒ‹
+	// Root Signature ã§ TYPE_CBV ã«ã—ãŸå ´åˆã¯ã€ã“ã¡ã‚‰ã‚’å‘¼ã¶ã®ãŒãƒ«ãƒ¼ãƒ«
 	cmdList->SetGraphicsRootConstantBufferView(
 		RootParameterIndex,
 		mBufferResource->GetGPUVirtualAddress()

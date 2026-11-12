@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SkillSystem.hpp"
 #include"../SkillComponent.hpp"
 #include"System/Conponent/Collider/ColliderComponent.hpp"
 #include"Application/Components/WeaponAttack/WeaponAttackComponent.hpp"
 
 /// <summary>
-/// ƒN[ƒ‹ƒ^ƒCƒ€‚âI—¹”»’è
+/// ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã‚„çµ‚äº†åˆ¤å®š
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -24,7 +24,7 @@ void Engine::System::SkillSystem::MainUpdate(entt::registry& Reg, double DeltaTi
 				}
 			}
 
-			//	ƒAƒNƒeƒBƒuƒ^ƒO‚ª‚Â‚¢‚Ä‚¢‚é‚Ìˆ—
+			//	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚¿ã‚°ãŒã¤ã„ã¦ã„ã‚‹æ™‚ã®å‡¦ç†
 			if (ActiveSkillTag* active = Reg.try_get<ActiveSkillTag>(entity))
 			{
 				active->ElapsedTime += DeltaTime;
@@ -35,13 +35,13 @@ void Engine::System::SkillSystem::MainUpdate(entt::registry& Reg, double DeltaTi
 						Reg.remove<ColliderComponent>(entity);
 					}
 
-					// ƒqƒbƒg—š—ğ‚à–Y‚ê‚¸‚ÉƒŠƒZƒbƒgiŸ‚Ì”­“®‚Ì‚½‚ßj
+					// ãƒ’ãƒƒãƒˆå±¥æ­´ã‚‚å¿˜ã‚Œãšã«ãƒªã‚»ãƒƒãƒˆï¼ˆæ¬¡ã®ç™ºå‹•ã®ãŸã‚ï¼‰
 					if (Reg.all_of<HitHistoryComponent>(entity))
 					{
 						Reg.remove<HitHistoryComponent>(entity);
 					}
 
-					//	ƒAƒNƒeƒBƒu‚Ìƒfƒ^ƒbƒ`
+					//	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®ãƒ‡ã‚¿ãƒƒãƒ
 					Reg.remove<ActiveSkillTag>(entity);
 				}
 

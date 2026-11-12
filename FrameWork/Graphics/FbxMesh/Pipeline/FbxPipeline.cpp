@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FbxPipeline.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
 
@@ -6,15 +6,15 @@
 
 namespace 
 {
-	//	ƒVƒF[ƒ_[ƒRƒ“ƒpƒCƒ‹—pˆ—
+	//	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ç”¨å‡¦ç†
 	auto CompileShader = [](const char* FileName, const char* FunctionName, const char* ShaderModel)
 		{
 			size_t wLen = 0;
 			wchar_t wideFileName[256] = {};
-			//	ƒtƒ@ƒCƒ‹–¼•ÏŠ·
+			//	ãƒ•ã‚¡ã‚¤ãƒ«åå¤‰æ›
 			mbstowcs_s(&wLen, wideFileName, ARRAYSIZE(wideFileName), FileName, _TRUNCATE);
 
-			//	ƒVƒF[ƒ_[ì¬
+			//	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 			mw::BlobPtr ShaderBlob = nullptr;
 			mw::BlobPtr ErrorBlob = nullptr;
 
@@ -39,23 +39,23 @@ namespace
 namespace Engine::Graphics
 {		
 	/// <summary>
-	/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+	/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool FbxPipeline::CreateRootSignature()
 	{
-		// ƒpƒ‰ƒ[ƒ^[‚Í2‚Âi0: s—ñ—pCBV, 1: ƒeƒNƒXƒ`ƒƒ—pTablej
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã¯2ã¤ï¼ˆ0: è¡Œåˆ—ç”¨CBV, 1: ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”¨Tableï¼‰
 		std::array<D3D12_ROOT_PARAMETER, 2> RootParam = {};
 
-		// --- 0”Ô–Ú: ’è”ƒoƒbƒtƒ@ (CBV) ---
-		// DescriptorTable ‚Å‚Í‚È‚­A’¼Ú CBV ‚Æ‚µ‚Ä’è‹`‚·‚é
+		// --- 0ç•ªç›®: å®šæ•°ãƒãƒƒãƒ•ã‚¡ (CBV) ---
+		// DescriptorTable ã§ã¯ãªãã€ç›´æ¥ CBV ã¨ã—ã¦å®šç¾©ã™ã‚‹
 		RootParam[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
-		RootParam[0].Descriptor.ShaderRegister = 0; // register(b0) ‚Æ‘Î‰
+		RootParam[0].Descriptor.ShaderRegister = 0; // register(b0) ã¨å¯¾å¿œ
 		RootParam[0].Descriptor.RegisterSpace = 0;
 		RootParam[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 
-		// --- 1”Ô–Ú: ƒeƒNƒXƒ`ƒƒ (SRV) ---
-		// ƒeƒNƒXƒ`ƒƒ‚Í¡‚Ü‚Å’Ê‚è DescriptorTable ‚ğg‚¤
+		// --- 1ç•ªç›®: ãƒ†ã‚¯ã‚¹ãƒãƒ£ (SRV) ---
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ä»Šã¾ã§é€šã‚Š DescriptorTable ã‚’ä½¿ã†
 		std::array<D3D12_DESCRIPTOR_RANGE, 1> Range = {};
 		Range[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
 		Range[0].NumDescriptors = 1;
@@ -66,7 +66,7 @@ namespace Engine::Graphics
 		RootParam[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		RootParam[1].DescriptorTable.pDescriptorRanges = &Range[0];
 		RootParam[1].DescriptorTable.NumDescriptorRanges = 1;
-		RootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;		//	ƒTƒ“ƒvƒ‰[İ’è
+		RootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;		//	ã‚µãƒ³ãƒ—ãƒ©ãƒ¼è¨­å®š
 		
 		
 		D3D12_STATIC_SAMPLER_DESC SamplerDesc = {};
@@ -77,8 +77,8 @@ namespace Engine::Graphics
 		SamplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		SamplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		SamplerDesc.MipLODBias = 0.0f;
-		SamplerDesc.MaxAnisotropy = 1; // 16‚¾‚Æd‚¢ê‡‚ª‚ ‚é‚Ì‚Åˆê’U1‚Å
-		SamplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER; // š•K‚¸ NEVER ‚ÉI
+		SamplerDesc.MaxAnisotropy = 1; // 16ã ã¨é‡ã„å ´åˆãŒã‚ã‚‹ã®ã§ä¸€æ—¦1ã§
+		SamplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER; // â˜…å¿…ãš NEVER ã«ï¼
 		SamplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK;
 		SamplerDesc.MinLOD = 0.0f;
 		SamplerDesc.MaxLOD = D3D12_FLOAT32_MAX;
@@ -115,7 +115,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// •`‰æƒpƒCƒvƒ‰ƒCƒ“‚Ìì¬
+	/// æç”»ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ä½œæˆ
 	/// </summary>
 	/// <returns></returns>
 	bool FbxPipeline::CreatePipeline()
@@ -129,7 +129,7 @@ namespace Engine::Graphics
 		}
 		
 		/*
-		* ’¸“_ƒVƒF[ƒ_[—pƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒg
+		* é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ç”¨ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 		*/
 		std::vector<D3D12_INPUT_ELEMENT_DESC> InputLayouts;
 		D3D12_INPUT_ELEMENT_DESC element = {};
@@ -164,33 +164,33 @@ namespace Engine::Graphics
 		InputLayouts.push_back(element);
 
 		/*
-		* •`‰æƒpƒCƒvƒ‰ƒCƒ“İ’è—p
+		* æç”»ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šç”¨
 		*/
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC PipelineStateDesc = {};
 		PipelineStateDesc.pRootSignature = mRootSignature.Get();
 
-		//ƒRƒ“ƒpƒCƒ‹‚µ‚½’¸“_ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸé ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
 		PipelineStateDesc.VS.pShaderBytecode = VS->GetBufferPointer();
 		PipelineStateDesc.VS.BytecodeLength = VS->GetBufferSize();
 		PipelineStateDesc.InputLayout.pInputElementDescs = InputLayouts.data();
 		PipelineStateDesc.InputLayout.NumElements = static_cast<UINT>(InputLayouts.size());
 
-		//ƒRƒ“ƒpƒCƒ‹‚µ‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
 		PipelineStateDesc.PS.pShaderBytecode = PS->GetBufferPointer();
 		PipelineStateDesc.PS.BytecodeLength = PS->GetBufferSize();
 
-		//	ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+		//	ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 		PipelineStateDesc.BlendState = GetBlendStateDesc();
-		//	ƒ‰ƒXƒ^ƒ‰ƒCƒU[İ’è
+		//	ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼è¨­å®š
 		PipelineStateDesc.RasterizerState = GetRasterizerDesc();
-		//	[“xƒXƒeƒ“ƒVƒ‹İ’è
+		//	æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«è¨­å®š
 		PipelineStateDesc.DepthStencilState = GetDepthStencilDesc();
 
 		PipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 		PipelineStateDesc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
 		PipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
-		//	•`‰ææ‚ÌƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+		//	æç”»å…ˆã®ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
 		for (auto& rtv : PipelineStateDesc.RTVFormats)
 		{
 			rtv = DXGI_FORMAT_UNKNOWN;
@@ -216,7 +216,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// [“xƒXƒeƒ“ƒVƒ‹‚Ì‰Šúİ’è‚Ìæ“¾
+	/// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_DEPTH_STENCIL_DESC FbxPipeline::GetDepthStencilDesc()
@@ -243,7 +243,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_BLEND_DESC FbxPipeline::GetBlendStateDesc()
@@ -271,7 +271,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‰ƒXƒ^ƒ‰ƒCƒU[‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_RASTERIZER_DESC FbxPipeline::GetRasterizerDesc()
@@ -293,20 +293,20 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ¶¬
+	/// ç”Ÿæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool FbxPipeline::Create()
 	{
 		bool ret = false;
 		
-		//	ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+		//	ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 		ret = this->CreateRootSignature();
 		if (ret == false)
 		{
 			return false;
 		}
-		//	ƒpƒCƒvƒ‰ƒCƒ“‚Ìì¬
+		//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ä½œæˆ
 		ret = this->CreatePipeline();
 		if (ret == false)
 		{
@@ -317,7 +317,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìæ“¾
+	/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12RootSignature* FbxPipeline::GetRootSignature()const
@@ -326,7 +326,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìæ“¾
+	/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12PipelineState* FbxPipeline::GetPipelineState()const
@@ -335,9 +335,9 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// •`‰æ•û–@
+	/// æç”»æ–¹æ³•
 	/// </summary>
-	/// <returns>OŠpŒ`</returns>
+	/// <returns>ä¸‰è§’å½¢</returns>
 	D3D_PRIMITIVE_TOPOLOGY FbxPipeline::GetTopology()const
 	{
 		return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

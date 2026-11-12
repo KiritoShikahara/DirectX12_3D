@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<d3d12.h>
 #include"GraphicsDescriptorHeapManager.hpp"
 
@@ -11,20 +11,20 @@ namespace Engine::Graphics
 		~GraphicsDescriptorHeap();
 
 		/// <summary>
-		/// ƒq[ƒv‚Ìì¬
+		/// ãƒ’ãƒ¼ãƒ—ã®ä½œæˆ
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create();
 
 		/// <summary>
-		/// ƒq[ƒv‚Ì‰ğ•ú
+		/// ãƒ’ãƒ¼ãƒ—ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“‚Öƒq[ƒv‚ÌƒZƒbƒg
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ãƒ’ãƒ¼ãƒ—ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
-		/// <param name="RootParameterIndex">ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚ÖƒZƒbƒg‚µ‚½ƒpƒ‰ƒ[ƒ^[ƒCƒ“ƒfƒbƒNƒX</param>
+		/// <param name="RootParameterIndex">ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã¸ã‚»ãƒƒãƒˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
 		void Set(int RootParameterIndex);
 
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle()const;

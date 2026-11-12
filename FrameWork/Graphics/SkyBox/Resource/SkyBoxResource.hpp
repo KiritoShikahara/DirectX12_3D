@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 #include "Graphics/Texture/Texture.hpp"
@@ -11,9 +11,9 @@ namespace Engine::Graphics
 	class SkyBoxResource
 	{
 		/// <summary>
-		/// —§•û‘ÌƒƒbƒVƒ…‚Ìì¬
+		/// ç«‹æ–¹ä½“ãƒ¡ãƒƒã‚·ãƒ¥ã®ä½œæˆ
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool CreateMesh();
 
 	public:
@@ -21,34 +21,34 @@ namespace Engine::Graphics
 		virtual ~SkyBoxResource();
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="CubeMapPath">ƒLƒ…[ƒuƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚ÌƒpƒX</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="CubeMapPath">ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‘ã‚¹</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(const std::filesystem::path& CubeMapPath);
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
-		//	ƒQƒbƒ^[
+		//	ã‚²ãƒƒã‚¿ãƒ¼
 		D3D12_VERTEX_BUFFER_VIEW GetVertexBufferView() const;
 		Texture* GetTexture()const;
 	private:
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		mw::ResourcePtr mVB = nullptr;
 		D3D12_VERTEX_BUFFER_VIEW mVBView = {};
 
 		/// <summary>
-		/// ƒLƒ…[ƒuƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ
+		/// ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		/// </summary>
 		std::unique_ptr<Texture> mSkyTexture = nullptr;
 
 		/// <summary>
-		/// 6–Ê–2–‡–3’¸“_‚R‚Q’¸“_
+		/// 6é¢ï¼Š2æšï¼Š3é ‚ç‚¹ï¼ï¼“ï¼’é ‚ç‚¹
 		/// </summary>
 		static constexpr uint32_t mVertexCount = 32;
 	};

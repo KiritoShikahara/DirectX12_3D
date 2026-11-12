@@ -1,41 +1,41 @@
-#pragma once
+ï»¿#pragma once
 namespace Engine::System
 {
 	/// <summary>
-	/// ‚Ç‚ÌƒGƒtƒFƒNƒg‚Å‚à‹¤’Ê‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ã©ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã§ã‚‚å…±é€šã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct GlowComponent
 	{
-		//	Šî€’l
+		//	åŸºæº–å€¤
 		float BaseIntensity = 1.0f;
-		//	ŠÔŒo‰ßŒv‘ª
+		//	æ™‚é–“çµŒéè¨ˆæ¸¬
 		float Timer = 0.0f;
 	};
 
 	/// <summary>
-	/// ŒÛ“®Fw’è‚µ‚½ŠÔ‚Åw’è‚µ‚½”ÍˆÍ‚ğ—h‚ç‚·
+	/// é¼“å‹•ï¼šæŒ‡å®šã—ãŸæ™‚é–“ã§æŒ‡å®šã—ãŸç¯„å›²ã‚’æºã‚‰ã™
 	/// </summary>
 	struct PulseTag {
-		float Duration = 2.0f; // üŠúi•bj
-		float Range = 0.5f;    // +-U•
+		float Duration = 2.0f; // å‘¨æœŸï¼ˆç§’ï¼‰
+		float Range = 0.5f;    // +-æŒ¯å¹…
 	};
 
 	/// <summary>
-	/// ‰Ô‰Î‚Ì‚æ‚¤‚ÉƒsƒJƒb‚ÆFw’è‚µ‚½Šm—¦‚ÅuŠÔ“I‚É”­Œõ‚·‚é
+	/// èŠ±ç«ã®ã‚ˆã†ã«ãƒ”ã‚«ãƒƒã¨ï¼šæŒ‡å®šã—ãŸç¢ºç‡ã§ç¬é–“çš„ã«ç™ºå…‰ã™ã‚‹
 	/// </summary>
 	struct SparkTag {
-		float Chance = 0.02f;      // ”­¶Šm—¦ (0.0`1.0)
-		float BoostMultiplier = 2.0f; // Œõ‚Á‚½‚Ì”{—¦
+		float Chance = 0.02f;      // ç™ºç”Ÿç¢ºç‡ (0.0ã€œ1.0)
+		float BoostMultiplier = 2.0f; // å…‰ã£ãŸæ™‚ã®å€ç‡
 	};
 
 	/// <summary>
-	/// ’¼ü•Ï‰»Fw’èŠÔ‚ÅA‚©‚çB‚É•Ï‰»‚³‚¹‚é
+	/// ç›´ç·šå¤‰åŒ–ï¼šæŒ‡å®šæ™‚é–“ã§Aã‹ã‚‰Bã«å¤‰åŒ–ã•ã›ã‚‹
 	/// </summary>
 	struct LinearShiftTag {
 		float StartIntensity = 0.0f;
 		float EndIntensity = 1.0f;
-		float Duration = 1.0f;     // •Ï‰»‚É‚©‚¯‚éŠÔ
-		bool Loop = false;         // ƒ‹[ƒv‚·‚é‚©‚Ç‚¤‚©
+		float Duration = 1.0f;     // å¤‰åŒ–ã«ã‹ã‘ã‚‹æ™‚é–“
+		bool Loop = false;         // ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹ã©ã†ã‹
 		bool AutoDestroy = false;
 	};
 

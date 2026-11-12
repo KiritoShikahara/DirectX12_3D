@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "StageSelectScene.hpp"
 
 #include"System/Camera/Camera.hpp"
@@ -51,7 +51,7 @@ void Engine::Scene::StageSelect::OpenConfirmWindow()
 	mConfirmWindowEntity = manager->CreateEntity();
 	auto window = Window::GetInstance();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& trans = registry.emplace<Transform2D>(mConfirmWindowEntity);
 	trans.Position = { window->GetWidth() / 2.0f ,(float)window->GetHeight() / 2 };
 	float scale = 0.5f;
@@ -80,7 +80,7 @@ void Engine::Scene::StageSelect::CloseConfirmWindow()
 
 bool Engine::Scene::StageSelect::Initialize()
 {
-	////	ƒJƒƒ‰
+	////	ã‚«ãƒ¡ãƒ©
 	Engine::System::Camera* camera = new Engine::System::Camera();
 	camera->Create();
 
@@ -104,12 +104,12 @@ bool Engine::Scene::StageSelect::Initialize()
 	//System::StageSelectObjFactory::TestEffect();
 #endif // _DENUG
 
-	//	‹ó
+	//	ç©º
 	auto SkyBoxResource = Graphics::SkyBoxResourceManager::GetInstance()->Load("Assets/SkyBox/skybox.dds");
 	mSkyBox = std::make_unique<Graphics::SkyBox>();
 	mSkyBox->Create(SkyBoxResource);
 
-	//	ƒ^ƒCƒgƒ‹‚Ì‰¹
+	//	ã‚¿ã‚¤ãƒˆãƒ«ã®éŸ³
 	Audio::AudioManager::GetInstance()->PlaySE("Assets/StageSelect/Sound/BGM.aud", true, 0.15f,false);
 
 
@@ -120,28 +120,28 @@ void Engine::Scene::StageSelect::Update(double DeltaTime)
 {
 	auto input = Input::InputManager::GetInstance();
 
-	//	option‚Åó‘Ô”»’è
+	//	optionã§çŠ¶æ…‹åˆ¤å®š
 	if (input->IsActionPressed("Option"))
 	{
 		if (mState == eState::Normal)
 		{
-			//	ƒEƒBƒ“ƒhƒE‚ğo‚·
+			//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‡ºã™
 			OpenConfirmWindow();
 		}
 		else
 		{
-			//	ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é
+			//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹
 			CloseConfirmWindow();
 		}
 	}
 
-	//	ó‘Ô‘JˆÚ”»’è
+	//	çŠ¶æ…‹é·ç§»åˆ¤å®š
 	if (mState == eState::Confirming)
 	{
 		if (input->IsActionPressed("Select"))
 		{
 			System::Time::Scale = 1.0f;
-			//	ó‘Ô‘JˆÚ‚ğŒÄ‚Ô
+			//	çŠ¶æ…‹é·ç§»ã‚’å‘¼ã¶
 			System::SceneManager::GetInstance()->ChangeSceneFade<Scene::Title>();
 			//	SE
 			Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Select.aud", false, 1.0f);
@@ -156,7 +156,7 @@ void Engine::Scene::StageSelect::Update(double DeltaTime)
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::Scene::StageSelect::Render()
 {

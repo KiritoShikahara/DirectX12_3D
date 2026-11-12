@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include<filesystem>
 #include<cstdint>
@@ -8,7 +8,7 @@ namespace fs = std::filesystem;
 namespace Engine::Audio
 {
     /// <summary>
-    /// aud‚Ìƒf[ƒ^‚©‚çƒŠƒ\[ƒX‚Ìæ“¾‚·‚é‚½‚ß‚Ì\‘¢‘Ì
+    /// audã®ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒªã‚½ãƒ¼ã‚¹ã®å–å¾—ã™ã‚‹ãŸã‚ã®æ§‹é€ ä½“
     /// </summary>
     struct AudioResource {
         uint32_t SampleRate;
@@ -16,7 +16,7 @@ namespace Engine::Audio
         std::vector<int16_t> PcmData;
 
         /// <summary>
-        /// AudŠg’£q‚Ì“à—e‚ğ“Ç‚İ‚Ş
+        /// Audæ‹¡å¼µå­ã®å†…å®¹ã‚’èª­ã¿è¾¼ã‚€
         /// </summary>
         /// <param name="Path"></param>
         /// <returns></returns>

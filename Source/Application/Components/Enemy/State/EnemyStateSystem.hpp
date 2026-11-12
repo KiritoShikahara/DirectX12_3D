@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 #include"System/Conponent/Fbx/FbxMeshConponent.hpp"
 #include "Application/Components/Enemy/State/EnemyStateComponent.hpp"
@@ -11,21 +11,21 @@ namespace Engine::System
 	public:
 
 		/// <summary>
-		/// ó‘Ô‚ÌI—¹‚Ì”»’è
+		/// çŠ¶æ…‹ã®çµ‚äº†ã®åˆ¤å®š
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		void PreUpdate(entt::registry& Reg, double DeltaTime)override;
 
 		/// <summary>
-		/// ó‘Ô‚Ì‘JˆÚ
+		/// çŠ¶æ…‹ã®é·ç§»
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		void MainUpdate(entt::registry& Reg, double DeltaTime)override;
 
 		/// <summary>
-		/// ƒfƒoƒbƒN‚Ì•`‰æ
+		/// ãƒ‡ãƒãƒƒã‚¯ã®æç”»
 		/// </summary>
 		/// <param name="Reg"></param>
 		void Render(entt::registry& Reg)override;

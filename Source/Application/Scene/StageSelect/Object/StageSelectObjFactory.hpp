@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/Color/Color.hpp"
 
 namespace Engine::System
@@ -9,11 +9,11 @@ namespace Engine::System
 		static void CreateTalkTexture(entt::registry& Reg, entt::entity entity,bool IsTalkable, const std::string& FilePath);
 	public:
 
-		static void CreateEnemy_Basic();     // ÂiÅ‰j
-		static void CreateEnemy_Advanced();  // ‰©i’†”Õj
-		static void CreateEnemy_Boss();      // ÔiÅ‹­j
+		static void CreateEnemy_Basic();     // é’ï¼ˆæœ€åˆï¼‰
+		static void CreateEnemy_Advanced();  // é»„ï¼ˆä¸­ç›¤ï¼‰
+		static void CreateEnemy_Boss();      // èµ¤ï¼ˆæœ€å¼·ï¼‰
 
-		static void TestEffect();	//	ƒGƒtƒFƒNƒg
+		static void TestEffect();	//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	};
 }
 

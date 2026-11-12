@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TitleScene.hpp"
 
 #include"System/Input/Manager/InputManager.hpp"
@@ -11,12 +11,12 @@
 #include"Audio/Manager/AudioManager.hpp"
 
 /// <summary>
-///	‰Šú‰»
+///	åˆæœŸåŒ–
 /// </summary>
 /// <returns></returns>
 bool Engine::Scene::Title::Initialize()
 {
-    //  ”wŒi
+    //  èƒŒæ™¯
     CreateTitleObject::CreateBG();
 
     Audio::AudioManager::GetInstance()->PlaySE("Assets/Title/Sound/BGM.aud",true,1.0f,false);
@@ -25,7 +25,7 @@ bool Engine::Scene::Title::Initialize()
 }
 
 /// <summary>
-/// ‰æ–Ê‚ÌØ‚è‘Ö‚¦”»’è
+/// ç”»é¢ã®åˆ‡ã‚Šæ›¿ãˆåˆ¤å®š
 /// </summary>
 /// <param name="FixedDeltaTime"></param>
 void Engine::Scene::Title::PostUpdate(double FixedDeltaTime)
@@ -38,10 +38,10 @@ void Engine::Scene::Title::PostUpdate(double FixedDeltaTime)
 }
 
 /// <summary>
-/// I—¹ˆ—
+/// çµ‚äº†å‡¦ç†
 /// </summary>
 void Engine::Scene::Title::Release()
 {
-    //  ƒ[ƒJƒ‹ƒIƒuƒWƒFƒNƒg‚Ì‰ğ•ú
+    //  ãƒ­ãƒ¼ã‚«ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è§£æ”¾
     Engine::System::EntityManager::GetInstance()->ClearLocalEntities();
 }

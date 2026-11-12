@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<filesystem>
 #include<cstdint>
 #include<string>
@@ -21,7 +21,7 @@ namespace Engine::Graphics
 	class FbxResource
 	{
 		/// <summary>
-		/// ƒ}ƒeƒŠƒAƒ‹—p\‘¢‘Ì
+		/// ãƒãƒ†ãƒªã‚¢ãƒ«ç”¨æ§‹é€ ä½“
 		/// </summary>
 		struct Material
 		{
@@ -32,28 +32,28 @@ namespace Engine::Graphics
 		};
 
 		/// <summary>
-		/// ƒ{[ƒ“î•ñ
+		/// ãƒœãƒ¼ãƒ³æƒ…å ±
 		/// </summary>
 		struct BoneInfo
 		{
 			/// <summary>
-			/// ƒ{[ƒ“–¼
+			/// ãƒœãƒ¼ãƒ³å
 			/// </summary>
 			std::string Name;
 
 			/// <summary>
-			/// eƒ{[ƒ“‚ÌƒCƒ“ƒfƒbƒNƒX
+			/// è¦ªãƒœãƒ¼ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 			/// </summary>
 			int ParentIndex;
 
 			/// <summary>
-			/// Šî–{p¨‚Ìƒ{[ƒ“
+			/// åŸºæœ¬å§¿å‹¢ã®ãƒœãƒ¼ãƒ³
 			/// </summary>
 			Math::Matrix BindMatrix;
 		};
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“—p\‘¢‘Ì
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨æ§‹é€ ä½“
 		/// </summary>
 		struct Animation
 		{
@@ -68,26 +68,26 @@ namespace Engine::Graphics
 		virtual ~FbxResource();
 
 		/// <summary>
-		/// ƒRƒ“ƒo[ƒgÏ‚İFbxƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿Fbxãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="FilePath">ƒtƒ@ƒCƒ‹ƒpƒX XXX.fbx.bin</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="FilePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ XXX.fbx.bin</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(const std::filesystem::path& FilePath);
 
 		/// <summary>
-		/// ƒRƒ“ƒo[ƒgÏ‚İƒAƒjƒ[ƒVƒ‡ƒ“(ƒ‚[ƒVƒ‡ƒ“)ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³(ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³)ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="AnimationName">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-		/// <param name="AnimationPath">ƒtƒ@ƒCƒ‹ƒpƒX XXX.fbx.anm</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="AnimationName">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+		/// <param name="AnimationPath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ XXX.fbx.anm</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool LoadAnimation(const std::string& AnimationName, const std::filesystem::path& AnimationPath);
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
-		//	ƒQƒbƒ^[
+		//	ã‚²ãƒƒã‚¿ãƒ¼
 		std::span<const Material> GetMaterials() const;
 		std::span<const BoneInfo> GetBones()const;
 		const std::unordered_map<std::string, FbxResource::Animation>& GetAnimations() const;
@@ -97,35 +97,35 @@ namespace Engine::Graphics
 		D3D12_INDEX_BUFFER_VIEW GetIndexBufferView()const;
 	private:
 		/// <summary>
-		/// ƒRƒ“ƒo[ƒgÏ‚İfbxƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
+		/// ã‚³ãƒ³ãƒãƒ¼ãƒˆæ¸ˆã¿fbxãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		/// </summary>
 		/// <param name="FilePath"></param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool LoadModelData(const std::filesystem::path& FilePath);
 
 	private:
 		/// <summary>
-		/// ƒ}ƒeƒŠƒAƒ‹î•ñ”z—ñ
+		/// ãƒãƒ†ãƒªã‚¢ãƒ«æƒ…å ±é…åˆ—
 		/// </summary>
 		std::vector<Material> mMaterials;
 
 		/// <summary>
-		/// ƒ{[ƒ“î•ñ”z—ñ
+		/// ãƒœãƒ¼ãƒ³æƒ…å ±é…åˆ—
 		/// </summary>
 		std::vector<BoneInfo> mBones;
 
 		/// <summary>
-		/// “Ç‚İ‚ñ‚¾ƒAƒjƒ[ƒVƒ‡ƒ“—ñ‹“—p
+		/// èª­ã¿è¾¼ã‚“ã ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åˆ—æŒ™ç”¨
 		/// </summary>
 		std::unordered_map<std::string, Animation> mAnimations;
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		mw::ResourcePtr mVB = nullptr;
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
 		/// </summary>
 		mw::ResourcePtr mIB = nullptr;
 

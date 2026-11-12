@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 #include"Application/Components/Player/PlayerState/PlayerStateComponent.hpp"
 #include"Application/Components/Player/Input/InputRequestComponent.hpp"
@@ -11,57 +11,57 @@ namespace Engine::System
 	class PlayerStateSystem : public ISystem
 	{
 		/// <summary>
-		/// ‘–‚èó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		/// èµ°ã‚ŠçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
 		/// <returns></returns>
 		bool CheckRunRequest(PlayerStateComponent& state);
 
 		/// <summary>
-		/// UŒ‚ó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		/// æ”»æ’ƒçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
 		/// <returns></returns>
 		bool CheckAttackRequest(PlayerStateComponent& state);
 		/// <summary>
-		/// UŒ‚‚ÌI—¹ğŒ‚Ì”»’è
+		/// æ”»æ’ƒã®çµ‚äº†æ¡ä»¶ã®åˆ¤å®š
 		/// </summary>
-		/// <returns>true:I—¹</returns>
+		/// <returns>true:çµ‚äº†</returns>
 		bool IsFinishAttack(PlayerStateComponent& State, InputRequestComponent& Req, FbxComponent& Fbx,float DeltaTime);
 		/// <summary>
-		/// UŒ‚‚ÌI—¹
+		/// æ”»æ’ƒã®çµ‚äº†
 		/// </summary>
 		void OnAttackFinished(entt::registry& Reg,entt::entity entity, PlayerStateComponent& state, InputRequestComponent& req, FbxComponent& fbx);
 
 		/// <summary>
-		/// ƒXƒvƒŠƒ“ƒgó‘Ô‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ì”»’è
+		/// ã‚¹ãƒ—ãƒªãƒ³ãƒˆçŠ¶æ…‹ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
 		bool CheckSprintRequest(PlayerStateComponent& state,const Math::Vector3& InputVec);
 
 		/// <summary>
-		/// ó‘Ô‚ÌI—¹
+		/// çŠ¶æ…‹ã®çµ‚äº†
 		/// </summary>
 		/// <param name="Reg"></param>
 		void ExitState(entt::registry& Reg);
 
 		/// <summary>
-		/// ó‘Ô‚ÌØ‚è‘Ö‚¦
+		/// çŠ¶æ…‹ã®åˆ‡ã‚Šæ›¿ãˆ
 		/// </summary>
 		void ChangeState(entt::registry& Reg, PlayerStateComponent& state ,ePlayerState NextState);
 
 	public:
 		/// <summary>
-		/// ‘O‰ñî•ñ‚Ì•Û
+		/// å‰å›æƒ…å ±ã®ä¿æŒ
 		/// </summary>
 		virtual void PreUpdate(entt::registry& Reg, double DeltaTime)override;
 
 		/// <summary>
-		/// ó‘Ô‚Ì‘JˆÚ
+		/// çŠ¶æ…‹ã®é·ç§»
 		/// </summary>
 		virtual void MainUpdate(entt::registry& Reg, double DeltaTime)override;
 
 		/// <summary>
-		/// ¡‚Ìó‘Ô‚©‚çƒAƒjƒ[ƒVƒ‡ƒ“‚Ìİ’è‚ÆXV
+		/// ä»Šã®çŠ¶æ…‹ã‹ã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®šã¨æ›´æ–°
 		/// </summary>
 		virtual void PostUpdate(entt::registry& Reg, double DeltaTime) override;
 

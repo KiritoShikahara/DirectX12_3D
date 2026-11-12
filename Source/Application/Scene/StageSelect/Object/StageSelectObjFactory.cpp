@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "StageSelectObjFactory.hpp"
 
 #include"System/Entity/Manager/EntityManager.hpp"
@@ -30,21 +30,21 @@ entt::entity Engine::System::StageSelectObjFactory::CreateEnemyWeapon(entt::enti
 	const float Scale = 1.0f;
 	auto sword = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(sword);
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::Identity;
 
-	//	fbx‚ÌƒŠƒ\[ƒX
+	//	fbxã®ãƒªã‚½ãƒ¼ã‚¹
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Sword/Sword.fbx.bin");
 
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(sword, res, false);
 	fbx.CurrAnimation = "";
 	fbx.Mesh->SetColor(Color);
 
-	//	ƒAƒ^ƒbƒ`
+	//	ã‚¢ã‚¿ãƒƒãƒ
 	auto& socket = registry.emplace<SocketComponent>(sword);
 	socket.Parent = Parent;
 	socket.BoneName = BoneName;
@@ -67,7 +67,7 @@ void Engine::System::StageSelectObjFactory::CreateTalkTexture(entt::registry& Re
 }
 
 /// <summary>
-/// Åã‚Ì“G
+/// æœ€å¼±ã®æ•µ
 /// </summary>
 void Engine::System::StageSelectObjFactory::CreateEnemy_Basic()
 {
@@ -78,18 +78,18 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Basic()
 
 	auto enemy = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::AngleAxis(3.14159265f, Math::Vector3::Forward);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Cyan());
@@ -100,19 +100,19 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Basic()
 	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand",Graphics::Color::Cyan());
 	state.Weapon = sword;
 
-	//	ƒCƒ“ƒ^ƒ‰ƒNƒg
+	//	ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒˆ
 	auto& interact = registry.emplace<InteractableComponent>(enemy);
 	interact.Rank = EnemyRank::Basic;
 	interact.Talkable = true;
 
-	//	˜b‚µ‚©‚¯‚é—p‚Ì‰æ‘œ
+	//	è©±ã—ã‹ã‘ã‚‹ç”¨ã®ç”»åƒ
 	std::string FilePath = "Assets/StageSelect/Texture/Blue_C.png";
 
 	auto vfxRes = Graphics::TextureManager::GetInstance()->Load(FilePath);
@@ -120,13 +120,13 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Basic()
 	vfx.IsShow = true;
 	vfx.Offset = { 0,11,0 };
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 
 }
 
 /// <summary>
-/// ‚¿‚å‚Á‚Æ‹­‚¢“G
+/// ã¡ã‚‡ã£ã¨å¼·ã„æ•µ
 /// </summary>
 void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 {
@@ -137,17 +137,17 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 
 	auto enemy = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { -20.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::AngleAxis(3.14159265f, Math::Vector3::Forward);
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Yellow());
@@ -158,14 +158,14 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand", Graphics::Color::Yellow());
 	state.Weapon = sword;
 
-	//	ƒCƒ“ƒ^ƒ‰ƒNƒg
+	//	ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒˆ
 	auto& interact = registry.emplace<InteractableComponent>(enemy);
 	interact.Rank = EnemyRank::Advanced;
 	interact.Talkable = false;
@@ -178,7 +178,7 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 		interact.Talkable = true;
 	}
 
-	//	˜b‚µ‚©‚¯‚é—p‚Ì‰æ‘œ
+	//	è©±ã—ã‹ã‘ã‚‹ç”¨ã®ç”»åƒ
 	std::string FilePath;
 	if (interact.Talkable == true)
 	{
@@ -194,13 +194,13 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 	vfx.IsShow = true;
 	vfx.Offset = { 0,11,0 };
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 
 }
 
 /// <summary>
-/// Å‹­
+/// æœ€å¼·
 /// </summary>
 void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 {
@@ -211,18 +211,18 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 
 	auto enemy = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(enemy);
 	transform.Position = { 0.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::AngleAxis(3.14159265f, Math::Vector3::Forward);
 
 
-	//	‘fŞƒeƒXƒg
+	//	ç´ æãƒ†ã‚¹ãƒˆ
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
 
-	//	fbx‚Ìƒ‚ƒfƒ‹
+	//	fbxã®ãƒ¢ãƒ‡ãƒ«
 	auto& fbx = registry.emplace<FbxComponent>(enemy, res);
 	fbx.CurrAnimation = "Idle";
 	fbx.Mesh->SetColor(Graphics::Color::Red());
@@ -233,10 +233,10 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
 	registry.emplace<ColliderComponent>(enemy, std::move(col));
 
-	//@ó‘ÔŠÇ—
+	//ã€€çŠ¶æ…‹ç®¡ç†
 	auto& state = registry.emplace<EnemyStateComponent>(enemy);
 
-	//	•Ší
+	//	æ­¦å™¨
 	auto sword = CreateEnemyWeapon(enemy, "RightHand", Graphics::Color::Red());
 	state.Weapon = sword;
 
@@ -252,7 +252,7 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 		interact.Talkable = true;
 	}
 
-	//	˜b‚µ‚©‚¯‚é—p‚Ì‰æ‘œ
+	//	è©±ã—ã‹ã‘ã‚‹ç”¨ã®ç”»åƒ
 	std::string FilePath;
 	if (interact.Talkable == true)
 	{
@@ -269,7 +269,7 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 	vfx.IsShow = true;
 	vfx.Offset = { 0,11,0 };
 
-	//	ƒ^ƒO
+	//	ã‚¿ã‚°
 	registry.emplace<EnemyTag>(enemy);
 }
 
@@ -282,13 +282,13 @@ void Engine::System::StageSelectObjFactory::TestEffect()
 
 	auto entity = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& transform = registry.emplace<Transform3D>(entity);
 	transform.Position = { 0.0f,0.0f,20.0f };
 	transform.Scale = { Scale ,Scale ,Scale };
 	transform.Rotation = Math::Quaternion::AngleAxis(-3.14159265f / 2, Math::Vector3::Up);
 
-	//	ƒŠƒ\[ƒX
+	//	ãƒªã‚½ãƒ¼ã‚¹
 	//auto res = Graphics::EffectManager::GetInstance()->GetEffect("Assets/Effect/AttackHit.efk");
 	//auto& effect = registry.emplace<EffectComponent>(entity);
 	//effect.Asset = res;

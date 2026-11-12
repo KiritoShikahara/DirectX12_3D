@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Sound.hpp"
 
 Engine::Audio::Sound::Sound(AudioResource* Resorce)
@@ -11,7 +11,7 @@ Engine::Audio::Sound::Sound(AudioResource* Resorce)
 }
 
 /// <summary>
-/// Ä¶
+/// å†ç”Ÿ
 /// </summary>
 void Engine::Audio::Sound::Play()
 {
@@ -19,7 +19,7 @@ void Engine::Audio::Sound::Play()
 }
 
 /// <summary>
-/// ’â~
+/// åœæ­¢
 /// </summary>
 void Engine::Audio::Sound::Stop()
 {
@@ -28,7 +28,7 @@ void Engine::Audio::Sound::Stop()
 }
 
 /// <summary>
-///	’†’f
+///	ä¸­æ–­
 /// </summary>
 void Engine::Audio::Sound::Pause()
 {
@@ -36,16 +36,16 @@ void Engine::Audio::Sound::Pause()
 }
 
 /// <summary>
-/// Ä¶”»’è
+/// å†ç”Ÿåˆ¤å®š
 /// </summary>
-/// <returns>true:Ä¶’†</returns>
+/// <returns>true:å†ç”Ÿä¸­</returns>
 bool Engine::Audio::Sound::IsPlaying()
 {
 	return Playing;
 }
 
 /// <summary>
-/// Output‚É’¼Ú PCM‚ğ‰ÁZ
+/// Outputã«ç›´æ¥ PCMã‚’åŠ ç®—
 /// </summary>
 void Engine::Audio::Sound::ApplyAndMix(int16_t* Output, size_t FramesRequested, uint16_t OutputChannels)
 {
@@ -56,31 +56,31 @@ void Engine::Audio::Sound::ApplyAndMix(int16_t* Output, size_t FramesRequested, 
 
 	if (Resource->Channels <= 0) return;
 
-	//@ƒŠƒ\[ƒX‚Ì‘SƒtƒŒ[ƒ€”‚ÆŒ»İ‚ÌˆÊ’u‚©‚çc‚èƒtƒŒ[ƒ€”‚ğŒvZ
+	//ã€€ãƒªã‚½ãƒ¼ã‚¹ã®å…¨ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã¨ç¾åœ¨ã®ä½ç½®ã‹ã‚‰æ®‹ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è¨ˆç®—
 	size_t framesAvailable = Resource->PcmData.size() / Resource->Channels - CurrentFrame;
 
-	//	—v‹‚³‚ê‚½”‚Æ’ñ‹Ÿ‰Â”\‚È”‚Ì¬‚³‚¢•û‚ğƒRƒs[‘ÎÛ‚Æ‚·‚é
+	//	è¦æ±‚ã•ã‚ŒãŸæ•°ã¨æä¾›å¯èƒ½ãªæ•°ã®å°ã•ã„æ–¹ã‚’ã‚³ãƒ”ãƒ¼å¯¾è±¡ã¨ã™ã‚‹
 	size_t framesToCopy = std::min(FramesRequested, framesAvailable);
 
-	//	ƒtƒŒ[ƒ€’PˆÊ‚Åƒ‹[ƒviŠÔ²‚ÌˆÚ“®j
+	//	ãƒ•ãƒ¬ãƒ¼ãƒ å˜ä½ã§ãƒ«ãƒ¼ãƒ—ï¼ˆæ™‚é–“è»¸ã®ç§»å‹•ï¼‰
 	for (size_t frame = 0; frame < framesToCopy; frame++)
 	{
-		//	ƒfƒoƒCƒX‚Ìo—Íƒ`ƒƒƒ“ƒlƒ‹iL/Rj’PˆÊ‚Åƒ‹[ƒv
+		//	ãƒ‡ãƒã‚¤ã‚¹ã®å‡ºåŠ›ãƒãƒ£ãƒ³ãƒãƒ«ï¼ˆL/Rï¼‰å˜ä½ã§ãƒ«ãƒ¼ãƒ—
 		for (size_t channel = 0; channel < OutputChannels; channel++)
 		{
 			int16_t sample = 0;
 
-			//	ƒŠƒ\[ƒX‘¤‚ÉŠY“–ƒ`ƒƒƒ“ƒlƒ‹‚ª‚ ‚é‚Æ‚«‚ÍƒTƒ“ƒvƒ‹‚ğæ“¾
+			//	ãƒªã‚½ãƒ¼ã‚¹å´ã«è©²å½“ãƒãƒ£ãƒ³ãƒãƒ«ãŒã‚ã‚‹ã¨ãã¯ã‚µãƒ³ãƒ—ãƒ«ã‚’å–å¾—
 			if (channel < Resource->Channels)
 			{
 				sample = static_cast<int16_t>(Resource->PcmData[(CurrentFrame + frame) * Resource->Channels + channel] * Volume);
 			}
-			//	ƒ~ƒLƒVƒ“ƒOİ’è
-			// Šù‘¶‚Ìo—Íƒoƒbƒtƒ@‚Ì’l‚É¡‰ñ‚ÌƒTƒ“ƒvƒ‹‚ğ‰ÁZB
-			// 16bit‚Ì”ÍˆÍ‚ğ’´‚¦‚é‰Â”\«‚ª‚ ‚é‚½‚ßAˆê’U 32bit(int32_t) ‚ÅŒvZ‚·‚éB
+			//	ãƒŸã‚­ã‚·ãƒ³ã‚°è¨­å®š
+			// æ—¢å­˜ã®å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡ã®å€¤ã«ä»Šå›ã®ã‚µãƒ³ãƒ—ãƒ«ã‚’åŠ ç®—ã€‚
+			// 16bitã®ç¯„å›²ã‚’è¶…ãˆã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ãŸã‚ã€ä¸€æ—¦ 32bit(int32_t) ã§è¨ˆç®—ã™ã‚‹ã€‚
 			int32_t mixed = Output[frame * OutputChannels + channel] + sample;
 
-			// int16_t‚Ì”ÍˆÍ‚ÉƒNƒ‰ƒ“ƒv‚·‚é
+			// int16_tã®ç¯„å›²ã«ã‚¯ãƒ©ãƒ³ãƒ—ã™ã‚‹
 			if (mixed > INT16_MAX)
 			{
 				mixed = INT16_MAX;
@@ -90,25 +90,25 @@ void Engine::Audio::Sound::ApplyAndMix(int16_t* Output, size_t FramesRequested, 
 				mixed = -INT16_MAX;
 			}
 
-			//	ÅI“I‚È’l‚ğƒoƒbƒtƒ@‚É‘‚«–ß‚·
+			//	æœ€çµ‚çš„ãªå€¤ã‚’ãƒãƒƒãƒ•ã‚¡ã«æ›¸ãæˆ»ã™
 			Output[frame * OutputChannels + channel] = static_cast<int16_t>(mixed);
 		}
 	}
 
-	//	Ä¶ˆÊ’u‚ğXV
+	//	å†ç”Ÿä½ç½®ã‚’æ›´æ–°
 	CurrentFrame += framesToCopy;
 
-	//	ÅŒã‚Ü‚ÅÄ¶‚µ‚«‚Á‚½ê‡‚Ìˆ—
+	//	æœ€å¾Œã¾ã§å†ç”Ÿã—ãã£ãŸå ´åˆã®å‡¦ç†
 	if (CurrentFrame >= Resource->PcmData.size() / Resource->Channels)
 	{
 		if (Loop == true)
 		{
-			//	¶¬ˆÊ’u‚ğæ“ª‚É–ß‚·
+			//	ç”Ÿæˆä½ç½®ã‚’å…ˆé ­ã«æˆ»ã™
 			CurrentFrame = 0;
 		}
 		else
 		{
-			//	Ä¶I—¹ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+			//	å†ç”Ÿçµ‚äº†ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 			Playing = false;
 		}
 	}

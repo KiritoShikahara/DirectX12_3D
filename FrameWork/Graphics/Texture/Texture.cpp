@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Texture.hpp"
 #include "Debug/spdlog/Logger.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -26,15 +26,15 @@ D3D12_RESOURCE_DESC Engine::Graphics::Texture::GetTextureResourceDesc(const DXTe
 }
 
 /// <summary>
-/// ì¬
+/// ä½œæˆ
 /// </summary>
-/// <param name="FilePath">ƒtƒHƒ‹ƒ_ƒpƒX</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="FilePath">ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 {
 	if (fs::exists(FilePath) == false)
 	{
-		LOG_ERROR("ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" + FilePath.string());
+		LOG_ERROR("ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ" + FilePath.string());
 		return false;
 	}
 
@@ -84,7 +84,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 	Graphics::DirectX* directX = Graphics::DirectX::GetInstance();
 	ID3D12Device* device = directX->GetDevice();
 
-	//	“Ç‚İ‚ñ‚¾ƒeƒNƒXƒ`ƒƒ‚©‚çƒRƒs[—pî•ñ‚Ìæ“¾
+	//	èª­ã¿è¾¼ã‚“ã ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‹ã‚‰ã‚³ãƒ”ãƒ¼ç”¨æƒ…å ±ã®å–å¾—
 	const D3D12_RESOURCE_DESC TextureResourceDesc = GetTextureResourceDesc(texMetaData);
 
 	UINT numSubresources = static_cast<UINT>(texMetaData.mipLevels * texMetaData.arraySize);
@@ -112,7 +112,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 		return false;
 	}
 
-	//	ƒAƒbƒvƒ[ƒh—p’†ŠÔƒoƒbƒtƒ@ì¬
+	//	ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”¨ä¸­é–“ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 	D3D12_HEAP_PROPERTIES UploadProperty = {};
 	UploadProperty.Type = D3D12_HEAP_TYPE_UPLOAD;
 	UploadProperty.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -141,7 +141,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 		return false;
 	}
 
-	//	ƒq[ƒvİ’è
+	//	ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES HeapProperty = {};
 	HeapProperty.Type = D3D12_HEAP_TYPE_DEFAULT;
 	HeapProperty.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -149,7 +149,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 	HeapProperty.CreationNodeMask = 0;
 	HeapProperty.VisibleNodeMask = 0;
 
-	//	ƒeƒNƒXƒ`ƒƒ—pƒoƒbƒtƒ@ì¬
+	//	ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”¨ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 	hr = device->CreateCommittedResource(
 		&HeapProperty,
 		D3D12_HEAP_FLAG_NONE,
@@ -200,7 +200,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 		tempCmdList->CopyTextureRegion(&Dest, 0, 0, 0, &Src, nullptr);
 	}
 	
-	//	ƒoƒŠƒA[ˆ—
+	//	ãƒãƒªã‚¢ãƒ¼å‡¦ç†
 	D3D12_RESOURCE_BARRIER Barrier = {};
 	Barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 	Barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
@@ -211,22 +211,22 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 
 	tempCmdList->ResourceBarrier(1, &Barrier);
 
-	//	–½—ß‚ÌÀs
+	//	å‘½ä»¤ã®å®Ÿè¡Œ
 	tempCmdList->Close();
-	//	ƒRƒ}ƒ“ƒhƒŠƒXƒgÀs
+	//	ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆå®Ÿè¡Œ
 	ID3D12CommandList* cmdLists[] = { tempCmdList.Get() };
 	ID3D12CommandQueue* CommandQueue = directX->GetCommandQueue();
 	CommandQueue->ExecuteCommandLists(1, cmdLists);
-	//	Às’†‚È‚Ì‚ÅƒtƒFƒ“ƒX‘Ò‚¿
+	//	å®Ÿè¡Œä¸­ãªã®ã§ãƒ•ã‚§ãƒ³ã‚¹å¾…ã¡
 	directX->WaitForGPU();
 
-	//	ƒVƒF[ƒ_[ƒŠƒ\[ƒXì¬
+	//	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹ä½œæˆ
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Format = texMetaData.format;
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	if (texMetaData.IsCubemap())
 	{
-		// ƒLƒ…[ƒuƒ}ƒbƒvi6–Êj‚Æ‚µ‚Äİ’è
+		// ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ï¼ˆ6é¢ï¼‰ã¨ã—ã¦è¨­å®š
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURECUBE;
 		srvDesc.TextureCube.MostDetailedMip = 0;
 		srvDesc.TextureCube.MipLevels = static_cast<UINT>(texMetaData.mipLevels);
@@ -234,7 +234,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 	}
 	else
 	{
-		// ’Êí‚Ì2DƒeƒNƒXƒ`ƒƒ‚Æ‚µ‚Äİ’è
+		// é€šå¸¸ã®2Dãƒ†ã‚¯ã‚¹ãƒãƒ£ã¨ã—ã¦è¨­å®š
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MostDetailedMip = 0;
 		srvDesc.Texture2D.MipLevels = static_cast<UINT>(texMetaData.mipLevels);
@@ -257,7 +257,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 }
 
 /// <summary>
-/// ƒŠƒ\[ƒX‚Ì‰ğ•ú
+/// ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::Texture::Release()
 {
@@ -265,7 +265,7 @@ void Engine::Graphics::Texture::Release()
 }
 
 /// <summary>
-/// ƒpƒCƒvƒ‰ƒCƒ“‚Ö‚ÌƒZƒbƒg
+/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã®ã‚»ãƒƒãƒˆ
 /// </summary>
 /// <param name="RootParameterIndex"></param>
 void Engine::Graphics::Texture::Set(int RootParameterIndex)
@@ -275,7 +275,7 @@ void Engine::Graphics::Texture::Set(int RootParameterIndex)
 }
 
 /// <summary>
-/// ƒeƒNƒXƒ`ƒƒ‚Ì•
+/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…
 /// </summary>
 /// <returns></returns>
 float Engine::Graphics::Texture::GetWidth()const
@@ -283,7 +283,7 @@ float Engine::Graphics::Texture::GetWidth()const
 	return mWidth;
 }
 /// <summary>
-/// ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³
+/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•
 /// </summary>
 /// <returns></returns>
 float Engine::Graphics::Texture::GetHeight()const

@@ -1,15 +1,15 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Keyboard.hpp"
 
 /// <summary>
-/// ƒL[‚Ì“ü—ÍƒCƒxƒ“ƒg
+/// ã‚­ãƒ¼ã®å…¥åŠ›ã‚¤ãƒ™ãƒ³ãƒˆ
 /// </summary>
 void Engine::Input::Keyboard::KeyProcess(WPARAM VKCode, bool IsDown)
 {
-	//	WPARAM ‚©‚çenum class•ÏŠ·
+	//	WPARAM ã‹ã‚‰enum classå¤‰æ›
 	auto code = this->ToKeyCode(VKCode);
 
-	//	•s–¾‚ÈƒR[ƒh‚¶‚á‚È‚¯‚ê‚Î“ü—Íó‘Ô‚ğXV‚·‚é
+	//	ä¸æ˜ãªã‚³ãƒ¼ãƒ‰ã˜ã‚ƒãªã‘ã‚Œã°å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 	if (code != eKeyCode::Unknown)
 	{
 		mCurrKeys[static_cast<int>(code)] = IsDown;
@@ -18,7 +18,7 @@ void Engine::Input::Keyboard::KeyProcess(WPARAM VKCode, bool IsDown)
 
 
 /// <summary>
-/// Windows‚Ì‰¼‘zƒL[ƒR[ƒh‚ğkeyboard::eKey‚É•ÏŠ·‚·‚é
+/// Windowsã®ä»®æƒ³ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’keyboard::eKeyã«å¤‰æ›ã™ã‚‹
 /// </summary>
 /// <param name="vkCode"></param>
 /// <returns></returns>
@@ -54,7 +54,7 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case 'Y': return eKeyCode::Y;
 	case 'Z': return eKeyCode::Z;
 
-		//	”šƒL[
+		//	æ•°å­—ã‚­ãƒ¼
 	case '0': return eKeyCode::Num0;
 	case '1': return eKeyCode::Num1;
 	case '2': return eKeyCode::Num2;
@@ -66,17 +66,17 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case '8': return eKeyCode::Num8;
 	case '9': return eKeyCode::Num9;
 
-		//	“ÁêƒL[
+		//	ç‰¹æ®Šã‚­ãƒ¼
 	case VK_ESCAPE:   return eKeyCode::Escape;
 	case VK_LCONTROL: return eKeyCode::LControl;
 	case VK_SHIFT:   return eKeyCode::LShift;
-	case VK_LMENU:    return eKeyCode::LAlt;     // VK_MENU ‚Í Alt ƒL[
-	case VK_LWIN:     return eKeyCode::LSystem;  // ¶ Windows ƒL[
+	case VK_LMENU:    return eKeyCode::LAlt;     // VK_MENU ã¯ Alt ã‚­ãƒ¼
+	case VK_LWIN:     return eKeyCode::LSystem;  // å·¦ Windows ã‚­ãƒ¼
 	case VK_RCONTROL: return eKeyCode::RControl;
 	case VK_RSHIFT:   return eKeyCode::RShift;
 	case VK_RMENU:    return eKeyCode::RAlt;
-	case VK_RWIN:     return eKeyCode::RSystem;  // ‰E Windows ƒL[
-	case VK_APPS:     return eKeyCode::Menu;     // ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒL[ (ƒƒjƒ…[ƒL[)
+	case VK_RWIN:     return eKeyCode::RSystem;  // å³ Windows ã‚­ãƒ¼
+	case VK_APPS:     return eKeyCode::Menu;     // ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚­ãƒ¼ (ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚­ãƒ¼)
 
 	case VK_SPACE:    return eKeyCode::Space;
 	case VK_RETURN:   return eKeyCode::Enter;
@@ -84,7 +84,7 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case VK_TAB:      return eKeyCode::Tab;
 	case VK_PAUSE:    return eKeyCode::Pause;
 
-		//	‹å“Ç“_
+		//	å¥èª­ç‚¹
 	case VK_OEM_4:    return eKeyCode::LBracket;   // [ {
 	case VK_OEM_6:    return eKeyCode::RBracket;   // ] }
 	case VK_OEM_1:    return eKeyCode::Semicolon;  // ; :
@@ -97,7 +97,7 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case VK_OEM_PLUS: return eKeyCode::Equal;      // = +
 	case VK_OEM_MINUS:return eKeyCode::Hyphen;     // - _
 
-		//	ƒiƒrƒQ[ƒVƒ‡ƒ“
+		//	ãƒŠãƒ“ã‚²ãƒ¼ã‚·ãƒ§ãƒ³
 	case VK_PRIOR:    return eKeyCode::PageUp;
 	case VK_NEXT:     return eKeyCode::PageDown;
 	case VK_END:      return eKeyCode::End;
@@ -110,7 +110,7 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case VK_UP:       return eKeyCode::Up;
 	case VK_DOWN:     return eKeyCode::Down;
 
-		//	ƒeƒ“ƒL[
+		//	ãƒ†ãƒ³ã‚­ãƒ¼
 	case VK_NUMPAD0:  return eKeyCode::Numpad0;
 	case VK_NUMPAD1:  return eKeyCode::Numpad1;
 	case VK_NUMPAD2:  return eKeyCode::Numpad2;
@@ -127,7 +127,7 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case VK_DIVIDE:   return eKeyCode::Divide;
 	case VK_DECIMAL:  return eKeyCode::Period;
 
-		//	ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“
+		//	ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³
 	case VK_F1:  return eKeyCode::F1;
 	case VK_F2:  return eKeyCode::F2;
 	case VK_F3:  return eKeyCode::F3;
@@ -144,24 +144,24 @@ Engine::Input::eKeyCode Engine::Input::Keyboard::ToKeyCode(WPARAM VKCode)
 	case VK_F14: return eKeyCode::F14;
 	case VK_F15: return eKeyCode::F15;
 
-		//	•s–¾
+		//	ä¸æ˜
 	default: return eKeyCode::Unknown;
 	}
 
 }
 
 /// <summary>
-/// ƒL[ƒR[ƒh‚ª”ÍˆÍ“à‚©”»’è‚·‚é
+/// ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ãŒç¯„å›²å†…ã‹åˆ¤å®šã™ã‚‹
 /// </summary>
 /// <param name="keyCode"></param>
-/// <returns>true:”ÍˆÍ“à</returns>
+/// <returns>true:ç¯„å›²å†…</returns>
 bool Engine::Input::Keyboard::IsValid(eKeyCode keyCode) const
 {
 	return keyCode < eKeyCode::Count && keyCode > eKeyCode::Unknown;
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 Engine::Input::Keyboard::Keyboard()
 {
@@ -170,18 +170,18 @@ Engine::Input::Keyboard::Keyboard()
 }
 
 /// <summary>
-/// ƒEƒBƒ“ƒhƒE‚©‚çƒCƒxƒ“ƒgæ“¾
+/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‹ã‚‰ã‚¤ãƒ™ãƒ³ãƒˆå–å¾—
 /// </summary>
-/// <returns>true:“ü—ÍŠÖŒW‚ÌƒCƒxƒ“ƒg</returns>
+/// <returns>true:å…¥åŠ›é–¢ä¿‚ã®ã‚¤ãƒ™ãƒ³ãƒˆ</returns>
 bool Engine::Input::Keyboard::ProcessEvent(UINT Message, WPARAM VKCode)
 {
-	//	‰Ÿ‚³‚ê‚½
+	//	æŠ¼ã•ã‚ŒãŸ
 	if (Message == WM_KEYDOWN)
 	{
 		this->KeyProcess(VKCode, true);
 		return true;
 	}
-	//	—£‚³‚ê‚½
+	//	é›¢ã•ã‚ŒãŸ
 	else if (Message == WM_KEYUP)
 	{
 		this->KeyProcess(VKCode, false);
@@ -193,9 +193,9 @@ bool Engine::Input::Keyboard::ProcessEvent(UINT Message, WPARAM VKCode)
 
 
 /// <summary>
-/// ‰Ÿ‚µ‚½uŠÔ
+/// æŠ¼ã—ãŸç¬é–“
 /// </summary>
-/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 /// <returns></returns>
 bool Engine::Input::Keyboard::IsPressed(eKeyCode keyCode) const
 {
@@ -205,9 +205,9 @@ bool Engine::Input::Keyboard::IsPressed(eKeyCode keyCode) const
 }
 
 /// <summary>
-/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+/// æŠ¼ã—ã¦ã„ã‚‹é–“
 /// </summary>
-/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 /// <returns></returns>
 bool Engine::Input::Keyboard::IsHeld(eKeyCode keyCode) const
 {
@@ -216,9 +216,9 @@ bool Engine::Input::Keyboard::IsHeld(eKeyCode keyCode) const
 }
 
 /// <summary>
-/// —£‚µ‚½uŠÔ
+/// é›¢ã—ãŸç¬é–“
 /// </summary>
-/// <param name="keyCode">ƒL[ƒR[ƒh</param>
+/// <param name="keyCode">ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰</param>
 /// <returns></returns>
 bool Engine::Input::Keyboard::IsReleased(eKeyCode keyCode) const
 {
@@ -228,7 +228,7 @@ bool Engine::Input::Keyboard::IsReleased(eKeyCode keyCode) const
 }
 
 /// <summary>
-/// ó‘Ô‚ÌXV
+/// çŠ¶æ…‹ã®æ›´æ–°
 /// </summary>
 void Engine::Input::Keyboard::Update()
 {

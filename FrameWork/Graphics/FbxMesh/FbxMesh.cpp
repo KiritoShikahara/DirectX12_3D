@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FbxMesh.hpp"
 
 #include"Graphics/Graphics.hpp"
@@ -11,9 +11,9 @@
 #include"Math/Math.h"
 
 /// <summary>
-/// ƒ{[ƒ“–¼‚©‚ç”z—ñ‚ÌƒCƒ“ƒfƒbƒNƒX‚ğŒŸõ‚·‚éƒwƒ‹ƒp[
+/// ãƒœãƒ¼ãƒ³åã‹ã‚‰é…åˆ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ¤œç´¢ã™ã‚‹ãƒ˜ãƒ«ãƒ‘ãƒ¼
 /// </summary>
-/// <param name="BoneName">ƒ{[ƒ“–¼</param>
+/// <param name="BoneName">ãƒœãƒ¼ãƒ³å</param>
 /// <returns></returns>
 int Engine::Graphics::FbxMesh::FindBoneIndex(const std::string& BoneName) const
 {
@@ -35,7 +35,7 @@ int Engine::Graphics::FbxMesh::FindBoneIndex(const std::string& BoneName) const
 }
 
 /// <summary>
-/// •âŠÔ‚É‚©‚¯‚éŠÔ‚Ìİ’è
+/// è£œé–“ã«ã‹ã‘ã‚‹æ™‚é–“ã®è¨­å®š
 /// </summary>
 /// <param name="BlendTime"></param>
 void Engine::Graphics::FbxMesh::SetBlendTime(float BlendTime)
@@ -67,10 +67,10 @@ Engine::Graphics::FbxMesh::~FbxMesh()
 }
 
 /// <summary>
-/// ì¬
+/// ä½œæˆ
 /// </summary>
-/// <param name="Resource">“Ç‚İ‚İÏ‚İ‚ÌƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="Resource">èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::FbxMesh::Create(FbxResource* Resource)
 {
 	bool ret = false;
@@ -83,7 +83,7 @@ bool Engine::Graphics::FbxMesh::Create(FbxResource* Resource)
 		return false;
 	}
 
-	// ƒŠƒ\[ƒX‚ÌQÆæ“¾
+	// ãƒªã‚½ãƒ¼ã‚¹ã®å‚ç…§å–å¾—
 	mResource = Resource;
 	if (mResource == nullptr)
 	{
@@ -95,8 +95,8 @@ bool Engine::Graphics::FbxMesh::Create(FbxResource* Resource)
 	mCBInfo.Projection = Math::Matrix::identity;
 	mCBInfo.MeshColor = Color::Red();
 
-	//	ƒ{[ƒ“s—ñ‚ğ‰Šúp¨‚ÉƒZƒbƒgi’PˆÊs—ñj
-	//	AnimateŒÄ‚Î‚ê‚é‚Ü‚Åƒ‚ƒfƒ‹‚ª‘½•ª‚Â‚Ô‚ê‚é
+	//	ãƒœãƒ¼ãƒ³è¡Œåˆ—ã‚’åˆæœŸå§¿å‹¢ã«ã‚»ãƒƒãƒˆï¼ˆå˜ä½è¡Œåˆ—ï¼‰
+	//	Animateå‘¼ã°ã‚Œã‚‹ã¾ã§ãƒ¢ãƒ‡ãƒ«ãŒå¤šåˆ†ã¤ã¶ã‚Œã‚‹
 	for(int i = 0; i < BONE_COUNT_MAX;i++)
 	{
 		mSkinningMatrices[i] = Math::Matrix::identity;
@@ -105,7 +105,7 @@ bool Engine::Graphics::FbxMesh::Create(FbxResource* Resource)
 	}
 	mTransformBuffer->Update(&mCBInfo);
 
-	//	ƒŠƒ\[ƒX‚©‚çƒfƒtƒHƒ‹ƒg (Å‰‚É“o˜^‚³‚ê‚½‚à‚Ì) ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼‚ğæ“¾‚µ‚Ä‚¨‚­
+	//	ãƒªã‚½ãƒ¼ã‚¹ã‹ã‚‰ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ (æœ€åˆã«ç™»éŒ²ã•ã‚ŒãŸã‚‚ã®) ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åã‚’å–å¾—ã—ã¦ãŠã
 	auto& anims = mResource->GetAnimations();
 	if (anims.empty() == false)
 	{
@@ -124,11 +124,11 @@ void Engine::Graphics::FbxMesh::Release()
 }
 
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“—pXVˆ—iƒtƒŒ[ƒ€‚ği‚ß‚éj
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨æ›´æ–°å‡¦ç†ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’é€²ã‚ã‚‹ï¼‰
 /// </summary>
-/// <param name="AnimationName">Load‚É“o˜^‚µ‚½ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
+/// <param name="AnimationName">Loadæ™‚ã«ç™»éŒ²ã—ãŸã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
 /// <param name="DeltaTime"></param>
-/// <param name="IsLoop">true:ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒ‹[ƒv‚³‚¹‚é</param>
+/// <param name="IsLoop">true:ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒ«ãƒ¼ãƒ—ã•ã›ã‚‹</param>
 void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const float DeltaTime, const float IsLoop)
 {
 	if (mResource == nullptr)
@@ -136,31 +136,31 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 		return;
 	}
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‘¶İƒ`ƒFƒbƒN
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯
 	const auto& AnimationList = mResource->GetAnimations();
 	if (AnimationList.count(AnimationName) == 0)
 	{
 		return;
 	}
 
-	// --- 1. ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌØ‚è‘Ö‚¦”»’è ---
+	// --- 1. ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆåˆ¤å®š ---
 	if (mCurrentAnimationName != AnimationName)
 	{
-		// Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğu‘O‚Ìó‘Ôv‚Æ‚µ‚Ä•Û‘¶
+		// ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã€Œå‰ã®çŠ¶æ…‹ã€ã¨ã—ã¦ä¿å­˜
 		mPreviousAnimationName = mCurrentAnimationName;
 		mPreviousFrame = mFrame;
 
-		// •âŠÔƒpƒ‰ƒ[ƒ^‚Ìİ’è
+		// è£œé–“ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®è¨­å®š
 		mBlendTimer = 0.0f;
-		// ‰‰ñÄ¶(‹ó•¶š)‚Í•âŠÔ‚µ‚È‚¢BˆÈ‘O‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ª‘¶İ‚·‚éê‡‚Ì‚İ blending ‚ğ—LŒø‚É‚·‚é
+		// åˆå›å†ç”Ÿæ™‚(ç©ºæ–‡å­—)ã¯è£œé–“ã—ãªã„ã€‚ä»¥å‰ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒå­˜åœ¨ã™ã‚‹å ´åˆã®ã¿ blending ã‚’æœ‰åŠ¹ã«ã™ã‚‹
 		mIsBlending = (!mPreviousAnimationName.empty());
 
-		// V‚µ‚¢ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒZƒbƒg
+		// æ–°ã—ã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 		mCurrentAnimationName = AnimationName;
 		mFrame = 0.0f;
 	}
 
-	// •âŠÔƒ^ƒCƒ}[‚ÆŒ»İ‚ÌƒtƒŒ[ƒ€‚ÌXV
+	// è£œé–“ã‚¿ã‚¤ãƒãƒ¼ã¨ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ›´æ–°
 	if (mIsBlending)
 	{
 		mBlendTimer += DeltaTime;
@@ -193,10 +193,10 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 		mIsAnimationFinish = false;
 	}
 
-	// ‘O‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒtƒŒ[ƒ€‚à~‚Ü‚Á‚Ä‚¢‚é‚Æ•s©‘R‚Èê‡‚ª‚ ‚é‚Ì‚ÅA
-	// •K—v‚È‚ç mPreviousFrame ‚à DeltaTime •ªi‚ß‚éˆ—‚ğ‚±‚±‚É“ü‚ê‚Ä‚àOK
+	// å‰ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚‚æ­¢ã¾ã£ã¦ã„ã‚‹ã¨ä¸è‡ªç„¶ãªå ´åˆãŒã‚ã‚‹ã®ã§ã€
+	// å¿…è¦ãªã‚‰ mPreviousFrame ã‚‚ DeltaTime åˆ†é€²ã‚ã‚‹å‡¦ç†ã‚’ã“ã“ã«å…¥ã‚Œã¦ã‚‚OK
 
-	// s—ñŒvZ‚ÆƒuƒŒƒ“ƒfƒBƒ“ƒO
+	// è¡Œåˆ—è¨ˆç®—ã¨ãƒ–ãƒ¬ãƒ³ãƒ‡ã‚£ãƒ³ã‚°
 	const float currentFramePos = mFrame * 60.0f;
 	int f0 = Math::Clamp((int)currentFramePos, 0, anim.NumFrame - 1);
 	int f1 = Math::Clamp(f0 + 1, 0, anim.NumFrame - 1);
@@ -205,16 +205,16 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 	const auto& bones = mResource->GetBones();
 	const int numBones = (int)bones.size();
 
-	// •âŠÔ‚Ì‹­‚³‚ğZo (0.0:‘O‚ÌƒAƒjƒ‚ª100% ` 1.0:¡‚ÌƒAƒjƒ‚ª100%)
+	// è£œé–“ã®å¼·ã•ã‚’ç®—å‡º (0.0:å‰ã®ã‚¢ãƒ‹ãƒ¡ãŒ100% ã€œ 1.0:ä»Šã®ã‚¢ãƒ‹ãƒ¡ãŒ100%)
 	float blendAlpha = mIsBlending ? (mBlendTimer / mBlendTime) : 1.0f;
 
 	for (int i = 0; i < numBones; ++i)
 	{
-		// ¡‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ìp¨
+		// ä»Šã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å§¿å‹¢
 		Math::Matrix localNow = Math::Matrix::Lerp(anim.KeyFrame[i][f0], anim.KeyFrame[i][f1], t);
 		Math::Matrix finalLocal = localNow;
 
-		// •âŠÔ’†‚È‚ç‘O‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ìp¨‚ğŒvZ‚µ‚Ä¬‚º‚é
+		// è£œé–“ä¸­ãªã‚‰å‰ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å§¿å‹¢ã‚’è¨ˆç®—ã—ã¦æ··ãœã‚‹
 		if (mIsBlending && AnimationList.count(mPreviousAnimationName))
 		{
 			const auto& prevAnim = AnimationList.at(mPreviousAnimationName);
@@ -226,11 +226,11 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 
 			Math::Matrix localPrev = Math::Matrix::Lerp(prevAnim.KeyFrame[i][pf0], prevAnim.KeyFrame[i][pf1], pt);
 
-			// ‘O‚Ìp¨‚Æ¡‚Ìp¨‚ğüŒ`•âŠÔ
+			// å‰ã®å§¿å‹¢ã¨ä»Šã®å§¿å‹¢ã‚’ç·šå½¢è£œé–“
 			finalLocal = Math::Matrix::Lerp(localPrev, localNow, blendAlpha);
 		}
 
-		// eqŠK‘wŒ‹‡
+		// è¦ªå­éšå±¤çµåˆ
 		if (bones[i].ParentIndex >= 0)
 		{
 			mCurrentGlobalMatrices[i] = finalLocal * mCurrentGlobalMatrices[bones[i].ParentIndex];
@@ -240,26 +240,26 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 			mCurrentGlobalMatrices[i] = finalLocal;
 		}
 
-		// GPU‘—M—p
+		// GPUé€ä¿¡ç”¨
 		mSkinningMatrices[i] = Math::Matrix::Transpose(bones[i].BindMatrix * mCurrentGlobalMatrices[i]);
 	}
 
 
-	////	“¯Šú
+	////	åŒæœŸ
 	//int rootIdx = 0;
 	//Math::Matrix rootMatrix = mCurrentGlobalMatrices[rootIdx];
 
-	//// 1. s—ñ‚©‚çˆÚ“®—Ê‚ğ’Šo‚µ‚Ä mPosition ‚É”½‰f
+	//// 1. è¡Œåˆ—ã‹ã‚‰ç§»å‹•é‡ã‚’æŠ½å‡ºã—ã¦ mPosition ã«åæ˜ 
 	//mPosition.x = rootMatrix._41;
 	//mPosition.y = rootMatrix._42;
 	//mPosition.z = rootMatrix._43;
 
-	//// 2. s—ñ‚©‚ç‰ñ“]‚ğ’Šo‚µ‚Ä mRotation ‚É”½‰f
+	//// 2. è¡Œåˆ—ã‹ã‚‰å›è»¢ã‚’æŠ½å‡ºã—ã¦ mRotation ã«åæ˜ 
 	//mRotation = Math::Quaternion::FromMatrix(rootMatrix);
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Engine::Graphics::FbxMesh::Render()
 {
@@ -268,17 +268,17 @@ void Engine::Graphics::FbxMesh::Render()
 		return;
 	}
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“İ’è‚ğRendererŒo—R‚Ås‚¤
+	//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šã‚’RendererçµŒç”±ã§è¡Œã†
 	Graphics::Renderer* renderer = Graphics::Renderer::GetInstance();
 	renderer->SetFbxPipeline();
 
 
-	// ƒ‚ƒfƒ‹‚Ìp¨s—ñ‚ğì¬
+	// ãƒ¢ãƒ‡ãƒ«ã®å§¿å‹¢è¡Œåˆ—ã‚’ä½œæˆ
 	Math::Matrix world;
-	// mPosition, mRotation, mScale ‚ğg‚Á‚Äs—ñ‚ğ‡¬
+	// mPosition, mRotation, mScale ã‚’ä½¿ã£ã¦è¡Œåˆ—ã‚’åˆæˆ
 	world.Update(mPosition, mRotation, mScale);
 
-	// ’è”ƒoƒbƒtƒ@‚Ö“]’u‚µ‚ÄƒZƒbƒg
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ã¸è»¢ç½®ã—ã¦ã‚»ãƒƒãƒˆ
 	mCBInfo.World = Math::Matrix::Transpose(world);
 	mCBInfo.View = Math::Matrix::Transpose(System::Camera::Main->GetView());
 	mCBInfo.Projection = Math::Matrix::Transpose(System::Camera::Main->GetProjection());
@@ -288,12 +288,12 @@ void Engine::Graphics::FbxMesh::Render()
 	mCBInfo.IsSkinned = hasBones ? 1 : 0;
 	if (hasBones)
 	{
-		// ƒ{[ƒ“‚ª‚ ‚éê‡‚Ì‚İs—ñ‚ğƒRƒs[
+		// ãƒœãƒ¼ãƒ³ãŒã‚ã‚‹å ´åˆã®ã¿è¡Œåˆ—ã‚’ã‚³ãƒ”ãƒ¼
 		memcpy(mCBInfo.Bones, mSkinningMatrices.data(), sizeof(Math::Matrix) * BONE_COUNT_MAX);
 	}
 	else
 	{
-		// ƒ{[ƒ“‚ª‚È‚¢ê‡‚ÍA”O‚Ì‚½‚ß Bones[0] ‚ğ’PˆÊs—ñ‚É‚µ‚Ä‚¨‚­‚ÆˆÀ‘Si”CˆÓj
+		// ãƒœãƒ¼ãƒ³ãŒãªã„å ´åˆã¯ã€å¿µã®ãŸã‚ Bones[0] ã‚’å˜ä½è¡Œåˆ—ã«ã—ã¦ãŠãã¨å®‰å…¨ï¼ˆä»»æ„ï¼‰
 		mCBInfo.Bones[0] = Math::Matrix::identity;
 	}
 
@@ -301,14 +301,14 @@ void Engine::Graphics::FbxMesh::Render()
 
 	mTransformBuffer->Set(0);
 
-	//	ƒ}ƒeƒŠƒAƒ‹–ˆ‚É•`‰æ‚ğ‚·‚é
+	//	ãƒãƒ†ãƒªã‚¢ãƒ«æ¯ã«æç”»ã‚’ã™ã‚‹
 	auto materials = mResource->GetMaterials();
 	auto vbv = mResource->GetVertexBufferView();
 	auto ibv = mResource->GetIndexBufferView();
 
 	for (const auto& mat : materials)
 	{
-		//	ƒeƒNƒXƒ`ƒƒ(SRV)‚ğRootParam[1]‚ÉƒZƒbƒg
+		//	ãƒ†ã‚¯ã‚¹ãƒãƒ£(SRV)ã‚’RootParam[1]ã«ã‚»ãƒƒãƒˆ
 		if (mat.Texture != nullptr)
 		{
 			mat.Texture->Set(1);
@@ -355,10 +355,10 @@ void Engine::Graphics::FbxMesh::SetColor(const Color& color)
 }
 
 /// <summary>
-/// ƒ{[ƒ“–¼‚©‚çƒ[ƒ‹ƒhÀ•W‚ğæ“¾‚·‚éƒƒ\ƒbƒh
+/// ãƒœãƒ¼ãƒ³åã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 /// </summary>
-/// <param name="BoneName">ƒ{[ƒ“–¼</param>
-/// <returns>À•W</returns>
+/// <param name="BoneName">ãƒœãƒ¼ãƒ³å</param>
+/// <returns>åº§æ¨™</returns>
 Math::Vector3 Engine::Graphics::FbxMesh::GetBoneWorldPosition(const std::string& BoneName) const
 {
 	//	index
@@ -368,14 +368,14 @@ Math::Vector3 Engine::Graphics::FbxMesh::GetBoneWorldPosition(const std::string&
 		return mPosition;
 	}
 
-	//	ƒ‚ƒfƒ‹©‘Ì‚Ìƒ[ƒ‹ƒhs—ñ‚ğŒvZ
+	//	ãƒ¢ãƒ‡ãƒ«è‡ªä½“ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’è¨ˆç®—
 	Math::Matrix world;
 	world.Update(mPosition, mRotation, mScale);
 
 	const auto& b = mCurrentGlobalMatrices[index];
 	Math::Vector3 boneLocalPos(b._41, b._42, b._43);
 
-	// ƒ‚ƒfƒ‹‚Ìƒ[ƒ‹ƒhs—ñ‚ÅÀ•W•ÏŠ·‚·‚é
+	// ãƒ¢ãƒ‡ãƒ«ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã§åº§æ¨™å¤‰æ›ã™ã‚‹
 	return Math::Vector3::TransformCoord(boneLocalPos, world);
 }
 
@@ -384,17 +384,17 @@ Math::Quaternion Engine::Graphics::FbxMesh::GetBoneWorldRotation(const std::stri
 	int index = this->FindBoneIndex(BoneName);
 	if (index == -1 || index >= BONE_COUNT_MAX) return mRotation;
 
-	// ƒXƒP[ƒ‹‚ğ 1.0 ‚ÉŒÅ’è‚µ‚½uŒü‚«ê—pv‚Ìs—ñ‚ğì‚é
+	// ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ 1.0 ã«å›ºå®šã—ãŸã€Œå‘ãå°‚ç”¨ã€ã®è¡Œåˆ—ã‚’ä½œã‚‹
 	Math::Matrix worldNoScale;
 	worldNoScale.Update(mPosition, mRotation, Math::Vector3(1.0f, 1.0f, 1.0f));
 
-	// ƒ{[ƒ“‚Ì—İÏs—ñi‚±‚ê‚àƒXƒP[ƒ‹‚ğŠÜ‚Ü‚È‚¢‚Ì‚ª—‘zj
+	// ãƒœãƒ¼ãƒ³ã®ç´¯ç©è¡Œåˆ—ï¼ˆã“ã‚Œã‚‚ã‚¹ã‚±ãƒ¼ãƒ«ã‚’å«ã¾ãªã„ã®ãŒç†æƒ³ï¼‰
 	Math::Matrix m = mCurrentGlobalMatrices[index] * worldNoScale;
 
-	// s—ñ‚©‚ç‰ñ“]‚ğ’Šo
+	// è¡Œåˆ—ã‹ã‚‰å›è»¢ã‚’æŠ½å‡º
 	Math::Quaternion q = Math::Quaternion::FromMatrix(m);
 
-	// ”O‚Ì‚½‚ß³‹K‰»‚µ‚Ä•Ô‚·
+	// å¿µã®ãŸã‚æ­£è¦åŒ–ã—ã¦è¿”ã™
 	float lenSq = q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
 	if (lenSq > 0) {
 		float len = sqrtf(lenSq);
@@ -407,16 +407,16 @@ Math::Matrix Engine::Graphics::FbxMesh::GetBoneFinalMatrix(const std::string& Bo
 {
 	int index = this->FindBoneIndex(BoneName);
 
-	// ƒ‚ƒfƒ‹©‘Ì‚Ìƒ[ƒ‹ƒhs—ñ‚ğ\’z
+	// ãƒ¢ãƒ‡ãƒ«è‡ªä½“ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’æ§‹ç¯‰
 	Math::Matrix world;
 	world.Update(mPosition, mRotation, mScale);
 
 	if (index == -1 || index >= BONE_COUNT_MAX)
 	{
-		return world; // ƒ{[ƒ“‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î–{‘Ì‚Ìs—ñ‚ğ•Ô‚·
+		return world; // ãƒœãƒ¼ãƒ³ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°æœ¬ä½“ã®è¡Œåˆ—ã‚’è¿”ã™
 	}
 
-	// ƒ{[ƒ“‚Ìƒ‚ƒfƒ‹‹óŠÔs—ñ(ƒAƒjƒ[ƒVƒ‡ƒ““K—pÏ) * ƒ‚ƒfƒ‹‚Ìƒ[ƒ‹ƒhs—ñ
-	// ‚±‚ê‚Åu¡A‰æ–Êã‚Ì‚Ç‚±‚Éè‚ª‚ ‚é‚©v‚Ìs—ñ‚ªŠ®¬‚·‚é
+	// ãƒœãƒ¼ãƒ³ã®ãƒ¢ãƒ‡ãƒ«ç©ºé–“è¡Œåˆ—(ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é©ç”¨æ¸ˆ) * ãƒ¢ãƒ‡ãƒ«ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
+	// ã“ã‚Œã§ã€Œä»Šã€ç”»é¢ä¸Šã®ã©ã“ã«æ‰‹ãŒã‚ã‚‹ã‹ã€ã®è¡Œåˆ—ãŒå®Œæˆã™ã‚‹
 	return mCurrentGlobalMatrices[index] * world;
 }

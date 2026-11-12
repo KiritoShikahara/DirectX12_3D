@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SpriteRenderSystem.hpp"
 
 #include "System/Conponent/Transform/TransformConponent.hpp"
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// À•W‚Ì“¯Šú
+	/// åº§æ¨™ã®åŒæœŸ
 	/// </summary>
 	/// <param name="Reg"></param>
 	void SpriteRenderSystem::Update(entt::registry& Reg)
@@ -22,7 +22,7 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	/// <param name="Reg"></param>
 	void SpriteRenderSystem::Render(entt::registry& Reg)

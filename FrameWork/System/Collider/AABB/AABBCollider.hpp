@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 
 namespace Engine::System
 {
 	/// <summary>
-	/// Axis-Aligned Bounding Boxes(À•W²‚É‰ˆ‚Á‚½ƒoƒEƒ“ƒfƒBƒ“ƒOƒ{ƒbƒNƒX)
-	/// ‰ñ“]‚µ‚È‚¢ƒ{ƒbƒNƒX—pƒRƒŠƒWƒ‡ƒ“
+	/// Axis-Aligned Bounding Boxes(åº§æ¨™è»¸ã«æ²¿ã£ãŸãƒã‚¦ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ãƒœãƒƒã‚¯ã‚¹)
+	/// å›è»¢ã—ãªã„ãƒœãƒƒã‚¯ã‚¹ç”¨ã‚³ãƒªã‚¸ãƒ§ãƒ³
 	/// </summary>
 	class AABBCollider
 	{
@@ -23,43 +23,43 @@ namespace Engine::System
 		void DebugRender();
 
 		/// <summary>
-		/// ’†SÀ•W‚Ìw’è
+		/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="Center">’†SÀ•W</param>
+		/// <param name="Center">ä¸­å¿ƒåº§æ¨™</param>
 		void SetCenter(const Math::Vector3& Center);
 		
 		/// <summary>
-		/// ’†SÀ•W‚Ìæ“¾
+		/// ä¸­å¿ƒåº§æ¨™ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		const Math::Vector3& GetCenter()const;
 
 		/// <summary>
-		/// Še²‚Ì‘å‚«‚³‚Ìw’è
+		/// å„è»¸ã®å¤§ãã•ã®æŒ‡å®š
 		/// </summary>
 		/// <param name="Volume"></param>
 		void SetVolume(const Math::Vector3& Volume);
 
 		/// <summary>
-		/// Še²‚Ì‘å‚«‚³‚Ìæ“¾
+		/// å„è»¸ã®å¤§ãã•ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		const Math::Vector3& GetVolume()const;
 
 		/// <summary>
-		/// X²‚Ì”ÍˆÍ‚Ìæ“¾
+		/// Xè»¸ã®ç¯„å›²ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Range GetAxisXRange()const;
 
 		/// <summary>
-		/// Y²‚Ì”ÍˆÍ‚Ìæ“¾
+		/// Yè»¸ã®ç¯„å›²ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Range GetAxisYRange()const;
 
 		/// <summary>
-		/// Z²‚Ì”ÍˆÍ‚Ìæ“¾
+		/// Zè»¸ã®ç¯„å›²ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Range GetAxisZRange()const;
@@ -67,12 +67,12 @@ namespace Engine::System
 	private:
 
 		/// <summary>
-		/// ’†SÀ•W
+		/// ä¸­å¿ƒåº§æ¨™
 		/// </summary>
 		Math::Vector3 mCenter;
 
 		/// <summary>
-		/// Še²‚Ì‘å‚«‚³
+		/// å„è»¸ã®å¤§ãã•
 		/// </summary>
 		Math::Vector3 mVolume;
 

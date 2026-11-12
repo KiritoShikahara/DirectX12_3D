@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include<Plugin/entt/entt.hpp>
 
@@ -7,7 +7,7 @@ namespace Engine::System
 	struct CollisionEvent
 	{
 		/// <summary>
-		/// “–‚½‚Á‚Ä‚«‚½‘Šè‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+		/// å½“ãŸã£ã¦ããŸç›¸æ‰‹ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
 		/// </summary>
 		std::vector<entt::entity> HitEntitys;
 	};

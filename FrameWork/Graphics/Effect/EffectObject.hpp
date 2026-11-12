@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Effekseer.h>
 #include"Math/Vector3/Vector3.h"
 
@@ -11,64 +11,64 @@ namespace Engine::Graphics
 		virtual ~EffectObject() { Stop(); }
 
 		/// <summary>
-		/// ƒGƒtƒFƒNƒg‚ÌÄ¶
+		/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿ
 		/// </summary>
 		/// <param name="effect"></param>
 		void Play(Effekseer::EffectRef Effect, const Math::Vector3& Position,bool AutoDelete = false);
 
-		//	î•ñXV
+		//	æƒ…å ±æ›´æ–°
 		void SetLocation(const Math::Vector3& Position);
 		void SetRotation(const Math::Vector3& Rotation);
 		void SetScale(const Math::Vector3& Scale);
 		void SetSpeed(float Speed);
 
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‹‚Ì‰ğ•ú
+		/// ãƒãƒ³ãƒ‰ãƒ«ã®è§£æ”¾
 		/// </summary>
 		void Stop();
 
 		/// <summary>
-		/// •\¦‚ÌØ‚è‘Ö‚¦@
+		/// è¡¨ç¤ºã®åˆ‡ã‚Šæ›¿ãˆã€€
 		/// </summary>
-		/// <param name="IsShow">true:•\¦‚·‚é</param>
+		/// <param name="IsShow">true:è¡¨ç¤ºã™ã‚‹</param>
 		void SetShown(bool IsShow);
 
 		/// <summary>
-		/// ƒGƒtƒFƒNƒg‚ÌÄ¶‚ğ~‚ß‚é
+		/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿã‚’æ­¢ã‚ã‚‹
 		/// </summary>
-		/// <param name="Visible">true:•\¦‚·‚é</param>
+		/// <param name="Visible">true:è¡¨ç¤ºã™ã‚‹</param>
 		void SetVisible(bool Visible);
 
 		/// <summary>
-		/// Ä¶’†‚©‚Ç‚¤‚©‚Ì”»’è
+		/// å†ç”Ÿä¸­ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
-		/// <returns>true:‘¶İ‚µ‚Ä‚¢‚é</returns>
+		/// <returns>true:å­˜åœ¨ã—ã¦ã„ã‚‹</returns>
 		bool IsPlaying() const;
 		/// <summary>
-		/// ©“®íœ‚ÌğŒ”»’è
+		/// è‡ªå‹•å‰Šé™¤ã®æ¡ä»¶åˆ¤å®š
 		/// </summary>
 		/// <returns></returns>
 		bool ShouldDestroy() const;
 
 		/// <summary>
-		/// ƒnƒ“ƒhƒ‹‚Ìæ“¾
+		/// ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		Effekseer::Handle GetHandle()const;
 	protected:
 
 		/// <summary>
-		/// Ä¶‚µ‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒnƒ“ƒhƒ‹
+		/// å†ç”Ÿã—ãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
 		/// </summary>
 		Effekseer::Handle mHandle = -1;
 
 		/// <summary>
-		/// ƒGƒtƒFƒNƒg‚ÌÄ¶‘¬“x
+		/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿé€Ÿåº¦
 		/// </summary>
 		float mSpeed = 1.0f;
 
 		/// <summary>
-		/// ƒGƒtƒFƒNƒgI—¹‚É©“®íœ‚ğ‚·‚é‚©‚Ç‚¤‚©
+		/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆçµ‚äº†æ™‚ã«è‡ªå‹•å‰Šé™¤ã‚’ã™ã‚‹ã‹ã©ã†ã‹
 		/// </summary>
 		bool mIsAutoDelete = false;
 	};

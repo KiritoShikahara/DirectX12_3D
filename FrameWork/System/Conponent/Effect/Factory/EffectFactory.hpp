@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Effekseer.h"
 #include"Math/Vector3/Vector3.h"
 
@@ -8,12 +8,12 @@ namespace Engine::System
 	{
 	public:
         /// <summary>
-        /// İ’uŒ^‚ÌƒIƒuƒWƒFƒNƒg
+        /// è¨­ç½®å‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
         /// </summary>
         /// <param name="Reg"></param>
-        /// <param name="Asset">ƒŠƒ\[ƒX</param>
-        /// <param name="Position">À•W</param>
-        /// <param name="Scale">ƒXƒP[ƒ‹</param>
+        /// <param name="Asset">ãƒªã‚½ãƒ¼ã‚¹</param>
+        /// <param name="Position">åº§æ¨™</param>
+        /// <param name="Scale">ã‚¹ã‚±ãƒ¼ãƒ«</param>
         /// <returns></returns>
         static entt::entity CreateAtLocation(
             Effekseer::EffectRef Asset,
@@ -23,9 +23,9 @@ namespace Engine::System
         );
 
         /// <summary>
-        /// ’Ç]Œ^ieƒGƒ“ƒeƒBƒeƒB‚É‚­‚Á‚Â‚¯‚éj
+        /// è¿½å¾“å‹ï¼ˆè¦ªã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã«ãã£ã¤ã‘ã‚‹ï¼‰
         /// </summary>
-        /// <param name="IsLoop">true:ƒ‹[ƒv</param>
+        /// <param name="IsLoop">true:ãƒ«ãƒ¼ãƒ—</param>
         /// <returns></returns>
         static entt::entity CreateAttached(
             Effekseer::EffectRef Asset,

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SocketComponentSystem.hpp"
 #include "Math/Matrix3x3/Matrix3x3.h"
 #include"System/Conponent/Transform/TransformConponent.hpp"
@@ -12,7 +12,7 @@
 #include<DirectXMath.h>
 
 /// <summary>
-/// À•WˆÊ’u‚ªŠm’è‚µ‚½eƒIƒuƒWƒFƒNƒg‚Ìw’è‚µ‚½ƒ{[ƒ“À•W‚ÉƒZƒbƒg
+/// åº§æ¨™ä½ç½®ãŒç¢ºå®šã—ãŸè¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æŒ‡å®šã—ãŸãƒœãƒ¼ãƒ³åº§æ¨™ã«ã‚»ãƒƒãƒˆ
 /// </summary>
 #if true
 void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
@@ -22,14 +22,14 @@ void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, doub
     auto view = Reg.view<Transform3D, SocketComponent,FbxComponent>();
     view.each([&](auto entity, auto& trans, auto& socket,FbxComponent& fbx)
         {
-            //	—LŒø‚Èe‚©”»’è
+            //	æœ‰åŠ¹ãªè¦ªã‹åˆ¤å®š
             if (Reg.valid(socket.Parent) == false)
             {
                 return;
             }
 
-            //	e‚ÌfbxƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
-            //	‚È‚¯‚ê‚ÎI—¹
+            //	è¦ªã®fbxã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
+            //	ãªã‘ã‚Œã°çµ‚äº†
             auto* parentFbx = Reg.try_get<FbxComponent>(socket.Parent);
             if (parentFbx == nullptr || parentFbx->Mesh == nullptr)
             {
@@ -37,8 +37,8 @@ void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, doub
             }
 
 
-            // ƒNƒH[ƒ^ƒjƒIƒ“‚Ì³‹K‰»i‹‘å‰»–h~j
-                    // ŒvZ‚Ég‚¤‘O‚ÉA•K‚¸’·‚³‚ğ1‚É‘µ‚¦‚Ü‚·
+            // ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã®æ­£è¦åŒ–ï¼ˆå·¨å¤§åŒ–é˜²æ­¢ï¼‰
+                    // è¨ˆç®—ã«ä½¿ã†å‰ã«ã€å¿…ãšé•·ã•ã‚’1ã«æƒãˆã¾ã™
             auto NormalizeQuat = [](Math::Quaternion& q) {
                 float lenSq = q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
                 if (lenSq > 0.0f) {
@@ -48,29 +48,29 @@ void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, doub
                 };
             NormalizeQuat(socket.OffsetRot);
 
-            // ƒ{[ƒ“‚Ìp¨æ“¾
+            // ãƒœãƒ¼ãƒ³ã®å§¿å‹¢å–å¾—
             Math::Vector3 bonePos = parentFbx->Mesh->GetBoneWorldPosition(socket.BoneName);
             Math::Quaternion boneRot = parentFbx->Mesh->GetBoneWorldRotation(socket.BoneName);
-            NormalizeQuat(boneRot); // eƒ{[ƒ“‚Ìƒf[ƒ^‚à”O‚Ì‚½‚ß³‹K‰»
+            NormalizeQuat(boneRot); // è¦ªãƒœãƒ¼ãƒ³ã®ãƒ‡ãƒ¼ã‚¿ã‚‚å¿µã®ãŸã‚æ­£è¦åŒ–
 
-            // ÅI“I‚È‰ñ“]
+            // æœ€çµ‚çš„ãªå›è»¢
             Math::Quaternion finalRot = socket.OffsetRot * boneRot;
             NormalizeQuat(finalRot);
 
-            // ƒxƒNƒgƒ‹‰ñ“]ŠÖ”‚ÌˆÀ‘S‰»
+            // ãƒ™ã‚¯ãƒˆãƒ«å›è»¢é–¢æ•°ã®å®‰å…¨åŒ–
             auto RotateVec = [](const Math::Vector3& v, const Math::Quaternion& q) {
                 Math::Vector3 qV(q.x, q.y, q.z);
-                // ŠOÏ‚ğg‚Á‚½‰ñ“]
+                // å¤–ç©ã‚’ä½¿ã£ãŸå›è»¢
                 Math::Vector3 t = Math::Vector3::Cross(qV, v) * 2.0f;
                 return v + (t * q.w) + Math::Vector3::Cross(qV, t);
                 };
 
-            // --- À•WŒvZ ---
+            // --- åº§æ¨™è¨ˆç®— ---
 
-            // ƒ\ƒPƒbƒgi‚¿èj‚Ìƒ[ƒ‹ƒhÀ•W
+            // ã‚½ã‚±ãƒƒãƒˆï¼ˆæŒã¡æ‰‹ï¼‰ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
             Math::Vector3 worldSocketPos = bonePos + RotateVec(socket.OffsetPos, boneRot);
 
-            // “‚ÌŒ´“_ˆÊ’u‚Ì‹tZ
+            // åˆ€ã®åŸç‚¹ä½ç½®ã®é€†ç®—
             Math::Vector3 rotatedPivot = RotateVec(socket.PivotOffset, finalRot);
 
             trans.Position = worldSocketPos - rotatedPivot;
@@ -80,7 +80,7 @@ void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, doub
             fbx.Mesh->SetScale(trans.Scale);
             fbx.Mesh->SetRotation(trans.Rotation * fbx.OffsetRotation);
 
-            // ƒfƒoƒbƒO•\¦
+            // ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
             Graphics::Renderer::GetInstance()->DrawGizmo(worldSocketPos, boneRot, 1.0f);
             Graphics::Renderer::GetInstance()->DrawGizmo(trans.Position, trans.Rotation, 0.2f);
 
@@ -91,7 +91,7 @@ void Engine::System::SocketComponentSystem::PostUpdate(entt::registry& Reg, doub
 #endif // true
 
 /// <summary>
-/// ImGui‚ÅƒIƒtƒZƒbƒg‚ğ‚¢‚¶‚é‚½‚ß‚Ì
+/// ImGuiã§ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’ã„ã˜ã‚‹ãŸã‚ã®
 /// </summary>
 /// <param name="Reg"></param>
 void Engine::System::SocketComponentSystem::OnGui(entt::registry& Reg)
@@ -99,32 +99,32 @@ void Engine::System::SocketComponentSystem::OnGui(entt::registry& Reg)
 #ifdef _DEBUG
 
 
-    // ’²®—p‚ÌƒEƒBƒ“ƒhƒE‚ğì¬
+    // èª¿æ•´ç”¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆ
     if (ImGui::Begin("Socket Offset Tuner"))
     {
         auto view = Reg.view<SocketComponent>();
         view.each([&](auto entity, auto& socket)
             {
-                // ƒGƒ“ƒeƒBƒeƒB‚²‚Æ‚ÉID‚ğ•ª‚¯‚éi“¯‚¶ƒRƒ“ƒ|[ƒlƒ“ƒg‚ª•¡”‚ ‚Á‚Ä‚àŒëì“®‚µ‚È‚¢‚æ‚¤‚Éj
+                // ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã”ã¨ã«IDã‚’åˆ†ã‘ã‚‹ï¼ˆåŒã˜ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¤‡æ•°ã‚ã£ã¦ã‚‚èª¤ä½œå‹•ã—ãªã„ã‚ˆã†ã«ï¼‰
                 ImGui::PushID((int)entity);
 
                 ImGui::Text("Target Bone: %s", socket.BoneName.c_str());
 
-                // 1. ˆÊ’uƒIƒtƒZƒbƒg‚Ì’²® (0.01f’PˆÊ‚Åƒhƒ‰ƒbƒO‰Â”\)
+                // 1. ä½ç½®ã‚ªãƒ•ã‚»ãƒƒãƒˆã®èª¿æ•´ (0.01få˜ä½ã§ãƒ‰ãƒ©ãƒƒã‚°å¯èƒ½)
                 if (ImGui::DragFloat3("Pos Offset", &socket.OffsetPos.x, 0.01f))
                 {
-                    // ’l‚ª•Ï‚í‚Á‚½‚Ìˆ—‚ª•K—v‚È‚ç‚±‚±‚É‘‚­
+                    // å€¤ãŒå¤‰ã‚ã£ãŸæ™‚ã®å‡¦ç†ãŒå¿…è¦ãªã‚‰ã“ã“ã«æ›¸ã
                 }
 
-                // 2. ‰ñ“]ƒIƒtƒZƒbƒg‚Ì’²®
-                // –{—ˆ‚ÍƒNƒH[ƒ^ƒjƒIƒ“‚Å‚·‚ªA’²®‚ÍƒIƒCƒ‰[Špi“x”–@j‚ªŠy‚È‚Ì‚Å•ÏŠ·‚µ‚Äo‚·‚Ì‚àè‚Å‚·B
-                // ‚±‚±‚Å‚Íˆê’UA’¼Ú 4—v‘f‚ğ‚¢‚¶‚ê‚é‚æ‚¤‚É‚µ‚Ü‚·B
+                // 2. å›è»¢ã‚ªãƒ•ã‚»ãƒƒãƒˆã®èª¿æ•´
+                // æœ¬æ¥ã¯ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã§ã™ãŒã€èª¿æ•´ã¯ã‚ªã‚¤ãƒ©ãƒ¼è§’ï¼ˆåº¦æ•°æ³•ï¼‰ãŒæ¥½ãªã®ã§å¤‰æ›ã—ã¦å‡ºã™ã®ã‚‚æ‰‹ã§ã™ã€‚
+                // ã“ã“ã§ã¯ä¸€æ—¦ã€ç›´æ¥ 4è¦ç´ ã‚’ã„ã˜ã‚Œã‚‹ã‚ˆã†ã«ã—ã¾ã™ã€‚
                 ImGui::DragFloat4("Rot Offset (Quat)", &socket.OffsetRot.x, 0.005f);
 
-                // 3. ƒsƒ{ƒbƒgidSjƒIƒtƒZƒbƒg‚Ì’²®
+                // 3. ãƒ”ãƒœãƒƒãƒˆï¼ˆé‡å¿ƒï¼‰ã‚ªãƒ•ã‚»ãƒƒãƒˆã®èª¿æ•´
                 ImGui::DragFloat3("Pivot Offset", &socket.PivotOffset.x, 0.01f);
 
-                // ƒŠƒZƒbƒgƒ{ƒ^ƒ“i•K—v‚Å‚ ‚ê‚Îj
+                // ãƒªã‚»ãƒƒãƒˆãƒœã‚¿ãƒ³ï¼ˆå¿…è¦ã§ã‚ã‚Œã°ï¼‰
                 if (ImGui::Button("Reset All"))
                 {
                     socket.OffsetPos = { 0, 0, 0 };
@@ -132,7 +132,7 @@ void Engine::System::SocketComponentSystem::OnGui(entt::registry& Reg)
                     socket.PivotOffset = { 0, 0, 0 };
                 }
 
-                ImGui::Separator(); // ‹æØ‚èü
+                ImGui::Separator(); // åŒºåˆ‡ã‚Šç·š
                 ImGui::PopID();
             });
     }

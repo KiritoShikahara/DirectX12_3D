@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Utility/FlagUtils.hpp"
 #include<cstdint>
@@ -9,21 +9,21 @@ namespace Engine::System
 	{
 		None = 0,
 
-		//	”»’èƒtƒ‰ƒO
-		RunRequested = 1 << 0,		//	‘–‚è
-		DodgeRequested = 1 << 1,	//	ƒ_ƒbƒVƒ…
-		AttackRequested = 1 << 2,	//	UŒ‚
-		Skill1Requested = 1 << 3,	//	ƒXƒLƒ‹
-		Skill2Requested = 1 << 4,	//	ƒXƒLƒ‹
+		//	åˆ¤å®šãƒ•ãƒ©ã‚°
+		RunRequested = 1 << 0,		//	èµ°ã‚Š
+		DodgeRequested = 1 << 1,	//	ãƒ€ãƒƒã‚·ãƒ¥
+		AttackRequested = 1 << 2,	//	æ”»æ’ƒ
+		Skill1Requested = 1 << 3,	//	ã‚¹ã‚­ãƒ«
+		Skill2Requested = 1 << 4,	//	ã‚¹ã‚­ãƒ«
 	};
 	DEFINE_ENUM_BITWISE_OPERATORS(eActionInputFlags);
 
 	struct InputRequestComponent
 	{
-		//	“ü—Í‚Å‚ÌˆÚ“®—Ê
+		//	å…¥åŠ›ã§ã®ç§»å‹•é‡
 		Math::Vector3 InputVec;
 
-		//	”»’è—pƒtƒ‰ƒO
+		//	åˆ¤å®šç”¨ãƒ•ãƒ©ã‚°
 		eActionInputFlags Flags = eActionInputFlags::None;
 	};
 }

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 
 namespace Engine::System
@@ -8,18 +8,18 @@ namespace Engine::System
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		virtual bool Initialize()override;
 
 		/// <summary>
-		/// ImGui‚ÌXV•\¦
+		/// ImGuiã®æ›´æ–°è¡¨ç¤º
 		/// </summary>
 		virtual void ImGuiUpdate()override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Release()override;
 

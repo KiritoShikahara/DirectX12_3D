@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 
 namespace Engine::System
@@ -7,7 +7,7 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// ƒgƒ‰ƒ“ƒX‚Æ‚ÌÀ•WA‰ñ“]“¯Šú
+		/// ãƒˆãƒ©ãƒ³ã‚¹ã¨ã®åº§æ¨™ã€å›è»¢åŒæœŸ
 		/// </summary>
 		static void PostUpdate(entt::registry& Reg);
 

@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
-	//	ƒ_ƒ[ƒW‚ÌƒCƒxƒ“ƒg
+	//	ãƒ€ãƒ¡ãƒ¼ã‚¸ã®ã‚¤ãƒ™ãƒ³ãƒˆ
 	struct DamageEvent{};
-	//	€–SƒCƒxƒ“ƒg
+	//	æ­»äº¡ã‚¤ãƒ™ãƒ³ãƒˆ
 	struct DeadEvent{};
 }

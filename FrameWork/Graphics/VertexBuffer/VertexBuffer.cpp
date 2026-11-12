@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "VertexBuffer.hpp"
 
 #include "Graphics/DirectX/DirectX12.hpp"
@@ -17,14 +17,14 @@ Engine::Graphics::VertexBuffer::~VertexBuffer()
 }
 
 /// <summary>
-/// ’¸“_ƒoƒbƒtƒ@‚Ìì¬
+/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 /// </summary>
-/// <param name="size">ƒoƒbƒtƒ@‚ÌƒTƒCƒY</param>
-/// <param name="stride">1’¸“_‚Ìƒf[ƒ^ƒTƒCƒY</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="size">ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º</param>
+/// <param name="stride">1é ‚ç‚¹ã®ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::VertexBuffer::Create(const size_t Size, const size_t Stride)
 {
-	//	ƒq[ƒvİ’è
+	//	ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapDesc = {};
 	heapDesc.Type = D3D12_HEAP_TYPE_UPLOAD;
 	heapDesc.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -32,7 +32,7 @@ bool Engine::Graphics::VertexBuffer::Create(const size_t Size, const size_t Stri
 	heapDesc.CreationNodeMask = 0;
 	heapDesc.VisibleNodeMask = 0;
 
-	//	ƒoƒbƒtƒ@‚ÌƒŠƒ\[ƒX
+	//	ãƒãƒƒãƒ•ã‚¡ã®ãƒªã‚½ãƒ¼ã‚¹
 	D3D12_RESOURCE_DESC resourceDesc = {};
 	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resourceDesc.Alignment = 0;
@@ -60,7 +60,7 @@ bool Engine::Graphics::VertexBuffer::Create(const size_t Size, const size_t Stri
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚Ì‰ğ•ú
+/// ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::VertexBuffer::Release()
 {
@@ -71,20 +71,20 @@ void Engine::Graphics::VertexBuffer::Release()
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ÌXV
+/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 /// </summary>
-/// <param name="SrcData">XVƒf[ƒ^</param>
+/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
 void Engine::Graphics::VertexBuffer::Update(const void* SrcData)
 {
 	Update(SrcData, 0, GetSize());
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ÌXV
+/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 /// </summary>
-/// <param name="SrcData">XVƒf[ƒ^<</param>
-/// <param name="offset">ƒIƒtƒZƒbƒg’l</param>
-/// <param name="size">XVƒTƒCƒY</param>
+/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿<</param>
+/// <param name="offset">ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+/// <param name="size">æ›´æ–°ã‚µã‚¤ã‚º</param>
 void Engine::Graphics::VertexBuffer::Update(const void* SrcData, const size_t Offset, const size_t Size)
 {
 	D3D12_RANGE Range = {};
@@ -102,7 +102,7 @@ void Engine::Graphics::VertexBuffer::Update(const void* SrcData, const size_t Of
 }
 
 /// <summary>
-/// ’¸“_ƒoƒbƒtƒ@‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::VertexBuffer::Set() const
 {
@@ -126,7 +126,7 @@ void Engine::Graphics::VertexBuffer::Set(const size_t Offset, const size_t Strid
 }
 
 /// <summary>
-/// ’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY‚Ìæ“¾
+/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚ºã®å–å¾—
 /// </summary>
 /// <returns></returns>
 size_t Engine::Graphics::VertexBuffer::GetSize()const

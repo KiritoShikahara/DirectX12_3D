@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::Scene
 {
 	class CreateTitleObject
 	{
 	public:
-		//	ƒ^ƒCƒgƒ‹‚Ì”wŒi
+		//	ã‚¿ã‚¤ãƒˆãƒ«ã®èƒŒæ™¯
 		static void CreateBG();
 		static void CreateGuide();
 

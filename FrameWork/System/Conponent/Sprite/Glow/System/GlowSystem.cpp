@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GlowSystem.hpp"
 #include "../GlowComponents.hpp"
 #include "System/Conponent/Sprite/SpriteComponent.hpp"
@@ -11,7 +11,7 @@ void Engine::System::GlowSystem::Update(entt::registry& Reg, float DeltaTime)
 			{
 				float nextIntensity = glow.BaseIntensity;
 
-				//	’¼ü
+				//	ç›´ç·š
 				if (LinearShiftTag* liner = Reg.try_get<LinearShiftTag>(entity))
 				{
 					glow.Timer += DeltaTime;
@@ -24,7 +24,7 @@ void Engine::System::GlowSystem::Update(entt::registry& Reg, float DeltaTime)
 						glow.Timer = 0.0f;
 					}
 				}
-				//	‚È‚¯‚ê‚ÎŒÛ“®
+				//	ãªã‘ã‚Œã°é¼“å‹•
 				else if (PulseTag* pulse = Reg.try_get<PulseTag>(entity))
 				{
 					glow.Timer += DeltaTime;
@@ -34,7 +34,7 @@ void Engine::System::GlowSystem::Update(entt::registry& Reg, float DeltaTime)
 
 				sprite.Sprite.SetIntensity(nextIntensity);
 
-				//	‰Î‰Ô‚ª‚ ‚Á‚½‚ç
+				//	ç«èŠ±ãŒã‚ã£ãŸã‚‰
 				if (SparkTag* spark = Reg.try_get<SparkTag>(entity))
 				{
 					if (Random::Range(0.0f, 1.0f) < spark->Chance)

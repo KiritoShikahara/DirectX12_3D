@@ -1,19 +1,19 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "VFXPipeline.hpp"
 #include "Graphics/DirectX/DirectX12.hpp"
 #include <d3dcompiler.h>
 
 namespace
 {
-    //	ƒVƒF[ƒ_[ƒRƒ“ƒpƒCƒ‹—pˆ—
+    //	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ç”¨å‡¦ç†
     auto CompileShader = [](const char* FileName, const char* FunctionName, const char* ShaderModel)
         {
             size_t wLen = 0;
             wchar_t wideFileName[256] = {};
-            //	ƒtƒ@ƒCƒ‹–¼•ÏŠ·
+            //	ãƒ•ã‚¡ã‚¤ãƒ«åå¤‰æ›
             mbstowcs_s(&wLen, wideFileName, ARRAYSIZE(wideFileName), FileName, _TRUNCATE);
 
-            //	ƒVƒF[ƒ_[ì¬
+            //	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
             mw::BlobPtr ShaderBlob = nullptr;
             mw::BlobPtr ErrorBlob = nullptr;
 
@@ -50,8 +50,8 @@ namespace Engine::Graphics
 
     bool VFXPipeline::CreateRootSignature()
     {
-        // ƒpƒ‰ƒ[ƒ^0: ’è”ƒoƒbƒtƒ@(b0) [World, ViewProj, Color]
-        // ƒpƒ‰ƒ[ƒ^1: ƒeƒNƒXƒ`ƒƒ(t0)
+        // ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿0: å®šæ•°ãƒãƒƒãƒ•ã‚¡(b0) [World, ViewProj, Color]
+        // ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿1: ãƒ†ã‚¯ã‚¹ãƒãƒ£(t0)
         std::array<D3D12_ROOT_PARAMETER, 2> RootParams = {};
 
         RootParams[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
@@ -59,7 +59,7 @@ namespace Engine::Graphics
         RootParams[0].Descriptor.RegisterSpace = 0;
         RootParams[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 
-        //  ƒeƒNƒXƒ`ƒƒ
+        //  ãƒ†ã‚¯ã‚¹ãƒãƒ£
         D3D12_DESCRIPTOR_RANGE range = {};
         range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
         range.NumDescriptors = 1;
@@ -78,7 +78,7 @@ namespace Engine::Graphics
         sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
         sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
         sampler.MipLODBias = 0.0f;
-        sampler.MaxAnisotropy = 1; // 16‚¾‚Æd‚¢ê‡‚ª‚ ‚é‚Ì‚Åˆê’U1‚Å
+        sampler.MaxAnisotropy = 1; // 16ã ã¨é‡ã„å ´åˆãŒã‚ã‚‹ã®ã§ä¸€æ—¦1ã§
         sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
         sampler.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK;
         sampler.MinLOD = 0.0f;
@@ -110,7 +110,7 @@ namespace Engine::Graphics
 
     bool VFXPipeline::CreatePipeline()
     {
-        // æ‚Ù‚Çì¬‚µ‚½ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹‚ÆƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg‚ğw’è
+        // å…ˆã»ã©ä½œæˆã—ãŸã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆã‚’æŒ‡å®š
         auto VS = CompileShader("Assets/Shader/VS_Vfx.hlsl", "main", "vs_5_0");
         auto PS = CompileShader("Assets/Shader/PS_Vfx.hlsl", "main", "ps_5_0");
 
@@ -142,22 +142,22 @@ namespace Engine::Graphics
         psoDesc.InputLayout.pInputElementDescs = inputLayouts.data();
         psoDesc.InputLayout.NumElements = static_cast<UINT>(inputLayouts.size());
 
-        //ƒRƒ“ƒpƒCƒ‹‚µ‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ìî•ñ‚ğŠi”[
+        //ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®æƒ…å ±ã‚’æ ¼ç´
         psoDesc.PS.pShaderBytecode = PS->GetBufferPointer();
         psoDesc.PS.BytecodeLength = PS->GetBufferSize();
 
-        //	ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+        //	ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
         psoDesc.BlendState = GetBlendStateDesc();
-        //	ƒ‰ƒXƒ^ƒ‰ƒCƒU[İ’è
+        //	ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼è¨­å®š
         psoDesc.RasterizerState = GetRasterizerDesc();
-        //	[“xƒXƒeƒ“ƒVƒ‹İ’è
+        //	æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«è¨­å®š
         psoDesc.DepthStencilState = GetDepthStencilDesc();
 
         psoDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
         psoDesc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
         psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
-        //	•`‰ææ‚ÌƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+        //	æç”»å…ˆã®ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
         for (auto& rtv : psoDesc.RTVFormats)
         {
             rtv = DXGI_FORMAT_UNKNOWN;
@@ -213,12 +213,12 @@ namespace Engine::Graphics
         Desc.IndependentBlendEnable = FALSE;
 
         D3D12_RENDER_TARGET_BLEND_DESC rtDesc = {};
-        rtDesc.BlendEnable = TRUE; // ƒGƒtƒFƒNƒg‚È‚Ì‚ÅTRUE
+        rtDesc.BlendEnable = TRUE; // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãªã®ã§TRUE
         rtDesc.LogicOpEnable = FALSE;
 
-        rtDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;           // ©•ª‚ÌF‚ÉƒAƒ‹ƒtƒ@‚ğŠ|‚¯‚é
-        rtDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;      // ”wŒi‚É1-ƒAƒ‹ƒtƒ@‚ğŠ|‚¯‚é
-        rtDesc.BlendOp = D3D12_BLEND_OP_ADD;               // —¼•û‚ğ‘«‚·
+        rtDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;           // è‡ªåˆ†ã®è‰²ã«ã‚¢ãƒ«ãƒ•ã‚¡ã‚’æ›ã‘ã‚‹
+        rtDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;      // èƒŒæ™¯ã«1-ã‚¢ãƒ«ãƒ•ã‚¡ã‚’æ›ã‘ã‚‹
+        rtDesc.BlendOp = D3D12_BLEND_OP_ADD;               // ä¸¡æ–¹ã‚’è¶³ã™
 
         rtDesc.SrcBlendAlpha = D3D12_BLEND_ONE;
         rtDesc.DestBlendAlpha = D3D12_BLEND_ZERO;
@@ -226,7 +226,7 @@ namespace Engine::Graphics
         rtDesc.LogicOp = D3D12_LOGIC_OP_NOOP;
         rtDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 
-        // FBX‚Æ“¯‚¶‚æ‚¤‚É‘Sƒ^[ƒQƒbƒg‚É“K—pi‚±‚ê‚Å\‘¢‚ªˆê’v‚·‚éj
+        // FBXã¨åŒã˜ã‚ˆã†ã«å…¨ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«é©ç”¨ï¼ˆã“ã‚Œã§æ§‹é€ ãŒä¸€è‡´ã™ã‚‹ï¼‰
         for (auto& rt : Desc.RenderTarget)
         {
             rt = rtDesc;
@@ -257,7 +257,7 @@ namespace Engine::Graphics
 
     D3D_PRIMITIVE_TOPOLOGY VFXPipeline::GetTopology()const
     {
-        // CreateMesh‚ÌİŒvi4’¸“_j‚É‡‚í‚¹‚é
+        // CreateMeshã®è¨­è¨ˆï¼ˆ4é ‚ç‚¹ï¼‰ã«åˆã‚ã›ã‚‹
         //return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
         return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
     }

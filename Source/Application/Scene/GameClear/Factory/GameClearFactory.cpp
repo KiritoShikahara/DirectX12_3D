@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameClearFactory.hpp"
 #include"System/Entity/Manager/EntityManager.hpp"
 #include"System/Conponent/Transform/TransformConponent.hpp"
@@ -17,7 +17,7 @@ void Engine::Scene::GameClearFactory::CreateBG()
 
 	auto entity = manager->CreateEntity();
 
-	//	À•W
+	//	åº§æ¨™
 	auto& trans = registry.emplace<Transform2D>(entity);
 	trans.Position = { 0,0 };
 	trans.Scale = { 1.0f,1.0f };

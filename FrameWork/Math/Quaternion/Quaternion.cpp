@@ -1,4 +1,4 @@
-//
+﻿//
 #include <math.h>
 #include "Quaternion.h"
 #include "../Matrix/Matrix.h"

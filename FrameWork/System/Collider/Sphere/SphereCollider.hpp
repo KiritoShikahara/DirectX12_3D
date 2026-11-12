@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Utility/MacroHelpers.hpp"
 
 namespace Engine::System
 {
 	/// <summary>
-	/// ‹…‘ÌƒRƒŠƒWƒ‡ƒ“—pƒNƒ‰ƒX
+	/// çƒä½“ã‚³ãƒªã‚¸ãƒ§ãƒ³ç”¨ã‚¯ãƒ©ã‚¹
 	/// </summary>
 	class SphereCollider
 	{
@@ -14,38 +14,38 @@ namespace Engine::System
 		virtual~SphereCollider() = default;
 
 		/// <summary>
-		/// ’†SÀ•W‚Ìæ“¾
+		/// ä¸­å¿ƒåº§æ¨™ã®å–å¾—
 		/// </summary>
-		/// <returns>’†SÀ•W</returns>
+		/// <returns>ä¸­å¿ƒåº§æ¨™</returns>
 		const Math::Vector3& GetCenter()const;
 
 		/// <summary>
-		/// ’†SÀ•W‚Ìw’è
+		/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="center">’†SÀ•W</param>
+		/// <param name="center">ä¸­å¿ƒåº§æ¨™</param>
 		void SetCenter(const Math::Vector3& Center);
 
 		/// <summary>
-		/// ”¼Œa‚Ìæ“¾
+		/// åŠå¾„ã®å–å¾—
 		/// </summary>
-		/// <returns>”¼Œa</returns>
+		/// <returns>åŠå¾„</returns>
 		float GetRadius()const;
 
 		/// <summary>
-		/// ”¼Œa‚Ìw’è
+		/// åŠå¾„ã®æŒ‡å®š
 		/// </summary>
-		/// <param name="radius">”¼Œa</param>
+		/// <param name="radius">åŠå¾„</param>
 		void SetRadius(float Radius);
 
 
 	private:
 		/// <summary>
-		/// ’†SÀ•W
+		/// ä¸­å¿ƒåº§æ¨™
 		/// </summary>
 		Math::Vector3 mCenter;
 
 		/// <summary>
-		/// ”¼Œa
+		/// åŠå¾„
 		/// </summary>
 		float mRadius;
 	};

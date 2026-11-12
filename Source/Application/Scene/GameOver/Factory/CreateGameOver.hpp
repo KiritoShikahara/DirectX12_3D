@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"entt/entt.hpp"
 
 namespace Engine::Scene
@@ -6,13 +6,13 @@ namespace Engine::Scene
 	class GameOverFactory
 	{
 	public:
-		//	”wŒi
+		//	èƒŒæ™¯
 		static void CreateBG();
 
-		//	Titleƒ{ƒ^ƒ“
+		//	Titleãƒœã‚¿ãƒ³
 		static entt::entity CreateTitle();
 
-		//	Retryƒ{ƒ^ƒ“
+		//	Retryãƒœã‚¿ãƒ³
 		static entt::entity CreateRetry();
 
 	};

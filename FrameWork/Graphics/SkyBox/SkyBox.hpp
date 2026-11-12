@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Graphics/SkyBox/Resource/SkyBoxResource.hpp"
 #include "Graphics/ConstantBuffer/ConstantBuffer.hpp"
@@ -15,41 +15,41 @@ namespace Engine::Graphics
 		virtual ~SkyBox();
 
 		/// <summary>
-		/// ì¬
+		/// ä½œæˆ
 		/// </summary>
-		/// <param name="Resource">ƒŠƒ\[ƒXŠÇ—‚©‚çæ“¾‚µ‚½ƒŠƒ\[ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="Resource">ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã‹ã‚‰å–å¾—ã—ãŸãƒªã‚½ãƒ¼ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(SkyBoxResource* Resource);
 
 		/// <summary>
-		/// ‰ğ•ú
+		/// è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render();
 
 	private:
 		struct SkyBoxConstantBufferInfo
 		{
-			Math::Matrix World; //	ƒpƒeƒBƒ“ƒO—p
+			Math::Matrix World; //	ãƒ‘ãƒ†ã‚£ãƒ³ã‚°ç”¨
 			Math::Matrix View;
 			Math::Matrix Projection;
 		};
 
-		//	255ƒAƒ‰ƒCƒƒ“ƒg‚É‡‚í‚¹‚Ü‚·
+		//	255ã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã«åˆã‚ã›ã¾ã™
 		static constexpr auto ConstantBufferSize = (sizeof(SkyBoxConstantBufferInfo) + 255) & ~255;
 
 	private:
 		/// <summary>
-		/// ƒŠƒ\[ƒX‚ÌQÆ
+		/// ãƒªã‚½ãƒ¼ã‚¹ã®å‚ç…§
 		/// </summary>
 		SkyBoxResource* mResource;
 
 		/// <summary>
-		/// s—ñ—p
+		/// è¡Œåˆ—ç”¨
 		/// </summary>
 		std::unique_ptr<ConstantBuffer> mTransformBuffer;
 

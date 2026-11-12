@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Math/Vector3/Vector3.h"
 #include"Utility/FlagUtils.hpp"
 #include<cstdint>
@@ -9,50 +9,50 @@ namespace Engine::System
 	{
 		None = 0,
 
-		//	ó‘Ôƒtƒ‰ƒO
+		//	çŠ¶æ…‹ãƒ•ãƒ©ã‚°
 		IsGrounded = 1 << 0,
 		IsJumping = 1 << 1,
 		IsFalling = 1 << 2,
 		IsRunning = 1 << 3,
 		IsMoveing = 1 << 4,
 
-		//	§ŒÀƒtƒ‰ƒO
+		//	åˆ¶é™ãƒ•ãƒ©ã‚°
 		CanMove = 1 << 5,
 		CanJump  = 1 << 6,
-		CanTurn = 1 << 7,	//	Œü‚«‚Ì•ÏX‰Â”\‚©‚Ç‚¤‚©(À¿‹“_)
+		CanTurn = 1 << 7,	//	å‘ãã®å¤‰æ›´å¯èƒ½ã‹ã©ã†ã‹(å®Ÿè³ªè¦–ç‚¹)
 		CanRunning = 1 << 8,
 
-		//	“Áêó‘Ô
+		//	ç‰¹æ®ŠçŠ¶æ…‹
 		InputDisabled = 1 << 9,
 		UseCameraBasis = 1 << 10,
 
-		//	ƒvƒŠƒZƒbƒg
+		//	ãƒ—ãƒªã‚»ãƒƒãƒˆ
 		Default = CanMove | CanJump | CanTurn | CanRunning
 	};
 	DEFINE_ENUM_BITWISE_OPERATORS(MoveFlags);
 
 	/// <summary>
-	/// “ü—Í‚ÅˆÚ“®‚³‚¹‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// å…¥åŠ›ã§ç§»å‹•ã•ã›ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct MoveComponent
 	{
-		//	“ü—Í‚Å‚ÌˆÚ“®—Ê
+		//	å…¥åŠ›ã§ã®ç§»å‹•é‡
 		Math::Vector3 InputDir;                                                                               
 
-		//	ŠO•”‚©‚ç‚ÌˆÚ“®—Ê
+		//	å¤–éƒ¨ã‹ã‚‰ã®ç§»å‹•é‡
 		Math::Vector3 ForceVelocity;
 
-		//	ˆÚ“®‘¬“x
+		//	ç§»å‹•é€Ÿåº¦
 		float MoveSpeed = 5.0f;
-		//	ƒ_ƒbƒVƒ…‚Ì‰Á‘¬”{—¦
+		//	ãƒ€ãƒƒã‚·ãƒ¥æ™‚ã®åŠ é€Ÿå€ç‡
 		float SprintMulti = 1.8f;
-		//	ƒWƒƒƒ“ƒv‚Ì‰‘¬
+		//	ã‚¸ãƒ£ãƒ³ãƒ—ã®åˆé€Ÿ
 		float JumpPower = 6.0f;
-		//	‰ñ“]‘¬“x
+		//	å›è»¢é€Ÿåº¦
 		float TurnSpeed = 20.0f;
 		float DodgeSpeed = 30.0f;
 
-		//	ƒJƒƒ‰‚ğŠî€‚Æ‚µ‚Ä“®‚­‚©‚Ç‚¤‚©
+		//	ã‚«ãƒ¡ãƒ©ã‚’åŸºæº–ã¨ã—ã¦å‹•ãã‹ã©ã†ã‹
 		bool UseCameraBasis = true;
 
 	};

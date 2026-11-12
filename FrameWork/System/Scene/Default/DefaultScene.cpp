@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "DefaultScene.hpp"
 
 #include "System/Entity/System/Manager/SystemManager.hpp"
@@ -12,7 +12,7 @@
 #include"System/Conponent/Collider/System/ColliderSystem.hpp"
 
 /*
-* ƒeƒXƒg
+* ãƒ†ã‚¹ãƒˆ
 */
 
 #include"Application/Objects/CreateObjects.hpp"
@@ -52,7 +52,7 @@ bool Engine::System::DefaultScene::Initialize()
     auto barRes = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/HPBar/Bar.png");
     auto luffy = Graphics::TextureManager::GetInstance()->Load("Assets/Texture/luffy.dds");
 
-    //  ƒVƒXƒeƒ€‚Ì’Ç‰Á
+    //  ã‚·ã‚¹ãƒ†ãƒ ã®è¿½åŠ 
     //System::SystemManager::GetInstance()->AddSystem<System::MoveComponentSystem>();
     System::SystemManager::GetInstance()->AddSystem<System::CameraControlSystem>();
     System::SystemManager::GetInstance()->AddSystem<System::SocketComponentSystem>();
@@ -62,18 +62,18 @@ bool Engine::System::DefaultScene::Initialize()
     System::SystemManager::GetInstance()->AddSystem<System::MoveComponentSystem>();
     System::SystemManager::GetInstance()->AddSystem<System::DamageSystem>();
 
-    //  “–‚½‚è”»’è‚ÌƒVƒXƒeƒ€
+    //  å½“ãŸã‚Šåˆ¤å®šã®ã‚·ã‚¹ãƒ†ãƒ 
     System::ColliderSystem::Initialize();
     System::ColliderSystem::AddCollisionPair<PlayerTag, EnemyTag>({  });
     System::ColliderSystem::AddCollisionPair<PlayerWeaponTag, EnemyTag>({ false,false,true,false});
 
-    //  ƒtƒB[ƒ‹ƒh
+    //  ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
     System::ObjectsFactory::CreateField();
 
-    //  ƒvƒŒƒCƒ„[‚Ìì¬
+    //  ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½œæˆ
     System::ObjectsFactory::CreatePlayer();
 
-    //  “G‚Ìì¬
+    //  æ•µã®ä½œæˆ
     System::ObjectsFactory::CreateEnemy();
 
 	return true;

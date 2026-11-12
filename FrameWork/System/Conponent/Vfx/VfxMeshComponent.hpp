@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/VFX/VfxSprite.hpp"
 #include"Math/Vector3/Vector3.h"
 #include<memory>
@@ -8,15 +8,15 @@ namespace Engine::System
 
 	struct VfxMeshComponent
 	{
-		//	Vfx–{‘Ì
+		//	Vfxæœ¬ä½“
 		std::unique_ptr<Graphics::VfxMesh> Mesh;
 
 		Math::Vector3 Offset;
 
-		//	•\¦‚·‚é‚©‚Ç‚¤‚©
+		//	è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
 		bool IsShow = true;
 
-		//	–¾¦“I‚É
+		//	æ˜ç¤ºçš„ã«
 		explicit VfxMeshComponent(Graphics::Texture* Texture)
 		{
 			Mesh = std::make_unique<Graphics::VfxMesh>();
@@ -28,11 +28,11 @@ namespace Engine::System
 		}
 		~VfxMeshComponent() = default;
 
-		// unique_ptr ‚ğ‚Á‚Ä‚¢‚é‚È‚çƒRƒs[‚Í‹Ö~‚·‚×‚«
+		// unique_ptr ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ã‚³ãƒ”ãƒ¼ã¯ç¦æ­¢ã™ã¹ã
 		VfxMeshComponent(const VfxMeshComponent&) = delete;
 		VfxMeshComponent& operator=(const VfxMeshComponent&) = delete;
 
-		// ƒ€[ƒu‚Í‹–‰Â‚·‚é
+		// ãƒ ãƒ¼ãƒ–ã¯è¨±å¯ã™ã‚‹
 		VfxMeshComponent(VfxMeshComponent&&) noexcept = default;
 		VfxMeshComponent& operator=(VfxMeshComponent&&) noexcept = default;
 	};

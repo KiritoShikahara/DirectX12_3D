@@ -1,4 +1,4 @@
-#include"Color.hpp"
+ï»¿#include"Color.hpp"
 
 using namespace Engine::Graphics;
 
@@ -8,62 +8,62 @@ using namespace Engine::Graphics;
 
 
 
-//	Ô
+//	èµ¤
 const Color Engine::Graphics::Color::Red()
 {
 	static const Color red = { 1.0f, 0.0f, 0.0f, 1.0f };
 	return red;
 }
-//	Â
+//	é’
 const Color Engine::Graphics::Color::Blue()
 {
 	static const Color blue = { 0.0f, 0.0f, 1.0f, 1.0f };
 	return blue;
 }
-//	—Î
+//	ç·‘
 const Color Engine::Graphics::Color::Green()
 {
 	static const Color green = { 0.0f, 1.0f, 0.0f, 1.0f };
 	return green;
 }
-//	•
+//	é»’
 const Color Engine::Graphics::Color::Black()
 {
 	static const Color black = { 0.0f, 0.0f, 0.0f, 1.0f };
 	return black;
 }
-//	”’
+//	ç™½
 const Color Engine::Graphics::Color::White()
 {
-	//	”’
+	//	ç™½
 	static const Color white = {1.0f, 1.0f, 1.0f, 1.0f};
 	return white;
 }
-//	ƒVƒAƒ“(…F)
+//	ã‚·ã‚¢ãƒ³(æ°´è‰²)
 const Color Engine::Graphics::Color::Cyan()
 {
-	//	ƒVƒAƒ“
+	//	ã‚·ã‚¢ãƒ³
 	static const Color cyan = { 0.0f, 1.0f, 1.0f, 1.0f };
 	return cyan;
 }
-//	ƒ}ƒ[ƒ“ƒ^(ƒsƒ“ƒN)
+//	ãƒã‚¼ãƒ³ã‚¿(ãƒ”ãƒ³ã‚¯)
 const Color Engine::Graphics::Color::Magenta()
 {
-	//	ƒ}ƒ[ƒ“ƒ^
+	//	ãƒã‚¼ãƒ³ã‚¿
 	static const Color magenta = { 1.0f, 0.0f, 1.0f, 1.0f };
 	return magenta;
 }
-//	‰©F
+//	é»„è‰²
 const Color Engine::Graphics::Color::Yellow()
 {
-	//	‰©
+	//	é»„
 	static const Color yellow = { 1.0f, 0.92f, 0.016f, 1.0f };
 	return yellow;
 }
-//	ŠDF
+//	ç°è‰²
 const Color Engine::Graphics::Color::Gray()
 {
-	//	ŠD
+	//	ç°
 	static const Color gray = { 0.5f, 0.5f, 0.5f, 1.0f };
 	return gray;
 }

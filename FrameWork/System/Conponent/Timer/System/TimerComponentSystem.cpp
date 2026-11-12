@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TimerComponentSystem.hpp"
 #include"../TimerComponent.hpp"
 
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ŠÔŒo‰ß
+	/// æ™‚é–“çµŒé
 	/// </summary>
 	/// <param name="DeltaTime"></param>
 	void TimerComponentSystem::PreUpdate(entt::registry& Reg,double DeltaTime)
@@ -20,7 +20,7 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// ƒ^ƒCƒ}[‚Æ‚È‚éƒGƒ“ƒeƒBƒeƒB‚Ìì¬
+	/// ã‚¿ã‚¤ãƒãƒ¼ã¨ãªã‚‹ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ä½œæˆ
 	/// </summary>
 	/// <returns></returns>
 	entt::entity TimerComponentSystem::CreateTimerObject()

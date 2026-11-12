@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "IndexBuffer.hpp"
 #include "Graphics/DirectX/DirectX12.hpp"
 
@@ -15,13 +15,13 @@ Engine::Graphics::IndexBuffer::~IndexBuffer()
 }
 
 /// <summary>
-/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 /// </summary>
-/// <param name="size">ƒoƒbƒtƒ@ƒTƒCƒY</param>
+/// <param name="size">ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º</param>
 /// <returns></returns>
 bool Engine::Graphics::IndexBuffer::Create(const size_t Size)
 {
-	//	ƒq[ƒvİ’è
+	//	ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapDesc = {};
 	heapDesc.Type = D3D12_HEAP_TYPE_UPLOAD;
 	heapDesc.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -29,7 +29,7 @@ bool Engine::Graphics::IndexBuffer::Create(const size_t Size)
 	heapDesc.CreationNodeMask = 0;
 	heapDesc.VisibleNodeMask = 0;
 
-	//	ƒoƒbƒtƒ@‚ÌƒŠƒ\[ƒX
+	//	ãƒãƒƒãƒ•ã‚¡ã®ãƒªã‚½ãƒ¼ã‚¹
 	D3D12_RESOURCE_DESC resourceDesc = {};
 	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resourceDesc.Alignment = 0;
@@ -57,7 +57,7 @@ bool Engine::Graphics::IndexBuffer::Create(const size_t Size)
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚Ì‰ğ•ú
+/// ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::IndexBuffer::Release()
 {
@@ -65,20 +65,20 @@ void Engine::Graphics::IndexBuffer::Release()
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ÌXV
+/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 /// </summary>
-/// <param name="SrcData">XVƒf[ƒ^</param>
+/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
 void Engine::Graphics::IndexBuffer::Update(const void* SrcData)
 {
 	Update(SrcData, 0, GetSize());
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@‚ÌXV
+/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 /// </summary>
-/// <param name="SrcData">XVƒf[ƒ^</param>
-/// <param name="offset">ƒIƒtƒZƒbƒg’l</param>
-/// <param name="size">XVƒTƒCƒY</param>
+/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
+/// <param name="offset">ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+/// <param name="size">æ›´æ–°ã‚µã‚¤ã‚º</param>
 void Engine::Graphics::IndexBuffer::Update(const void* SrcData, const size_t Offset, const size_t Size)
 {
 	D3D12_RANGE Range = {};
@@ -95,7 +95,7 @@ void Engine::Graphics::IndexBuffer::Update(const void* SrcData, const size_t Off
 }
 
 /// <summary>
-/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 /// </summary>
 void Engine::Graphics::IndexBuffer::Set()const
 {
@@ -129,7 +129,7 @@ void Engine::Graphics::IndexBuffer::Set(const eIndexBufferFormat Format, const s
 }
 
 /// <summary>
-/// ƒoƒbƒtƒ@ƒTƒCƒY‚Ìæ“¾
+/// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®å–å¾—
 /// </summary>
 /// <returns></returns>
 size_t Engine::Graphics::IndexBuffer::GetSize()const

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EnemyStateSystem.hpp"
 
 #include "Application/Components/Tag/TagComponent.hpp"
@@ -14,7 +14,7 @@
 
 
 /// <summary>
-/// ó‘Ô‚ÌI—¹‚Ì”»’è
+/// çŠ¶æ…‹ã®çµ‚äº†ã®åˆ¤å®š
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -24,7 +24,7 @@ void Engine::System::EnemyStateSystem::PreUpdate(entt::registry& Reg, double Del
 }
 
 /// <summary>
-/// ó‘Ô‚Ì‘JˆÚ
+/// çŠ¶æ…‹ã®é·ç§»
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -33,7 +33,7 @@ void Engine::System::EnemyStateSystem::MainUpdate(entt::registry& Reg, double De
 }
 
 /// <summary>
-/// ƒfƒoƒbƒN‚Ì•`‰æ
+/// ãƒ‡ãƒãƒƒã‚¯ã®æç”»
 /// </summary>
 /// <param name="Reg"></param>
 void Engine::System::EnemyStateSystem::Render(entt::registry& Reg)

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"System/Entity/System/Base/ISystem.hpp"
 
@@ -13,7 +13,7 @@ namespace Engine::System
 	concept IsSystem = std::derived_from<T, ISystem>;
 
 	/// <summary>
-	/// ƒVƒXƒeƒ€‚ÌŠÇ—
+	/// ã‚·ã‚¹ãƒ†ãƒ ã®ç®¡ç†
 	/// </summary>
 	class SystemManager : public Singleton<SystemManager>
 	{
@@ -21,37 +21,37 @@ namespace Engine::System
 	public:
 
 		/// <summary>
-		/// ‰Â•ÏXV
+		/// å¯å¤‰æ›´æ–°
 		/// </summary>
-		/// <param name="Reg">ecsŠÇ—</param>
-		/// <param name="DeltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+		/// <param name="Reg">ecsç®¡ç†</param>
+		/// <param name="DeltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
 		void PreUpdate(entt::registry& Reg, double DeltaTime);
 
 		/// <summary>
-		/// ŒÅ’èXV
+		/// å›ºå®šæ›´æ–°
 		/// </summary>
-		/// <param name="Reg">ecsŠÇ—</param>
-		/// <param name="DeltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+		/// <param name="Reg">ecsç®¡ç†</param>
+		/// <param name="DeltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
 		void MainUpdate(entt::registry& Reg, double DeltaTime);
 
 		/// <summary>
-		/// –ŒãXV
+		/// äº‹å¾Œæ›´æ–°
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>
 		void PostUpdate(entt::registry& Reg, double DeltaTime);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="Alpha"></param>
 		void Render(entt::registry& Reg);
 
 		/// <summary>
-		/// ƒVƒXƒeƒ€‚Ì’Ç‰Á
+		/// ã‚·ã‚¹ãƒ†ãƒ ã®è¿½åŠ 
 		/// </summary>
-		/// <param name="System">ƒVƒXƒeƒ€‚Ìƒ|ƒCƒ“ƒ^</param>
+		/// <param name="System">ã‚·ã‚¹ãƒ†ãƒ ã®ãƒã‚¤ãƒ³ã‚¿</param>
 		template<IsSystem T,typename... Args>
 		void AddSystem(Args&&... args)
 		{
@@ -59,7 +59,7 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ƒVƒXƒeƒ€‚Ìíœ
+		/// ã‚·ã‚¹ãƒ†ãƒ ã®å‰Šé™¤
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		template<IsSystem T>
@@ -68,7 +68,7 @@ namespace Engine::System
 			std::erase_if(mSystems,
 				[](const std::unique_ptr<ISystem>& sys)
 				{
-					// sys.get() ‚ğ•Â‚¶‚Ä‚©‚ç nullptr ‚Æ”äŠr‚·‚é
+					// sys.get() ã‚’é–‰ã˜ã¦ã‹ã‚‰ nullptr ã¨æ¯”è¼ƒã™ã‚‹
 					if (dynamic_cast<T*>(sys.get()) != nullptr)
 					{
 						sys->Release();
@@ -79,13 +79,13 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ƒVƒXƒeƒ€‚Ì‘Síœ
+		/// ã‚·ã‚¹ãƒ†ãƒ ã®å…¨å‰Šé™¤
 		/// </summary>
 		void AllClearSystem();
 
 	private:
 		/// <summary>
-		/// ƒ†[ƒU[’è‹`‚ÌƒVƒXƒeƒ€
+		/// ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ã®ã‚·ã‚¹ãƒ†ãƒ 
 		/// </summary>
 		std::vector<std::unique_ptr<ISystem>> mSystems;
 	};

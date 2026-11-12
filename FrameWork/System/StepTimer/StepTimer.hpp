@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Time/Time.hpp"
 
 namespace Engine::System
@@ -20,42 +20,42 @@ namespace Engine::System
 		virtual ~FixedStepTimer() = default;
 
 		/// <summary>
-		/// Œo‰ßŠÔ‚Ì‰ÁZ
+		/// çµŒéæ™‚é–“ã®åŠ ç®—
 		/// </summary>
 		/// <param name="DeltaTime"></param>
 		void Advance(Time DeltaTime);
 
 		/// <summary>
-		/// ŒÅ’èXV‚ğs‚¤‚©‚Ç‚¤‚©‚Ì”»’è
+		/// å›ºå®šæ›´æ–°ã‚’è¡Œã†ã‹ã©ã†ã‹ã®åˆ¤å®š
 		/// </summary>
-		/// <returns>true:ŒÅ’èXV‚ğs‚¤</returns>
+		/// <returns>true:å›ºå®šæ›´æ–°ã‚’è¡Œã†</returns>
 		[[nodiscard]] bool TryStep();
 
 		/// <summary>
-		/// •âŠÔŒW”‚Ìæ“¾i0.0`1.0j
+		/// è£œé–“ä¿‚æ•°ã®å–å¾—ï¼ˆ0.0ã€œ1.0ï¼‰
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] double GetAlpha() const;
 
 		/// <summary>
-		/// ŒÅ’èƒfƒ‹ƒ^ƒ^ƒCƒ€‚Ìæ“¾
+		/// å›ºå®šãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ ã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] double GetFixedDeltaTime()const;
 
 	private:
 		/// <summary>
-		/// ŒÅ’èXV‚ÌŠÔŠu
+		/// å›ºå®šæ›´æ–°ã®é–“éš”
 		/// </summary>
 		Time mFixedStep;
 
 		/// <summary>
-		/// 1ƒtƒŒ[ƒ€‚Ì‹–—eãŒÀ
+		/// 1ãƒ•ãƒ¬ãƒ¼ãƒ ã®è¨±å®¹ä¸Šé™
 		/// </summary>
 		Time mMaxDeltaTime;
 
 		/// <summary>
-		/// –¢ˆ—‚Ì—İÏŠÔ
+		/// æœªå‡¦ç†ã®ç´¯ç©æ™‚é–“
 		/// </summary>
 		Time mAccumulator;
 	};

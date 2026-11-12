@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<functional>
 #include<memory>
 #include"System/Scene/IScene.hpp"
@@ -8,20 +8,20 @@ namespace Engine::System
 {
 	enum class eFadeState
 	{
-		None,      // ‰½‚à‚µ‚Ä‚¢‚È‚¢i“§–¾‚Å’â~j
-		FadeOut,   // ˆÃ‚­‚µ‚Ä‚¢‚éÅ’†i0.0 -> 1.0j
-		FadeIn     // –¾‚é‚­‚µ‚Ä‚¢‚éÅ’†i1.0 -> 0.0j
+		None,      // ä½•ã‚‚ã—ã¦ã„ãªã„ï¼ˆé€æ˜ã§åœæ­¢ï¼‰
+		FadeOut,   // æš—ãã—ã¦ã„ã‚‹æœ€ä¸­ï¼ˆ0.0 -> 1.0ï¼‰
+		FadeIn     // æ˜ã‚‹ãã—ã¦ã„ã‚‹æœ€ä¸­ï¼ˆ1.0 -> 0.0ï¼‰
 	};
 
 	/// <summary>
-	/// ƒtƒF[ƒh—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct FadeComponent
 	{
 		float CurrentTime = 0.0f;
 		float TotalTime = 0.5f;
 		eFadeState State = eFadeState::FadeOut;
-		// ‚Ç‚ÌƒAƒ‹ƒtƒ@‚©‚ç ‚Ç‚ÌƒAƒ‹ƒtƒ@‚Ös‚­‚©‚ğ•Û‚µ‚Ä‚¨‚­‚ÆŒvZ‚ªŠy
+		// ã©ã®ã‚¢ãƒ«ãƒ•ã‚¡ã‹ã‚‰ ã©ã®ã‚¢ãƒ«ãƒ•ã‚¡ã¸è¡Œãã‹ã‚’ä¿æŒã—ã¦ãŠãã¨è¨ˆç®—ãŒæ¥½
 		float StartAlpha = 0.0f;
 		float TargetAlpha = 1.0f;
 	};

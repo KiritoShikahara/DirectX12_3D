@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/Entity/System/Base/ISystem.hpp"
 
@@ -8,13 +8,13 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// À•WˆÊ’u‚ªŠm’è‚µ‚½eƒIƒuƒWƒFƒNƒg‚Ìw’è‚µ‚½ƒ{[ƒ“À•W‚ÉƒZƒbƒg
+		/// åº§æ¨™ä½ç½®ãŒç¢ºå®šã—ãŸè¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æŒ‡å®šã—ãŸãƒœãƒ¼ãƒ³åº§æ¨™ã«ã‚»ãƒƒãƒˆ
 		/// </summary>
 		virtual void PostUpdate(entt::registry& Reg, double DeltaTime)override;
 
 	private:
 		/// <summary>
-		/// ImGui‚ÅƒIƒtƒZƒbƒg‚ğ‚¢‚¶‚é‚½‚ß‚Ì
+		/// ImGuiã§ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’ã„ã˜ã‚‹ãŸã‚ã®
 		/// </summary>
 		/// <param name="Reg"></param>
 		void OnGui(entt::registry& Reg);

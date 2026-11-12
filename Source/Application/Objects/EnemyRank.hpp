@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine::System
 {
 	/// <summary>
-	/// “G‚Ì‹­‚³‚Ìenum
+	/// æ•µã®å¼·ã•ã®enum
 	/// </summary>
 	enum class EnemyRank :int
 	{ 

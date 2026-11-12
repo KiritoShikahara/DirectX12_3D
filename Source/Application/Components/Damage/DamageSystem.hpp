@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 
 namespace Engine::System
@@ -9,7 +9,7 @@ namespace Engine::System
 		void MainUpdate(entt::registry& Reg, double DeltaTime) {}
 
 		/// <summary>
-		/// ƒ_ƒ[ƒWˆ—
+		/// ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "DamageSystem.hpp"
 #include "AttackPowerComponent.hpp"
 #include"Application/Components/Status/StatusComponent.hpp"
@@ -16,14 +16,14 @@
 
 
 /// <summary>
-/// ƒ_ƒ[ƒWˆ—
+/// ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
 void Engine::System::DamageSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
 {
 #ifndef NO_DAMAGE
-	//	©•ª‚ªUŒ‚—Í‚ğ‚Á‚Ä‚¢‚Ä’N‚©‚Æ“–‚½‚Á‚½
+	//	è‡ªåˆ†ãŒæ”»æ’ƒåŠ›ã‚’æŒã£ã¦ã„ã¦èª°ã‹ã¨å½“ãŸã£ãŸæ™‚
 	auto view = Reg.view<AttackPowerComponent, CollisionEvent>();
 	view.each([&](entt::entity entity, AttackPowerComponent& attack, CollisionEvent& collision)
 		{
@@ -31,28 +31,28 @@ void Engine::System::DamageSystem::PostUpdate(entt::registry& Reg, double DeltaT
 
 			HitHistoryComponent* history = Reg.try_get<HitHistoryComponent>(entity);
 
-			//	”íŠQÒ
+			//	è¢«å®³è€…
 			for (auto victim : collision.HitEntitys)
 			{
-				//	Šù‚ÉÕ“Ë or —š—ğ•Û‚ª‚È‚¢‚Æ‚«‚ÍI—¹
+				//	æ—¢ã«è¡çª or å±¥æ­´ä¿æŒãŒãªã„ã¨ãã¯çµ‚äº†
 				if (history != nullptr && history->HitList.contains(victim))
 				{
 					continue;
 				}
 
-				//	–³“Gó‘Ô‚È‚çI—¹
+				//	ç„¡æ•µçŠ¶æ…‹ãªã‚‰çµ‚äº†
 				if (Reg.all_of<InvincibleComponet>(victim)) 
 				{
 					continue;
 				}
 
-				//	‘Šè‚ª‘Ì—Í‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+				//	ç›¸æ‰‹ãŒä½“åŠ›ã‚’æŒã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
 				if (auto* status = Reg.try_get<StatusComponet>(victim))
 				{
 					status->ApplyDamage(attack.DamageValue);
 					Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/HitEffect.aud", false, 0.2f);
 
-					// UŒ‚‘¤‚ªƒGƒtƒFƒNƒgƒAƒZƒbƒg‚ğ‚Á‚Ä‚¢‚ê‚Î¶¬
+					// æ”»æ’ƒå´ãŒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¢ã‚»ãƒƒãƒˆã‚’æŒã£ã¦ã„ã‚Œã°ç”Ÿæˆ
 					if (attack.HitEffectAsset.empty() == false)
 					{
 						if (auto* victimTrans = Reg.try_get<Transform3D>(victim))

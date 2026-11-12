@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 
 #include<Plugin/miniaudio/miniaudio.h>
@@ -12,25 +12,25 @@ namespace Engine::Audio
 		GENERATE_SINGLETON_BODY(AudioDevice);
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‰ğ•ú
+		/// ãƒªã‚½ãƒ¼ã‚¹è§£æ”¾
 		/// </summary>
 		void OnDestory()override;
 	public:
 
 		/// <summary>
-		/// ƒfƒoƒCƒX‚Ì¶¬
+		/// ãƒ‡ãƒã‚¤ã‚¹ã®ç”Ÿæˆ
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize(AudioManager* Manager, uint32_t SampleRate = 44100, uint16_t Channels = 2);
 
 	private:
 		/// <summary>
-		/// ƒI[ƒfƒBƒIƒfƒoƒCƒX
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒã‚¤ã‚¹
 		/// </summary>
 		ma_device mDevice;
 
 		/// <summary>
-		/// ƒI[ƒfƒBƒIŠÇ—‚ÌQÆ—pƒ|ƒCƒ“ƒ^
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªç®¡ç†ã®å‚ç…§ç”¨ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
 		AudioManager* mAudioManager;
 

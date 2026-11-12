@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include<cstdint>
 
 namespace Engine::Audio
 {
-    //	ƒtƒ@ƒCƒ‹æ“ª‚©‚ç‚ÌƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg‚ÌˆÊ’u‚ğŒÅ’è‚·‚é
+    //	ãƒ•ã‚¡ã‚¤ãƒ«å…ˆé ­ã‹ã‚‰ã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆã®ä½ç½®ã‚’å›ºå®šã™ã‚‹
 #pragma pack(push,1)
     struct AudioHeader
     {
-        uint32_t SampleRate;    // ƒTƒ“ƒvƒŠƒ“ƒOü”g”
-        uint16_t Channels;      // ƒ`ƒƒƒ“ƒlƒ‹”
-        uint16_t BitsPerSample; // ƒrƒbƒg[“xi16bitŒÅ’èj
-        uint64_t FrameCount;    // PCMƒtƒŒ[ƒ€‘”
+        uint32_t SampleRate;    // ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°å‘¨æ³¢æ•°
+        uint16_t Channels;      // ãƒãƒ£ãƒ³ãƒãƒ«æ•°
+        uint16_t BitsPerSample; // ãƒ“ãƒƒãƒˆæ·±åº¦ï¼ˆ16bitå›ºå®šï¼‰
+        uint64_t FrameCount;    // PCMãƒ•ãƒ¬ãƒ¼ãƒ ç·æ•°
     };
 #pragma pack(pop)
 }

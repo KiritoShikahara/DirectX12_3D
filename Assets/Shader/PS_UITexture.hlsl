@@ -1,10 +1,10 @@
 #include "Header.hlsli"
 
-// ƒ‹[ƒg’è”ib1j‚©‚ç ratio ‚ğó‚¯æ‚é
+// ãƒ«ãƒ¼ãƒˆå®šæ•°ï¼ˆb1ï¼‰ã‹ã‚‰ ratio ã‚’å—ã‘å–ã‚‹
 cbuffer UIBarConfig : register(b1)
 {
     float4 g_color; //  set1-4
-    float g_ratio; // 0.0f ` 1.0f set0
+    float g_ratio; // 0.0f ã€œ 1.0f set0
 };
 
 Texture2D MainTexture : register(t0);
@@ -12,8 +12,8 @@ SamplerState Sampler : register(s0);
 
 float4 main(VStoPS input) : SV_Target0
 {
-    // UV‚ÌxÀ•W‚ª ratio ‚ğ’´‚¦‚Ä‚¢‚½‚ç•`‰æ‚ğƒXƒLƒbƒv
-    //  ‰æ‘œ‚ğ‚±‚ê‚Åí‚ê‚é‚æ‚¤‚É
+    // UVã®xåº§æ¨™ãŒ ratio ã‚’è¶…ãˆã¦ã„ãŸã‚‰æç”»ã‚’ã‚¹ã‚­ãƒƒãƒ—
+    //  ç”»åƒã‚’ã“ã‚Œã§å‰Šã‚Œã‚‹ã‚ˆã†ã«
     if (input.UV.x > g_ratio)
     {
         discard;
@@ -21,7 +21,7 @@ float4 main(VStoPS input) : SV_Target0
 
     float4 Color = MainTexture.Sample(Sampler, input.UV);
     
-    // ƒAƒ‹ƒtƒ@ƒeƒXƒgiŠù‘¶ƒXƒvƒ‰ƒCƒg‚Æ“¯‚¶‹““®j
+    // ã‚¢ãƒ«ãƒ•ã‚¡ãƒ†ã‚¹ãƒˆï¼ˆæ—¢å­˜ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¨åŒã˜æŒ™å‹•ï¼‰
     if (Color.a <= 0)
     {
         discard;

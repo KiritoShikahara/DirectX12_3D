@@ -16,16 +16,16 @@ struct PS_INPUT
 
 cbuffer VfxConstantBuffer : register(b0)
 {  
-    //  Žp¨s—ñ
+    //  å§¿å‹¢è¡Œåˆ—
     matrix World;
-	//	ƒrƒ…[s—ñ
+	//	ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
     matrix View;
-	//	ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+	//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
     matrix Projection;
-    //  F
+    //  è‰²
     float4 Color;
-    //  ƒGƒtƒFƒNƒg—p
+    //  ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”¨
     float Timer;
-    //  ƒpƒeƒBƒ“ƒO
+    //  ãƒ‘ãƒ†ã‚£ãƒ³ã‚°
     float3 padding;
 };

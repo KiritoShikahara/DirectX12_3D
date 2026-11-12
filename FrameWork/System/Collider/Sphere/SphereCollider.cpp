@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SphereCollider.hpp"
 
 
@@ -9,36 +9,36 @@ Engine::System::SphereCollider::SphereCollider()
 }
 
 /// <summary>
-/// ’†SÀ•W‚Ìæ“¾
+/// ä¸­å¿ƒåº§æ¨™ã®å–å¾—
 /// </summary>
-/// <returns>’†SÀ•W</returns>
+/// <returns>ä¸­å¿ƒåº§æ¨™</returns>
 const Math::Vector3& Engine::System::SphereCollider::GetCenter()const
 {
 	return mCenter;
 }
 
 /// <summary>
-/// ’†SÀ•W‚Ìw’è
+/// ä¸­å¿ƒåº§æ¨™ã®æŒ‡å®š
 /// </summary>
-/// <param name="center">’†SÀ•W</param>
+/// <param name="center">ä¸­å¿ƒåº§æ¨™</param>
 void Engine::System::SphereCollider::SetCenter(const Math::Vector3& Center)
 {
 	mCenter = Center;
 }
 
 /// <summary>
-/// ”¼Œa‚Ìæ“¾
+/// åŠå¾„ã®å–å¾—
 /// </summary>
-/// <returns>”¼Œa</returns>
+/// <returns>åŠå¾„</returns>
 float Engine::System::SphereCollider::GetRadius()const
 {
 	return mRadius;
 }
 
 /// <summary>
-/// ”¼Œa‚Ìw’è
+/// åŠå¾„ã®æŒ‡å®š
 /// </summary>
-/// <param name="radius">”¼Œa</param>
+/// <param name="radius">åŠå¾„</param>
 void Engine::System::SphereCollider::SetRadius(float Radius)
 {
 	mRadius = Radius;

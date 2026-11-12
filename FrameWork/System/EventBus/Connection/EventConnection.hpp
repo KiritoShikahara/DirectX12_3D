@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<functional>
 #include<Utility>
 
@@ -11,7 +11,7 @@ namespace Engine::System
 		EventConnection() = default;
 
 		/// <summary>
-		/// ƒ}ƒl[ƒWƒƒ[‚©‚ç“n‚³‚ê‚é‰ğœ—pŠÖ”‚ğ•Û
+		/// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰æ¸¡ã•ã‚Œã‚‹è§£é™¤ç”¨é–¢æ•°ã‚’ä¿æŒ
 		/// </summary>
 		explicit EventConnection(std::function<void()>unbinder)
 			:mUnbinder(std::move(unbinder))
@@ -20,18 +20,18 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ƒfƒXƒgƒ‰ƒNƒ^‚Å©“®“I‚É“o˜^‰ğœ
+		/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§è‡ªå‹•çš„ã«ç™»éŒ²è§£é™¤
 		/// </summary>
 		virtual ~EventConnection()
 		{
 			this->Disconnect();
 		}
 
-		//	ƒRƒs[‚Í‹Ö~E“ñd‚Å‰ğœ‚³‚ê‚È‚¢‚½‚ß
+		//	ã‚³ãƒ”ãƒ¼ã¯ç¦æ­¢ãƒ»äºŒé‡ã§è§£é™¤ã•ã‚Œãªã„ãŸã‚
 		EventConnection(const EventConnection&) = delete;
 		EventConnection& operator=(const EventConnection&) = delete;
 
-		//	ŠÖ”‚Ì–ß‚è’l‚Å“n‚¹‚é‚æ‚¤‚Éƒ€[ƒu‚Í‹–‰Â‚·‚é
+		//	é–¢æ•°ã®æˆ»ã‚Šå€¤ã§æ¸¡ã›ã‚‹ã‚ˆã†ã«ãƒ ãƒ¼ãƒ–ã¯è¨±å¯ã™ã‚‹
 		EventConnection(EventConnection&& rhs) noexcept : mUnbinder(std::move(rhs.mUnbinder)) {
 			rhs.mUnbinder = nullptr;
 		}
@@ -45,7 +45,7 @@ namespace Engine::System
 		}
 
 		/// <summary>
-		/// ŠÇ—ƒNƒ‰ƒX‚Ì“o˜^‰ğœ‚ÌŠÖ”‚ÌŒÄ‚Ño‚µ
+		/// ç®¡ç†ã‚¯ãƒ©ã‚¹ã®ç™»éŒ²è§£é™¤ã®é–¢æ•°ã®å‘¼ã³å‡ºã—
 		/// </summary>
 		void Disconnect() {
 			if (mUnbinder != nullptr) {
@@ -56,7 +56,7 @@ namespace Engine::System
 
 	private:
 		/// <summary>
-		/// ‰ğœŠÖ”•Û
+		/// è§£é™¤é–¢æ•°ä¿æŒ
 		/// </summary>
 		std::function<void()> mUnbinder;
 	};

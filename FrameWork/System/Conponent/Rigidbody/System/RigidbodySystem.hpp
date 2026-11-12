@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include<Plugin/entt/entt.hpp>
 
@@ -8,7 +8,7 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// d—Í‚ÆÀ•WXV
+		/// é‡åŠ›ã¨åº§æ¨™æ›´æ–°
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="FixedDeltaTime"></param>

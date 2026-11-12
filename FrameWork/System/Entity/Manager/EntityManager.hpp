@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/Singleton/Singleton.hpp"
 #include<Plugin/entt/entt.hpp>
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒGƒ“ƒeƒBƒeƒB‚Ì¶¬A”jŠü‚È‚Ç‚ÌŠÇ—
+	/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ç”Ÿæˆã€ç ´æ£„ãªã©ã®ç®¡ç†
 	/// </summary>
 	class EntityManager : public Singleton<EntityManager>
 	{
@@ -16,42 +16,42 @@ namespace Engine::System
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		virtual void OnCreate()override;
 
 		/// <summary>
-		/// registry‚Ö‚Ì’¼ÚƒAƒNƒZƒXiView‚ğì¬‚Å‚«‚é‚æ‚¤‚É‚·‚é‚½‚ßj
+		/// registryã¸ã®ç›´æ¥ã‚¢ã‚¯ã‚»ã‚¹ï¼ˆViewã‚’ä½œæˆã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ï¼‰
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] entt::registry& GetRegistry();
 
 		/// <summary>
-		/// ƒGƒ“ƒeƒBƒeƒB‚Ì¶¬
+		/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ç”Ÿæˆ
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] entt::entity CreateEntity();
 
 		/// <summary>
-		///	‰i‘±ƒGƒ“ƒeƒBƒeƒB‚Ìì¬ 
+		///	æ°¸ç¶šã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ä½œæˆ 
 		/// </summary>
 		/// <returns></returns>
 		[[nodiscard]] entt::entity CreatePersistentEntity();
 
 		/// <summary>
-		/// ƒ[ƒJƒ‹ƒIƒuƒWƒFƒNƒgiScene’PˆÊj‚ÌƒNƒŠƒA
+		/// ãƒ­ãƒ¼ã‚«ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆSceneå˜ä½ï¼‰ã®ã‚¯ãƒªã‚¢
 		/// </summary>
 		void ClearLocalEntities();
 
 		/// <summary>
-		/// ‚·‚×‚Äíœ
+		/// ã™ã¹ã¦å‰Šé™¤
 		/// </summary>
 		void AllClear();
 
 
 	private:
 		/// <summary>
-		/// ƒIƒuƒWƒFƒNƒgAƒRƒ“ƒ|[ƒlƒ“ƒgAƒVƒXƒeƒ€‚ÌŠÇ—
+		/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã€ã‚·ã‚¹ãƒ†ãƒ ã®ç®¡ç†
 		/// </summary>
 		entt::registry mRegistry;
 

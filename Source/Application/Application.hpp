@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"System/Clock/Clock.hpp"
 #include"System/StepTimer/StepTimer.hpp"
@@ -27,58 +27,58 @@ namespace Engine::App
 		GENERATE_SINGLETON_BODY(Application);
 
 		/// <summary>
-		/// Å‰‚Ì‰æ–Ê‚Ìì¬
+		/// æœ€åˆã®ç”»é¢ã®ä½œæˆ
 		/// </summary>
 		void CreateStartScene();
 
 		/// <summary>
-		/// ƒf[ƒ^‚Ì“Ç‚İ‚İ
+		/// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		/// </summary>
 		bool DataLoad();
 
 	public:
 		/// <summary>
-		/// ƒƒCƒ“ƒ‹[ƒv
+		/// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 		/// </summary>
 		void Run();
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize();
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Shutdown();
 	private:
 		/// <summary>
-		/// ‚PƒtƒŒ[ƒ€‚ÌXVˆ—
+		/// ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ›´æ–°å‡¦ç†
 		/// </summary>
 		void Tick();
 
 		/// <summary>
-		/// –‘OXV
+		/// äº‹å‰æ›´æ–°
 		/// </summary>
 		void PreUpdate(double dt);
 
 		/// <summary>
-		/// ƒƒCƒ“XV
+		/// ãƒ¡ã‚¤ãƒ³æ›´æ–°
 		/// </summary>
 		void MainUpdate(double dt);
 
 		/// <summary>
-		/// –ŒãXV
+		/// äº‹å¾Œæ›´æ–°
 		/// </summary>
 		void PostUpdate(double dt);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Render();
 
 		/// <summary>
-		/// ImGUi‚ÌXVA•\¦
+		/// ImGUiã®æ›´æ–°ã€è¡¨ç¤º
 		/// </summary>
 		void ImGuiUpdate();
 	private:
@@ -89,13 +89,13 @@ namespace Engine::App
 		Graphics::EffectManager* mEffect;
 
 		/// <summary>
-		/// ŠÔŒo‰ßæ“¾—p
+		/// æ™‚é–“çµŒéå–å¾—ç”¨
 		/// </summary>
 		System::Clock mClock;
 
 		/// <summary>
-		/// ƒ‹[ƒvXV—p
-		/// true:ƒQ[ƒ€ƒ‹[ƒvXV
+		/// ãƒ«ãƒ¼ãƒ—æ›´æ–°ç”¨
+		/// true:ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—æ›´æ–°
 		/// </summary>
 		bool mIsRunning = true;
 	};

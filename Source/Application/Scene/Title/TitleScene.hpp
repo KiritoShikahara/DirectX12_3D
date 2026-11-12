@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 
 namespace Engine::Scene
@@ -7,19 +7,19 @@ namespace Engine::Scene
 	{
 	public:
 		/// <summary>
-		///	‰Šú‰»
+		///	åˆæœŸåŒ–
 		/// </summary>
 		/// <returns></returns>
 		bool Initialize()override;
 
 		/// <summary>
-		/// ‰æ–Ê‚ÌØ‚è‘Ö‚¦”»’è
+		/// ç”»é¢ã®åˆ‡ã‚Šæ›¿ãˆåˆ¤å®š
 		/// </summary>
 		/// <param name="FixedDeltaTime"></param>
 		void PostUpdate(double FixedDeltaTime)override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Release()override;
 

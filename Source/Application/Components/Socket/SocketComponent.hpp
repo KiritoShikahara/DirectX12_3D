@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/entt/entt.hpp>
 #include<string>
 
@@ -9,10 +9,10 @@ namespace Engine::System
 {
 	struct SocketComponent
 	{
-		std::string BoneName;		//	ƒAƒ^ƒbƒ`‚·‚éƒ{[ƒ“–¼
-		Math::Quaternion OffsetRot = Math::Quaternion::Identity;;	//	Œü‚«‚Ì’²®—p
-		Math::Vector3 OffsetPos;	//	À•W‚Ì’²®—p
-		Math::Vector3 PivotOffset;	//	‚±‚ÌƒIƒuƒWƒFƒNƒg‚ÌŠî€“_’²ß—p
-		entt::entity Parent = entt::null;		//	À•WŠî€‚É‚·‚ée
+		std::string BoneName;		//	ã‚¢ã‚¿ãƒƒãƒã™ã‚‹ãƒœãƒ¼ãƒ³å
+		Math::Quaternion OffsetRot = Math::Quaternion::Identity;;	//	å‘ãã®èª¿æ•´ç”¨
+		Math::Vector3 OffsetPos;	//	åº§æ¨™ã®èª¿æ•´ç”¨
+		Math::Vector3 PivotOffset;	//	ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åŸºæº–ç‚¹èª¿ç¯€ç”¨
+		entt::entity Parent = entt::null;		//	åº§æ¨™åŸºæº–ã«ã™ã‚‹è¦ª
 	};
 }

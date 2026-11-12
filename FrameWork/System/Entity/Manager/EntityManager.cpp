@@ -1,20 +1,20 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EntityManager.hpp"
 #include"System/Entity/Traits/EnTTTraits.hpp"
 
 #include"System/Conponent/Transform/TransformConponent.hpp"
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void Engine::System::EntityManager::OnCreate()
 {
-    //  À•W‚Í‘S‚Ä‚ÌƒIƒuƒWƒFƒNƒg‚ª‚Á‚Ä‚¢‚é‚Ì‚Åƒ\[ƒgŠî€‚É‚µ‚Ü‚·B
+    //  åº§æ¨™ã¯å…¨ã¦ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæŒã£ã¦ã„ã‚‹ã®ã§ã‚½ãƒ¼ãƒˆåŸºæº–ã«ã—ã¾ã™ã€‚
     mRegistry.group<Transform3D>();
 }
 
 /// <summary>
-/// registry‚Ö‚Ì’¼ÚƒAƒNƒZƒXiView‚ğì¬‚Å‚«‚é‚æ‚¤‚É‚·‚é‚½‚ßj
+/// registryã¸ã®ç›´æ¥ã‚¢ã‚¯ã‚»ã‚¹ï¼ˆViewã‚’ä½œæˆã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ï¼‰
 /// </summary>
 /// <returns></returns>
 entt::registry& Engine::System::EntityManager::GetRegistry()
@@ -23,7 +23,7 @@ entt::registry& Engine::System::EntityManager::GetRegistry()
 }
 
 /// <summary>
-/// ƒGƒ“ƒeƒBƒeƒB‚Ì¶¬
+/// ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ç”Ÿæˆ
 /// </summary>
 /// <returns></returns>
 entt::entity Engine::System::EntityManager::CreateEntity()
@@ -32,30 +32,30 @@ entt::entity Engine::System::EntityManager::CreateEntity()
 }
 
 /// <summary>
-///	‰i‘±ƒGƒ“ƒeƒBƒeƒB‚Ìì¬ 
+///	æ°¸ç¶šã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®ä½œæˆ 
 /// </summary>
 /// <returns></returns>
 entt::entity Engine::System::EntityManager::CreatePersistentEntity()
 {
     auto entity = mRegistry.create();
     mRegistry.emplace<Persistent>(entity);
-    //mRegistry.emplace<Transform3D>(entity);   //// À•WŒn‚ğâ‘Î‚É‚½‚¹‚é‚©‚Ç‚¤‚©l‚¦‚Ü‚·
+    //mRegistry.emplace<Transform3D>(entity);   //// åº§æ¨™ç³»ã‚’çµ¶å¯¾ã«æŒãŸã›ã‚‹ã‹ã©ã†ã‹è€ƒãˆã¾ã™
     return entity;
 }
 
 /// <summary>
-/// ƒ[ƒJƒ‹ƒIƒuƒWƒFƒNƒgiScene’PˆÊj‚ÌƒNƒŠƒA
+/// ãƒ­ãƒ¼ã‚«ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆSceneå˜ä½ï¼‰ã®ã‚¯ãƒªã‚¢
 /// </summary>
 void Engine::System::EntityManager::ClearLocalEntities()
 {
     auto view = mRegistry.view<entt::entity>(entt::exclude<Persistent>);
 
-    //  ˆêŠ‡íœ
+    //  ä¸€æ‹¬å‰Šé™¤
     mRegistry.destroy(view.begin(), view.end());
 }
 
 /// <summary>
-/// ‚·‚×‚Äíœ
+/// ã™ã¹ã¦å‰Šé™¤
 /// </summary>
 void Engine::System::EntityManager::AllClear()
 {

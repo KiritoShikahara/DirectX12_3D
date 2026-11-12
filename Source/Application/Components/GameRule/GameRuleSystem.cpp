@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameRuleSystem.hpp"
 
 #include"Application/Components/Tag/TagComponent.hpp"
@@ -15,7 +15,7 @@
 #include"Application/Components/Tag/TagComponent.hpp"
 
 /// <summary>
-/// Game‚ÌI—¹ğŒ‚ğŒ©‚é
+/// Gameã®çµ‚äº†æ¡ä»¶ã‚’è¦‹ã‚‹
 /// </summary>
 /// <param name="Reg"></param>
 /// <param name="DeltaTime"></param>
@@ -25,18 +25,18 @@ void Engine::System::GameRuleSystem::PostUpdate(entt::registry& Reg, double Delt
 
 	EnemyRank rank = EnemyRank::Basic;
 
-	//	“G‚ª‘S–Å‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŒ©‚é
+	//	æ•µãŒå…¨æ»…ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’è¦‹ã‚‹
 	auto AliveEnemy = Reg.view<EnemyTag>(entt::exclude<DeadTag>);
 	if (AliveEnemy.begin() == AliveEnemy.end())
 	{
-		//	‚±‚Ì‚Æ‚«‚ÉŠ®‘SƒNƒŠƒA‚Ìƒ^ƒO‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğ”»’è‚µ‚ÄƒNƒŠƒA‰æ–Ê‚©
-		//	ƒZƒŒƒNƒg‰æ–Ê‚É–ß‚·‚©‚Ç‚¤‚©‚Ì”»’è‚ğ‚·‚é
+		//	ã“ã®ã¨ãã«å®Œå…¨ã‚¯ãƒªã‚¢ã®ã‚¿ã‚°ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã—ã¦ã‚¯ãƒªã‚¢ç”»é¢ã‹
+		//	ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«æˆ»ã™ã‹ã©ã†ã‹ã®åˆ¤å®šã‚’ã™ã‚‹
 		bool gameClear = false;
 		auto bosses = Reg.view<BossTag>();
 		auto Advance = Reg.view<AdvancedTag>();
 		auto Basic = Reg.view<BasicTag>();
 		
-		//	¡‰ñU—ª‚µ‚½ƒŒƒxƒ‹
+		//	ä»Šå›æ”»ç•¥ã—ãŸãƒ¬ãƒ™ãƒ«
 		int nextLevel = 0;
 		for (auto entity : bosses)
 		{
@@ -71,12 +71,12 @@ void Engine::System::GameRuleSystem::PostUpdate(entt::registry& Reg, double Delt
 		}
 
 
-		// ‚Ç‚Ìƒ^ƒO‚Ì“G‚ğ“|‚µ‚½‚©”»’èi‹­‚¢‡‚Éƒ`ƒFƒbƒNj
-		// Boss”»’è
+		// ã©ã®ã‚¿ã‚°ã®æ•µã‚’å€’ã—ãŸã‹åˆ¤å®šï¼ˆå¼·ã„é †ã«ãƒã‚§ãƒƒã‚¯ï¼‰
+		// Bossåˆ¤å®š
 
 		if (gameClear == true)
 		{
-			//	ƒ^ƒCƒ}[‚Ìæ“¾
+			//	ã‚¿ã‚¤ãƒãƒ¼ã®å–å¾—
 			auto TimerView = Reg.view<TimerComponent, InGameTag>();
 			auto TimerEntity = TimerView.front();
 			double Time = 0;
@@ -94,9 +94,9 @@ void Engine::System::GameRuleSystem::PostUpdate(entt::registry& Reg, double Delt
 		}
 
 
-		//	‚Ç‚Ì“G‚ğË“|‚µ‚½‚©‚Ì”»’è
+		//	ã©ã®æ•µã‚’å°„å€’ã—ãŸã‹ã®åˆ¤å®š
 
-		//	’l‚Ì“ü‚ê‘Ö‚¦
+		//	å€¤ã®å…¥ã‚Œæ›¿ãˆ
 		auto* data = CSV::Get<SaveData>().FindMutable(1);
 		if (data != nullptr)
 		{
@@ -118,7 +118,7 @@ void Engine::System::GameRuleSystem::PostUpdate(entt::registry& Reg, double Delt
 	auto AlivePlayer = Reg.view<PlayerTag>(entt::exclude<DeadTag>);
 	if (AlivePlayer.begin() == AlivePlayer.end())
 	{
-		//	ã‚Æ“¯‚¶‚æ‚¤‚É‰‰o‚ğ“ü‚ê‚½‚¢
+		//	ä¸Šã¨åŒã˜ã‚ˆã†ã«æ¼”å‡ºã‚’å…¥ã‚ŒãŸã„
 		SceneManager::GetInstance()->ChangeSceneFade<Scene::GameOver>(rank);
 		mIsStateChange = true;
 	}

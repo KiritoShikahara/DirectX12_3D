@@ -1,4 +1,4 @@
-#include"pch.h"
+ï»¿#include"pch.h"
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeap.hpp"
 #include"Debug/spdlog/Logger.hpp"
 
@@ -14,15 +14,15 @@ Engine::Graphics::GraphicsDescriptorHeap::~GraphicsDescriptorHeap()
 }
 
 /// <summary>
-/// ƒq[ƒv‚Ìì¬
+/// ãƒ’ãƒ¼ãƒ—ã®ä½œæˆ
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Graphics::GraphicsDescriptorHeap::Create()
 {
 	GraphicsDescriptorHeapManager* HeapManager = GraphicsDescriptorHeapManager::GetInstance();
 	if (HeapManager == nullptr)
 	{
-		LOG_ERROR("ƒq[ƒvŠÇ—‚Ìæ“¾‚É¸”s");
+		LOG_ERROR("ãƒ’ãƒ¼ãƒ—ç®¡ç†ã®å–å¾—ã«å¤±æ•—");
 		return false;
 	}
 
@@ -32,7 +32,7 @@ bool Engine::Graphics::GraphicsDescriptorHeap::Create()
 }
 
 /// <summary>
-/// ƒq[ƒv‚Ì‰ğ•ú
+/// ãƒ’ãƒ¼ãƒ—ã®è§£æ”¾
 /// </summary>
 void Engine::Graphics::GraphicsDescriptorHeap::Release()
 {
@@ -51,9 +51,9 @@ void Engine::Graphics::GraphicsDescriptorHeap::Release()
 }
 
 /// <summary>
-/// ƒpƒCƒvƒ‰ƒCƒ“‚Öƒq[ƒv‚ÌƒZƒbƒg
+/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ãƒ’ãƒ¼ãƒ—ã®ã‚»ãƒƒãƒˆ
 /// </summary>
-/// <param name="RootParameterIndex">ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚ÖƒZƒbƒg‚µ‚½ƒpƒ‰ƒ[ƒ^[ƒCƒ“ƒfƒbƒNƒX</param>
+/// <param name="RootParameterIndex">ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã¸ã‚»ãƒƒãƒˆã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
 
 void Engine::Graphics::GraphicsDescriptorHeap::Set(int RootParameterIndex)
 {

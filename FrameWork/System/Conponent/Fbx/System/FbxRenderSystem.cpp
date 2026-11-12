@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FbxRenderSystem.h"
 
 #include"System/Conponent/Fbx/FbxMeshConponent.hpp"
@@ -9,13 +9,13 @@ namespace Engine::System
 {
 
 	/// <summary>
-	/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘ÔXV
+	/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹æ›´æ–°
 	/// </summary>
 	/// <param name="Reg"></param>
 	/// <param name="DeltaTime"></param>
 	void FbxRenderSystem::Update(entt::registry& Reg, double DeltaTime)
 	{
-		//	Fbx‚ÆÀ•WŒn‚ğ‚Á‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+		//	Fbxã¨åº§æ¨™ç³»ã‚’æŒã£ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
 		auto view = Reg.view<FbxComponent, Transform3D>();
 
 
@@ -31,13 +31,13 @@ namespace Engine::System
 	}
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
-	/// <param name="Reg">enttƒŒƒWƒXƒgƒŠ</param>
-	/// <param name="Alpha">•âŠÔŒW”</param>
+	/// <param name="Reg">enttãƒ¬ã‚¸ã‚¹ãƒˆãƒª</param>
+	/// <param name="Alpha">è£œé–“ä¿‚æ•°</param>
 	void FbxRenderSystem::Render(entt::registry& Reg)
 	{
-		//	Fbx‚ÆÀ•WŒn‚ğ‚Á‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+		//	Fbxã¨åº§æ¨™ç³»ã‚’æŒã£ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
 		auto view = Reg.view<FbxComponent>();
 
 		view.each([&](auto entity, auto& fbx)

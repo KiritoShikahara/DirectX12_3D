@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <d3d12.h>
 #include <memory>
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -17,45 +17,45 @@ namespace Engine::Graphics
 		virtual ~ConstantBuffer();
 
 		/// <summary>
-		/// �萔�o�b�t�@�̍쐬
+		/// 定数バッファの作成
 		/// </summary>
-		/// <param name="Size">�萔�o�b�t�@�̃T�C�Y</param>
-		/// <returns>true:����</returns>
+		/// <param name="Size">定数バッファのサイズ</param>
+		/// <returns>true:成功</returns>
 		bool Create(size_t Size);
 
 		/// <summary>
-		/// �o�b�t�@�̉��
+		/// バッファの解放
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// �o�b�t�@�̍X�V
+		/// バッファの更新
 		/// </summary>
 		/// <param name="SrcData"></param>
 		void Update(const void* SrcData);
 
 		/// <summary>
-		/// �o�b�t�@���p�C�v���C���փZ�b�g
+		/// バッファをパイプラインへセット
 		/// </summary>
-		/// <param name="RootParameterIndex">���[�g�V�O�l�`���փZ�b�g�����p�����[�^�[�C���f�b�N�X</param>
+		/// <param name="RootParameterIndex">ルートシグネチャへセットしたパラメーターインデックス</param>
 		void Set(int RootParameterIndex);
 
 	private:
 		/// <summary>
-		/// �萔�o�b�t�@���\�[�X
+		/// 定数バッファリソース
 		/// </summary>
 		mw::ResourcePtr mBufferResource;
 
 		/// <summary>
-		/// ���\�[�X�̃f�B�X�N���v�^���i�[
+		/// リソースのディスクリプタ情報格納
 		/// </summary>
 		std::unique_ptr<GraphicsDescriptorHeap> mHeap;
 		/// <summary>
-		/// ���肽���o�b�t�@�̃T�C�Y
+		/// 送りたいバッファのサイズ
 		/// </summary>
 		UINT64 mBufferSize;
 		/// <summary>
-		/// GPU�̋K���ɍ��킹�ăA���C�����g���ꂽ�T�C�Y
+		/// GPUの規則に合わせてアライメントされたサイズ
 		/// </summary>
 		UINT64 mAlignedBufferSize;
 	};

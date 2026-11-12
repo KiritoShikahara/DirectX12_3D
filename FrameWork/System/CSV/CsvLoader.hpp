@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 
 namespace Engine::System
 {
-    /* “Ç—p•ÏŠ· */
+    /* èª­è¾¼ç”¨å¤‰æ› */
     template<typename T>
     inline void Convert(const std::string& s, T& val) {
         if (s.empty()) return;
@@ -20,17 +20,17 @@ namespace Engine::System
         else if constexpr (std::is_same_v<T, float>)  val = std::stof(s);
     }
 
-    /* s‚ğ•ª‰ğ */
+    /* è¡Œã‚’åˆ†è§£ */
     template<typename T, typename... Args>
     inline void ParseLine(std::stringstream& ss, T& first, Args&... rest) {
         std::string field;
         if (std::getline(ss, field, ',')) {
-            Convert(field, first); // Convert‚É“ˆê
+            Convert(field, first); // Convertã«çµ±ä¸€
             if constexpr (sizeof...(rest) > 0) ParseLine(ss, rest...);
         }
     }
 
-    /* ‘‚«o‚µ—pƒVƒŠƒAƒ‰ƒCƒY */
+    /* æ›¸ãå‡ºã—ç”¨ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚º */
     template<typename T>
     inline void SerializeLine(std::ostream& os, const T& last) {
         os << last;
@@ -41,7 +41,7 @@ namespace Engine::System
         Engine::System::SerializeLine(os, rest...);
     }
 
-    /* ƒoƒCƒ“ƒh—pƒ}ƒNƒi“Ç‚İ‘‚«—¼‘Î‰”Åj */
+    /* ãƒã‚¤ãƒ³ãƒ‰ç”¨ãƒã‚¯ãƒ­ï¼ˆèª­ã¿æ›¸ãä¸¡å¯¾å¿œç‰ˆï¼‰ */
 #define CSV_BINDABLE(StructName, ...) \
     friend std::istream& operator>>(std::istream& is, StructName& obj) { \
         std::string line; \
@@ -69,7 +69,7 @@ namespace Engine::System
         CSVLoader() = default;
         virtual ~CSVLoader() = default;
 
-        /* ƒtƒ@ƒCƒ‹‚Ö•Û‘¶ */
+        /* ãƒ•ã‚¡ã‚¤ãƒ«ã¸ä¿å­˜ */
         bool Save(const std::string& filename, const std::string& header = "") {
             std::ofstream file(filename);
             if (!file.is_open()) return false;
@@ -81,12 +81,12 @@ namespace Engine::System
             }
 
             for (const auto& item : mDataList) {
-                file << item << "\n"; // ƒ}ƒNƒ‚Å’è‹`‚µ‚½ operator<< ‚ªŒÄ‚Î‚ê‚é
+                file << item << "\n"; // ãƒã‚¯ãƒ­ã§å®šç¾©ã—ãŸ operator<< ãŒå‘¼ã°ã‚Œã‚‹
             }
             return true;
         }
 
-        /* “Ç */
+        /* èª­è¾¼ */
         bool Load(const std::string& filename) {
             std::ifstream file(filename);
             if (!file.is_open()) return false;
@@ -94,7 +94,7 @@ namespace Engine::System
             mDataList.clear();
             mIdToIndex.clear();
 
-            // 1s–Ú‚ğƒLƒƒƒbƒVƒ…‚É•Û‘¶
+            // 1è¡Œç›®ã‚’ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«ä¿å­˜
             if (!std::getline(file, mCachedHeader)) {
                 mCachedHeader = "";
             }
@@ -108,13 +108,13 @@ namespace Engine::System
             return true;
         }
 
-        /* ŒŸõ “Ç‚İæ‚è—p */
+        /* æ¤œç´¢ èª­ã¿å–ã‚Šç”¨ */
         const T* Find(int id) const {
             auto it = mIdToIndex.find(id);
             return (it != mIdToIndex.end()) ? &mDataList[it->second] : nullptr;
         }
 
-        /* ŒŸõ ‘‚«Š·‚¦—p*/
+        /* æ¤œç´¢ æ›¸ãæ›ãˆç”¨*/
         T* FindMutable(int id) {
             auto it = mIdToIndex.find(id);
             return (it != mIdToIndex.end()) ? &mDataList[it->second] : nullptr;

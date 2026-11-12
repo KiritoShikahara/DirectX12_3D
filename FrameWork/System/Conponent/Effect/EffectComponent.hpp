@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Graphics/Effect/EffectObject.hpp"
 #include"entt/entt.hpp"
 #include"Math/Vector3/Vector3.h"
@@ -6,25 +6,25 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒGƒtƒFƒNƒg‚ÌÄ¶ƒCƒ“ƒXƒ^ƒ“ƒX‚ğŠÇ—‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å†ç”Ÿã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç®¡ç†ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct EffectComponent
 	{
-		//	e‚©‚ç‚Ì‘Š‘Î
+		//	è¦ªã‹ã‚‰ã®ç›¸å¯¾
 		Math::Vector3 Offset = { 0.0f, 0.0f, 0.0f };
 
-		//	ƒGƒtƒFƒNƒg
+		//	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		Graphics::EffectObject Effect;
 
 		Effekseer::EffectRef Asset;
 
-		//	ei’Ç]—pj
+		//	è¦ªï¼ˆè¿½å¾“ç”¨ï¼‰
 		entt::entity Parent = entt::null;
 
-		//	ƒ‹[ƒv‚·‚é‚©‚Ç‚¤‚©
+		//	ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹ã©ã†ã‹
 		bool IsLoop = false;
 
-		//	•\¦‚·‚é‚©‚Ç‚¤‚©
+		//	è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
 		bool IsShow = true;
 		bool LoastIsShow = false;
 	};

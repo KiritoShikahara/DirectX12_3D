@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Plugin/entt/entt.hpp>
 
 #include"System/Entity/System/Base/ISystem.hpp"
@@ -11,7 +11,7 @@ namespace Engine::System
 		MoveComponentSystem() = default;
 
 		/// <summary>
-		/// ˆÚ“®—Ê‚ÌŒvZˆ—‚ğ‚µ‚ÄRigid‚ÌˆÚ“®—Ê‚É‰ÁZ‚·‚é
+		/// ç§»å‹•é‡ã®è¨ˆç®—å‡¦ç†ã‚’ã—ã¦Rigidã®ç§»å‹•é‡ã«åŠ ç®—ã™ã‚‹
 		/// </summary>
 		virtual void MainUpdate(entt::registry& Reg, double DeltaTime) override;
 		virtual void Render(entt::registry& Reg) override;

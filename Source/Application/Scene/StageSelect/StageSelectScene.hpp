@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Scene/IScene.hpp"
 #include"Graphics/SkyBox/SkyBox.hpp"
 
@@ -10,30 +10,30 @@ namespace Engine::Scene
 	class StageSelect : public System::IScene
 	{
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚ğŠJ‚­
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã
 		/// </summary>
 		void OpenConfirmWindow();
 
 		/// <summary>
-		/// ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é
+		/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹
 		/// </summary>
 		void CloseConfirmWindow();
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		virtual bool Initialize()override;
 
 		virtual void Update(double DeltaTime) override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Render()override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Release()override;
 
@@ -45,17 +45,17 @@ namespace Engine::Scene
 	private:
 
 		enum class eState {
-			Normal,     // ’Êí
-			Confirming  // ƒ^ƒCƒgƒ‹‚É–ß‚é‚©Šm”F’†
+			Normal,     // é€šå¸¸æ™‚
+			Confirming  // ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹ã‹ç¢ºèªä¸­
 		};
 
 		/// <summary>
-		/// ƒXƒJƒCƒ{ƒbƒNƒX
+		/// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹
 		/// </summary>
 		std::unique_ptr<Graphics::SkyBox> mSkyBox;
 
 		/// <summary>
-		/// ¡‚Ìó‘Ô
+		/// ä»Šã®çŠ¶æ…‹
 		/// </summary>
 		eState mState = eState::Normal;
 		entt::entity mConfirmWindowEntity = entt::null;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include"System/CSV/CsvLoader.hpp"
 
@@ -7,7 +7,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// “G‚Ìƒpƒ‰ƒ[ƒ^[—pƒf[ƒ^
+	/// æ•µã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”¨ãƒ‡ãƒ¼ã‚¿
 	/// </summary>
 	struct EnemyData
 	{
@@ -20,9 +20,9 @@ namespace Engine::System
 		float IdleTime = 0;
 
 		float IdleEvadeProbability = 0;
-		float CancelEvadeProbability = 0.3f; // ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ‚ª”­¶‚·‚éŠm—¦
+		float CancelEvadeProbability = 0.3f; // ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿ãŒç™ºç”Ÿã™ã‚‹ç¢ºç‡
 		int AttackComboMax = 1;
-		int  CanCancelEvade = 0;		//	ƒLƒƒƒ“ƒZƒ‹‰ñ”ğ‚ğs‚¦‚é‚©‚Ç‚¤‚©
+		int  CanCancelEvade = 0;		//	ã‚­ãƒ£ãƒ³ã‚»ãƒ«å›é¿ã‚’è¡Œãˆã‚‹ã‹ã©ã†ã‹
 
 		CSV_BINDABLE(EnemyData, 
 			obj.id, obj.MaxHP, obj.Attack,

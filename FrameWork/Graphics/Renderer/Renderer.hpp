@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Graphics/VertexBuffer/VertexBuffer.hpp"
 #include"Graphics/IndexBuffer/IndexBuffer.hpp"
@@ -19,7 +19,7 @@
 namespace Engine::Graphics
 {
 	/// <summary>
-	/// •`‰æŠÇ—
+	/// æç”»ç®¡ç†
 	/// </summary>
 	class Renderer : public Singleton<Renderer>
 	{
@@ -28,33 +28,33 @@ namespace Engine::Graphics
 	public:
 
 		/// <summary>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬‚Ìˆ—
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã®å‡¦ç†
 		/// </summary>
 		virtual void OnCreate()override;
 
 		/// <summary>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‰ğ•ú‚Ìˆ—
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®è§£æ”¾æ™‚ã®å‡¦ç†
 		/// </summary>
 		virtual void OnDestory()override;
 
 		/// <summary>
-		/// V‹K•`‰æƒtƒŒ[ƒ€‚ÌŠJn
+		/// æ–°è¦æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 		/// </summary>
 		void NewRenderingFrame();
 
 		/// <summary>
-		/// 2D—pƒXƒvƒ‰ƒCƒg‚Ì•`‰æ
+		/// 2Dç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»
 		/// </summary>
-		/// <param name="spriteVertices">’¸“_”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-		/// <param name="vertexCount">’¸“_”z—ñ”</param>
-		/// <param name="spriteIndices">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-		/// <param name="indexCount">ƒCƒ“ƒfƒbƒNƒX”z—ñ”</param>
+		/// <param name="spriteVertices">é ‚ç‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+		/// <param name="vertexCount">é ‚ç‚¹é…åˆ—æ•°</param>
+		/// <param name="spriteIndices">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+		/// <param name="indexCount">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—æ•°</param>
 		void DrawSprite(
 			const SpriteVertex* spriteVertices, const size_t vertexCount,
 			const uint16_t* spriteIndices, const size_t indexCount);
 
 		/// <summary>
-		/// FbxMesh‚Ì•`‰æ
+		/// FbxMeshã®æç”»
 		/// </summary>
 		/// <param name="VBv"></param>
 		/// <param name="IBv"></param>
@@ -65,26 +65,26 @@ namespace Engine::Graphics
 			UINT IndexCount, UINT StartIndex);
 
 		/// <summary>
-		/// Vfx‚Ì•`‰æ
+		/// Vfxã®æç”»
 		/// </summary>
 		/// <param name="VBv"></param>
 		/// <param name="VertexCount"></param>
 		void DrawVfx(const D3D12_VERTEX_BUFFER_VIEW& VBv, UINT VertexCount);
 
 		/// <summary>
-		/// SkyBox‚Ì•`‰æ
+		/// SkyBoxã®æç”»
 		/// </summary>
-		/// <param name="VBv">ƒXƒJƒCƒ{ƒbƒNƒX‚Ì’¸“_ƒoƒbƒtƒ@ƒrƒ…[</param>
-		/// <param name="vertexCount">’¸“_”i’Êí36j</param>
+		/// <param name="VBv">ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã®é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼</param>
+		/// <param name="vertexCount">é ‚ç‚¹æ•°ï¼ˆé€šå¸¸36ï¼‰</param>
 		void DrawSkyBox(const D3D12_VERTEX_BUFFER_VIEW& VBv, UINT vertexCount);
 
 		/// <summary>
-		/// ƒ[ƒ‹ƒh‹óŠÔ‚Ö‚Ìƒ‰ƒCƒ“•`‰æ
+		/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã¸ã®ãƒ©ã‚¤ãƒ³æç”»
 		/// </summary>
-		/// <param name="lineVertices">’¸“_”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-		/// <param name="vertexCount">’¸“_”z—ñ”</param>
-		/// <param name="lineIndices">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
-		/// <param name="indexCount">ƒCƒ“ƒfƒbƒNƒX”z—ñ‚Ìæ“ªƒAƒhƒŒƒX</param>
+		/// <param name="lineVertices">é ‚ç‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+		/// <param name="vertexCount">é ‚ç‚¹é…åˆ—æ•°</param>
+		/// <param name="lineIndices">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
+		/// <param name="indexCount">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹</param>
 		void DrawLines(
 			const LineVertex* LineVertices,
 			const size_t VertexCount,
@@ -92,7 +92,7 @@ namespace Engine::Graphics
 			const size_t IndexCount);
 
 		/// <summary>
-		/// ƒfƒoƒbƒN—p‚Ì“_‚Æ‰ñ“]‚Ì•\¦
+		/// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®ç‚¹ã¨å›è»¢ã®è¡¨ç¤º
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <param name="rot"></param>
@@ -100,22 +100,22 @@ namespace Engine::Graphics
 		void DrawGizmo(Math::Vector3 pos, Math::Quaternion rot, float length = 0.2f);
 
 		/// <summary>
-		/// ƒXƒvƒ‰ƒCƒg‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void SetSpritePipeline();
 
 		/// <summary>
-		/// Fbx‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		/// Fbxã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void SetFbxPipeline();
 
 		/// <summary>
-		/// ü•`‰æ—p‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		/// ç·šæç”»ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void SetLinePipeline();
 
 		/// <summary>
-		/// UI—p‚ÌspriteƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		/// UIç”¨ã®spriteãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void SetUISpritePipeline();
 
@@ -125,25 +125,25 @@ namespace Engine::Graphics
 		void SetSkyBoxPipeline();
 
 		/// <summary>
-		/// VFX—p‚ÌƒpƒCƒvƒ‰ƒCƒ“
+		/// VFXç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 		/// </summary>
 		void SetVfxPipeline();
 	private:
 		/// <summary>
-		/// Šî–{•`‰æŠÖ”
+		/// åŸºæœ¬æç”»é–¢æ•°
 		/// </summary>
 		void Draw(
 			const void* VertexData, const size_t VertexStride, const size_t VertexCount,
 			const void* IndexData, const eIndexBufferFormat IndexFormat, const size_t IndexCount);
 
-		//	ƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		//	ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		void SetRootSignature(ID3D12RootSignature* RootSignature);
 		void SetPipelineState(ID3D12PipelineState* PipelineState);
 		void SetTopology(D3D_PRIMITIVE_TOPOLOGY Topology);
 
 	private:
 		/// <summary>
-		/// ¡‚ÌƒpƒCƒvƒ‰ƒCƒ“‚Ìó‘Ô
+		/// ä»Šã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®çŠ¶æ…‹
 		/// </summary>
 		struct CurrentPipeline
 		{
@@ -169,42 +169,42 @@ namespace Engine::Graphics
 		size_t mUsingIndexBufferSize = 0;
 
 		/// <summary>
-		/// ¡‚ÌƒpƒCƒvƒ‰ƒCƒ“‚Ìó‘Ô
+		/// ä»Šã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®çŠ¶æ…‹
 		/// </summary>
 		CurrentPipeline mCurrentPipeline;
 
 		/// <summary>
-		/// Sprite—pƒpƒCƒvƒ‰ƒCƒ“
+		/// Spriteç”¨ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 		/// </summary>
 		SpritePipeline mSpritePipeline;
 
 		/// <summary>
-		/// Fbx—pƒpƒCƒvƒ‰ƒCƒ“
+		/// Fbxç”¨ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 		/// </summary>
 		FbxPipeline mFbxPipeline;
 
 		/// <summary>
-		/// ü•`‰æ—p‚ÌƒpƒCƒvƒ‰ƒCƒ“i¡‰ñ‚ÍƒfƒoƒbƒN‚Ì‰Â‹‰»‚Åg—p‚µ‚Ü‚·j
+		/// ç·šæç”»ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ï¼ˆä»Šå›ã¯ãƒ‡ãƒãƒƒã‚¯ã®å¯è¦–åŒ–ã§ä½¿ç”¨ã—ã¾ã™ï¼‰
 		/// </summary>
 		LinePipeline mLinePipeline;
 
 		/// <summary>
-		/// UIƒXƒvƒ‰ƒCƒg—p‚ÌƒpƒCƒvƒ‰ƒCƒ“‚ÌƒZƒbƒg
+		/// UIã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		UISpritePipeline mUISpritePipeline;
 
 		/// <summary>
-		/// ƒXƒJƒCƒ{ƒbƒNƒX—p‚ÌƒpƒCƒvƒ‰ƒCƒ“
+		/// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 		/// </summary>
 		SkyBoxPipeline mSkyBoxPipeline;
 
 		/// <summary>
-		/// VFX—p‚ÌƒpƒCƒvƒ‰ƒCƒ“
+		/// VFXç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³
 		/// </summary>
 		VFXPipeline mVfxPipeline;
 
 		/// <summary>
-		/// dx12ƒRƒ}ƒ“ƒhƒŠƒXƒg
+		/// dx12ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
 		/// </summary>
 		ID3D12GraphicsCommandList* mCmdList = nullptr;
 	};

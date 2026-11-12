@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include"Graphics/DirectX/TypeAlias/DirectX12TypeAlias.hpp"
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapInfo.hpp"
@@ -8,7 +8,7 @@ namespace Engine::Graphics
 {
 
 	/// <summary>
-	/// ƒq[ƒv—Ìˆæ‚ÌŠÇ—‚ğ‚·‚é
+	/// ãƒ’ãƒ¼ãƒ—é ˜åŸŸã®ç®¡ç†ã‚’ã™ã‚‹
 	/// </summary>
 	class GraphicsDescriptorHeapManager:public Singleton<GraphicsDescriptorHeapManager>
 	{
@@ -17,31 +17,31 @@ namespace Engine::Graphics
 		static constexpr int MAX_DESCRIPTOR = 512;
 
 		/// <summary>
-		/// ‰Šú’l
+		/// åˆæœŸå€¤
 		/// </summary>
 		void OnCreate()override;
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX‰ğ•ú
+		/// ãƒªã‚½ãƒ¼ã‚¹è§£æ”¾
 		/// </summary>
 		void OnDestory()override;
 
 	public:
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize();
 
 		/// <summary>
-		/// ƒq[ƒv‚©‚çg—p—Ìˆæ‚Ì”­s
+		/// ãƒ’ãƒ¼ãƒ—ã‹ã‚‰ä½¿ç”¨é ˜åŸŸã®ç™ºè¡Œ
 		/// </summary>
 		/// <param name="size"></param>
 		/// <returns></returns>
 		[[nodiscard]] DescriptorHeapInfo Issuance(uint32_t Size);
 
 		/// <summary>
-		/// g—p—Ìˆæ‚Ì”jŠü
+		/// ä½¿ç”¨é ˜åŸŸã®ç ´æ£„
 		/// </summary>
 		/// <param name="Info"></param>
 		void Discard(DescriptorHeapInfo& Info);
@@ -52,14 +52,14 @@ namespace Engine::Graphics
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle(const DescriptorHeapInfo& Info)const noexcept;
 
 		/// <summary>
-		/// ƒOƒ‰ƒtƒBƒbƒNƒX—pƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv
+		/// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç”¨ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—
 		/// </summary>
 		/// <returns></returns>
 		ID3D12DescriptorHeap* GetGraphicsHeap();
 
 	private:
 		/// <summary>
-		/// Cpu‚ÆGpuî•ñ‚ÌƒZƒbƒg
+		/// Cpuã¨Gpuæƒ…å ±ã®ã‚»ãƒƒãƒˆ
 		/// </summary>
 		struct HandleInfo
 		{
@@ -68,19 +68,19 @@ namespace Engine::Graphics
 		};
 
 		/// <summary>
-		/// ƒOƒ‰ƒtƒBƒbƒNƒX—p“r‚ÌƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv‚ğQÆ‚·‚é
+		/// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç”¨é€”ã®ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ã‚’å‚ç…§ã™ã‚‹
 		/// </summary>
 		mw::DescriptorHeapPtr mGraphicsHeap;
 		/// <summary>
-		/// ŠeƒfƒBƒXƒNƒŠƒvƒ^‚Ìó‘Ô‚Ì‹L˜^
+		/// å„ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã®çŠ¶æ…‹ã®è¨˜éŒ²
 		/// </summary>
 		std::array<HandleInfo, MAX_DESCRIPTOR> mInfo;
 		/// <summary>
-		/// Še—Ìˆæ‚Ìg—pó‹µ
+		/// å„é ˜åŸŸã®ä½¿ç”¨çŠ¶æ³
 		/// </summary>
 		std::array<bool, MAX_DESCRIPTOR> mInUse;
 		/// <summary>
-		/// ŒŸõ‘€ì‚Åg—p‚³‚ê‚éƒIƒtƒZƒbƒg‚ğ•Û
+		/// æ¤œç´¢æ“ä½œã§ä½¿ç”¨ã•ã‚Œã‚‹ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’ä¿æŒ
 		/// </summary>
 		int mSearchOffset;
 

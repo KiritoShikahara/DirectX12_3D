@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "InputRequestSystem.hpp"
 #include"InputRequestComponent.hpp"
 #include"System/Input/Manager/InputManager.hpp"
@@ -13,18 +13,18 @@ void Engine::System::InputRequestSystem::PreUpdate(entt::registry& Reg, double D
 	view.each([&](InputRequestComponent& req)
 		{
 			req.InputVec = {vel.x,0.0f,vel.y};
-			//	ˆÚ“®
+			//	ç§»å‹•
 			if (vel.SqrLength() > 0)
 			{
 				req.Flags |= eActionInputFlags::RunRequested;
 			}
-			//	‚µ‚Ä‚È‚¢‚©‚çƒrƒbƒg‚ð~‚ë‚·
+			//	ã—ã¦ãªã„ã‹ã‚‰ãƒ“ãƒƒãƒˆã‚’é™ã‚ã™
 			else
 			{
 				req.Flags &= ~eActionInputFlags::RunRequested;
 			}
 
-			//	ƒ_ƒbƒVƒ…
+			//	ãƒ€ãƒƒã‚·ãƒ¥
 			if (Input::InputManager::GetInstance()->IsActionPressed("Sprint"))
 			{
 				req.Flags |= eActionInputFlags::DodgeRequested;
@@ -34,7 +34,7 @@ void Engine::System::InputRequestSystem::PreUpdate(entt::registry& Reg, double D
 				req.Flags &= ~eActionInputFlags::DodgeRequested;
 			}
 
-			//	UŒ‚
+			//	æ”»æ’ƒ
 			if (Input::InputManager::GetInstance()->IsActionPressed("Attack"))
 			{
 				req.Flags |= eActionInputFlags::AttackRequested;
@@ -44,7 +44,7 @@ void Engine::System::InputRequestSystem::PreUpdate(entt::registry& Reg, double D
 				req.Flags &= ~eActionInputFlags::AttackRequested;
 			}
 
-			//	ƒXƒLƒ‹
+			//	ã‚¹ã‚­ãƒ«
 			if (Input::InputManager::GetInstance()->IsActionPressed("Skill1"))
 			{
 				req.Flags |= eActionInputFlags::Skill1Requested;
@@ -53,7 +53,7 @@ void Engine::System::InputRequestSystem::PreUpdate(entt::registry& Reg, double D
 			{
 				req.Flags &= ~eActionInputFlags::Skill1Requested;
 			}
-			//	ƒXƒLƒ‹
+			//	ã‚¹ã‚­ãƒ«
 			if (Input::InputManager::GetInstance()->IsActionPressed("Skill2"))
 			{
 				req.Flags |= eActionInputFlags::Skill2Requested;
@@ -65,7 +65,7 @@ void Engine::System::InputRequestSystem::PreUpdate(entt::registry& Reg, double D
 
 
 
-			//	ƒWƒƒƒ“ƒv
+			//	ã‚¸ãƒ£ãƒ³ãƒ—
 
 		});
 }

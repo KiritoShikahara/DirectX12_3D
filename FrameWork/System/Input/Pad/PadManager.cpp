@@ -1,22 +1,22 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "PadManager.hpp"
 
 #include<winrt/Windows.Foundation.Collections.h>
 
 /// <summary>
-/// ƒCƒ“ƒfƒbƒNƒX‚ª”ÍˆÍ“à‚©”»’è‚·‚éƒƒ\ƒbƒh
+/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒç¯„å›²å†…ã‹åˆ¤å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 /// </summary>
 /// <param name="index"></param>
-/// <returns>true:”ÍˆÍ“à</returns>
+/// <returns>true:ç¯„å›²å†…</returns>
 bool Engine::Input::PadManager::IsValidIndex(const uint8_t index) const
 {
-	//	ƒTƒCƒYˆÈã‚Ì
+	//	ã‚µã‚¤ã‚ºä»¥ä¸Šã®æ™‚
 	if (static_cast<size_t>(index) >= mGamepads.size())
 	{
 		return false;
 	}
 
-	//	Ú‘±Å‘å”ˆÈã‚Ì
+	//	æ¥ç¶šæœ€å¤§æ•°ä»¥ä¸Šã®æ™‚
 	else if (index >= static_cast<size_t>(ePadIndex::Count))
 	{
 		return false;
@@ -26,7 +26,7 @@ bool Engine::Input::PadManager::IsValidIndex(const uint8_t index) const
 }
 
 /// <summary>
-/// “n‚³‚ê‚½ƒ{ƒ^ƒ“‚ª—LŒø‚©‚Ç‚¤‚©‚Ì”»’è
+/// æ¸¡ã•ã‚ŒãŸãƒœã‚¿ãƒ³ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã®åˆ¤å®š
 /// </summary>
 /// <param name="Button"></param>
 /// <returns></returns>
@@ -37,28 +37,28 @@ bool Engine::Input::PadManager::IsValidButtonCode(ePadButton Button)const
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 Engine::Input::PadManager::PadManager()
 {
 	using namespace winrt::Windows;
-	//	Padæ“¾
+	//	Padå–å¾—
 	Foundation::Collections::IVectorView<Gaming::Input::Gamepad> pads = Gaming::Input::Gamepad::Gamepads();
 	uint32_t count = pads.Size();
 	for (uint32_t i = 0; i < count; i++)
 	{
-		//	ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		//	ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		mGamepads.emplace_back(pads.GetAt(i));
 	}
 
-	//	Pad’Ç‰ÁƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh
+	//	Padè¿½åŠ ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰
 	Gaming::Input::Gamepad::GamepadAdded([this](auto const&, Gaming::Input::Gamepad const& Pad)
 	{
 			Engine::Input::Pad entry(Pad);
 			mGamepads.push_back(std::move(entry));
 	});
 
-	//	PadíœƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh
+	//	Padå‰Šé™¤ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰
 	Gaming::Input::Gamepad::GamepadRemoved([this](auto const&, Gaming::Input::Gamepad const& Pad)
 	{
 			std::erase_if(mGamepads, [&](auto& e)
@@ -67,11 +67,11 @@ Engine::Input::PadManager::PadManager()
 }
 
 /// <summary>
-/// ŠePad‚Ìó‘ÔXV
+/// å„Padã®çŠ¶æ…‹æ›´æ–°
 /// </summary>
 void Engine::Input::PadManager::Update()
 {
-	//	ó‘ÔXV
+	//	çŠ¶æ…‹æ›´æ–°
 	for (auto& gamepad : mGamepads)
 	{
 		gamepad.Update();
@@ -79,10 +79,10 @@ void Engine::Input::PadManager::Update()
 }
 
 /// <summary>
-/// ‰Ÿ‚µ‚½uŠÔ
+/// æŠ¼ã—ãŸç¬é–“
 /// </summary>
-/// <param name="button">ƒ{ƒ^ƒ“í•Ê</param>
-/// <returns>true:‰Ÿ‚µ‚½uŠÔ</returns>
+/// <param name="button">ãƒœã‚¿ãƒ³ç¨®åˆ¥</param>
+/// <returns>true:æŠ¼ã—ãŸç¬é–“</returns>
 bool Engine::Input::PadManager::IsPressed(const ePadButton Button, const ePadIndex Index) const
 {
 	if (this->IsValidButtonCode(Button) == false) return false;
@@ -96,10 +96,10 @@ bool Engine::Input::PadManager::IsPressed(const ePadButton Button, const ePadInd
 }
 
 /// <summary>
-/// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+/// æŠ¼ã—ã¦ã„ã‚‹é–“
 /// </summary>
 /// <param name="button"></param>
-/// <returns>true:‰Ÿ‚³‚ê‚Ä‚¢‚é</returns>
+/// <returns>true:æŠ¼ã•ã‚Œã¦ã„ã‚‹</returns>
 bool Engine::Input::PadManager::IsHeld(const ePadButton Button, const ePadIndex Index) const
 {
 	if (this->IsValidButtonCode(Button) == false) return false;
@@ -113,10 +113,10 @@ bool Engine::Input::PadManager::IsHeld(const ePadButton Button, const ePadIndex 
 }
 
 /// <summary>
-/// —£‚µ‚½uŠÔ
+/// é›¢ã—ãŸç¬é–“
 /// </summary>
 /// <param name="button"></param>
-/// <returns>true:—£‚µ‚½uŠÔ</returns>
+/// <returns>true:é›¢ã—ãŸç¬é–“</returns>
 bool Engine::Input::PadManager::IsReleased(const ePadButton Button, const ePadIndex Index) const
 {
 	if (this->IsValidButtonCode(Button) == false) return false;
@@ -131,7 +131,7 @@ bool Engine::Input::PadManager::IsReleased(const ePadButton Button, const ePadIn
 
 
 /// <summary>
-/// 3D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+/// 3Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::PadManager::GetLeftStick3D(const ePadIndex Index) const
@@ -145,7 +145,7 @@ Math::Vector2 Engine::Input::PadManager::GetLeftStick3D(const ePadIndex Index) c
 }
 
 /// <summary>
-/// 3D—p‚Ì‰EƒXƒeƒBƒbƒNæ“¾
+/// 3Dç”¨ã®å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::PadManager::GetRightStick3D(const ePadIndex Index) const
@@ -159,7 +159,7 @@ Math::Vector2 Engine::Input::PadManager::GetRightStick3D(const ePadIndex Index) 
 }
 
 /// <summary>
-/// 2D—p‚Ì¶ƒXƒeƒBƒbƒNæ“¾
+/// 2Dç”¨ã®å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::PadManager::GetLeftStick2D(const ePadIndex Index) const
@@ -173,7 +173,7 @@ Math::Vector2 Engine::Input::PadManager::GetLeftStick2D(const ePadIndex Index) c
 }
 
 /// <summary>
-/// ‰EƒXƒeƒBƒbƒNæ“¾
+/// å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
 /// </summary>
 /// <returns></returns>
 Math::Vector2 Engine::Input::PadManager::GetRightStick2D(const ePadIndex Index) const
@@ -187,7 +187,7 @@ Math::Vector2 Engine::Input::PadManager::GetRightStick2D(const ePadIndex Index) 
 }
 
 /// <summary>
-/// d—l‰Â”\‚ÈPad‚ÌIndex‚Ìˆê——‚ğ•Ô‚·
+/// ä»•æ§˜å¯èƒ½ãªPadã®Indexã®ä¸€è¦§ã‚’è¿”ã™
 /// </summary>
 /// <returns></returns>
 std::vector<Engine::Input::ePadIndex> Engine::Input::PadManager::GetAvailableIndices() const
@@ -202,7 +202,7 @@ std::vector<Engine::Input::ePadIndex> Engine::Input::PadManager::GetAvailableInd
 }
 
 /// <summary>
-/// ImGui‚ÌXV
+/// ImGuiã®æ›´æ–°
 /// </summary>
 void Engine::Input::PadManager::ImGuiUpdate()
 {

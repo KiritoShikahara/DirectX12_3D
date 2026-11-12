@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <d3d12.h>
 #include <stdint.h>
 
@@ -13,63 +13,63 @@ namespace Engine::Graphics
 		virtual ~VertexBuffer();
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚Ìì¬
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 		/// </summary>
-		/// <param name="size">ƒoƒbƒtƒ@‚ÌƒTƒCƒY</param>
-		/// <param name="stride">1’¸“_‚Ìƒf[ƒ^ƒTƒCƒY</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="size">ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º</param>
+		/// <param name="stride">1é ‚ç‚¹ã®ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Create(const size_t Size, const size_t Stride);
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚Ì‰ğ•ú
+		/// ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 		/// </summary>
 		void Release();
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚ÌXV
+		/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		/// </summary>
-		/// <param name="SrcData">XVƒf[ƒ^</param>
+		/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿</param>
 		void Update(const void* SrcData);
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚ÌXV
+		/// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		/// </summary>
-		/// <param name="SrcData">XVƒf[ƒ^<</param>
-		/// <param name="offset">ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="size">XVƒTƒCƒY</param>
+		/// <param name="SrcData">æ›´æ–°ãƒ‡ãƒ¼ã‚¿<</param>
+		/// <param name="offset">ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="size">æ›´æ–°ã‚µã‚¤ã‚º</param>
 		void Update(const void* SrcData, const size_t Offset, const size_t Size);
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚ğƒpƒCƒvƒ‰ƒCƒ“‚ÖƒZƒbƒg
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¸ã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Set()const;
 
 		void Set(const size_t Offset, const size_t Stride, const size_t Size)const;
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY‚Ìæ“¾
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚ºã®å–å¾—
 		/// </summary>
 		/// <returns></returns>
 		size_t GetSize()const;
 
 	private:
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@ƒŠƒ\[ƒX
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒªã‚½ãƒ¼ã‚¹
 		/// </summary>
 		mw::ResourcePtr mBufferResource;
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚Ìæ“ªƒAƒhƒŒƒX
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 		/// </summary>
 		D3D12_GPU_VIRTUAL_ADDRESS mBufferLocation;
 
 		/// <summary>
-		/// 1’¸“_‚ÌƒTƒCƒY
+		/// 1é ‚ç‚¹ã®ã‚µã‚¤ã‚º
 		/// </summary>
 		size_t mStride;
 
 		/// <summary>
-		/// ’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
+		/// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
 		/// </summary>
 		size_t mBufferSize;
 

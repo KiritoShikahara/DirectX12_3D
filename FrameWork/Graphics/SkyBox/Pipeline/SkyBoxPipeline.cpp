@@ -1,4 +1,4 @@
-#include"pch.h"
+ï»¿#include"pch.h"
 #include "SkyBoxPipeline.hpp"
 #include <d3dcompiler.h>
 
@@ -11,10 +11,10 @@ namespace
 		{
 			size_t wLen = 0;
 			wchar_t wideFileName[256] = {};
-			//	ƒtƒ@ƒCƒ‹–¼•ÏŠ·
+			//	ãƒ•ã‚¡ã‚¤ãƒ«åå¤‰æ›
 			mbstowcs_s(&wLen, wideFileName, ARRAYSIZE(wideFileName), FileName, _TRUNCATE);
 
-			//  ƒVƒF[ƒ_[ì¬
+			//  ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 			mw::BlobPtr shader = nullptr;
 			mw::BlobPtr error = nullptr;
 
@@ -26,7 +26,7 @@ namespace
 
 			if (FAILED(hr))
 			{
-				LOG_CRITICAL("ƒVƒF[ƒ_[ì¬¸”s");
+				LOG_CRITICAL("ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆå¤±æ•—");
 				error.Reset();
 			}
 
@@ -40,19 +40,19 @@ namespace Engine::Graphics
 {
 
 	/// <summary>
-	/// [“xƒXƒeƒ“ƒVƒ‹‚Ì‰Šúİ’è‚Ìæ“¾
+	/// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_DEPTH_STENCIL_DESC SkyBoxPipeline::GetDepthStencilDesc()
 	{
 		D3D12_DEPTH_STENCIL_DESC Desc = {};
-		//	[“x‚»‚Ì‚à‚Ì‚ÍON
+		//	æ·±åº¦ãã®ã‚‚ã®ã¯ON
 		Desc.DepthEnable = TRUE;
-		//	ã‘‚«‚µ‚È‚¢‚æ‚¤‚ÉZERO
+		//	ä¸Šæ›¸ãã—ãªã„ã‚ˆã†ã«ZERO
 		Desc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
-		//	1.0‚Æd‚È‚Á‚Ä‚à•`‰æ‚Å‚«‚é‚æ‚¤‚É
+		//	1.0ã¨é‡ãªã£ã¦ã‚‚æç”»ã§ãã‚‹ã‚ˆã†ã«
 		Desc.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
-		//	ƒXƒeƒ“ƒVƒ‹‚ÍŠî–{g‚í‚È‚¢
+		//	ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã¯åŸºæœ¬ä½¿ã‚ãªã„
 		Desc.StencilEnable = FALSE;
 		Desc.StencilReadMask = D3D12_DEFAULT_STENCIL_READ_MASK;
 		Desc.StencilWriteMask = D3D12_DEFAULT_STENCIL_WRITE_MASK;
@@ -67,7 +67,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_BLEND_DESC SkyBoxPipeline::GetBlendStateDesc()
@@ -78,7 +78,7 @@ namespace Engine::Graphics
 
 		D3D12_RENDER_TARGET_BLEND_DESC RenderTargetBlendDesc = {};
 
-		// ƒXƒJƒCƒ{ƒbƒNƒX‚ÍŠî–{uã‘‚«v‚È‚Ì‚ÅAƒuƒŒƒ“ƒh‚ÍOFF‚ÅOK
+		// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã¯åŸºæœ¬ã€Œä¸Šæ›¸ãã€ãªã®ã§ã€ãƒ–ãƒ¬ãƒ³ãƒ‰ã¯OFFã§OK
 		RenderTargetBlendDesc.BlendEnable = FALSE;
 
 		RenderTargetBlendDesc.LogicOpEnable = FALSE;
@@ -99,7 +99,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‰ƒXƒ^ƒ‰ƒCƒU[‚Ì‰Šúİ’è‚Ìæ“¾
+	/// ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼ã®åˆæœŸè¨­å®šã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	D3D12_RASTERIZER_DESC SkyBoxPipeline::GetRasterizerDesc()
@@ -107,7 +107,7 @@ namespace Engine::Graphics
 		D3D12_RASTERIZER_DESC Desc = {};
 		Desc.FillMode = D3D12_FILL_MODE_SOLID;
 
-		// ” ‚Ì“à‘¤‚ğ•`‰æ‚·‚é‚½‚ßAƒJƒŠƒ“ƒOi–Ê‚ÌŠÔˆø‚«j‚ğ‚µ‚È‚¢İ’è‚É‚·‚é
+		// ç®±ã®å†…å´ã‚’æç”»ã™ã‚‹ãŸã‚ã€ã‚«ãƒªãƒ³ã‚°ï¼ˆé¢ã®é–“å¼•ãï¼‰ã‚’ã—ãªã„è¨­å®šã«ã™ã‚‹
 		Desc.CullMode = D3D12_CULL_MODE_NONE;
 
 		Desc.FrontCounterClockwise = FALSE;
@@ -124,21 +124,21 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìì¬
+	/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ä½œæˆ
 	/// </summary>
-	/// <returns>true:¬Œ÷</returns>
+	/// <returns>true:æˆåŠŸ</returns>
 	bool SkyBoxPipeline::CreateRootSignature()
 	{
-		// ’è”ƒoƒbƒtƒ@—p‚Ìİ’è (s—ñ‘—M—p: b0)
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ç”¨ã®è¨­å®š (è¡Œåˆ—é€ä¿¡ç”¨: b0)
 		D3D12_ROOT_PARAMETER RootParams[2] = {};
 
-		// ‚ ‚È‚½‚Ì ConstantBuffer::Set ‚ÌÀ‘•‚É‡‚í‚¹‚Ä TYPE_CBV ‚É–ß‚µ‚Ü‚·
+		// ã‚ãªãŸã® ConstantBuffer::Set ã®å®Ÿè£…ã«åˆã‚ã›ã¦ TYPE_CBV ã«æˆ»ã—ã¾ã™
 		RootParams[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
 		RootParams[0].Descriptor.ShaderRegister = 0;
 		RootParams[0].Descriptor.RegisterSpace = 0;
 		RootParams[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;
 
-		// ƒeƒNƒXƒ`ƒƒ(CubeMap)—p‚Ìİ’è (SRV: t0)
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£(CubeMap)ç”¨ã®è¨­å®š (SRV: t0)
 		D3D12_DESCRIPTOR_RANGE Range = {};
 		Range.BaseShaderRegister = 0;
 		Range.NumDescriptors = 1;
@@ -148,13 +148,13 @@ namespace Engine::Graphics
 		RootParams[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		RootParams[1].DescriptorTable.pDescriptorRanges = &Range;
 		RootParams[1].DescriptorTable.NumDescriptorRanges = 1;
-		RootParams[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ƒeƒNƒXƒ`ƒƒ‚ÍPS‚Åg‚¤
+		RootParams[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯PSã§ä½¿ã†
 
-		// ƒTƒ“ƒvƒ‰[İ’è (CubeMap—p)
+		// ã‚µãƒ³ãƒ—ãƒ©ãƒ¼è¨­å®š (CubeMapç”¨)
 		D3D12_STATIC_SAMPLER_DESC SamplerDesc = {};
 		SamplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
 
-		// ƒLƒ…[ƒuƒ}ƒbƒv‚Ì‹«ŠEü‚ÅƒmƒCƒY‚ªo‚È‚¢‚æ‚¤ACLAMP‚Éİ’è‚·‚é‚Ì‚ªƒXƒJƒCƒ{ƒbƒNƒX‚Ì’èÎ‚Å‚·
+		// ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ã®å¢ƒç•Œç·šã§ãƒã‚¤ã‚ºãŒå‡ºãªã„ã‚ˆã†ã€CLAMPã«è¨­å®šã™ã‚‹ã®ãŒã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã®å®šçŸ³ã§ã™
 		SamplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 		SamplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 		SamplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
@@ -164,14 +164,14 @@ namespace Engine::Graphics
 		SamplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
 		SamplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK;
 		SamplerDesc.MinLOD = 0;
-		SamplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // MipMap‚ªŒø‚­‚æ‚¤‚ÉÅ‘å’l‚Ö
+		SamplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // MipMapãŒåŠ¹ãã‚ˆã†ã«æœ€å¤§å€¤ã¸
 		SamplerDesc.ShaderRegister = 0;
 		SamplerDesc.RegisterSpace = 0;
 		SamplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 
-		// ƒVƒOƒlƒ`ƒƒ‚Ì\’z
+		// ã‚·ã‚°ãƒãƒãƒ£ã®æ§‹ç¯‰
 		D3D12_ROOT_SIGNATURE_DESC RootSignatureDesc = {};
-		RootSignatureDesc.NumParameters = _countof(RootParams); // ƒpƒ‰ƒ[ƒ^”‚ğ2‚É•ÏX
+		RootSignatureDesc.NumParameters = _countof(RootParams); // ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æ•°ã‚’2ã«å¤‰æ›´
 		RootSignatureDesc.pParameters = RootParams;
 		RootSignatureDesc.NumStaticSamplers = 1;
 		RootSignatureDesc.pStaticSamplers = &SamplerDesc;
@@ -199,12 +199,12 @@ namespace Engine::Graphics
 
 
 	/// <summary>
-	/// •`‰æƒpƒCƒvƒ‰ƒCƒ“‚Ìì¬
+	/// æç”»ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®ä½œæˆ
 	/// </summary>
 	/// <returns></returns>
 	bool SkyBoxPipeline::CreatePipeline()
 	{
-		// 1. ƒXƒJƒCƒ{ƒbƒNƒXê—pƒVƒF[ƒ_[‚ÌƒRƒ“ƒpƒCƒ‹
+		// 1. ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹å°‚ç”¨ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 		auto VS = CompileShader("Assets/Shader/VS_Skybox.hlsl", "main", "vs_5_0");
 		auto PS = CompileShader("Assets/Shader/PS_Skybox.hlsl", "main", "ps_5_0");
 
@@ -213,8 +213,8 @@ namespace Engine::Graphics
 			return false;
 		}
 
-		// 2. ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒgİ’è
-		// ƒXƒJƒCƒ{ƒbƒNƒX‚Í’¸“_‚ÌuÀ•Wv‚ğƒTƒ“ƒvƒŠƒ“ƒOƒxƒNƒgƒ‹‚Æ‚µ‚Äg‚¤‚Ì‚ÅAUV(TEXCOORD)‚Í•s—v‚Å‚·
+		// 2. ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
+		// ã‚¹ã‚«ã‚¤ãƒœãƒƒã‚¯ã‚¹ã¯é ‚ç‚¹ã®ã€Œåº§æ¨™ã€ã‚’ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ™ã‚¯ãƒˆãƒ«ã¨ã—ã¦ä½¿ã†ã®ã§ã€UV(TEXCOORD)ã¯ä¸è¦ã§ã™
 		D3D12_INPUT_ELEMENT_DESC inputLayout[1] = {};
 		inputLayout[0].SemanticName = "POSITION";
 		inputLayout[0].SemanticIndex = 0;
@@ -224,21 +224,21 @@ namespace Engine::Graphics
 		inputLayout[0].InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
 		inputLayout[0].InstanceDataStepRate = 0;
 
-		// 3. ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìİ’è
+		// 3. ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®è¨­å®š
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC desc = {};
 		desc.pRootSignature = mRootSignature.Get();
 
-		// ’¸“_ƒVƒF[ƒ_[
+		// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 		desc.VS.pShaderBytecode = VS->GetBufferPointer();
 		desc.VS.BytecodeLength = VS->GetBufferSize();
 		desc.InputLayout.NumElements = ARRAYSIZE(inputLayout);
 		desc.InputLayout.pInputElementDescs = inputLayout;
 
-		// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+		// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 		desc.PS.pShaderBytecode = PS->GetBufferPointer();
 		desc.PS.BytecodeLength = PS->GetBufferSize();
 
-		// ŠeƒXƒe[ƒgİ’èiæ‚Ù‚Çì¬‚µ‚½ƒƒ“ƒoŠÖ”‚ğŒÄ‚Ño‚·j
+		// å„ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®šï¼ˆå…ˆã»ã©ä½œæˆã—ãŸãƒ¡ãƒ³ãƒé–¢æ•°ã‚’å‘¼ã³å‡ºã™ï¼‰
 		desc.BlendState = GetBlendStateDesc();
 		desc.RasterizerState = GetRasterizerDesc();
 		desc.DepthStencilState = GetDepthStencilDesc();
@@ -246,23 +246,23 @@ namespace Engine::Graphics
 		desc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 		desc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
 
-		// ƒgƒ|ƒƒW[ƒ^ƒCƒv‚ÍOŠpŒ`
+		// ãƒˆãƒãƒ­ã‚¸ãƒ¼ã‚¿ã‚¤ãƒ—ã¯ä¸‰è§’å½¢
 		desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
-		// ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgİ’è
+		// ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè¨­å®š
 		desc.NumRenderTargets = 1;
 		desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 		desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		desc.SampleDesc.Count = 1;
 		desc.SampleDesc.Quality = 0;
 
-		// 4. ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ì¶¬
+		// 4. ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®ç”Ÿæˆ
 		ID3D12Device* device = Graphics::DirectX::GetInstance()->GetDevice();
 		HRESULT hr = device->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(&mPipelineState));
 
 		if (FAILED(hr))
 		{
-			LOG_CRITICAL("SkyBox Pipeline State Object ‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
+			LOG_CRITICAL("SkyBox Pipeline State Object ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ");
 			return false;
 		}
 
@@ -271,7 +271,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	/// <returns></returns>
 	bool SkyBoxPipeline::Create()
@@ -296,7 +296,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ‚Ìæ“¾
+	/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12RootSignature* SkyBoxPipeline::GetRootSignature()const
@@ -305,7 +305,7 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ìæ“¾
+	/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	ID3D12PipelineState* SkyBoxPipeline::GetPipelineState()const
@@ -314,9 +314,9 @@ namespace Engine::Graphics
 	}
 
 	/// <summary>
-	/// •`‰æ•û–@
+	/// æç”»æ–¹æ³•
 	/// </summary>
-	/// <returns>OŠpŒ`</returns>
+	/// <returns>ä¸‰è§’å½¢</returns>
 	D3D_PRIMITIVE_TOPOLOGY SkyBoxPipeline::GetTopology()const
 	{
 		return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

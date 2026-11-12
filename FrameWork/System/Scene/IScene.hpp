@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Time/Time.hpp"
 
 #include<string>
@@ -12,38 +12,38 @@ namespace Engine::System
 		virtual ~IScene() = default;
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>true:¬Œ÷</returns>
+		/// <returns>true:æˆåŠŸ</returns>
 		virtual bool Initialize() { return true; };
 
 		/// <summary>
-		/// ƒƒCƒ“XV
+		/// ãƒ¡ã‚¤ãƒ³æ›´æ–°
 		/// </summary>
 		virtual void Update(double DeltaTime) {};
 
 		/// <summary>
-		/// –ŒãXV
+		/// äº‹å¾Œæ›´æ–°
 		/// </summary>
 		virtual void PostUpdate(double FixedDeltaTime) {};
 
 		/// <summary>
-		/// ImGui‚ÌXV•\¦
+		/// ImGuiã®æ›´æ–°è¡¨ç¤º
 		/// </summary>
 		virtual void ImGuiUpdate() {};
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Render() {};
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Release() {};
 
 		/// <summary>
-		/// Scene‚Ì–¼‘O‚ğ•Ô‚·
+		/// Sceneã®åå‰ã‚’è¿”ã™
 		/// </summary>
 		/// <returns></returns>
 		virtual std::string GetSceneName() = 0;

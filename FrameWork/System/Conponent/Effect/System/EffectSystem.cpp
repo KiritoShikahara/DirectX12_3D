@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EffectSystem.hpp"
 #include "System/Conponent/Transform/TransformConponent.hpp"
 #include "../EffectComponent.hpp"
@@ -6,7 +6,7 @@
 namespace Engine::System
 {
 	/// <summary>
-	/// ƒgƒ‰ƒ“ƒX‚Æ‚ÌÀ•WA‰ñ“]“¯Šú
+	/// ãƒˆãƒ©ãƒ³ã‚¹ã¨ã®åº§æ¨™ã€å›è»¢åŒæœŸ
 	/// </summary>
 	void EffectSystem::PostUpdate(entt::registry& Reg)
 	{
@@ -20,17 +20,17 @@ namespace Engine::System
 				}
 				if (!effect.IsShow) return;
 
-				//	©“®íœ”»’è
+				//	è‡ªå‹•å‰Šé™¤åˆ¤å®š
 				if (effect.Effect.IsPlaying() == false)
 				{
-					//	ƒ‹[ƒvİ’è‚©‚ÂƒAƒZƒbƒg‚ª—LŒø‚È‚çÄ¶
+					//	ãƒ«ãƒ¼ãƒ—è¨­å®šã‹ã¤ã‚¢ã‚»ãƒƒãƒˆãŒæœ‰åŠ¹ãªã‚‰å†ç”Ÿ
 					if (effect.IsLoop == true && effect.Asset != nullptr)
 					{
 						effect.Effect.Play(effect.Asset, { 0,0,0 }, effect.Effect.ShouldDestroy());
 					}
 					else
 					{
-						// ƒ‹[ƒv‚µ‚È‚¢‚ÅI—¹‚µ‚½‚È‚çA©“®íœİ’è‚ğŠm”F‚µ‚Äíœ
+						// ãƒ«ãƒ¼ãƒ—ã—ãªã„ã§çµ‚äº†ã—ãŸãªã‚‰ã€è‡ªå‹•å‰Šé™¤è¨­å®šã‚’ç¢ºèªã—ã¦å‰Šé™¤
 						if (effect.Effect.ShouldDestroy())
 						{
 							Reg.destroy(entity);
@@ -39,11 +39,11 @@ namespace Engine::System
 					}
 				}
 
-				//	À•W‚Ì“¯Šú
-				// “¯Šú‚·‚×‚«ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ìæ“¾
+				//	åº§æ¨™ã®åŒæœŸ
+				// åŒæœŸã™ã¹ããƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®å–å¾—
 				Transform3D* targetTrans = nullptr;
 
-				// e‚ª‚¢‚ê‚Îe‚ğ—DæA‚¢‚È‚¯‚ê‚Î©•ª©g‚ÌTransform3D‚ğg‚¤
+				// è¦ªãŒã„ã‚Œã°è¦ªã‚’å„ªå…ˆã€ã„ãªã‘ã‚Œã°è‡ªåˆ†è‡ªèº«ã®Transform3Dã‚’ä½¿ã†
 				if (effect.Parent != entt::null && Reg.valid(effect.Parent)) {
 					targetTrans = Reg.try_get<Transform3D>(effect.Parent);
 				}
@@ -53,18 +53,18 @@ namespace Engine::System
 
 				if (targetTrans)
 				{
-					// ˆÊ’u‚Ì“¯Šú
-					// e‚ª‚¢‚éê‡‚ÍOffset‚ğ‰ÁZie‚Ì‰ñ“]‚ğl—¶‚µ‚È‚¢ŠÈˆÕ”Åj
+					// ä½ç½®ã®åŒæœŸ
+					// è¦ªãŒã„ã‚‹å ´åˆã¯Offsetã‚’åŠ ç®—ï¼ˆè¦ªã®å›è»¢ã‚’è€ƒæ…®ã—ãªã„ç°¡æ˜“ç‰ˆï¼‰
 					Math::Vector3 finalPos = targetTrans->Position + effect.Offset;
 					effect.Effect.SetLocation(finalPos);
 
-					// ‰ñ“]‚Ì“¯Šú
-					// Effekseer::SetRotation ‚ÍƒIƒCƒ‰[Šp (ƒ‰ƒWƒAƒ“) ‚ğŠú‘Ò‚·‚é
-					// Quaternion ‚©‚ç Euler ‚Ö‚Ì•ÏŠ· (ƒGƒ“ƒWƒ“‚Ìd—l‚É‡‚í‚¹‚Ä‚­‚¾‚³‚¢)
-					Math::Vector3 euler = targetTrans->Rotation.ToEuler(); // ‰¼‚Ìƒƒ\ƒbƒh–¼
+					// å›è»¢ã®åŒæœŸ
+					// Effekseer::SetRotation ã¯ã‚ªã‚¤ãƒ©ãƒ¼è§’ (ãƒ©ã‚¸ã‚¢ãƒ³) ã‚’æœŸå¾…ã™ã‚‹
+					// Quaternion ã‹ã‚‰ Euler ã¸ã®å¤‰æ› (ã‚¨ãƒ³ã‚¸ãƒ³ã®ä»•æ§˜ã«åˆã‚ã›ã¦ãã ã•ã„)
+					Math::Vector3 euler = targetTrans->Rotation.ToEuler(); // ä»®ã®ãƒ¡ã‚½ãƒƒãƒ‰å
 					effect.Effect.SetRotation(euler);
 
-					// ƒXƒP[ƒ‹‚Ì“¯Šú
+					// ã‚¹ã‚±ãƒ¼ãƒ«ã®åŒæœŸ
 					effect.Effect.SetScale(targetTrans->Scale);
 				}
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<cstdint>
 #include<Plugin/entt/entt.hpp>
 
@@ -7,28 +7,28 @@ namespace Engine::System
 {
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚Ìó‘Ô
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹
 	/// </summary>
 	enum class ePlayerState
 	{
-		Idle,		//	‘Ò‹@
-		Run,		//	‘–‚è
-		Dodge,		//	ƒ_ƒbƒVƒ…iƒ_ƒbƒVƒ…ƒL[’·‰Ÿ‚µj
-		Attack,		//	UŒ‚
-		Skill,		//	ƒXƒLƒ‹
-		Dead,		//	€–S
+		Idle,		//	å¾…æ©Ÿ
+		Run,		//	èµ°ã‚Š
+		Dodge,		//	ãƒ€ãƒƒã‚·ãƒ¥ï¼ˆãƒ€ãƒƒã‚·ãƒ¥ã‚­ãƒ¼é•·æŠ¼ã—ï¼‰
+		Attack,		//	æ”»æ’ƒ
+		Skill,		//	ã‚¹ã‚­ãƒ«
+		Dead,		//	æ­»äº¡
 	};
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚Ìó‘Ô—pƒRƒ“ƒ|[ƒlƒ“ƒg
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ç”¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	/// </summary>
 	struct PlayerStateComponent
 	{
-		//	¡‚Ìó‘Ô
+		//	ä»Šã®çŠ¶æ…‹
 		ePlayerState State = ePlayerState::Idle;
 		entt::entity Weapon = entt::null;
 
-		//	‰ñ”ğ
+		//	å›é¿
 		struct DodgeData
 		{
 			int DodgeCount = 0;
@@ -40,13 +40,13 @@ namespace Engine::System
 			bool IsCoolDown = false;
 		};
 
-		//	UŒ‚
+		//	æ”»æ’ƒ
 		struct AttackData
 		{
-			int AttackCount = 0;	//	˜A‘±UŒ‚‰ñ”
-			int AttackCountMax = 4;	//	˜A‘±UŒ‚‚ÌÅ‘å”
-			float AttackInputTimer = 0.0f;	//	“ü—Íó‚¯‚Â‚¯ŠÔ
-			float AttackInputWindow = 0.1f;	//	˜A‘±UŒ‚“ü—Íó•t§ŒÀŠÔ
+			int AttackCount = 0;	//	é€£ç¶šæ”»æ’ƒå›æ•°
+			int AttackCountMax = 4;	//	é€£ç¶šæ”»æ’ƒã®æœ€å¤§æ•°
+			float AttackInputTimer = 0.0f;	//	å…¥åŠ›å—ã‘ã¤ã‘æ™‚é–“
+			float AttackInputWindow = 0.1f;	//	é€£ç¶šæ”»æ’ƒå…¥åŠ›å—ä»˜åˆ¶é™æ™‚é–“
 			bool AttackQueued = false;	
 		};
 

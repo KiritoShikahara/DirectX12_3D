@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 
 #include<Windows.h>
@@ -19,26 +19,26 @@ namespace Engine::Debug
 		GENERATE_SINGLETON_BODY(ImGuiManager);
 	public:
 		/// <summary>
-		/// ImGui‚Ì‰Šú‰»
+		/// ImGuiã®åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="WindowHandle">ƒEƒBƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹</param>
-		/// <param name="DirectX">DirectXƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <param name="GDHManager">ƒq[ƒvŠÇ—‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="WindowHandle">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="DirectX">DirectXã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="GDHManager">ãƒ’ãƒ¼ãƒ—ç®¡ç†ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize(const HWND WindowHandle, Graphics::DirectX* DirectX, Graphics::GraphicsDescriptorHeapManager* GDHManager);
 
 		/// <summary>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒX‰ğ•ú
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹è§£æ”¾
 		/// </summary>
 		void OnDestory()override;
 
 		/// <summary>
-		/// V‹KƒtƒŒ[ƒ€‚ÌŠJn
+		/// æ–°è¦ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 		/// </summary>
 		void NewFrame();
 
 		/// <summary>
-		/// ƒtƒŒ[ƒ€‚ÌI—¹
+		/// ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµ‚äº†
 		/// </summary>
 		void EndFrame(Graphics::DirectX* DirectX, Graphics::GraphicsDescriptorHeapManager* GDHManager);
 

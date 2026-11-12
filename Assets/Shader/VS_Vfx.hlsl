@@ -6,7 +6,7 @@ PS_INPUT main(VS_INPUT input)
 
     float4 localPos = float4(input.Pos, 1.0f);
 
-    // FBXのシェーダーと完全に同じ順序にする
+    // FBX縺ｮ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｨ螳悟�ｨ縺ｫ蜷後§鬆�蠎上↓縺吶ｋ
     float4 worldPos = mul(localPos, World);
     float4 viewPos = mul(worldPos, View);
     output.Pos = mul(viewPos, Projection);

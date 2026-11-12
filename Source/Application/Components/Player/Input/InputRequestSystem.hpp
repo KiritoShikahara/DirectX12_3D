@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Entity/System/Base/ISystem.hpp"
 
 namespace Engine::System
@@ -7,7 +7,7 @@ namespace Engine::System
 	{
 	public:
 		/// <summary>
-		/// “ü—Í‚©‚çƒŠƒNƒGƒXƒg‚Ì”­¶
+		/// å…¥åŠ›ã‹ã‚‰ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®ç™ºç”Ÿ
 		/// </summary>
 		/// <param name="Reg"></param>
 		/// <param name="DeltaTime"></param>

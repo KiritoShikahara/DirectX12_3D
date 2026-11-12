@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"System/Singleton/Singleton.hpp"
 #include "Audio/Resource/Manager/AudioResourceManager.hpp"
 #include "Audio/Sound/Sound.hpp"
@@ -10,7 +10,7 @@
 namespace Engine::Audio
 {
 	/// <summary>
-	/// ƒI[ƒfƒBƒIÄ¶ŠÇ—
+	/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªå†ç”Ÿç®¡ç†
 	/// </summary>
 	class AudioManager : public Singleton<AudioManager>
 	{
@@ -18,22 +18,22 @@ namespace Engine::Audio
 
 	public: 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="AudioResManager">ƒŠƒ\[ƒXŠÇ—‚Ìƒ|ƒCƒ“ƒ^</param>
-		/// <returns>true:¬Œ÷</returns>
+		/// <param name="AudioResManager">ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã®ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <returns>true:æˆåŠŸ</returns>
 		bool Initialize(AudioResourceManager* AudioResManager);
 
 		/// <summary>
-		/// SE‚ÌÄ¶
+		/// SEã®å†ç”Ÿ
 		/// </summary>
-		/// <param name="FilePath">ƒtƒ@ƒCƒ‹–¼</param>
-		/// <param name="Loop">true:ƒ‹[ƒvÄ¶</param>
-		/// <param name="Volume">‰¹—Ê:0.0f - 1.0f</param>
+		/// <param name="FilePath">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <param name="Loop">true:ãƒ«ãƒ¼ãƒ—å†ç”Ÿ</param>
+		/// <param name="Volume">éŸ³é‡:0.0f - 1.0f</param>
 		void PlaySE(const std::string& FilePath, bool Loop = false, float Volume = 1.0f,bool IsGlobal = true);
 
 		/// <summary>
-		/// Ä¶’†‚Ì‰¹‘S‘Ì‚©‚çƒXƒs[ƒJ‚Éo—Í‚·‚éÅI“I‚È‰¹‚Ìì¬
+		/// å†ç”Ÿä¸­ã®éŸ³å…¨ä½“ã‹ã‚‰ã‚¹ãƒ”ãƒ¼ã‚«ã«å‡ºåŠ›ã™ã‚‹æœ€çµ‚çš„ãªéŸ³ã®ä½œæˆ
 		/// </summary>
 		/// <param name="Output"></param>
 		/// <param name="FramesRequested"></param>
@@ -41,28 +41,28 @@ namespace Engine::Audio
 		void MixSounds(int16_t* Output, size_t FramesRequested, uint16_t Channels);
 
 		/// <summary>
-		/// ‘S‚Ä‚ÌƒTƒEƒ“ƒh‚ğ~‚ß‚é
+		/// å…¨ã¦ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’æ­¢ã‚ã‚‹
 		/// </summary>
 		void AllClearSound();
 
 		/// <summary>
-		/// miniaudio‚ÅŒÄ‚Ño‚³‚ê‚éƒR[ƒ‹ƒoƒbƒN
-		/// ƒf[ƒ^‚ğ¶¬‚µ‚Ä‘—M‚·‚é
+		/// miniaudioã§å‘¼ã³å‡ºã•ã‚Œã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
+		/// ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆã—ã¦é€ä¿¡ã™ã‚‹
 		/// </summary>
 		static void DataCallback(ma_device* pDevice, void* pOutput, const void* /*pInput*/, ma_uint32 frameCount);
 	private:
 		/// <summary>
-		/// ƒTƒEƒ“ƒh‚ÌƒŠƒ\[ƒXŠÇ—‚ÌQÆ
+		/// ã‚µã‚¦ãƒ³ãƒ‰ã®ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã®å‚ç…§
 		/// </summary>
 		AudioResourceManager* mResources;
 
 		/// <summary>
-		/// ¡—¬‚ê‚Ä‚¢‚éƒTƒEƒ“ƒh
+		/// ä»Šæµã‚Œã¦ã„ã‚‹ã‚µã‚¦ãƒ³ãƒ‰
 		/// </summary>
 		std::vector<Sound> mSounds;
 
 		/// <summary>
-		/// ƒ}ƒ‹ƒ`ƒXƒŒƒbƒh—p
+		/// ãƒãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰ç”¨
 		/// </summary>
 		std::recursive_mutex  mMtx;
 	};

@@ -1,18 +1,18 @@
-#pragma once
+ï»¿#pragma once
 #include<concepts>
 #include <type_traits>
 
-//	®”Œ^‚Ì‚İ
+//	æ•´æ•°å‹ã®ã¿
 template<typename T>
 concept Integral = std::is_integral_v<T>;
 
 /// <summary>
-/// ƒtƒ‰ƒO‚ª‘S‚Ä—§‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+/// ãƒ•ãƒ©ã‚°ãŒå…¨ã¦ç«‹ã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
 /// </summary>
-/// <typeparam name="T">®”Œ^</typeparam>
-/// <param name="Value">ƒrƒbƒg—ñ</param>
-/// <param name="Flag">Šm”F‚µ‚½‚¢ƒrƒbƒg</param>
-/// <returns>true:‘S‚Ä—§‚Á‚Ä‚¢‚é</returns>
+/// <typeparam name="T">æ•´æ•°å‹</typeparam>
+/// <param name="Value">ãƒ“ãƒƒãƒˆåˆ—</param>
+/// <param name="Flag">ç¢ºèªã—ãŸã„ãƒ“ãƒƒãƒˆ</param>
+/// <returns>true:å…¨ã¦ç«‹ã£ã¦ã„ã‚‹</returns>
 template<Integral T>
 constexpr bool HasFlag(T Value, T Flag)noexcept
 {
@@ -20,12 +20,12 @@ constexpr bool HasFlag(T Value, T Flag)noexcept
 }
 
 /// <summary>
-/// ‚P‚Â‚Å‚àƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+/// ï¼‘ã¤ã§ã‚‚ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
 /// </summary>
-/// <typeparam name="T">®”Œ^</typeparam>
-/// <param name="Value">ƒrƒbƒg—ñ</param>
-/// <param name="Flag">Šm”F‚µ‚½‚¢ƒrƒbƒg</param>
-/// <returns>true:—§‚Á‚Ä‚¢‚é</returns>
+/// <typeparam name="T">æ•´æ•°å‹</typeparam>
+/// <param name="Value">ãƒ“ãƒƒãƒˆåˆ—</param>
+/// <param name="Flag">ç¢ºèªã—ãŸã„ãƒ“ãƒƒãƒˆ</param>
+/// <returns>true:ç«‹ã£ã¦ã„ã‚‹</returns>
 template<Integral T>
 constexpr bool HasAnyFlag(T Value, T Flag) noexcept
 {
@@ -33,11 +33,11 @@ constexpr bool HasAnyFlag(T Value, T Flag) noexcept
 }
 
 /// <summary>
-/// ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+/// ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 /// </summary>
-/// <typeparam name="T">®”Œ^</typeparam>
-/// <param name="Value">ƒrƒbƒg—ñ</param>
-/// <param name="Flag">—§‚Ä‚½‚¢ƒrƒbƒg</param>
+/// <typeparam name="T">æ•´æ•°å‹</typeparam>
+/// <param name="Value">ãƒ“ãƒƒãƒˆåˆ—</param>
+/// <param name="Flag">ç«‹ã¦ãŸã„ãƒ“ãƒƒãƒˆ</param>
 template<Integral T>
 constexpr void SetFlag(T& Value, T Flag) noexcept
 {
@@ -45,11 +45,11 @@ constexpr void SetFlag(T& Value, T Flag) noexcept
 }
 
 /// <summary>
-/// ƒtƒ‰ƒO‚ğ‰º‚°‚é 
+/// ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã’ã‚‹ 
 /// </summary>
-/// <typeparam name="T">®”Œ^</typeparam>
-/// <param name="Value">ƒrƒbƒg—ñ</param>
-/// <param name="Flag">‰º‚°‚½‚¢ƒrƒbƒh</param>
+/// <typeparam name="T">æ•´æ•°å‹</typeparam>
+/// <param name="Value">ãƒ“ãƒƒãƒˆåˆ—</param>
+/// <param name="Flag">ä¸‹ã’ãŸã„ãƒ“ãƒƒãƒ‰</param>
 template<Integral T>
 constexpr void ClearFlag(T& Value, T Flag) noexcept
 {
@@ -57,11 +57,11 @@ constexpr void ClearFlag(T& Value, T Flag) noexcept
 }
 
 /// <summary>
-///ƒtƒ‰ƒO‚ğ”½“]iƒgƒOƒ‹j 
+///ãƒ•ãƒ©ã‚°ã‚’åè»¢ï¼ˆãƒˆã‚°ãƒ«ï¼‰ 
 /// </summary>
-/// <typeparam name="T">®”Œ^</typeparam>
-/// <param name="Value">ƒrƒbƒg—ñ</param>
-/// <param name="Flag">”½“]‚³‚¹‚½‚¢ƒrƒbƒg</param>
+/// <typeparam name="T">æ•´æ•°å‹</typeparam>
+/// <param name="Value">ãƒ“ãƒƒãƒˆåˆ—</param>
+/// <param name="Flag">åè»¢ã•ã›ãŸã„ãƒ“ãƒƒãƒˆ</param>
 template<Integral T>
 constexpr void ToggleFlag(T& Value, T Flag) noexcept
 {
@@ -91,7 +91,7 @@ inline Type& operator&= (Type& a, Type b) { \
 inline Type& operator^= (Type& a, Type b) { \
     return a = a ^ b; \
 } \
-/* ”»’è—pƒwƒ‹ƒp[ (if (a & b) ‚ğ‰Â”\‚É‚·‚é‚½‚ß) */ \
+/* åˆ¤å®šç”¨ãƒ˜ãƒ«ãƒ‘ãƒ¼ (if (a & b) ã‚’å¯èƒ½ã«ã™ã‚‹ãŸã‚) */ \
 inline bool operator!(Type a) { \
     return static_cast<std::underlying_type_t<Type>>(a) == 0; \
 }
@@ -99,7 +99,7 @@ template<typename T>
 inline bool HasFlag(T alpha, T beta) {
     return static_cast<std::underlying_type_t<T>>(alpha & beta) != 0;
 }
-//  ‚Ç‚Ìƒtƒ‰ƒO‚à—§‚Á‚Ä‚¢‚È‚¢
+//  ã©ã®ãƒ•ãƒ©ã‚°ã‚‚ç«‹ã£ã¦ã„ãªã„
 template<typename T>
 inline bool HasNoFlag(T value)
 {

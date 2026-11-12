@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Collision.hpp"
 #include"Math/Matrix/Matrix.h"
 
@@ -7,12 +7,12 @@
 #include"System/Collider/OBB/OBBCollider.hpp"
 
 /// <summary>
-/// AABB‚Ç‚Ì“–‚½‚è”»’è
+/// AABBã©æ°ã®å½“ãŸã‚Šåˆ¤å®š
 /// </summary>
-/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-/// <returns>true:ÚG</returns>
+/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+/// <returns>true:æ¥è§¦</returns>
 bool Engine::System::Collision::ComputeAABBCollision(const AABBCollider* Collider1, const AABBCollider* Collider2, Math::Vector3& OutVector)
 {
     if (Collider1 == nullptr || Collider2 == nullptr)
@@ -20,10 +20,10 @@ bool Engine::System::Collision::ComputeAABBCollision(const AABBCollider* Collide
         return false;
     }
 
-    //  ‰Šú‰»
+    //  åˆæœŸåŒ–
     OutVector = Math::Vector3::Zero;
 
-    //  Še²‚Ì”ÍˆÍæ“¾
+    //  å„è»¸ã®ç¯„å›²å–å¾—
     const AABBCollider::Range Range1X = Collider1->GetAxisXRange();
     const AABBCollider::Range Range1Y = Collider1->GetAxisYRange();
     const AABBCollider::Range Range1Z = Collider1->GetAxisZRange();
@@ -32,7 +32,7 @@ bool Engine::System::Collision::ComputeAABBCollision(const AABBCollider* Collide
     const AABBCollider::Range Range2Y = Collider2->GetAxisYRange();
     const AABBCollider::Range Range2Z = Collider2->GetAxisZRange();
 
-    //  Õ“Ë”»’è
+    //  è¡çªåˆ¤å®š
     const bool  isHit = 
         Range1X.Min < Range2X.Max && 
         Range1X.Max > Range2X.Min &&
@@ -46,78 +46,78 @@ bool Engine::System::Collision::ComputeAABBCollision(const AABBCollider* Collide
         return false;
     }
 
-    //  ‰Ÿ‚µ–ß‚µ—Ê‚ÌŒvZ
+    //  æŠ¼ã—æˆ»ã—é‡ã®è¨ˆç®—
     const Math::Vector3 Center1 = Collider1->GetCenter();
     const Math::Vector3 Center2 = Collider2->GetCenter();
     const Math::Vector3 Volume1 = Collider1->GetVolume();
     const Math::Vector3 Volume2 = Collider2->GetVolume();
 
-    //  Collider1‚©‚çCollider2‚Ö‚ÌƒxƒNƒgƒ‹
+    //  Collider1ã‹ã‚‰Collider2ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
     const Math::Vector3 toOther = Center2 - Center1;
 
-    //  Še²‚ÌÅ‘å‹–—e‹——£‚©‚çŒ»İ‚Ì’†SŠÔ‹——£‚ğˆø‚¢‚Äd‚È‚Á‚Ä‚¢‚é—Ê‚ğo‚·
+    //  å„è»¸ã®æœ€å¤§è¨±å®¹è·é›¢ã‹ã‚‰ç¾åœ¨ã®ä¸­å¿ƒé–“è·é›¢ã‚’å¼•ã„ã¦é‡ãªã£ã¦ã„ã‚‹é‡ã‚’å‡ºã™
     float overlapX = (Volume1.x * 0.5f + Volume2.x * 0.5f) - fabsf(toOther.x);
     float overlapY = (Volume1.y * 0.5f + Volume2.y * 0.5f) - fabsf(toOther.y);
     float overlapZ = (Volume1.z * 0.5f + Volume2.z * 0.5f) - fabsf(toOther.z);
 
-    //  Å¬ŠÑ’Ê²‚Ìæ“¾
-    //  ‚à‚Á‚Æ‚àó‚¢•ûŒü‚É‰Ÿ‚µo‚·B
-    //  ‰ñ“]‚È‚µ‚ÌÎ‚ß‚©‚ç‚Ì‚ß‚è‚İ‚É‘Î‚µ‚Ä•Ï‚È•ûŒü‚É”ò‚Î‚È‚¢‚æ‚¤‚É‚·‚é
+    //  æœ€å°è²«é€šè»¸ã®å–å¾—
+    //  ã‚‚ã£ã¨ã‚‚æµ…ã„æ–¹å‘ã«æŠ¼ã—å‡ºã™ã€‚
+    //  å›è»¢ãªã—ã®æ–œã‚ã‹ã‚‰ã®ã‚ã‚Šè¾¼ã¿ã«å¯¾ã—ã¦å¤‰ãªæ–¹å‘ã«é£›ã°ãªã„ã‚ˆã†ã«ã™ã‚‹
     if (overlapX < overlapY && overlapX < overlapZ)
     {
-        // X²‚Å‰Ÿ‚µ–ß‚·iCollider2‚ª‰E‚É‚¢‚é‚È‚çACollider1‚Í¶‚Öj
+        // Xè»¸ã§æŠ¼ã—æˆ»ã™ï¼ˆCollider2ãŒå³ã«ã„ã‚‹ãªã‚‰ã€Collider1ã¯å·¦ã¸ï¼‰
         OutVector.x = (toOther.x > 0) ? -overlapX : overlapX;
     }
     else if (overlapY < overlapX && overlapY < overlapZ)
     {
-        // Y²‚Å‰Ÿ‚µ–ß‚·
+        // Yè»¸ã§æŠ¼ã—æˆ»ã™
         OutVector.y = (toOther.y > 0) ? -overlapY : overlapY;
     }
     else
     {
-        // Z²‚Å‰Ÿ‚µ–ß‚·
+        // Zè»¸ã§æŠ¼ã—æˆ»ã™
         OutVector.z = (toOther.z > 0) ? -overlapZ : overlapZ;
     }
     return true;
 }
 
 /// <summary>
-/// ‰~“¯m‚Ì“–‚½‚è”»’è
+/// å††åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 /// </summary>
-/// <param name="Collider1">ƒIƒuƒWƒFƒNƒg‚P</param>
-/// <param name="Collider2">ƒIƒuƒWƒFƒNƒg‚Q</param>
-/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌˆÚ“®ƒxƒNƒgƒ‹</param>
-/// <returns>true:ÚG</returns>
+/// <param name="Collider1">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‘</param>
+/// <param name="Collider2">ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼’</param>
+/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+/// <returns>true:æ¥è§¦</returns>
 bool Engine::System::Collision::ComputeSphepeCollision(const SphereCollider* Collider1, const SphereCollider* Collider2, Math::Vector3& OutVector)
 {
-    //  ‰Šú‰»
+    //  åˆæœŸåŒ–
     OutVector = Math::Vector3::Zero;
 
-    //  ’†SÀ•WŠÔ‚ÌƒxƒNƒgƒ‹
+    //  ä¸­å¿ƒåº§æ¨™é–“ã®ãƒ™ã‚¯ãƒˆãƒ«
     Math::Vector3 v = Collider1->GetCenter() - Collider2->GetCenter();
     float dis2 = v.SqrLength();
     float radSum = Collider1->GetRadius() + Collider2->GetRadius();
 
-    //  Õ“Ë”»’è
-    //  true:Õ“Ë
+    //  è¡çªåˆ¤å®š
+    //  true:è¡çª
     if (dis2 <= radSum * radSum)
     {
         float dis = sqrtf(dis2);
 
-        //  ‚Ù‚ÚŠ®‘S‚Éd‚È‚Á‚Ä‚¢‚é‚Æ‚«‚Í^ã‚É‰Ÿ‚µo‚·
+        //  ã»ã¼å®Œå…¨ã«é‡ãªã£ã¦ã„ã‚‹ã¨ãã¯çœŸä¸Šã«æŠ¼ã—å‡ºã™
         if (dis < 0.0001f)
         {
             OutVector = Math::Vector3(0.0f, 1.0f, 0.0f) * radSum;
             return true;
         }
 
-        //  ‰Ÿ‚µ–ß‚µ—Ê‚ÌŒvZ
-        //  ‰Ÿ‚µ–ß‚·‚×‚«‹——£i”¼Œa‚Ì‡Œvj[iŒ»İ‚Ì‹——£j
+        //  æŠ¼ã—æˆ»ã—é‡ã®è¨ˆç®—
+        //  æŠ¼ã—æˆ»ã™ã¹ãè·é›¢ï¼ï¼ˆåŠå¾„ã®åˆè¨ˆï¼‰ãƒ¼ï¼ˆç¾åœ¨ã®è·é›¢ï¼‰
         float overlap = radSum - dis;
 
-        //  ‰Ÿ‚µ–ß‚·•ûŒü
-        //  i•ûŒüƒxƒNƒgƒ‹j–id‚È‚è—Êj
-        //  V / dis‚ÅƒxƒNƒgƒ‹‚Ì³‹K‰»
+        //  æŠ¼ã—æˆ»ã™æ–¹å‘
+        //  ï¼ˆæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ï¼‰ï¼Šï¼ˆé‡ãªã‚Šé‡ï¼‰
+        //  V / disã§ãƒ™ã‚¯ãƒˆãƒ«ã®æ­£è¦åŒ–
         OutVector = (v / dis) * overlap;
         return true;
     }
@@ -132,10 +132,10 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* Collider1, 
         return false;
     }
 
-    //  ‰Šú‰»
+    //  åˆæœŸåŒ–
     OutVector = Math::Vector3::Zero;
 
-    //  Še²‚Ì”ÍˆÍæ“¾
+    //  å„è»¸ã®ç¯„å›²å–å¾—
     const AABBCollider::Range Range1X = Collider1->GetAxisXRange();
     const AABBCollider::Range Range1Y = Collider1->GetAxisYRange();
     const AABBCollider::Range Range1Z = Collider1->GetAxisZRange();
@@ -144,7 +144,7 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* Collider1, 
     const AABBCollider::Range Range2Y = Collider2->GetAxisYRange();
     const AABBCollider::Range Range2Z = Collider2->GetAxisZRange();
 
-    //  Õ“Ë”»’è
+    //  è¡çªåˆ¤å®š
     const bool  isHit =
         Range1X.Min < Range2X.Max &&
         Range1X.Max > Range2X.Min &&
@@ -158,36 +158,36 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* Collider1, 
         return false;
     }
 
-    //  ‰Ÿ‚µ–ß‚µ—Ê‚ÌŒvZ
+    //  æŠ¼ã—æˆ»ã—é‡ã®è¨ˆç®—
     const Math::Vector3 Center1 = Collider1->GetCenter();
     const Math::Vector3 Center2 = Collider2->GetCenter();
     const Math::Vector3 Volume1 = Collider1->GetVolume();
     const Math::Vector3 Volume2 = Collider2->GetVolume();
 
-    //  Collider1‚©‚çCollider2‚Ö‚ÌƒxƒNƒgƒ‹
+    //  Collider1ã‹ã‚‰Collider2ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
     const Math::Vector3 toOther = Center2 - Center1;
 
-    //  Še²‚ÌÅ‘å‹–—e‹——£‚©‚çŒ»İ‚Ì’†SŠÔ‹——£‚ğˆø‚¢‚Äd‚È‚Á‚Ä‚¢‚é—Ê‚ğo‚·
+    //  å„è»¸ã®æœ€å¤§è¨±å®¹è·é›¢ã‹ã‚‰ç¾åœ¨ã®ä¸­å¿ƒé–“è·é›¢ã‚’å¼•ã„ã¦é‡ãªã£ã¦ã„ã‚‹é‡ã‚’å‡ºã™
     float overlapX = (Volume1.x * 0.5f + Volume2.x * 0.5f) - fabsf(toOther.x);
     float overlapY = (Volume1.y * 0.5f + Volume2.y * 0.5f) - fabsf(toOther.y);
     float overlapZ = (Volume1.z * 0.5f + Volume2.z * 0.5f) - fabsf(toOther.z);
 
-    //  Å¬ŠÑ’Ê²‚Ìæ“¾
-    //  ‚à‚Á‚Æ‚àó‚¢•ûŒü‚É‰Ÿ‚µo‚·B
-    //  ‰ñ“]‚È‚µ‚ÌÎ‚ß‚©‚ç‚Ì‚ß‚è‚İ‚É‘Î‚µ‚Ä•Ï‚È•ûŒü‚É”ò‚Î‚È‚¢‚æ‚¤‚É‚·‚é
+    //  æœ€å°è²«é€šè»¸ã®å–å¾—
+    //  ã‚‚ã£ã¨ã‚‚æµ…ã„æ–¹å‘ã«æŠ¼ã—å‡ºã™ã€‚
+    //  å›è»¢ãªã—ã®æ–œã‚ã‹ã‚‰ã®ã‚ã‚Šè¾¼ã¿ã«å¯¾ã—ã¦å¤‰ãªæ–¹å‘ã«é£›ã°ãªã„ã‚ˆã†ã«ã™ã‚‹
     if (overlapX < overlapY && overlapX < overlapZ)
     {
-        // X²‚Å‰Ÿ‚µ–ß‚·iCollider2‚ª‰E‚É‚¢‚é‚È‚çACollider1‚Í¶‚Öj
+        // Xè»¸ã§æŠ¼ã—æˆ»ã™ï¼ˆCollider2ãŒå³ã«ã„ã‚‹ãªã‚‰ã€Collider1ã¯å·¦ã¸ï¼‰
         OutVector.x = (toOther.x > 0) ? -overlapX : overlapX;
     }
     else if (overlapY < overlapX && overlapY < overlapZ)
     {
-        // Y²‚Å‰Ÿ‚µ–ß‚·
+        // Yè»¸ã§æŠ¼ã—æˆ»ã™
         OutVector.y = (toOther.y > 0) ? -overlapY : overlapY;
     }
     else
     {
-        // Z²‚Å‰Ÿ‚µ–ß‚·
+        // Zè»¸ã§æŠ¼ã—æˆ»ã™
         OutVector.z = (toOther.z > 0) ? -overlapZ : overlapZ;
     }
     return true;
@@ -195,34 +195,34 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* Collider1, 
 
 bool Engine::System::Collision::ComputeCollision(const SphereCollider* Collider1, const SphereCollider* Collider2, Math::Vector3& OutVector)
 {
-    //  ‰Šú‰»
+    //  åˆæœŸåŒ–
     OutVector = Math::Vector3::Zero;
 
-    //  ’†SÀ•WŠÔ‚ÌƒxƒNƒgƒ‹
+    //  ä¸­å¿ƒåº§æ¨™é–“ã®ãƒ™ã‚¯ãƒˆãƒ«
     Math::Vector3 v = Collider1->GetCenter() - Collider2->GetCenter();
     float dis2 = v.SqrLength();
     float radSum = Collider1->GetRadius() + Collider2->GetRadius();
 
-    //  Õ“Ë”»’è
-    //  true:Õ“Ë
+    //  è¡çªåˆ¤å®š
+    //  true:è¡çª
     if (dis2 <= radSum * radSum)
     {
         float dis = sqrtf(dis2);
 
-        //  ‚Ù‚ÚŠ®‘S‚Éd‚È‚Á‚Ä‚¢‚é‚Æ‚«‚Í^ã‚É‰Ÿ‚µo‚·
+        //  ã»ã¼å®Œå…¨ã«é‡ãªã£ã¦ã„ã‚‹ã¨ãã¯çœŸä¸Šã«æŠ¼ã—å‡ºã™
         if (dis < 0.0001f)
         {
             OutVector = Math::Vector3(0.0f, 1.0f, 0.0f) * radSum;
             return true;
         }
 
-        //  ‰Ÿ‚µ–ß‚µ—Ê‚ÌŒvZ
-        //  ‰Ÿ‚µ–ß‚·‚×‚«‹——£i”¼Œa‚Ì‡Œvj[iŒ»İ‚Ì‹——£j
+        //  æŠ¼ã—æˆ»ã—é‡ã®è¨ˆç®—
+        //  æŠ¼ã—æˆ»ã™ã¹ãè·é›¢ï¼ï¼ˆåŠå¾„ã®åˆè¨ˆï¼‰ãƒ¼ï¼ˆç¾åœ¨ã®è·é›¢ï¼‰
         float overlap = radSum - dis;
 
-        //  ‰Ÿ‚µ–ß‚·•ûŒü
-        //  i•ûŒüƒxƒNƒgƒ‹j–id‚È‚è—Êj
-        //  V / dis‚ÅƒxƒNƒgƒ‹‚Ì³‹K‰»
+        //  æŠ¼ã—æˆ»ã™æ–¹å‘
+        //  ï¼ˆæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ï¼‰ï¼Šï¼ˆé‡ãªã‚Šé‡ï¼‰
+        //  V / disã§ãƒ™ã‚¯ãƒˆãƒ«ã®æ­£è¦åŒ–
         OutVector = (v / dis) * overlap;
         return true;
     }
@@ -232,20 +232,20 @@ bool Engine::System::Collision::ComputeCollision(const SphereCollider* Collider1
 }
 
 /// <summary>
-/// AABB‚ÆOBB‚Ì“–‚½‚è”»’è
-/// AABB‚ğ‰ñ“]‚µ‚Ä‚È‚¢OBB‚Æ‚µ‚Äl‚¦‚é
+/// AABBã¨OBBã®å½“ãŸã‚Šåˆ¤å®š
+/// AABBã‚’å›è»¢ã—ã¦ãªã„OBBã¨ã—ã¦è€ƒãˆã‚‹
 /// </summary>
 /// <param name="aabb"></param>
 /// <param name="obb"></param>
-/// <param name="OutVector">‰Ÿ‚µ–ß‚µ‚ÌƒxƒNƒgƒ‹</param>
-/// <returns>ture:ÚG</returns>
+/// <param name="OutVector">æŠ¼ã—æˆ»ã—ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
+/// <returns>ture:æ¥è§¦</returns>
 bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const OBBCollider* obb, Math::Vector3& OutVector)
 {
     if (aabb == nullptr || obb == nullptr) return false;
 
     OutVector = Math::Vector3::Zero;
 
-    //   AABB‚Ìî•ñ
+    //   AABBã®æƒ…å ±
     const Math::Vector3 aabbCenter = aabb->GetCenter();
     const Math::Vector3 aabbHalf = aabb->GetVolume() * 0.5f;
     const Math::Vector3 aabbAxis[3] = {
@@ -254,7 +254,7 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
         {0.0f,0.0f,1.0f}
     };
 
-    // OBB‚Ìî•ñ
+    // OBBã®æƒ…å ±
     const Math::Vector3 obbCenter = obb->GetCenter();
     const Math::Vector3 obbHalf = obb->GetVolume() * 0.5f;
     const Math::Matrix rot = obb->GetRotation().ToMatrix();
@@ -264,12 +264,12 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
         Math::Vector3::Normalize(rot.GetForwardVector())
     };
 
-    //  ’†S·•ª
+    //  ä¸­å¿ƒå·®åˆ†
     const Math::Vector3 diff = obbCenter - aabbCenter;
     float minPenetration = FLT_MAX;
     Math::Vector3 bestAxis;
 
-    //  Ë‰e”¼ŒaŒvZƒ‰ƒ€ƒ_
+    //  å°„å½±åŠå¾„è¨ˆç®—ãƒ©ãƒ ãƒ€
     auto ProjectAABB = [&](const Math::Vector3& axis)
         {
             return
@@ -285,16 +285,16 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
                 obbHalf.z * fabsf(Math::Vector3::Dot(axis, obbAxis[2]));
         };
 
-    // SAT1²”»’è
+    // SAT1è»¸åˆ¤å®š
     auto TestAxis = [&](const Math::Vector3& axis)
         {
             const float lenSq = axis.SqrLength();
             if (lenSq < 1e-6f) return true;
 
-            // 1. ‚±‚±‚ÅŠmÀ‚É³‹K‰»‚·‚é
+            // 1. ã“ã“ã§ç¢ºå®Ÿã«æ­£è¦åŒ–ã™ã‚‹
             const Math::Vector3 n = axis / sqrtf(lenSq);
 
-            // 2. ProjectŠÖ”‚ğg‚í‚¸A‚»‚Ìê‚ÅŒvZ‚µ‚Äunv‚ğ’¼Úg‚¤
+            // 2. Projecté–¢æ•°ã‚’ä½¿ã‚ãšã€ãã®å ´ã§è¨ˆç®—ã—ã¦ã€Œnã€ã‚’ç›´æ¥ä½¿ã†
             const float ra = aabbHalf.x * fabsf(n.x) +
                 aabbHalf.y * fabsf(n.y) +
                 aabbHalf.z * fabsf(n.z);
@@ -307,8 +307,8 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
 
             const float penetration = ra + rb - dist;
 
-            // 3. ”»’è (•‚“®¬”“_Œë·‚ğl—¶‚µ‚Ä 0 ‚Å‚Í‚È‚­¬‚³‚Èƒ}ƒCƒiƒX‚Æ”äŠr)
-            if (penetration <= 0.0001f) // —£‚ê‚Ä‚¢‚é²‚ªŒ©‚Â‚©‚Á‚½I
+            // 3. åˆ¤å®š (æµ®å‹•å°æ•°ç‚¹èª¤å·®ã‚’è€ƒæ…®ã—ã¦ 0 ã§ã¯ãªãå°ã•ãªãƒã‚¤ãƒŠã‚¹ã¨æ¯”è¼ƒ)
+            if (penetration <= 0.0001f) // é›¢ã‚Œã¦ã„ã‚‹è»¸ãŒè¦‹ã¤ã‹ã£ãŸï¼
                 return false;
 
             if (penetration < minPenetration)
@@ -319,21 +319,21 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
             return true;
         };
 
-    // AABB‚Ì3²
+    // AABBã®3è»¸
     for (int i = 0; i < 3; ++i)
     {
         if (!TestAxis(aabbAxis[i]))
             return false;
     }
 
-    // OBB‚Ì3²
+    // OBBã®3è»¸
     for (int i = 0; i < 3; ++i)
     {
         if (!TestAxis(obbAxis[i]))
             return false;
     }
 
-    //   ŠOÏ9²
+    //   å¤–ç©9è»¸
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
@@ -346,7 +346,7 @@ bool Engine::System::Collision::ComputeCollision(const AABBCollider* aabb, const
         }
     }
 
-    //  ‰Ÿ‚µ–ß‚µ•ûŒü’²®
+    //  æŠ¼ã—æˆ»ã—æ–¹å‘èª¿æ•´
     if (Math::Vector3::Dot(diff, bestAxis) < 0.0f)
         bestAxis = -bestAxis;
 

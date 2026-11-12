@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ImGuiManager.hpp"
 
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -10,15 +10,15 @@
 #include<Plugin/ImGui/imgui_impl_win32.h>
 
 /// <summary>
-/// ImGui‚Ì‰Šú‰»
+/// ImGuiã®åˆæœŸåŒ–
 /// </summary>
-/// <param name="WindowHandle">ƒEƒBƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹</param>
-/// <param name="DirectX">DirectXƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <param name="GDHManager">ƒq[ƒvŠÇ—‚Ìƒ|ƒCƒ“ƒ^</param>
-/// <returns>true:¬Œ÷</returns>
+/// <param name="WindowHandle">ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«</param>
+/// <param name="DirectX">DirectXã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <param name="GDHManager">ãƒ’ãƒ¼ãƒ—ç®¡ç†ã®ãƒã‚¤ãƒ³ã‚¿</param>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Debug::ImGuiManager::Initialize(const HWND WindowHandle,Graphics::DirectX * DirectX, Graphics::GraphicsDescriptorHeapManager* GDHManager)
 {
-    //  ƒRƒ“ƒeƒLƒXƒg‚Ìì¬
+    //  ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®ä½œæˆ
     mContext = ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
@@ -26,7 +26,7 @@ bool Engine::Debug::ImGuiManager::Initialize(const HWND WindowHandle,Graphics::D
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-    //  ‰Šú‰»
+    //  åˆæœŸåŒ–
     ImGui::SetCurrentContext(mContext);
     ImGui_ImplWin32_Init(WindowHandle);
 
@@ -47,7 +47,7 @@ bool Engine::Debug::ImGuiManager::Initialize(const HWND WindowHandle,Graphics::D
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‰ğ•ú
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹è§£æ”¾
 /// </summary>
 void Engine::Debug::ImGuiManager::OnDestory()
 {
@@ -58,7 +58,7 @@ void Engine::Debug::ImGuiManager::OnDestory()
 }
 
 /// <summary>
-/// V‹KƒtƒŒ[ƒ€‚ÌŠJn
+/// æ–°è¦ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹
 /// </summary>
 void Engine::Debug::ImGuiManager::NewFrame()
 {
@@ -68,7 +68,7 @@ void Engine::Debug::ImGuiManager::NewFrame()
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€‚ÌI—¹
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµ‚äº†
 /// </summary>
 void Engine::Debug::ImGuiManager::EndFrame(Graphics::DirectX* DirectX, Graphics::GraphicsDescriptorHeapManager* GDHManager)
 {

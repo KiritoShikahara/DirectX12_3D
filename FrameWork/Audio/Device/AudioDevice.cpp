@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #define MINIAUDIO_IMPLEMENTATION
 #include<Plugin/miniaudio/miniaudio.h>
 
@@ -9,7 +9,7 @@
 #include"Utility/PtrUtils.hpp"
 
 /// <summary>
-/// ƒŠƒ\[ƒX‰ğ•ú
+/// ãƒªã‚½ãƒ¼ã‚¹è§£æ”¾
 /// </summary>
 void Engine::Audio::AudioDevice::OnDestory()
 {
@@ -17,9 +17,9 @@ void Engine::Audio::AudioDevice::OnDestory()
 }
 
 /// <summary>
-/// ƒfƒoƒCƒX‚Ì¶¬
+/// ãƒ‡ãƒã‚¤ã‚¹ã®ç”Ÿæˆ
 /// </summary>
-/// <returns>true:¬Œ÷</returns>
+/// <returns>true:æˆåŠŸ</returns>
 bool Engine::Audio::AudioDevice::Initialize(AudioManager* Manager, uint32_t SampleRate, uint16_t Channels)
 {
 
