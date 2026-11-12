@@ -86,6 +86,13 @@ namespace Engine::Input
 		Math::Vector2 GetLookAxis();
 
 		/// <summary>
+		/// 最後に操作された入力機器(操作表記の切り替え用)
+		/// </summary>
+		enum class eInputDevice { KeyboardMouse, Gamepad };
+		eInputDevice GetLastDevice()const { return mLastDevice; }
+		bool IsUsingGamepad()const { return mLastDevice == eInputDevice::Gamepad; }
+
+		/// <summary>
 		/// アクション名の要録
 		/// </summary>
 		/// <param name="ActionName">アクション名</param>
@@ -115,6 +122,8 @@ namespace Engine::Input
 
 
 	private:
+		void DetectLastDevice();
+		eInputDevice mLastDevice = eInputDevice::KeyboardMouse;
 		/// <summary>
 		/// アクション毎の入力
 		/// </summary>

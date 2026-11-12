@@ -10,6 +10,65 @@
 
 #include"Math/Math.h"
 #include"Graphics/PostProcess/SceneRenderer.hpp"
+#include<cmath>
+
+namespace
+{
+	/// <summary>
+	/// ボーンの姿勢行列を補間する。
+	/// 行列をそのまま線形補間すると回転部分が縮んでモデルが細く見えるため、
+	/// 平行移動・回転・スケールに分けて回転は Slerp で補間する
+	/// </summary>
+	Math::Matrix BlendBoneMatrix(const Math::Matrix& A, const Math::Matrix& B, float T)
+	{
+		if (T <= 0.0f) return A;
+		if (T >= 1.0f) return B;
+
+		auto decompose = [](const Math::Matrix& M, Math::Vector3& Scale, Math::Matrix& Rot)
+			{
+				Rot = M;
+				for (int r = 0; r < 3; r++)
+				{
+					const float len = std::sqrt(M.Mat[r][0] * M.Mat[r][0] + M.Mat[r][1] * M.Mat[r][1] + M.Mat[r][2] * M.Mat[r][2]);
+					(&Scale.x)[r] = len;
+					const float inv = len > 1e-6f ? 1.0f / len : 0.0f;
+					for (int c = 0; c < 3; c++) Rot.Mat[r][c] = M.Mat[r][c] * inv;
+					Rot.Mat[r][3] = 0.0f;
+				}
+				//	鏡像(行列式が負)なら1軸を反転して純粋な回転にする
+				const float det =
+					Rot.Mat[0][0] * (Rot.Mat[1][1] * Rot.Mat[2][2] - Rot.Mat[1][2] * Rot.Mat[2][1]) -
+					Rot.Mat[0][1] * (Rot.Mat[1][0] * Rot.Mat[2][2] - Rot.Mat[1][2] * Rot.Mat[2][0]) +
+					Rot.Mat[0][2] * (Rot.Mat[1][0] * Rot.Mat[2][1] - Rot.Mat[1][1] * Rot.Mat[2][0]);
+				if (det < 0.0f)
+				{
+					Scale.x = -Scale.x;
+					for (int c = 0; c < 3; c++) Rot.Mat[0][c] = -Rot.Mat[0][c];
+				}
+				Rot.Mat[3][0] = Rot.Mat[3][1] = Rot.Mat[3][2] = 0.0f;
+				Rot.Mat[3][3] = 1.0f;
+			};
+
+		Math::Vector3 scaleA, scaleB;
+		Math::Matrix rotA, rotB;
+		decompose(A, scaleA, rotA);
+		decompose(B, scaleB, rotB);
+
+		const Math::Quaternion q = Math::Quaternion::Slerp(Math::Quaternion::FromMatrix(rotA), Math::Quaternion::FromMatrix(rotB), T);
+		Math::Matrix result = q.ToMatrix();
+		const Math::Vector3 scale = Math::Vector3::Lerp(scaleA, scaleB, T);
+		for (int r = 0; r < 3; r++)
+		{
+			for (int c = 0; c < 3; c++) result.Mat[r][c] *= (&scale.x)[r];
+		}
+		for (int c = 0; c < 3; c++)
+		{
+			result.Mat[3][c] = A.Mat[3][c] + (B.Mat[3][c] - A.Mat[3][c]) * T;
+		}
+		result.Mat[3][3] = 1.0f;
+		return result;
+	}
+}
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapManager.hpp"
 
 /// <summary>
@@ -218,7 +277,7 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 	for (int i = 0; i < numBones; ++i)
 	{
 		// 今のアニメーションの姿勢
-		Math::Matrix localNow = Math::Matrix::Lerp(anim.KeyFrame[i][f0], anim.KeyFrame[i][f1], t);
+		Math::Matrix localNow = BlendBoneMatrix(anim.KeyFrame[i][f0], anim.KeyFrame[i][f1], t);
 		Math::Matrix finalLocal = localNow;
 
 		// 補間中なら前のアニメーションの姿勢を計算して混ぜる
@@ -231,10 +290,10 @@ void Engine::Graphics::FbxMesh::Animate(const std::string& AnimationName, const 
 			int pf1 = Math::Clamp(pf0 + 1, 0, prevAnim.NumFrame - 1);
 			float pt = pFramePos - (float)pf0;
 
-			Math::Matrix localPrev = Math::Matrix::Lerp(prevAnim.KeyFrame[i][pf0], prevAnim.KeyFrame[i][pf1], pt);
+			Math::Matrix localPrev = BlendBoneMatrix(prevAnim.KeyFrame[i][pf0], prevAnim.KeyFrame[i][pf1], pt);
 
-			// 前の姿勢と今の姿勢を線形補間
-			finalLocal = Math::Matrix::Lerp(localPrev, localNow, blendAlpha);
+			// 前の姿勢と今の姿勢を補間(回転は球面線形補間)
+			finalLocal = BlendBoneMatrix(localPrev, localNow, blendAlpha);
 		}
 
 		// 親子階層結合

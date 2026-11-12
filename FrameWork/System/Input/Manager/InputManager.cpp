@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "Engine/LaunchOptions.hpp"
 #include "InputManager.hpp"
 
 /// <summary>
@@ -38,9 +39,50 @@ bool Engine::Input::InputManager::Initialize()
 /// </summary>
 void Engine::Input::InputManager::Update()
 {
+	DetectLastDevice();
 	mPadManager->Update();
 	mMouse->Update();
 	mKeyboard->Update();
+}
+
+/// <summary>
+/// このフレームに触られた機器を「最後に使った機器」にする
+/// </summary>
+void Engine::Input::InputManager::DetectLastDevice()
+{
+	if (Core::LaunchOptions::Get().ForceGamepad)
+	{
+		mLastDevice = eInputDevice::Gamepad;
+		return;
+	}
+	constexpr float StickThreshold = 0.35f;
+	constexpr float MouseMoveThreshold = 4.0f;
+
+	bool pad = mPadManager->GetLeftStick2D().Length() > StickThreshold ||
+		mPadManager->GetRightStick2D().Length() > StickThreshold;
+	for (int b = 0; b < static_cast<int>(ePadButton::Count) && pad == false; b++)
+	{
+		pad = mPadManager->IsPressed(static_cast<ePadButton>(b));
+	}
+	if (pad)
+	{
+		mLastDevice = eInputDevice::Gamepad;
+		return;
+	}
+
+	bool keyboardMouse = mMouse->GetDeltaPosition().Length() > MouseMoveThreshold;
+	for (int k = 0; k < static_cast<int>(eKeyCode::Count) && keyboardMouse == false; k++)
+	{
+		keyboardMouse = mKeyboard->IsPressed(static_cast<eKeyCode>(k));
+	}
+	for (int m = 0; m < static_cast<int>(eMouseButton::Count) && keyboardMouse == false; m++)
+	{
+		keyboardMouse = mMouse->IsPressed(static_cast<eMouseButton>(m));
+	}
+	if (keyboardMouse)
+	{
+		mLastDevice = eInputDevice::KeyboardMouse;
+	}
 }
 
 /// <summary>

@@ -31,7 +31,7 @@ namespace Engine::Scene
 		{
 			const char* Title;
 			const char* Body;
-			const char* KeyHint;
+			std::function<std::string()> KeyHint;	//	入力機器に合わせて毎フレーム作る
 			int Goal;
 			std::function<void()> OnEnter;
 		};

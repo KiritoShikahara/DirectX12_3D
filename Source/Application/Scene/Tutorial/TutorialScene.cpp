@@ -30,6 +30,7 @@
 #include"Application/Combat/GameFeel.hpp"
 #include"Application/Objects/CreateObjects.hpp"
 #include"Application/Scene/StageSelect/StageSelectScene.hpp"
+#include"Application/UI/InputGlyphs.hpp"
 
 namespace
 {
@@ -103,18 +104,21 @@ namespace Engine::Scene
 				}
 			};
 
+		using UI::eAction;
+		using UI::KeyLabel;
+		using UI::KeyLabels;
 		mSteps = {
-			{ "移動", "まずは歩いてみよう。カメラの向きが前になる。", "WASD / 左スティック", 2,
+			{ "移動", "まずは歩いてみよう。カメラの向きが前になる。", []() { return std::string(KeyLabel(eAction::Move)); }, 2,
 				[setPassive]() { setPassive(true); } },
-			{ "カメラ", "見回して周りを確認しよう。", "マウス / 右スティック", 1, nullptr },
-			{ "攻撃", "木人に近づいて斬りつけよう。連続で押すとコンボになる。", "左クリック / R2", 3, nullptr },
-			{ "回避", "回避中は攻撃を受けない。スタミナを使うので連発に注意。", "Shift / A", 2, nullptr },
-			{ "ガード", "木人が攻撃してくる。防御ボタン長押しで受け止めよう。", "右クリック長押し / L2", 1,
+			{ "カメラ", "見回して周りを確認しよう。", []() { return std::string(KeyLabel(eAction::Camera)); }, 1, nullptr },
+			{ "攻撃", "木人に近づいて斬りつけよう。連続で押すとコンボになる。", []() { return std::string(KeyLabel(eAction::Attack)); }, 3, nullptr },
+			{ "回避", "回避中は攻撃を受けない。スタミナを使うので連発に注意。", []() { return std::string(KeyLabel(eAction::Dodge)); }, 2, nullptr },
+			{ "ガード", "木人が攻撃してくる。防御ボタン長押しで受け止めよう。", []() { return std::string(KeyLabel(eAction::Guard)); }, 1,
 				[setPassive]() { setPassive(false); } },
-			{ "パリィ", "武器が光り「!」が出たら、当たる直前に防御ボタンを押す。", "右クリック / L2（タイミングよく）", 2, nullptr },
-			{ "体幹崩し", "パリィと攻撃で体幹ゲージを満タンにすると、敵が崩れる。", "パリィ + 攻撃", 1, nullptr },
-			{ "スキル", "Q と E のスキルを1回ずつ使おう。", "Q / E（L1 / R1）", 2, nullptr },
-			{ "卒業試験", "木人を倒そう。崩れている間は大ダメージ！", "全ての技を使って", 1,
+			{ "パリィ", "武器が光り「!」が出たら、当たる直前に防御ボタンを押す。", []() { return std::string(KeyLabel(eAction::Parry)) + "（タイミングよく）"; }, 2, nullptr },
+			{ "体幹崩し", "パリィと攻撃で体幹ゲージを満タンにすると、敵が崩れる。", []() { return KeyLabels({ eAction::Parry, eAction::Attack }); }, 1, nullptr },
+			{ "スキル", "2つのスキルを1回ずつ使おう。", []() { return KeyLabels({ eAction::Skill1, eAction::Skill2 }); }, 2, nullptr },
+			{ "卒業試験", "木人を倒そう。崩れている間は大ダメージ！", []() { return std::string("全ての技を使って"); }, 1,
 				[&reg, dummy]()
 				{
 					if (reg.valid(dummy) && reg.all_of<System::DummyInvulnerableTag>(dummy))
@@ -142,7 +146,7 @@ namespace Engine::Scene
 		}
 		mObjective.Title = step.Title;
 		mObjective.Body = step.Body;
-		mObjective.KeyHint = step.KeyHint;
+		mObjective.KeyHint = step.KeyHint ? step.KeyHint() : std::string();
 		mObjective.Step = Index + 1;
 		mObjective.StepCount = static_cast<int>(mSteps.size());
 		mObjective.Progress = 0;
@@ -235,6 +239,11 @@ namespace Engine::Scene
 
 		mStepTime += dt;
 		mProgress = CountProgress(dt);
+		//	入力機器を持ち替えたらすぐ表記を変える
+		if (mSteps[mCurrent].KeyHint)
+		{
+			mObjective.KeyHint = mSteps[mCurrent].KeyHint();
+		}
 		const bool autoAdvance = Core::LaunchOptions::Get().AutoPlay && mStepTime > AutoPlayStepTimeout;
 		mObjective.Progress = mProgress;
 

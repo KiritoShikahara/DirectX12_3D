@@ -9,6 +9,7 @@
 #include"System/Conponent/Transform/TransformConponent.hpp"
 #include"System/Camera/Camera.hpp"
 #include"Application/Components/CameraWork/CameraControl.hpp"
+#include"Application/UI/InputGlyphs.hpp"
 
 #include<algorithm>
 #include<cmath>
@@ -18,6 +19,9 @@ namespace
 {
 	using namespace Engine;
 	using namespace Engine::System;
+	using Engine::UI::eAction;
+	using Engine::UI::KeyLabel;
+	using Engine::UI::KeyLabels;
 	using Combat::CombatEventType;
 
 	struct FloatingText
@@ -532,7 +536,7 @@ namespace Engine::UI
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
 		const float box = 78 * s;
-		const char* keys[2] = { "Q", "E" };
+		const char* keys[2] = { KeyLabel(eAction::Skill1), KeyLabel(eAction::Skill2) };
 		const ImU32 tint[2] = { Col(0.45f, 1.0f, 0.75f), Col(1.0f, 0.55f, 0.25f) };
 
 		for (int i = 0; i < 2; i++)
@@ -577,14 +581,15 @@ namespace Engine::UI
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
-		struct Row { const char* Key; const char* Action; };
-		static const Row rows[] = {
-			{ "左クリック / R2", "攻撃" },
-			{ "右クリック / L2", "パリィ(長押しでガード)" },
-			{ "Shift / A", "回避" },
-			{ "Q E / L1 R1", "スキル" },
-			{ "Tab / R3", "ロックオン" },
-			{ "WASD / 左スティック", "移動" },
+		//	最後に使った入力機器(キーマウ/パッド)の表記に切り替える
+		struct Row { std::string Key; const char* Action; };
+		const Row rows[] = {
+			{ KeyLabel(eAction::Attack), "攻撃" },
+			{ KeyLabel(eAction::Parry), "パリィ(長押しでガード)" },
+			{ KeyLabel(eAction::Dodge), "回避" },
+			{ KeyLabels({ eAction::Skill1, eAction::Skill2 }), "スキル" },
+			{ KeyLabel(eAction::LockOn), "ロックオン" },
+			{ KeyLabel(eAction::Move), "移動" },
 		};
 		constexpr int RowCount = static_cast<int>(sizeof(rows) / sizeof(rows[0]));
 		const float lineH = 26 * s;
@@ -594,7 +599,7 @@ namespace Engine::UI
 		for (int i = 0; i < RowCount; i++)
 		{
 			const ImVec2 p = ImVec2(origin.x, origin.y + lineH * i);
-			Text(dl, p, 18 * s, Col(0.75f, 0.85f, 1.0f, 0.95f), rows[i].Key);
+			Text(dl, p, 18 * s, Col(0.75f, 0.85f, 1.0f, 0.95f), rows[i].Key.c_str());
 			Text(dl, ImVec2(origin.x + w - 14 * s, p.y), 18 * s, Col(1, 1, 1, 0.9f), rows[i].Action, 1.0f);
 		}
 	}

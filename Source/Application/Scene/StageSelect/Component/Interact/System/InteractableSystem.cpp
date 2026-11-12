@@ -12,6 +12,7 @@
 #include "Application/Scene/InGame/InGameScene.hpp"
 #include "Application/Scene/Tutorial/TutorialScene.hpp"
 #include "Application/UI/Hud.hpp"
+#include "Application/UI/InputGlyphs.hpp"
 
 #include "System/Conponent/Vfx/VfxMeshComponent.hpp"
 
@@ -50,7 +51,7 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 			if (interract.Label.empty() == false)
 			{
 				UI::Hud::AddWorldLabel(trans.Position + Math::Vector3(0.0f, 12.0f, 0.0f),
-					inRange ? "[F] " + interract.Label : interract.Label, inRange);
+					inRange ? "[" + std::string(UI::KeyLabel(UI::eAction::Interact)) + "] " + interract.Label : interract.Label, inRange);
 			}
 			//	範囲内なら表示をする。事前に読み込む
 			if (sqrtDistance <= interract.InteractRange * interract.InteractRange)

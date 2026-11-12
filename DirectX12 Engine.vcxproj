@@ -164,6 +164,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Application\UI\InputGlyphs.hpp" />
     <ClInclude Include="Source\Application\Scene\Tutorial\TutorialScene.hpp" />
     <ClInclude Include="Source\Application\UI\Hud.hpp" />
     <ClInclude Include="FrameWork\Graphics\Particles\ParticleSystem.hpp" />
