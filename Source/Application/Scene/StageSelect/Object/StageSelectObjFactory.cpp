@@ -281,9 +281,10 @@ void Engine::System::StageSelectObjFactory::CreateTutorialGate()
 
 	auto dummy = manager->CreateEntity();
 	auto& transform = registry.emplace<Transform3D>(dummy);
-	transform.Position = { 34.0f, 0.0f, 4.0f };
+	//	初期カメラで見える手前右に置き、プレイヤーの方を向かせる
+	transform.Position = { 9.0f, 0.0f, 11.0f };
 	transform.Scale = { Scale, Scale, Scale };
-	transform.Rotation = Math::Quaternion::AngleAxis(3.14159265f * 1.35f, Math::Vector3::Forward);
+	transform.Rotation = Math::Quaternion::AngleAxis(atan2f(-transform.Position.x, -transform.Position.z), Math::Vector3::Forward);
 
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
 	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
