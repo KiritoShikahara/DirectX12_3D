@@ -70,7 +70,7 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 	{
 		hr = DXTex::LoadFromWICFile(
 			path.c_str(),
-			DXTex::WIC_FLAGS_NONE,
+			DXTex::WIC_FLAGS_FORCE_RGB | DXTex::WIC_FLAGS_IGNORE_SRGB,	//	グレースケールもRGBAで読む(1chだと赤だけになる)
 			&texMetaData,
 			scratchImage);
 	}
@@ -78,6 +78,19 @@ bool Engine::Graphics::Texture::Create(const std::filesystem::path& FilePath)
 	{
 		LOG_ERROR("Failed Load Texture");
 		return false;
+	}
+
+	//	ミップマップが無い非圧縮テクスチャは生成する(遠景のチラつき防止・IBLのぼかし用)
+	if (texMetaData.mipLevels == 1 && DXTex::IsCompressed(texMetaData.format) == false &&
+		texMetaData.width > 1 && texMetaData.height > 1)
+	{
+		DXTex::ScratchImage mipChain;
+		if (SUCCEEDED(DXTex::GenerateMipMaps(scratchImage.GetImages(), scratchImage.GetImageCount(),
+			scratchImage.GetMetadata(), DXTex::TEX_FILTER_DEFAULT, 0, mipChain)))
+		{
+			scratchImage = std::move(mipChain);
+			texMetaData = scratchImage.GetMetadata();
+		}
 	}
 
 	const DXTex::Image* image = scratchImage.GetImage(0, 0, 0);

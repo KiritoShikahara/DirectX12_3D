@@ -26,6 +26,7 @@
 
 #include"Graphics/Effect/Manager/EffectManager.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
+#include"Graphics/PostProcess/SceneRenderer.hpp"
 #include"Engine/LaunchOptions.hpp"
 
 #include"System/CSV/CSVManager.hpp"
@@ -290,10 +291,24 @@ void Engine::App::Application::PostUpdate(double dt)
 /// </summary>
 void Engine::App::Application::Render()
 {
-    mScene->Render();
-    mSystems->Render(mEntitys->GetRegistry());
+    auto& registry = mEntitys->GetRegistry();
+    auto sceneRenderer = Graphics::SceneRenderer::GetInstance();
 
+    //  影
+    sceneRenderer->BeginShadowPass();
+    mSystems->RenderShadow(registry);
+
+    //  HDRシーン
+    sceneRenderer->BeginScenePass();
+    mScene->Render();
+    mSystems->Render3D(registry);
     mEffect->Draw();
+
+    //  ポストエフェクト -> バックバッファ
+    sceneRenderer->EndScenePass();
+
+    //  UI
+    mSystems->RenderOverlay(registry);
 
     GET_INPUT_MANAGER->Update();
     mScene->FadeRender();
@@ -305,5 +320,6 @@ void Engine::App::Application::Render()
 void Engine::App::Application::ImGuiUpdate()
 {
     GET_INPUT_MANAGER->GetPadManager()->ImGuiUpdate();
+    Graphics::SceneRenderer::GetInstance()->ImGuiUpdate();
     mScene->ImGuiUpdate();
 }

@@ -5,6 +5,7 @@
 #include"Graphics/DirectX/DirectX12.hpp"
 #include"System/Camera/Camera.hpp"
 #include"Math/Quaternion/Quaternion.h"
+#include"Graphics/PostProcess/SceneRenderer.hpp"
 
 /// <summary>
 /// インスタンス生成時の処理
@@ -339,6 +340,21 @@ void Engine::Graphics::Renderer::SetFbxPipeline()
 	this->SetRootSignature(mFbxPipeline.GetRootSignature());
 	this->SetPipelineState(mFbxPipeline.GetPipelineState());
 	this->SetTopology(mFbxPipeline.GetTopology());
+	SceneRenderer::GetInstance()->BindFbxSceneResources();
+}
+
+void Engine::Graphics::Renderer::ApplyPipeline(ID3D12RootSignature* RootSignature, ID3D12PipelineState* PipelineState, D3D_PRIMITIVE_TOPOLOGY Topology)
+{
+	this->SetRootSignature(RootSignature);
+	this->SetPipelineState(PipelineState);
+	this->SetTopology(Topology);
+}
+
+void Engine::Graphics::Renderer::InvalidatePipelineCache()
+{
+	mCurrentPipeline.RootSignature = nullptr;
+	mCurrentPipeline.PipelineState = nullptr;
+	mCurrentPipeline.Topology = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 }
 
 /// <summary>

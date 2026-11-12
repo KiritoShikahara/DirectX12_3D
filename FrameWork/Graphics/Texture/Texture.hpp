@@ -42,6 +42,7 @@ namespace Engine::Graphics
 		/// テクスチャの幅
 		/// </summary>
 		/// <returns></returns>
+		ID3D12Resource* GetResource()const { return mResource.Get(); }
 		float GetWidth()const;
 		/// <summary>
 		/// テクスチャの高さ

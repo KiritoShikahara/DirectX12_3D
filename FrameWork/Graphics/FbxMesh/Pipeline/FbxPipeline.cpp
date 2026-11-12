@@ -44,8 +44,8 @@ namespace Engine::Graphics
 	/// <returns>true:成功</returns>
 	bool FbxPipeline::CreateRootSignature()
 	{
-		// パラメーターは2つ（0: 行列用CBV, 1: テクスチャ用Table）
-		std::array<D3D12_ROOT_PARAMETER, 2> RootParam = {};
+		// 0: モデルCBV(b0) 1: アルベド(t0) 2: シーンCBV(b1) 3: シャドウマップ(t1) 4: 環境マップ(t2)
+		std::array<D3D12_ROOT_PARAMETER, 6> RootParam = {};
 
 		// --- 0番目: 定数バッファ (CBV) ---
 		// DescriptorTable ではなく、直接 CBV として定義する
@@ -66,18 +66,46 @@ namespace Engine::Graphics
 		RootParam[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		RootParam[1].DescriptorTable.pDescriptorRanges = &Range[0];
 		RootParam[1].DescriptorTable.NumDescriptorRanges = 1;
-		RootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;		//	サンプラー設定
-		
-		
-		D3D12_STATIC_SAMPLER_DESC SamplerDesc = {};
-		SamplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		RootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+
+		RootParam[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
+		RootParam[2].Descriptor.ShaderRegister = 1;
+		RootParam[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+		std::array<D3D12_DESCRIPTOR_RANGE, 2> SceneRange = {};
+		for (UINT i = 0; i < 2; i++)
+		{
+			SceneRange[i].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+			SceneRange[i].NumDescriptors = 1;
+			SceneRange[i].BaseShaderRegister = 1 + i;	//	t1, t2
+			SceneRange[i].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+			RootParam[3 + i].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+			RootParam[3 + i].DescriptorTable.pDescriptorRanges = &SceneRange[i];
+			RootParam[3 + i].DescriptorTable.NumDescriptorRanges = 1;
+			RootParam[3 + i].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+		}
+
+		// 5: 法線マップ(t3) + ARM(t4)
+		D3D12_DESCRIPTOR_RANGE SurfaceRange = {};
+		SurfaceRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+		SurfaceRange.NumDescriptors = 2;
+		SurfaceRange.BaseShaderRegister = 3;
+		SurfaceRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+		RootParam[5].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+		RootParam[5].DescriptorTable.pDescriptorRanges = &SurfaceRange;
+		RootParam[5].DescriptorTable.NumDescriptorRanges = 1;
+		RootParam[5].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+
+		std::array<D3D12_STATIC_SAMPLER_DESC, 3> Samplers = {};
+		D3D12_STATIC_SAMPLER_DESC& SamplerDesc = Samplers[0];
+		SamplerDesc.Filter = D3D12_FILTER_ANISOTROPIC;
 		SamplerDesc.MinLOD = 0.0f;
 		SamplerDesc.MaxLOD = 0.0f;
 		SamplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		SamplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		SamplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		SamplerDesc.MipLODBias = 0.0f;
-		SamplerDesc.MaxAnisotropy = 1; // 16だと重い場合があるので一旦1で
+		SamplerDesc.MaxAnisotropy = 8;
 		SamplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER; // ★必ず NEVER に！
 		SamplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK;
 		SamplerDesc.MinLOD = 0.0f;
@@ -86,12 +114,27 @@ namespace Engine::Graphics
 		SamplerDesc.RegisterSpace = 0;
 		SamplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 
+		//	s1: 影の比較サンプラー(範囲外は日向)
+		Samplers[1] = SamplerDesc;
+		Samplers[1].Filter = D3D12_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+		Samplers[1].AddressU = Samplers[1].AddressV = Samplers[1].AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+		Samplers[1].BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE;
+		Samplers[1].ComparisonFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
+		Samplers[1].MaxAnisotropy = 1;
+		Samplers[1].ShaderRegister = 1;
+
+		//	s2: 環境マップ用
+		Samplers[2] = SamplerDesc;
+		Samplers[2].Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		Samplers[2].AddressU = Samplers[2].AddressV = Samplers[2].AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		Samplers[2].MaxAnisotropy = 1;
+		Samplers[2].ShaderRegister = 2;
 
 		D3D12_ROOT_SIGNATURE_DESC RootSignatureDesc = {};
 		RootSignatureDesc.pParameters = RootParam.data();
 		RootSignatureDesc.NumParameters = static_cast<UINT>(RootParam.size());
-		RootSignatureDesc.pStaticSamplers = &SamplerDesc;
-		RootSignatureDesc.NumStaticSamplers = 1;
+		RootSignatureDesc.pStaticSamplers = Samplers.data();
+		RootSignatureDesc.NumStaticSamplers = static_cast<UINT>(Samplers.size());
 		RootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 
 		mw::BlobPtr RootSignatureBlob = nullptr;
@@ -198,7 +241,7 @@ namespace Engine::Graphics
 		PipelineStateDesc.NumRenderTargets = 1;
 		for (UINT i = 0; i < PipelineStateDesc.NumRenderTargets; i++)
 		{
-			PipelineStateDesc.RTVFormats[i] = DXGI_FORMAT_R8G8B8A8_UNORM;
+			PipelineStateDesc.RTVFormats[i] = DirectX::GetSceneFormat();
 		}
 
 		PipelineStateDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;

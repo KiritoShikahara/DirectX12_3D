@@ -98,6 +98,27 @@ namespace Engine::System
 	/// </summary>
 	/// <param name="Reg"></param>
 	/// <param name="Alpha"></param>
+	void SystemManager::RenderShadow(entt::registry& Reg)
+	{
+		System::FbxRenderSystem::RenderShadow(Reg);
+	}
+
+	void SystemManager::Render3D(entt::registry& Reg)
+	{
+		System::FbxRenderSystem::Render(Reg);
+		System::VfxRenderSystem::Render(Reg);
+	}
+
+	void SystemManager::RenderOverlay(entt::registry& Reg)
+	{
+		System::ColliderSystem::Debug(Reg);
+		for (const auto& System : mSystems)
+		{
+			System->Render(Reg);
+		}
+		System::SpriteRenderSystem::Render(Reg);
+	}
+
 	void SystemManager::Render(entt::registry& Reg)
 	{
 		//	FBXの描画

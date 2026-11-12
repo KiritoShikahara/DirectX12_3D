@@ -49,6 +49,21 @@ namespace Engine::System
 		void Render(entt::registry& Reg);
 
 		/// <summary>
+		/// 影を落とすオブジェクトの描画
+		/// </summary>
+		void RenderShadow(entt::registry& Reg);
+
+		/// <summary>
+		/// HDRシーンに描く3D物(モデル・VFX)
+		/// </summary>
+		void Render3D(entt::registry& Reg);
+
+		/// <summary>
+		/// ポストエフェクト後に描く物(UI・デバッグ線)
+		/// </summary>
+		void RenderOverlay(entt::registry& Reg);
+
+		/// <summary>
 		/// システムの追加
 		/// </summary>
 		/// <param name="System">システムのポインタ</param>

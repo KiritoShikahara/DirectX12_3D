@@ -15,7 +15,7 @@ bool Engine::Graphics::EffectManager::Initialize()
     if (directX == nullptr) return false;
 
     //  レンダラー作成
-    DXGI_FORMAT rtFormat = directX->GetFormat();
+    DXGI_FORMAT rtFormat = DirectX::GetSceneFormat();
 
     mEfkRenderer = EffekseerRendererDX12::Create(
         directX->GetDevice(),

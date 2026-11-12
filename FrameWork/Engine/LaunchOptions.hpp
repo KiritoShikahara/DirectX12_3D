@@ -20,6 +20,8 @@ namespace Engine::Core
 		int StartScene = -1;
 		int EnemyRank = -1;
 		bool AutoPlay = false;
+		bool HasSun = false;
+		float Sun[3] = { 0, 1, 0 };
 
 		static LaunchOptions& Get()
 		{
@@ -49,6 +51,10 @@ namespace Engine::Core
 				else if (arg == L"--scene" && hasValue) { StartScene = _wtoi(argv[++i]); }
 				else if (arg == L"--enemy" && hasValue) { EnemyRank = _wtoi(argv[++i]); }
 				else if (arg == L"--autoplay") { AutoPlay = true; }
+				else if (arg == L"--sun" && hasValue)
+				{
+					HasSun = swscanf_s(argv[++i], L"%f,%f,%f", &Sun[0], &Sun[1], &Sun[2]) == 3;
+				}
 			}
 			LocalFree(argv);
 		}

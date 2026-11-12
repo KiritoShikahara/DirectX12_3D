@@ -9,6 +9,8 @@
 #include"System/Camera/Camera.hpp"
 
 #include"Math/Math.h"
+#include"Graphics/PostProcess/SceneRenderer.hpp"
+#include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapManager.hpp"
 
 /// <summary>
 /// ボーン名から配列のインデックスを検索するヘルパー
@@ -121,6 +123,11 @@ void Engine::Graphics::FbxMesh::Release()
 	mResource = nullptr;
 	mTransformBuffer.reset();
 	mCurrentAnimationName.clear();
+	auto gdh = GraphicsDescriptorHeapManager::GetInstance();
+	if (gdh != nullptr)
+	{
+		gdh->Discard(mSurfaceSrv);
+	}
 }
 
 /// <summary>
@@ -272,7 +279,83 @@ void Engine::Graphics::FbxMesh::Render()
 	Graphics::Renderer* renderer = Graphics::Renderer::GetInstance();
 	renderer->SetFbxPipeline();
 
+	UpdateConstantBuffer();
+	mTransformBuffer->Set(0);
+	SceneRenderer::GetInstance()->BindSurfaceTextures(&mSurfaceSrv);
 
+	//	マテリアル毎に描画をする
+	const auto& materials = mResource->GetMaterials();
+	auto vbv = mResource->GetVertexBufferView();
+	auto ibv = mResource->GetIndexBufferView();
+
+	for (const auto& mat : materials)
+	{
+		//	テクスチャ(SRV)をRootParam[1]にセット
+		if (mAlbedoOverride != nullptr)
+		{
+			mAlbedoOverride->Set(1);
+		}
+		else if (mat.Texture != nullptr)
+		{
+			mat.Texture->Set(1);
+		}
+
+		renderer->DrawMesh(vbv, ibv, mat.IndexCount, mat.StartIndex);
+	}
+}
+
+void Engine::Graphics::FbxMesh::SetSurface(Texture* Albedo, Texture* Normal, Texture* Arm, float WorldTiling)
+{
+	mAlbedoOverride = Albedo;
+	auto gdh = GraphicsDescriptorHeapManager::GetInstance();
+	if (mSurfaceSrv.IsValid() == false)
+	{
+		mSurfaceSrv = gdh->Issuance(2);
+	}
+	SceneRenderer::WriteTextureSrv(mSurfaceSrv, 0, Normal != nullptr ? Normal->GetResource() : nullptr);
+	SceneRenderer::WriteTextureSrv(mSurfaceSrv, 1, Arm != nullptr ? Arm->GetResource() : nullptr);
+	mSurfaceParams = { WorldTiling, Normal != nullptr ? 1.0f : 0.0f, Arm != nullptr ? 1.0f : 0.0f };
+}
+
+/// <summary>
+/// シャドウマップへの描画
+/// </summary>
+void Engine::Graphics::FbxMesh::RenderShadow()
+{
+	if (mResource == nullptr)
+	{
+		return;
+	}
+	SceneRenderer::GetInstance()->BindShadowPipeline();
+	UpdateConstantBuffer();
+	mTransformBuffer->Set(0);
+
+	Graphics::Renderer* renderer = Graphics::Renderer::GetInstance();
+	auto vbv = mResource->GetVertexBufferView();
+	auto ibv = mResource->GetIndexBufferView();
+	for (const auto& mat : mResource->GetMaterials())
+	{
+		renderer->DrawMesh(vbv, ibv, mat.IndexCount, mat.StartIndex);
+	}
+}
+
+void Engine::Graphics::FbxMesh::SetMaterial(float Roughness, float Metallic, float RimStrength)
+{
+	mMaterial[0] = Roughness;
+	mMaterial[1] = Metallic;
+	mMaterial[2] = RimStrength;
+}
+
+void Engine::Graphics::FbxMesh::SetEmissive(const Color& EmissiveColor, float Intensity)
+{
+	mEmissive = { EmissiveColor.r, EmissiveColor.g, EmissiveColor.b, Intensity };
+}
+
+/// <summary>
+/// 定数バッファの更新(影と本描画で同じ内容)
+/// </summary>
+void Engine::Graphics::FbxMesh::UpdateConstantBuffer()
+{
 	// モデルの姿勢行列を作成
 	Math::Matrix world;
 	// mPosition, mRotation, mScale を使って行列を合成
@@ -297,25 +380,11 @@ void Engine::Graphics::FbxMesh::Render()
 		mCBInfo.Bones[0] = Math::Matrix::identity;
 	}
 
+	mCBInfo.Material = mMaterial;
+	mCBInfo.Padding = mSurfaceParams;
+	mCBInfo.Emissive = mEmissive;
+
 	mTransformBuffer->Update(&mCBInfo);
-
-	mTransformBuffer->Set(0);
-
-	//	マテリアル毎に描画をする
-	auto materials = mResource->GetMaterials();
-	auto vbv = mResource->GetVertexBufferView();
-	auto ibv = mResource->GetIndexBufferView();
-
-	for (const auto& mat : materials)
-	{
-		//	テクスチャ(SRV)をRootParam[1]にセット
-		if (mat.Texture != nullptr)
-		{
-			mat.Texture->Set(1);
-		}
-
-		renderer->DrawMesh(vbv, ibv, mat.IndexCount, mat.StartIndex);
-	}
 }
 
 

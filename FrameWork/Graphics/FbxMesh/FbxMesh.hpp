@@ -4,6 +4,7 @@
 #include"Math/Quaternion/Quaternion.h"
 #include"Graphics/Color/Color.hpp"
 #include"Graphics/ConstantBuffer/ConstantBuffer.hpp"
+#include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapInfo.hpp"
 
 #include<string>
 #include<vector>
@@ -51,6 +52,23 @@ namespace Engine::Graphics
 		/// 描画
 		/// </summary>
 		void Render();
+
+		/// <summary>
+		/// シャドウマップへの描画
+		/// </summary>
+		void RenderShadow();
+
+		/// <summary>
+		/// PBRマテリアルの設定
+		/// </summary>
+		void SetMaterial(float Roughness, float Metallic, float RimStrength = 0.35f);
+		void SetEmissive(const Color& EmissiveColor, float Intensity);
+
+		/// <summary>
+		/// 地形用: テクスチャを差し替え、ワールドXZ座標でタイリングする
+		/// </summary>
+		/// <param name="WorldTiling">1mあたりのUV量</param>
+		void SetSurface(Texture* Albedo, Texture* Normal, Texture* Arm, float WorldTiling);
 		
 		//	アクセサ
 		const Math::Vector3& GetPosition()const;
@@ -132,6 +150,8 @@ namespace Engine::Graphics
 			Math::Matrix Bones[256]; // GPUスキニング用
 			int IsSkinned;	// 0:スキニングをしない 1:スキニングをする
 			std::array<float, 3> Padding;
+			std::array<float, 4> Material;	//	x: ラフネス y: メタリック z: リム w: 両面
+			Color Emissive;					//	rgb: 発光色 a: 強さ
 		};
 
 
@@ -205,6 +225,12 @@ namespace Engine::Graphics
 		///	メッシュの定数バッファ用の情報
 		/// </summary>
 		MeshConstantBufferInfo mCBInfo;
+		std::array<float, 4> mMaterial = { 0.65f, 0.0f, 0.35f, 0.0f };
+		Color mEmissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+		void UpdateConstantBuffer();
+		Texture* mAlbedoOverride = nullptr;
+		DescriptorHeapInfo mSurfaceSrv = { -1, -1 };
+		std::array<float, 3> mSurfaceParams = { 0.0f, 0.0f, 0.0f };	//	x: タイリング y: 法線 z: ARM
 
 		/// <summary>
 		/// 今のフレーム

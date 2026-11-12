@@ -128,6 +128,16 @@ namespace Engine::Graphics
 		/// VFX用のパイプライン
 		/// </summary>
 		void SetVfxPipeline();
+
+		/// <summary>
+		/// 任意のパイプラインを設定(キャッシュと整合を取る)
+		/// </summary>
+		void ApplyPipeline(ID3D12RootSignature* RootSignature, ID3D12PipelineState* PipelineState, D3D_PRIMITIVE_TOPOLOGY Topology);
+
+		/// <summary>
+		/// 直接コマンドリストを操作した後に呼ぶ
+		/// </summary>
+		void InvalidatePipelineCache();
 	private:
 		/// <summary>
 		/// 基本描画関数

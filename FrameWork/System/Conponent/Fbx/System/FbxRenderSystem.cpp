@@ -35,6 +35,18 @@ namespace Engine::System
 	/// </summary>
 	/// <param name="Reg">enttレジストリ</param>
 	/// <param name="Alpha">補間係数</param>
+	void FbxRenderSystem::RenderShadow(entt::registry& Reg)
+	{
+		auto view = Reg.view<FbxComponent>();
+		view.each([&](auto entity, auto& fbx)
+		{
+			if (fbx.CastShadow)
+			{
+				fbx.Mesh->RenderShadow();
+			}
+		});
+	}
+
 	void FbxRenderSystem::Render(entt::registry& Reg)
 	{
 		//	Fbxと座標系を持っているオブジェクトの取得

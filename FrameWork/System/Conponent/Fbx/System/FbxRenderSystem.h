@@ -19,6 +19,11 @@ namespace Engine::System
 		/// <param name="Reg">enttレジストリ</param>
 		/// <param name="Alpha">補間係数</param>
 		static void Render(entt::registry& Reg);
+
+		/// <summary>
+		/// シャドウマップへの描画
+		/// </summary>
+		static void RenderShadow(entt::registry& Reg);
 	};
 }
 

@@ -10,6 +10,8 @@
 //	graphics
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapManager.hpp"
 #include"Graphics/Renderer/Renderer.hpp"
+#include"Graphics/PostProcess/SceneRenderer.hpp"
+#include<chrono>
 #include"Graphics/Effect/Manager/EffectManager.hpp"
 
 // debug
@@ -82,6 +84,16 @@ bool Engine::Core::Engine::Initialize()
 	Graphics::Renderer::Create();
 	mRenderer = Graphics::Renderer::GetInstance();
 
+	//	シャドウ・HDR・ポストエフェクト
+	Graphics::SceneRenderer::Create();
+	ret = Graphics::SceneRenderer::GetInstance()->Initialize(
+		static_cast<UINT>(mWindow->GetWidth()),
+		static_cast<UINT>(mWindow->GetHeight()));
+	if (ret == false)
+	{
+		return false;
+	}
+
 	//	エフェクト
 	Graphics::EffectManager::Create();
 	mEffect = Graphics::EffectManager::GetInstance();
@@ -146,6 +158,7 @@ bool Engine::Core::Engine::Initialize()
 void Engine::Core::Engine::OnDestory()
 {
 	Debug::ImGuiManager::Release();
+	Graphics::SceneRenderer::Release();
 	Graphics::GraphicsDescriptorHeapManager::Release();
 	Graphics::DirectX::Release();
 	System::Window::Release();
@@ -172,6 +185,10 @@ void Engine::Core::Engine::BegineRendering()
 	mDirectX->SetViewPort(0,0, mWindow->GetWidth(), mWindow->GetHeight());
 
 	mRenderer->NewRenderingFrame();
+
+	static const auto startTime = std::chrono::steady_clock::now();
+	const double time = std::chrono::duration<double>(std::chrono::steady_clock::now() - startTime).count();
+	Graphics::SceneRenderer::GetInstance()->BeginFrame(time);
 }
 
 /// <summary>

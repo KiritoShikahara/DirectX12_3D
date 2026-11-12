@@ -165,7 +165,7 @@ namespace Engine::Graphics
         psoDesc.NumRenderTargets = 1;
         for (UINT i = 0; i < psoDesc.NumRenderTargets; i++)
         {
-            psoDesc.RTVFormats[i] = DXGI_FORMAT_R8G8B8A8_UNORM;
+            psoDesc.RTVFormats[i] = DirectX::GetSceneFormat();
         }
 
         psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;

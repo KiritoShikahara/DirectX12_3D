@@ -23,6 +23,8 @@ namespace Engine::System
 		bool IsLoop = true;
 		//	再生中かどうか
 		bool IsPlay = true;
+		//	影を落とすかどうか
+		bool CastShadow = true;
 
 
 		FbxComponent(Graphics::FbxResource* Resource, bool isUEOrigin = true)

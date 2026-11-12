@@ -535,6 +535,16 @@ void Engine::System::ObjectsFactory::CreateField()
 	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Field/Field.fbx.bin");
 	auto& fbx = registry.emplace<FbxComponent>(field, res,false);
 
+	//	月面のPBRテクスチャ(Poly Haven moon_02 / CC0)をワールド座標でタイリング
+	auto textures = Graphics::TextureManager::GetInstance();
+	fbx.Mesh->SetSurface(
+		textures->Load("Assets/Texture/Terrain/moon_02_diff_2k.jpg"),
+		textures->Load("Assets/Texture/Terrain/moon_02_nor_dx_2k.jpg"),
+		textures->Load("Assets/Texture/Terrain/moon_02_arm_2k.jpg"),
+		0.16f);
+	fbx.Mesh->SetMaterial(0.9f, 0.0f, 0.0f);
+	fbx.CastShadow = false;
+
 	auto& stageConfig = registry.emplace<StageComponent>(field);
 	stageConfig.PlayableRadius = 80.f;
 

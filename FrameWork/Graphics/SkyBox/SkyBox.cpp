@@ -3,6 +3,7 @@
 
 #include "System/Camera/Camera.hpp"
 #include "Graphics/Renderer/Renderer.hpp"
+#include "Graphics/PostProcess/SceneRenderer.hpp"
 
 Engine::Graphics::SkyBox::SkyBox()
 	:mResource(nullptr), mTransformBuffer(nullptr)
@@ -25,6 +26,9 @@ bool Engine::Graphics::SkyBox::Create(SkyBoxResource* Resource)
 
 	mResource = Resource;
 
+	//	環境マップ(IBL)としても使う
+	SceneRenderer::GetInstance()->SetEnvironment(Resource->GetTexture());
+
 	mTransformBuffer = std::make_unique<ConstantBuffer>();
 	return mTransformBuffer->Create(ConstantBufferSize);
 }
@@ -35,6 +39,10 @@ bool Engine::Graphics::SkyBox::Create(SkyBoxResource* Resource)
 void Engine::Graphics::SkyBox::Release()
 {
 	mTransformBuffer.reset();
+	if (mResource != nullptr && SceneRenderer::GetInstance() != nullptr)
+	{
+		SceneRenderer::GetInstance()->SetEnvironment(nullptr);
+	}
 	mResource = nullptr;
 }
 

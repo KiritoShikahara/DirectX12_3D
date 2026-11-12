@@ -70,10 +70,16 @@ namespace Engine::Debug
 		/// <summary>
 		/// エラーだけど復旧可能な状態
 		/// </summary>
+		static void Error(const spdlog::source_loc& loc, std::string_view message)
+		{
+			sLogger->log(loc, spdlog::level::err, "{}", message);
+		}
+
 		template<typename... Args>
+			requires (sizeof...(Args) > 0)
 		static void Error(
 			const spdlog::source_loc& loc,
-			std::string_view fmt,
+			spdlog::format_string_t<Args...> fmt,
 			Args&&... args)
 		{
 			sLogger->log(loc, spdlog::level::err, fmt, std::forward<Args>(args)...);
@@ -82,14 +88,25 @@ namespace Engine::Debug
 		/// <summary>
 		/// 復旧不可能な状態で止めるしかない時
 		/// </summary>
+		static void Critical(const spdlog::source_loc& loc, std::string_view message)
+		{
+			Critical(loc, "{}", message);
+		}
+
 		template<typename... Args>
+			requires (sizeof...(Args) > 0)
 		static void Critical(
 			const spdlog::source_loc& loc,
-			std::string_view fmt,
+			spdlog::format_string_t<Args...> fmt,
 			Args&&... args)
 		{
 			sLogger->log(loc, spdlog::level::critical, fmt, std::forward<Args>(args)...);
-			DebugBreak();
+			sLogger->flush();
+			//	デバッガ接続時のみ停止(未接続でDebugBreakすると例外で落ちる)
+			if (IsDebuggerPresent())
+			{
+				DebugBreak();
+			}
 		}
 
 	private:
