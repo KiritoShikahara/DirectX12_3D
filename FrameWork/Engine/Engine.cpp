@@ -41,6 +41,7 @@ bool Engine::Core::Engine::Initialize()
 	//	メモリ解放漏れチェック用
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+	Debug::Logger::Initialize();
 
 	//	ウィンドウ
 	System::Window::Create();
@@ -100,7 +101,7 @@ bool Engine::Core::Engine::Initialize()
 	}
 
 	//	ログの初期化
-	Debug::Logger::Initialize();
+
 
 	//	オーディオ初期化
 	//	リソース管理

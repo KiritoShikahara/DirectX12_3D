@@ -317,7 +317,8 @@ bool Engine::Graphics::DirectX::InitializeDevice()
 bool Engine::Graphics::DirectX::InitializeFactory()
 {
 #if _DEBUG
-	const HRESULT ret = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&mFactory));
+	HRESULT ret = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&mFactory));
+	if (FAILED(ret)) { ret = CreateDXGIFactory1(IID_PPV_ARGS(&mFactory)); }	// fallback when Graphics Tools is not installed
 #else
 	const HRESULT ret = CreateDXGIFactory1(IID_PPV_ARGS(&mFactory));
 #endif
