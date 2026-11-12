@@ -160,6 +160,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FrameWork\Engine\LaunchOptions.hpp" />
     <ClInclude Include="FrameWork\System\Conponent\Effect\Factory\EffectFactory.hpp" />
     <ClInclude Include="FrameWork\System\Conponent\Effect\System\EffectSystem.hpp" />
     <ClInclude Include="FrameWork\Graphics\Effect\EffectObject.hpp" />

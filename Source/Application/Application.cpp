@@ -25,6 +25,8 @@
 #include"Scene/GameClear/GameClear.hpp"
 
 #include"Graphics/Effect/Manager/EffectManager.hpp"
+#include"Graphics/DirectX/DirectX12.hpp"
+#include"Engine/LaunchOptions.hpp"
 
 #include"System/CSV/CSVManager.hpp"
 #include"Application/Data/SaveData.hpp"
@@ -42,6 +44,20 @@
 
 void Engine::App::Application::CreateStartScene()
 {
+    const auto& options = Core::LaunchOptions::Get();
+    if (options.StartScene >= 0)
+    {
+        const auto rank = static_cast<System::EnemyRank>(options.EnemyRank >= 0 ? options.EnemyRank : 0);
+        switch (options.StartScene)
+        {
+        case 0: mScene->ChangeScene<Scene::Title>(); return;
+        case 1: mScene->ChangeScene<Scene::StageSelect>(); return;
+        case 2: mScene->ChangeScene<Scene::InGame>(rank); return;
+        case 3: mScene->ChangeScene<Scene::GameClear>(); return;
+        case 4: mScene->ChangeScene<Scene::GameOver>(); return;
+        default: break;
+        }
+    }
 
 #if START_SCENE == 0
     mScene->ChangeScene<Scene::Title>();
@@ -101,9 +117,16 @@ bool Engine::App::Application::DataLoad()
 void Engine::App::Application::Run()
 {
     System::Window* window = System::Window::GetInstance();
+    const auto& options = Core::LaunchOptions::Get();
+    int frame = 0;
 
 	while (window->IsQuitMessage() == false)
 	{
+        frame++;
+        if (options.IsAutomated() && frame == options.Frames && options.CapturePath.empty() == false)
+        {
+            Graphics::DirectX::GetInstance()->RequestCapture(options.CapturePath);
+        }
         window->IsUpdateMessage();
         mEngine->NewFrame();
         mEngine->BegineRendering();
@@ -111,6 +134,12 @@ void Engine::App::Application::Run()
         this->Tick();
         mEngine->EndFrame();
         mScene->PostPresentUpdate();
+
+        if (options.IsAutomated() && frame >= options.Frames)
+        {
+            LOG_INFO("Automated run finished: {} frames", frame);
+            break;
+        }
 
 #ifdef ESC_BREAK
         if (Input::InputManager::GetInstance()->GetKeyboard()->IsHeld(Input::eKeyCode::Escape))
@@ -191,6 +220,12 @@ void Engine::App::Application::Tick()
         //  時間更新
         System::Time dt = mClock.Restart();
         auto seconds = dt.AsSeconds();
+
+        //  自動テストは結果を安定させるため固定ステップ
+        if (Core::LaunchOptions::Get().IsAutomated())
+        {
+            seconds = 1.0 / 60.0;
+        }
 
         //  完全にフレームが飛んだ時の保険
         if (seconds > 0.1)

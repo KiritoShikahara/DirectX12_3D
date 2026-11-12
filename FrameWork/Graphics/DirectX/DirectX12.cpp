@@ -1,6 +1,81 @@
 ﻿#include "pch.h"
 #include "DirectX12.hpp"
 #include "Debug/spdlog/Logger.hpp"
+#include <Plugin/DirectXTex/DirectXTex.h>
+#include <wincodec.h>
+
+D3D12_CPU_DESCRIPTOR_HANDLE Engine::Graphics::DirectX::GetDepthDSV()const
+{
+	return mDepthHeap->GetCPUDescriptorHandleForHeapStart();
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE Engine::Graphics::DirectX::GetBackBufferRTV()const
+{
+	D3D12_CPU_DESCRIPTOR_HANDLE heap = mBackBufferHeap->GetCPUDescriptorHandleForHeapStart();
+	heap.ptr += static_cast<SIZE_T>(mFrameIndex) * static_cast<SIZE_T>(mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
+	return heap;
+}
+
+void Engine::Graphics::DirectX::BindBackBuffer(bool UseDepth)
+{
+	const D3D12_CPU_DESCRIPTOR_HANDLE rtv = GetBackBufferRTV();
+	const D3D12_CPU_DESCRIPTOR_HANDLE dsv = GetDepthDSV();
+	mCommandList->OMSetRenderTargets(1, &rtv, true, UseDepth ? &dsv : nullptr);
+}
+
+void Engine::Graphics::DirectX::RequestCapture(const std::wstring& Path)
+{
+	mCapturePath = Path;
+}
+
+/// <summary>
+/// バックバッファをリードバック用バッファへコピー(RENDER_TARGET -> COPY_SOURCE)
+/// </summary>
+void Engine::Graphics::DirectX::CopyBackBufferToReadback()
+{
+	ID3D12Resource* backBuffer = mBackBaffers[mFrameIndex].Get();
+	const D3D12_RESOURCE_DESC desc = backBuffer->GetDesc();
+	UINT64 totalBytes = 0;
+	mDevice->GetCopyableFootprints(&desc, 0, 1, 0, &mReadbackFootprint, nullptr, nullptr, &totalBytes);
+
+	if (mReadback == nullptr)
+	{
+		D3D12_HEAP_PROPERTIES heap = {};
+		heap.Type = D3D12_HEAP_TYPE_READBACK;
+		D3D12_RESOURCE_DESC buffer = {};
+		buffer.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+		buffer.Width = totalBytes;
+		buffer.Height = 1;
+		buffer.DepthOrArraySize = 1;
+		buffer.MipLevels = 1;
+		buffer.SampleDesc.Count = 1;
+		buffer.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+		if (FAILED(mDevice->CreateCommittedResource(&heap, D3D12_HEAP_FLAG_NONE, &buffer,
+			D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&mReadback))))
+		{
+			LOG_ERROR("Failed Create Readback Buffer");
+			return;
+		}
+	}
+
+	D3D12_RESOURCE_BARRIER barrier = {};
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrier.Transition.pResource = backBuffer;
+	barrier.Transition.Subresource = 0;
+	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
+	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_COPY_SOURCE;
+	mCommandList->ResourceBarrier(1, &barrier);
+
+	D3D12_TEXTURE_COPY_LOCATION dst = {};
+	dst.pResource = mReadback.Get();
+	dst.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
+	dst.PlacedFootprint = mReadbackFootprint;
+	D3D12_TEXTURE_COPY_LOCATION src = {};
+	src.pResource = backBuffer;
+	src.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
+	src.SubresourceIndex = 0;
+	mCommandList->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
+}
 
 /// <summary>
 /// 初期値
@@ -158,6 +233,11 @@ void Engine::Graphics::DirectX::Flip()
 	//	バックバッファをPRESENTに遷移
 	mResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
 	mResourceBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
+	if (mCapturePath.empty() == false)
+	{
+		CopyBackBufferToReadback();
+		mResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_SOURCE;
+	}
 	mCommandList->ResourceBarrier(1, &mResourceBarrier);
 
 	//	コマンドリストを閉じる
@@ -166,6 +246,32 @@ void Engine::Graphics::DirectX::Flip()
 	//	GPUの送信
 	ID3D12CommandList* cmdLists[] = { mCommandList.Get()};
 	mCommandQueue->ExecuteCommandLists(1, cmdLists);
+
+	if (mCapturePath.empty() == false && mReadback != nullptr)
+	{
+		WaitForGPU();
+		void* mapped = nullptr;
+		D3D12_RANGE range = { 0, static_cast<SIZE_T>(mReadbackFootprint.Footprint.RowPitch) * mReadbackFootprint.Footprint.Height };
+		if (SUCCEEDED(mReadback->Map(0, &range, &mapped)))
+		{
+			::DirectX::Image image = {};
+			image.width = mReadbackFootprint.Footprint.Width;
+			image.height = mReadbackFootprint.Footprint.Height;
+			image.format = mFormat;
+			image.rowPitch = mReadbackFootprint.Footprint.RowPitch;
+			image.slicePitch = range.End;
+			image.pixels = static_cast<uint8_t*>(mapped);
+			const HRESULT hr = ::DirectX::SaveToWICFile(image, ::DirectX::WIC_FLAGS_NONE,
+				::DirectX::GetWICCodec(::DirectX::WIC_CODEC_PNG), mCapturePath.c_str(), &GUID_WICPixelFormat24bppBGR);
+			if (FAILED(hr))
+			{
+				LOG_ERROR("Failed Save Capture");
+			}
+			D3D12_RANGE none = {};
+			mReadback->Unmap(0, &none);
+		}
+		mCapturePath.clear();
+	}
 
 	//	画面表示
 	mSwapChain->Present(1, 0);
@@ -479,7 +585,8 @@ bool Engine::Graphics::DirectX::InitializeRenderTarget(UINT Width, UINT Height)
 	depthResource.Width = static_cast<UINT64>(Width);
 	depthResource.Height = Height;
 	depthResource.DepthOrArraySize = 1;
-	depthResource.Format = DXGI_FORMAT_D32_FLOAT;
+	depthResource.Format = DXGI_FORMAT_R32_TYPELESS;	//	ポストエフェクトでSRVとして読むためTYPELESS
+	depthResource.MipLevels = 1;
 	depthResource.SampleDesc.Count = 1;
 	depthResource.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
 

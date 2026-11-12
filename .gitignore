@@ -1,12 +1,17 @@
-﻿################################################################################
-# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
-################################################################################
 
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+﻿################################################################################
+.vs/
 /.vs
 /DirectX12 Engine/x64/Debug
-/x64/Debug
 /DirectX12 Engine/x64/Release
-/x64/Release
-/Log/engine.log
-/Document/~$敵仕様.xlsx
 /Document/~$ポスター.pptx
+/Document/~$敵仕様.xlsx
+/Log/engine.log
+/x64/Debug
+/x64/Release
+Document/quick.png
+Document/t.png
+Document/test/*.log
+Log/
+x64/

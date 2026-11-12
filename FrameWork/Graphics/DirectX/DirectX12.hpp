@@ -110,6 +110,28 @@ namespace Engine::Graphics
 			return mFormat;
 		}
 
+		/// <summary>
+		/// 3Dシーン描画先(HDR)のフォーマット
+		/// </summary>
+		static constexpr DXGI_FORMAT GetSceneFormat()
+		{
+			return DXGI_FORMAT_R16G16B16A16_FLOAT;
+		}
+
+		ID3D12Resource* GetDepthBuffer()const { return mDepthBuffer.Get(); }
+		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthDSV()const;
+		D3D12_CPU_DESCRIPTOR_HANDLE GetBackBufferRTV()const;
+
+		/// <summary>
+		/// バックバッファを描画先に設定(UI描画用)
+		/// </summary>
+		void BindBackBuffer(bool UseDepth);
+
+		/// <summary>
+		/// 次のPresent直前にバックバッファをPNG保存する
+		/// </summary>
+		void RequestCapture(const std::wstring& Path);
+
 	private:
 		/// <summary>
 		/// デバッグレイヤーの起動
@@ -169,6 +191,10 @@ namespace Engine::Graphics
 		/// </summary>
 		static constexpr int NUM_BACK_BAFFER = 2;
 	private:
+		void CopyBackBufferToReadback();
+		std::wstring mCapturePath;
+		mw::ResourcePtr mReadback;
+		D3D12_PLACED_SUBRESOURCE_FOOTPRINT mReadbackFootprint = {};
 		/// <summary>
 		/// デバイス
 		/// </summary>
