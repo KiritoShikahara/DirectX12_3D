@@ -8,6 +8,7 @@
 #include"Application/Components/Player/PlayerState/PlayerStateComponent.hpp"
 #include"Math/Vector3/Vector3.h"
 #include"Math/Random/Random.hpp"
+#include"Application/Combat/CombatComponents.hpp"
 
 //	攻撃状態に遷移するかどうかの判定
 bool Engine::System::EnemyAISystem::CanAttackState(EnemyAIComponent& AI, EnemyParameters& param,FbxComponent& Fbx,float DistanceSQ)
@@ -261,25 +262,19 @@ void Engine::System::EnemyAISystem::InitState(entt::registry& Reg,EnemyAICompone
 
 	case Engine::System::eEnemyState::Attacking:
 		fbx.CurrAnimation = "Attack_" + std::to_string(AI.CurrAttackCombo);
-		fbx.AnimationScale = 0.7f;
+		fbx.Mesh->RestartAnimation();
+		fbx.AnimationScale = Param.AttackAnimScale;
 		fbx.IsLoop = false;
+		//	当たり判定は CombatSystem が攻撃フェーズに合わせて付け外しする
+		if (Param.Weapon != entt::null)
 		{
-			if (Param.Weapon != entt::null)
-			{
-				//	武器に必要なものをアタッチ
-				Reg.emplace_or_replace<HitHistoryComponent>(Param.Weapon);
-				//	武器に当たり判定をアタッチする
-				auto col = ColliderComponent::Create<OBBCollider>();
-				auto collider = col.GetPtr<OBBCollider>();
-				collider->SetVolume({ 1.0f,4.0f,1.0f });
-				col.Offset = { 0.0f, -4.0f, 0.0f };
-				Reg.emplace_or_replace<ColliderComponent>(Param.Weapon, std::move(col));
-			}
+			Reg.emplace_or_replace<HitHistoryComponent>(Param.Weapon);
 		}
 		break;
 
 	case Engine::System::eEnemyState::Evade:
 		fbx.CurrAnimation = "Dodge";
+		fbx.Mesh->RestartAnimation();
 		fbx.AnimationScale = 5.0f;
 		fbx.IsLoop = false;
 		Param.EvadeSpeed = Param.EvadeMaxSpeed;
@@ -299,7 +294,7 @@ void Engine::System::EnemyAISystem::InitState(entt::registry& Reg,EnemyAICompone
 /// <param name="DeltaTime"></param>
 void Engine::System::EnemyAISystem::PreUpdate(entt::registry& Reg, double DeltaTime)
 {
-	auto view = Reg.view<EnemyAIComponent, EnemyParameters,FbxComponent>(entt::exclude<DeadTag>);
+	auto view = Reg.view<EnemyAIComponent, EnemyParameters,FbxComponent>(entt::exclude<DeadTag, StaggeredTag, EnemyPassiveTag>);
 	view.each([&](auto entity, EnemyAIComponent& AI, EnemyParameters& Param, FbxComponent& fbx)
 		{
 			switch (AI.CurrState)
@@ -344,7 +339,7 @@ void Engine::System::EnemyAISystem::MainUpdate(entt::registry& Reg, double Delta
 	auto playerView = Reg.view<Transform3D, PlayerTag>();
 	Math::Vector3 playerPos = Reg.get<Transform3D>(playerView.front()).Position;
 
-	auto view = Reg.view<EnemyAIComponent, EnemyParameters, Transform3D, Rigidbody3D,FbxComponent>(entt::exclude<DeadTag>);
+	auto view = Reg.view<EnemyAIComponent, EnemyParameters, Transform3D, Rigidbody3D,FbxComponent>(entt::exclude<DeadTag, StaggeredTag, EnemyPassiveTag>);
 	view.each([&](auto entity, EnemyAIComponent& AI, EnemyParameters& Param, Transform3D& trans,Rigidbody3D& rigid, FbxComponent&fbx)
 		{
 			//	移動ベクトル

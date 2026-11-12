@@ -49,6 +49,11 @@ namespace Engine::System
 		/// </summary>
 		void ChangeState(entt::registry& Reg, PlayerStateComponent& state ,ePlayerState NextState);
 
+		/// <summary>
+		/// スキルスロットのスキルを発動(クールダウン中は何もしない)
+		/// </summary>
+		void TryActivateSkill(entt::registry& Reg, entt::entity Player, int Slot, const Math::Vector3& Position);
+
 	public:
 		/// <summary>
 		/// 前回情報の保持

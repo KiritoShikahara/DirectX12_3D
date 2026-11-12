@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 // C
 #include<cstdint>
@@ -59,11 +59,11 @@
 #include<d3dcompiler.h>
 
 
-// ŠO•”ƒ‰ƒCƒuƒ‰ƒŠ
+// å¤–éƒ¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 #include<Plugin/ImGui/imgui.h>
 #include<Plugin/entt/entt.hpp>
 
-//	”Ä—p
+//	æ±Žç”¨
 #include"Utility/FlagUtils.hpp"
 #include"Utility/MacroHelpers.hpp"
 #include"Utility/PtrUtils.hpp"

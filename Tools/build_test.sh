@@ -17,21 +17,25 @@ if [ -z "$MSBUILD" ]; then echo "FAIL: MSBuild not found"; exit 1; fi
 
 # シーン番号:名前  (0:Title 1:StageSelect 2:InGame 3:GameClear 4:GameOver 5:Tutorial)
 SCENES="0:title 1:stageselect 2:ingame 5:tutorial 3:gameclear 4:gameover"
-EXTRA_RUNS="2:ingame_autoplay:--autoplay --enemy 2"
+# 自動操作で戦闘を回す (シーン番号|名前|追加引数)
+EXTRA_RUNS=("2|ingame_autoplay_basic|--autoplay --enemy 0" "2|ingame_autoplay_boss|--autoplay --enemy 2" "5|tutorial_autoplay|--autoplay")
 
 mkdir -p Document/test
 fail=0
+
+echo "== Unit tests"
+if bash Tests/run_unit_tests.sh; then echo "PASS unit tests"; else echo "FAIL unit tests"; fail=1; fi
 
 run_case() {
   local cfg="$1" scene="$2" name="$3" extra="$4"
   local exe="x64/$cfg/DirectX12 Engine.exe"
   local png="Document/test/${cfg}_${name}.png"
-  local before; before=$(wc -l < Log/engine.log 2>/dev/null || echo 0)
-  rm -f "$png"
+  # Debugビルドは起動時にログを消すので、毎回消してから全体を検査する
+  rm -f "$png" Log/engine.log
   # shellcheck disable=SC2086
   timeout 180 "$exe" --frames "$FRAMES" --scene "$scene" --capture "$(cygpath -w "$PWD/$png")" $extra
   local code=$?
-  local errs; errs=$(tail -n +"$((before + 1))" Log/engine.log 2>/dev/null | grep -E "\[(error|critical)\]" | head -3)
+  local errs; errs=$(grep -E "\[(error|critical)\]" Log/engine.log 2>/dev/null | head -3)
   if [ $code -ne 0 ]; then
     echo "FAIL [$cfg] $name: exit code $code"; fail=1
   elif [ -n "$errs" ]; then
@@ -50,7 +54,10 @@ for cfg in $CONFIGS; do
   fi
   echo "PASS [$cfg] build"
   for s in $SCENES; do run_case "$cfg" "${s%%:*}" "${s##*:}" ""; done
-  IFS=':' read -r sc nm ex <<< "$EXTRA_RUNS"; run_case "$cfg" "$sc" "$nm" "$ex"
+  for r in "${EXTRA_RUNS[@]}"; do
+    IFS='|' read -r sc nm ex <<< "$r"
+    FRAMES_SAVE=$FRAMES; FRAMES=$((FRAMES * 3)); run_case "$cfg" "$sc" "$nm" "$ex"; FRAMES=$FRAMES_SAVE
+  done
 done
 
 if [ $fail -ne 0 ]; then echo "RESULT: FAIL"; exit 1; fi

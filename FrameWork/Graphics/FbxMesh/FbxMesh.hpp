@@ -138,6 +138,16 @@ namespace Engine::Graphics
 		/// <param name="BlendTime"></param>
 		void SetBlendTime(float BlendTime);
 
+		/// <summary>
+		/// 今のアニメーションの進行率(0..1)
+		/// </summary>
+		float GetAnimationProgress()const;
+
+		/// <summary>
+		/// 同じアニメーションを最初から再生し直す
+		/// </summary>
+		void RestartAnimation();
+
 	protected:
 		/// <summary>
 		/// モデル用定数バッファ構造体

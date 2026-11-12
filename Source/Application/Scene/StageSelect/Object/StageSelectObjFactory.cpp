@@ -273,6 +273,42 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 	registry.emplace<EnemyTag>(enemy);
 }
 
+void Engine::System::StageSelectObjFactory::CreateTutorialGate()
+{
+	auto manager = EntityManager::GetInstance();
+	auto& registry = manager->GetRegistry();
+	const float Scale = 0.05f;
+
+	auto dummy = manager->CreateEntity();
+	auto& transform = registry.emplace<Transform3D>(dummy);
+	transform.Position = { 34.0f, 0.0f, 4.0f };
+	transform.Scale = { Scale, Scale, Scale };
+	transform.Rotation = Math::Quaternion::AngleAxis(3.14159265f * 1.35f, Math::Vector3::Forward);
+
+	auto res = Graphics::FbxResourceManager::GetInstance()->Load("Assets/Fbx/Ganfaul/Faul.fbx.bin");
+	res->LoadAnimation("Idle", "Assets/Fbx/Ganfaul/Animation/Idle.fbx.anm");
+	auto& fbx = registry.emplace<FbxComponent>(dummy, res);
+	fbx.CurrAnimation = "Idle";
+	fbx.Mesh->SetColor({ 0.9f, 0.78f, 0.6f, 1.0f });
+	fbx.Mesh->SetMaterial(0.7f, 0.1f, 0.35f);
+
+	auto col = ColliderComponent::Create<AABBCollider>();
+	auto collider = col.GetPtr<AABBCollider>();
+	collider->SetVolume({ 2.0f,8.0f,2.0f });
+	col.Offset = { 0.0f, collider->GetVolume().y * 0.5f, 0.0f };
+	registry.emplace<ColliderComponent>(dummy, std::move(col));
+
+	auto& state = registry.emplace<EnemyStateComponent>(dummy);
+	state.Weapon = CreateEnemyWeapon(dummy, "RightHand", { 0.9f, 0.78f, 0.6f, 1.0f });
+
+	auto& interact = registry.emplace<InteractableComponent>(dummy);
+	interact.IsTutorial = true;
+	interact.Talkable = true;
+	interact.Label = "修練の木人（チュートリアル）";
+
+	registry.emplace<EnemyTag>(dummy);
+}
+
 void Engine::System::StageSelectObjFactory::TestEffect()
 {
 	auto manager = EntityManager::GetInstance();

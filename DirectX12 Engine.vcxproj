@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>Source;External\pch;FrameWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -102,7 +102,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>Source;External\pch;FrameWork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>Source;External\pch;FrameWork;External;External\Plugin;External\Plugin\Effekseer\src\Effekseer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -148,7 +148,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>Source;External\pch;FrameWork;External;External\Plugin;External\Plugin\Effekseer\src\Effekseer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -164,6 +164,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Application\Scene\Tutorial\TutorialScene.hpp" />
+    <ClInclude Include="Source\Application\UI\Hud.hpp" />
+    <ClInclude Include="FrameWork\Graphics\Particles\ParticleSystem.hpp" />
+    <ClInclude Include="Source\Application\Effects\VfxPresets.hpp" />
+    <ClInclude Include="Source\Application\Combat\CombatEvents.hpp" />
+    <ClInclude Include="Source\Application\Combat\CombatComponents.hpp" />
+    <ClInclude Include="Source\Application\Combat\CombatSystem.hpp" />
+    <ClInclude Include="Source\Application\Combat\GameFeel.hpp" />
+    <ClInclude Include="Source\Application\Combat\CombatRules.hpp" />
     <ClInclude Include="FrameWork\Graphics\PostProcess\SceneRenderer.hpp" />
     <ClInclude Include="FrameWork\Engine\LaunchOptions.hpp" />
     <ClInclude Include="FrameWork\System\Conponent\Effect\Factory\EffectFactory.hpp" />
@@ -341,6 +350,13 @@
     <ClInclude Include="FrameWork\System\Conponent\Timer\System\TimerComponentSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Application\Scene\Tutorial\TutorialScene.cpp" />
+    <ClCompile Include="Source\Application\UI\Hud.cpp" />
+    <ClCompile Include="FrameWork\Graphics\Particles\ParticleSystem.cpp" />
+    <ClCompile Include="Source\Application\Effects\VfxPresets.cpp" />
+    <ClCompile Include="Source\Application\Combat\CombatSystem.cpp" />
+    <ClCompile Include="Source\Application\Combat\GameFeel.cpp" />
+    <ClCompile Include="Source\Application\Combat\CombatRules.cpp" />
     <ClCompile Include="FrameWork\Graphics\PostProcess\SceneRenderer.cpp" />
     <ClCompile Include="FrameWork\System\Conponent\Effect\Factory\EffectFactory.cpp" />
     <ClCompile Include="FrameWork\System\Conponent\Effect\System\EffectSystem.cpp" />

@@ -15,6 +15,8 @@ namespace Engine::System
 		AttackRequested = 1 << 2,	//	攻撃
 		Skill1Requested = 1 << 3,	//	スキル
 		Skill2Requested = 1 << 4,	//	スキル
+		GuardHeld = 1 << 5,			//	防御ボタンを押している
+		GuardPressed = 1 << 6,		//	防御ボタンを押した瞬間(パリィ)
 	};
 	DEFINE_ENUM_BITWISE_OPERATORS(eActionInputFlags);
 

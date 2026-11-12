@@ -23,8 +23,18 @@ bool Engine::Debug::ImGuiManager::Initialize(const HWND WindowHandle,Graphics::D
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
+#ifdef _DEBUG
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+#else
+    io.IniFilename = nullptr;
+#endif
+
+    //  HUD用の日本語フォント(1.92は必要な文字だけ動的に生成される)
+    if (io.Fonts->AddFontFromFileTTF("Assets/Fonts/NotoSansJP-Regular.ttf", 20.0f) == nullptr)
+    {
+        io.Fonts->AddFontDefault();
+    }
 
     //  初期化
     ImGui::SetCurrentContext(mContext);
@@ -37,10 +47,24 @@ bool Engine::Debug::ImGuiManager::Initialize(const HWND WindowHandle,Graphics::D
     init_info.RTVFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
     init_info.DSVFormat = DXGI_FORMAT_UNKNOWN;
 
-    const Graphics::DescriptorHeapInfo info = GDHManager->Issuance(1);
+    //  動的フォントはテクスチャを作り直すので、ディスクリプタをその都度割り当てる
     init_info.SrvDescriptorHeap = GDHManager->GetGraphicsHeap();
-    init_info.LegacySingleSrvCpuDescriptor = GDHManager->GetCpuHandle(info);
-    init_info.LegacySingleSrvGpuDescriptor = GDHManager->GetGpuHandle(info);
+    init_info.UserData = GDHManager;
+    init_info.SrvDescriptorAllocFn = [](ImGui_ImplDX12_InitInfo* Info, D3D12_CPU_DESCRIPTOR_HANDLE* OutCpu, D3D12_GPU_DESCRIPTOR_HANDLE* OutGpu)
+        {
+            auto gdh = static_cast<Graphics::GraphicsDescriptorHeapManager*>(Info->UserData);
+            const Graphics::DescriptorHeapInfo heapInfo = gdh->Issuance(1);
+            *OutCpu = gdh->GetCpuHandle(heapInfo);
+            *OutGpu = gdh->GetGpuHandle(heapInfo);
+        };
+    init_info.SrvDescriptorFreeFn = [](ImGui_ImplDX12_InitInfo* Info, D3D12_CPU_DESCRIPTOR_HANDLE Cpu, D3D12_GPU_DESCRIPTOR_HANDLE)
+        {
+            auto gdh = static_cast<Graphics::GraphicsDescriptorHeapManager*>(Info->UserData);
+            const UINT increment = Graphics::DirectX::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+            const SIZE_T start = gdh->GetGraphicsHeap()->GetCPUDescriptorHandleForHeapStart().ptr;
+            Graphics::DescriptorHeapInfo heapInfo = { static_cast<int>((Cpu.ptr - start) / increment), 1 };
+            gdh->Discard(heapInfo);
+        };
     ImGui_ImplDX12_Init(&init_info);
 
     return true;

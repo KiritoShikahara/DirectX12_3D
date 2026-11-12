@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include"entt/entt.hpp"
-#include"Effekseer.h"
 
 #include<vector>
 #include<array>
@@ -17,8 +16,13 @@ namespace Engine::System
 		float CooldownTimer = 0.0f;
 		//	クールタイム
 		float MaxCooldown = 5.0f;
-		//	エフェクト
-		std::vector<Effekseer::EffectRef> Effects;
+		//	エフェクトの種類
+		enum class eKind { Wind, Fire };
+		eKind Kind = eKind::Wind;
+		//	効果範囲(半径)
+		float Radius = 10.0f;
+		//	HUDに出す名前
+		const char* DisplayName = "";
 	};
 
 	/// <summary>

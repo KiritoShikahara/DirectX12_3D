@@ -7,6 +7,7 @@
 
 #include"System/Camera/Camera.hpp"
 #include"Math/Math.h"
+#include"Application/Combat/GameFeel.hpp"
 
 
 void Engine::System::CameraControlSystem::PostUpdate(entt::registry& Reg, double DeltaTime)
@@ -54,6 +55,11 @@ void Engine::System::CameraControlSystem::PostUpdate(entt::registry& Reg, double
 
 			//	カメラの最終的な座標
 			Math::Vector3 cameraPos = LookAtPos + relativePos;
+
+			//	手応えの揺れ
+			const Math::Vector3 shake = Combat::GameFeel::GetShakeOffset();
+			cameraPos += shake;
+			LookAtPos += shake * 0.6f;
 
 			//	カメラ本体に反映
 			if (Camera::Main != nullptr)

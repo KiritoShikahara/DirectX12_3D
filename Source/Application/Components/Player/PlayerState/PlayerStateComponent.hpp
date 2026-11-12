@@ -16,6 +16,7 @@ namespace Engine::System
 		Dodge,		//	ダッシュ（ダッシュキー長押し）
 		Attack,		//	攻撃
 		Skill,		//	スキル
+		Guard,		//	ガード(押した瞬間はパリィ)
 		Dead,		//	死亡
 	};
 

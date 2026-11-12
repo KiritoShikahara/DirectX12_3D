@@ -8,11 +8,15 @@
 #include"System/Conponent/Collider/ColliderComponent.hpp"
 #include"System/Conponent/Transform/TransformConponent.hpp"
 
-#include"System/Conponent/Effect/EffectComponent.hpp"
+
 #include"Application/Components/Skill/SkillComponent.hpp"
-#include"System/Conponent/Effect/Factory/EffectFactory.hpp"
+
 
 #include"Audio/Manager/AudioManager.hpp"
+#include"Application/Combat/CombatComponents.hpp"
+#include"Application/Combat/CombatEvents.hpp"
+#include"Application/Combat/GameFeel.hpp"
+#include"Application/Effects/VfxPresets.hpp"
 
 /// <summary>
 /// 走り状態に移行できるかどうかの判定
@@ -58,17 +62,12 @@ bool Engine::System::PlayerStateSystem::CheckSprintRequest(PlayerStateComponent&
 		return false;
 	}
 
-	//	クールダウン中はだめ
-	if (state.Dodge.IsCoolDown == true)
-	{
-		return false;
-	}
-
-	//	後は条件次第
+	//	回数制限はスタミナで管理する
 	return 
 		curr == ePlayerState::Idle ||
 		curr == ePlayerState::Run ||
-		curr == ePlayerState::Attack;
+		curr == ePlayerState::Attack ||
+		curr == ePlayerState::Guard;
 }
 
 /// <summary>
@@ -217,159 +216,146 @@ void Engine::System::PlayerStateSystem::PreUpdate(entt::registry& Reg, double De
 
 }
 
+
+/// <summary>
+/// スキルの発動
+/// </summary>
+void Engine::System::PlayerStateSystem::TryActivateSkill(entt::registry& Reg, entt::entity Player, int Slot, const Math::Vector3& Position)
+{
+	SkillSlotComponent* slots = Reg.try_get<SkillSlotComponent>(Player);
+	if (slots == nullptr || Slot < 0 || Slot >= static_cast<int>(slots->SkillSlots.size()))
+	{
+		return;
+	}
+	const entt::entity skillEntity = slots->SkillSlots[Slot];
+	if (Reg.valid(skillEntity) == false || Reg.all_of<SkillComponent>(skillEntity) == false)
+	{
+		return;
+	}
+	SkillComponent& skill = Reg.get<SkillComponent>(skillEntity);
+	if (skill.CooldownTimer > 0.0f)
+	{
+		return;
+	}
+
+	Transform3D& skillTrans = Reg.get<Transform3D>(skillEntity);
+	skillTrans.Position = Position;
+
+	//	有効化と当たり判定
+	Reg.emplace_or_replace<ActiveSkillTag>(skillEntity);
+	Reg.emplace_or_replace<HitHistoryComponent>(skillEntity);
+	auto col = ColliderComponent::Create<OBBCollider>();
+	col.GetPtr<OBBCollider>()->SetVolume({ skill.Radius * 2.0f, 0.4f, skill.Radius * 2.0f });
+	Reg.emplace_or_replace<ColliderComponent>(skillEntity, std::move(col));
+
+	//	演出
+	if (skill.Kind == SkillComponent::eKind::Wind)
+	{
+		Vfx::SkillWind(Position, skill.Radius);
+		Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Wind.aud", false, 1.0f);
+	}
+	else
+	{
+		Vfx::SkillFire(Position, skill.Radius);
+		Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Fire.aud", false, 1.0f);
+	}
+	Combat::GameFeel::Shake(0.3f, 0.3f);
+	Combat::CombatEvents::Push(Combat::CombatEventType::SkillUsed, Position, 0.0f, Slot);
+
+	skill.CooldownTimer = skill.MaxCooldown;
+}
+
 /// <summary>
 /// 状態遷移の判定
 /// </summary>
 void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double DeltaTime)
 {
-	//	優先度順に並べておきます。
-	//	後から実装増やします
-
+	//	優先度順: スタン > 回避 > ガード > スキル > 攻撃 > 走り > 待機
 	auto view = Reg.view<Transform3D,PlayerStateComponent, InputRequestComponent,FbxComponent, MoveComponent>(entt::exclude<DeadTag>);
 	bool ret = false;
 
 	view.each([&](auto entity, Transform3D& trans,PlayerStateComponent& state, InputRequestComponent& req, FbxComponent&fbx, MoveComponent& move)
 		{
+			DefenseComponent* defense = Reg.try_get<DefenseComponent>(entity);
+			StaminaComponent* stamina = Reg.try_get<StaminaComponent>(entity);
 
-			//	スプリント
+			//	ガード崩しで動けない
+			if (defense != nullptr && defense->StunTimer > 0.0f)
+			{
+				if (state.State != ePlayerState::Idle)
+				{
+					ChangeState(Reg, state, ePlayerState::Idle);
+				}
+				fbx.CurrAnimation = "Idle";
+				fbx.AnimationScale = 0.2f;
+				move.InputDir = Math::Vector3::Zero;
+				return;
+			}
+
+			//	回避
 			ret = (HasFlag(req.Flags, eActionInputFlags::DodgeRequested) == true)
 				&& (this->CheckSprintRequest(state, req.InputVec) == true);
+			if (ret == true && stamina != nullptr && Combat::TryConsumeStamina(stamina->Value, Combat::Tuning::DodgeStaminaCost) == false)
+			{
+				//	スタミナ不足を知らせる
+				stamina->DeniedFlashTimer = 0.5f;
+				Combat::CombatEvents::Push(Combat::CombatEventType::DodgeDenied, trans.Position);
+				ret = false;
+			}
 			if (ret == true)
 			{
-				if (state.State != ePlayerState::Dodge)
-				{
-					ChangeState(Reg, state, ePlayerState::Dodge);
-					fbx.CurrAnimation = "Dodge";
-					fbx.AnimationScale = 4.0f;
-					fbx.IsLoop = false;
-					Reg.emplace_or_replace<InvincibleComponet>(entity);
+				ChangeState(Reg, state, ePlayerState::Dodge);
+				fbx.CurrAnimation = "Dodge";
+				fbx.Mesh->RestartAnimation();
+				fbx.AnimationScale = 4.0f;
+				fbx.IsLoop = false;
+				Reg.emplace_or_replace<InvincibleComponet>(entity);
+				state.Dodge.DodgeCount++;
+				state.Dodge.RecoveryTimer = state.Dodge.DodgeInputWindow;
 
-					//	カウント加算
-					state.Dodge.DodgeCount++;
-					//	カウントが上限を超えていたら
-					if (state.Dodge.DodgeCount >= state.Dodge.DodgeCountMax)
-					{
-						//	連続使用のペナルティ
-						state.Dodge.IsCoolDown = true;
-						state.Dodge.RecoveryTimer = state.Dodge.CoolDowmMax;
-					}
-					else
-					{
-						state.Dodge.RecoveryTimer = state.Dodge.DodgeInputWindow;
-					}
-				}
+				//	入力方向へ回避(入力が無ければ前)
 				move.ForceVelocity = trans.GetForward();
+				Vfx::DodgeDust(trans.Position);
+				Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Foot.aud", false, 0.4f);
+				Combat::CombatEvents::Push(Combat::CombatEventType::Dodge, trans.Position);
 				return;
-
 			}
-
-			//	スキル（今は１つだけ）
-			bool skillRequested = HasFlag(req.Flags, eActionInputFlags::Skill1Requested);
-			if (skillRequested == true && state.State != ePlayerState::Skill)
+			if (state.State == ePlayerState::Dodge)
 			{
-				//	プレイヤーが持っているスキルのエンティティの取得
-				SkillSlotComponent* slots = Reg.try_get<SkillSlotComponent>(entity);
-				if (slots != nullptr)
-				{
-					//	今はスキル番号０を指定します
-					entt::entity skillEntity = slots->SkillSlots[0];
-					if (Reg.valid(skillEntity) && Reg.all_of<SkillComponent>(skillEntity))
-					{
-						SkillComponent& skill = Reg.get<SkillComponent>(skillEntity);
-						Transform3D& skillTrans = Reg.get<Transform3D>(skillEntity);
-						//	クールダウンチェック
-						if (skill.CooldownTimer <= 0.0f)
-						{
-							//	アニメーションあるなら変更する
-
-							//	アクティブのアタッチ
-							Reg.emplace_or_replace<ActiveSkillTag>(skillEntity);
-
-							//	当たり判定とヒット履歴のアタッチ
-							Reg.emplace_or_replace<HitHistoryComponent>(skillEntity);
-							//	ここで当たり判定をアタッチする。
-							auto col = ColliderComponent::Create<OBBCollider>();
-							auto collider = col.GetPtr<OBBCollider>();
-							collider->SetVolume({ 20.0f,0.4f,20.0f });
-							Reg.emplace_or_replace<ColliderComponent>(skillEntity, std::move(col));
-							skillTrans.Position = trans.Position;
-
-							float scale = 10.0f;
-							//	エフェクト生成
-							for (auto& asset : skill.Effects)
-							{
-								auto EffEnt = EffectFactory::CreateAtLocation(asset, skillTrans.Position, { scale,scale,scale }, false);
-							}
-							//	クールタイムを設定
-							skill.CooldownTimer = skill.MaxCooldown;
-
-							//	音を流す
-							Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Wind.aud", false, 1.0f);
-						}
-
-					}
-					else
-					{
-						//	何もセットされてないときときとかの処理があるなら入れてもいい
-					}
-
-				}
 				return;
-
 			}
 
-			bool skill2Requested = HasFlag(req.Flags, eActionInputFlags::Skill2Requested);
-			if (skill2Requested == true && state.State != ePlayerState::Skill)
+			//	ガード(押した瞬間はパリィ受付)
+			const bool guardHeld = defense != nullptr && defense->Holding;
+			if (guardHeld)
 			{
-				//	プレイヤーが持っているスキルのエンティティの取得
-				SkillSlotComponent* slots = Reg.try_get<SkillSlotComponent>(entity);
-				if (slots != nullptr)
+				if (state.State != ePlayerState::Guard)
 				{
-					//	今はスキル番号１を指定します
-					entt::entity skillEntity = slots->SkillSlots[1];
-					if (Reg.valid(skillEntity) && Reg.all_of<SkillComponent>(skillEntity))
-					{
-						SkillComponent& skill = Reg.get<SkillComponent>(skillEntity);
-						Transform3D& skillTrans = Reg.get<Transform3D>(skillEntity);
-						//	クールダウンチェック
-						if (skill.CooldownTimer <= 0.0f)
-						{
-							//	アニメーションあるなら変更する
-
-							//	アクティブのアタッチ
-							Reg.emplace_or_replace<ActiveSkillTag>(skillEntity);
-
-							//	当たり判定とヒット履歴のアタッチ
-							Reg.emplace_or_replace<HitHistoryComponent>(skillEntity);
-							//	ここで当たり判定をアタッチする。
-							auto col = ColliderComponent::Create<OBBCollider>();
-							auto collider = col.GetPtr<OBBCollider>();
-							collider->SetVolume({ 20.0f,0.4f,20.0f });
-							Reg.emplace_or_replace<ColliderComponent>(skillEntity, std::move(col));
-							skillTrans.Position = trans.Position;
-
-							float scale = 10.0f;
-							//	エフェクト生成
-							for (auto& asset : skill.Effects)
-							{
-								auto EffEnt = EffectFactory::CreateAtLocation(asset, skillTrans.Position, { scale,scale,scale }, false);
-							}
-							//	クールタイムを設定
-							skill.CooldownTimer = skill.MaxCooldown;
-							Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Fire.aud", false, 1.0f);
-						}
-
-					}
-					else
-					{
-						//	何もセットされてないときときとかの処理があるなら入れてもいい
-					}
-
+					ChangeState(Reg, state, ePlayerState::Guard);
+					fbx.CurrAnimation = "Idle";
+					fbx.AnimationScale = 0.4f;
+					fbx.IsLoop = true;
 				}
+				move.InputDir = Math::Vector3::Zero;
 				return;
-
+			}
+			if (state.State == ePlayerState::Guard)
+			{
+				state.State = ePlayerState::Idle;
+				fbx.AnimationScale = 1.0f;
 			}
 
+			//	スキル
+			if (HasFlag(req.Flags, eActionInputFlags::Skill1Requested))
+			{
+				TryActivateSkill(Reg, entity, 0, trans.Position);
+				return;
+			}
+			if (HasFlag(req.Flags, eActionInputFlags::Skill2Requested))
+			{
+				TryActivateSkill(Reg, entity, 1, trans.Position);
+				return;
+			}
 
 			// 攻撃ボタンが押されている
 			bool isRequested = HasFlag(req.Flags, eActionInputFlags::AttackRequested);
@@ -419,6 +405,7 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 				Reg.emplace_or_replace<ColliderComponent>(state.Weapon, std::move(col));
 
 				fbx.CurrAnimation = "Attack_" + std::to_string(state.Attack.AttackCount);
+				fbx.Mesh->RestartAnimation();
 				Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Sword1.aud", false, 0.1f);
 
 				return;
@@ -426,7 +413,6 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 			}
 
 			//	走り
-			//	走るリクエストがあるときに
 			ret = (HasFlag(req.Flags,eActionInputFlags::RunRequested) == true) && (this->CheckRunRequest(state) == true);
 			if (ret == true)
 			{
@@ -436,8 +422,8 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 				if (state.State != ePlayerState::Run)
 				{
 					state.State = ePlayerState::Run;
-					//	ここに切り替え時に1回だけ通したい処理などを入れてもいい
 					fbx.CurrAnimation = "Jog";
+					fbx.AnimationScale = 1.0f;
 				}
 
 				FootStepTimer += DeltaTime;
@@ -449,23 +435,17 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 
 				//	移動量の代入
 				move.InputDir = req.InputVec;
-
 				return;
 			}
 
 			//	待機
-			if (HasNoFlag(req.Flags) && state.State == ePlayerState::Idle)
+			if (state.State == ePlayerState::Idle)
 			{
-				//	この地点で何も通いないなら
-				if (state.State != ePlayerState::Idle)
-				{
-					state.State = ePlayerState::Idle;
-					fbx.CurrAnimation = "Idle";
-					move.InputDir = Math::Vector3::Zero;
-				}
+				fbx.CurrAnimation = "Idle";
+				fbx.AnimationScale = 1.0f;
+				fbx.IsLoop = true;
+				move.InputDir = Math::Vector3::Zero;
 			}
-
-
 		});
 }
 

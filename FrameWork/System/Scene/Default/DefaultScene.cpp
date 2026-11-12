@@ -74,7 +74,7 @@ bool Engine::System::DefaultScene::Initialize()
     System::ObjectsFactory::CreatePlayer();
 
     //  敵の作成
-    System::ObjectsFactory::CreateEnemy();
+    System::ObjectsFactory::CreateEnemy_Basic();
 
 	return true;
 }

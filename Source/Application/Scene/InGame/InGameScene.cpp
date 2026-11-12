@@ -11,7 +11,9 @@
 
 #include"Application/Components/CameraWork/System/CameraControlSystem.hpp"
 #include"Application/Components/Socket/SocketComponentSystem.hpp"
-#include"Application/Components/HpRender/HpRenderSystem.hpp"
+#include"Application/Combat/CombatSystem.hpp"
+#include"Application/Combat/GameFeel.hpp"
+#include"Application/UI/Hud.hpp"
 #include"Application/Components/Player/Input/InputRequestSystem.hpp"
 #include"Application/Components/Player/PlayerState/PlayerStateSystem.hpp"
 #include"Application/Components/Damage/DamageSystem.hpp"
@@ -56,8 +58,10 @@ namespace Engine::Scene
 		camera->Create();
 
 		//	システム追加
-		System::SystemManager::GetInstance()->AddSystem<System::HpRenderSystem>();
+		Combat::GameFeel::Reset();
+		UI::Hud::SetEnabled(true);
 		System::SystemManager::GetInstance()->AddSystem<System::InputRequestSystem>();
+		System::SystemManager::GetInstance()->AddSystem<System::CombatSystem>();
 		System::SystemManager::GetInstance()->AddSystem<System::PlayerStateSystem>();
 		System::SystemManager::GetInstance()->AddSystem<System::EnemyAISystem>();
 		System::SystemManager::GetInstance()->AddSystem<System::MoveComponentSystem>();
@@ -149,6 +153,7 @@ namespace Engine::Scene
 	/// </summary>
 	void InGame::Release()
 	{
+		UI::Hud::SetEnabled(false);
 		System::EntityManager::GetInstance()->ClearLocalEntities();
 	}
 }

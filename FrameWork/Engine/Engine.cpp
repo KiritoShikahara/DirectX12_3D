@@ -11,6 +11,7 @@
 #include"Graphics/GraphicsDescriptorHeap/GraphicsDescriptorHeapManager.hpp"
 #include"Graphics/Renderer/Renderer.hpp"
 #include"Graphics/PostProcess/SceneRenderer.hpp"
+#include"Graphics/Particles/ParticleSystem.hpp"
 #include<chrono>
 #include"Graphics/Effect/Manager/EffectManager.hpp"
 
@@ -99,6 +100,13 @@ bool Engine::Core::Engine::Initialize()
 	mEffect = Graphics::EffectManager::GetInstance();
 	mEffect->Initialize();
 
+	//	自作パーティクル
+	Graphics::ParticleSystem::Create();
+	if (Graphics::ParticleSystem::GetInstance()->Initialize() == false)
+	{
+		return false;
+	}
+
 	//	ImGui
 	Debug::ImGuiManager::Create();
 	mImgui = Debug::ImGuiManager::GetInstance();
@@ -159,6 +167,7 @@ void Engine::Core::Engine::OnDestory()
 {
 	Debug::ImGuiManager::Release();
 	Graphics::SceneRenderer::Release();
+	Graphics::ParticleSystem::Release();
 	Graphics::GraphicsDescriptorHeapManager::Release();
 	Graphics::DirectX::Release();
 	System::Window::Release();
@@ -169,11 +178,8 @@ void Engine::Core::Engine::OnDestory()
 /// </summary>
 void Engine::Core::Engine::NewFrame()
 {
-#ifdef _DEBUG
-	//	入力
-	//	ImGui
+	//	ImGui(ReleaseでもHUD描画に使う)
 	mImgui->NewFrame();
-#endif // _DEBUG
 }
 
 /// <summary>
@@ -196,9 +202,7 @@ void Engine::Core::Engine::BegineRendering()
 /// </summary>
 void Engine::Core::Engine::EndFrame()
 {
-#ifdef _DEBUG
 	mImgui->EndFrame(mDirectX, mGDHManager);
-#endif // _DEBUG
 
 	mDirectX->Flip();
 }

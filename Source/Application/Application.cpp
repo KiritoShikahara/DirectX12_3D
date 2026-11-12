@@ -23,10 +23,15 @@
 #include"Scene/InGame/InGameScene.hpp"
 #include"Scene/GameOver/GameOverScene.hpp"
 #include"Scene/GameClear/GameClear.hpp"
+#include"Scene/Tutorial/TutorialScene.hpp"
 
 #include"Graphics/Effect/Manager/EffectManager.hpp"
 #include"Graphics/DirectX/DirectX12.hpp"
 #include"Graphics/PostProcess/SceneRenderer.hpp"
+#include"Graphics/Particles/ParticleSystem.hpp"
+#include"Application/Combat/GameFeel.hpp"
+#include"Application/Combat/CombatEvents.hpp"
+#include"Application/UI/Hud.hpp"
 #include"Engine/LaunchOptions.hpp"
 
 #include"System/CSV/CSVManager.hpp"
@@ -56,6 +61,7 @@ void Engine::App::Application::CreateStartScene()
         case 2: mScene->ChangeScene<Scene::InGame>(rank); return;
         case 3: mScene->ChangeScene<Scene::GameClear>(); return;
         case 4: mScene->ChangeScene<Scene::GameOver>(); return;
+        case 5: mScene->ChangeScene<Scene::Tutorial>(); return;
         default: break;
         }
     }
@@ -234,8 +240,13 @@ void Engine::App::Application::Tick()
             seconds = 0.1;
         }
 
-        //  時間のスケール
+        //  時間のスケール(シーン指定 x ヒットストップ/スロー)
+        const float realSeconds = static_cast<float>(seconds);
         seconds *= System::Time::Scale;
+        seconds *= Combat::GameFeel::Update(realSeconds);
+
+        //  前フレームの戦闘イベントを捨てる
+        Combat::CombatEvents::Clear();
 
 
         //  事前更新
@@ -274,6 +285,7 @@ void Engine::App::Application::MainUpdate(double dt)
     mSystems->MainUpdate(mEntitys->GetRegistry(), dt);
     mScene->Update(dt);
     mEffect->Update(dt);
+    Graphics::ParticleSystem::GetInstance()->Update(static_cast<float>(dt));
 }
 
 /// <summary>
@@ -303,12 +315,14 @@ void Engine::App::Application::Render()
     mScene->Render();
     mSystems->Render3D(registry);
     mEffect->Draw();
+    Graphics::ParticleSystem::GetInstance()->Render();
 
     //  ポストエフェクト -> バックバッファ
     sceneRenderer->EndScenePass();
 
     //  UI
     mSystems->RenderOverlay(registry);
+    UI::Hud::Draw(registry, ImGui::GetIO().DeltaTime);
 
     GET_INPUT_MANAGER->Update();
     mScene->FadeRender();
@@ -319,7 +333,9 @@ void Engine::App::Application::Render()
 /// </summary>
 void Engine::App::Application::ImGuiUpdate()
 {
+#ifdef _DEBUG
     GET_INPUT_MANAGER->GetPadManager()->ImGuiUpdate();
     Graphics::SceneRenderer::GetInstance()->ImGuiUpdate();
+#endif // _DEBUG
     mScene->ImGuiUpdate();
 }

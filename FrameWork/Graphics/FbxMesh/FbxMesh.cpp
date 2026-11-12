@@ -339,6 +339,28 @@ void Engine::Graphics::FbxMesh::RenderShadow()
 	}
 }
 
+float Engine::Graphics::FbxMesh::GetAnimationProgress()const
+{
+	if (mResource == nullptr)
+	{
+		return 0.0f;
+	}
+	const auto& animations = mResource->GetAnimations();
+	auto it = animations.find(mCurrentAnimationName);
+	if (it == animations.end() || it->second.NumFrame <= 0)
+	{
+		return 0.0f;
+	}
+	const float duration = static_cast<float>(it->second.NumFrame) * 0.016666666f;
+	return (std::min)(1.0f, mFrame / duration);
+}
+
+void Engine::Graphics::FbxMesh::RestartAnimation()
+{
+	mFrame = 0.0f;
+	mIsAnimationFinish = false;
+}
+
 void Engine::Graphics::FbxMesh::SetMaterial(float Roughness, float Metallic, float RimStrength)
 {
 	mMaterial[0] = Roughness;

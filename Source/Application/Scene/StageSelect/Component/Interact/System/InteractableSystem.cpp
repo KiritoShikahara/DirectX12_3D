@@ -10,6 +10,8 @@
 #include "Application/Components/Tag/TagComponent.hpp"
 #include "Application/Scene/StageSelect/Component/Interact/InteractableRange.hpp"
 #include "Application/Scene/InGame/InGameScene.hpp"
+#include "Application/Scene/Tutorial/TutorialScene.hpp"
+#include "Application/UI/Hud.hpp"
 
 #include "System/Conponent/Vfx/VfxMeshComponent.hpp"
 
@@ -44,6 +46,12 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 			//	距離判定
 			Math::Vector3 diff = trans.Position - playerPos;
 			float sqrtDistance = Math::Vector3::SqrLength(diff);
+			const bool inRange = sqrtDistance <= interract.InteractRange * interract.InteractRange;
+			if (interract.Label.empty() == false)
+			{
+				UI::Hud::AddWorldLabel(trans.Position + Math::Vector3(0.0f, 12.0f, 0.0f),
+					inRange ? "[F] " + interract.Label : interract.Label, inRange);
+			}
 			//	範囲内なら表示をする。事前に読み込む
 			if (sqrtDistance <= interract.InteractRange * interract.InteractRange)
 			{
@@ -51,7 +59,14 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 				if (IsInput == true && interract.Talkable == true)
 				{
 					Audio::AudioManager::GetInstance()->PlaySE("Assets/Sound/Select.aud", false, 1.0f);
-					System::SceneManager::GetInstance()->ChangeSceneFade<Scene::InGame>(interract.Rank);
+					if (interract.IsTutorial)
+					{
+						System::SceneManager::GetInstance()->ChangeSceneFade<Scene::Tutorial>();
+					}
+					else
+					{
+						System::SceneManager::GetInstance()->ChangeSceneFade<Scene::InGame>(interract.Rank);
+					}
 				}
 
 			}

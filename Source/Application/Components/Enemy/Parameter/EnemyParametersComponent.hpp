@@ -18,6 +18,7 @@ namespace Engine::System
 		float IdleEvadeProbability = 0.3f;	//	待機中に回避する確率
 		float CancelEvadeProbability = 0.3f; // キャンセル回避が発生する確率
 		int AttackComboMax = 1;
+		float AttackAnimScale = 0.7f;	//	攻撃アニメーションの速さ(遅いほど予備動作が読みやすい)
 		entt::entity Weapon = entt::null;	//	武器
 		EnemyRank Rank = EnemyRank::Basic;	//	敵のランク
 		bool  CanCancelEvade = false;		//	キャンセル回避を行えるかどうか

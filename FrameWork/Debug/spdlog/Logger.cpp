@@ -19,6 +19,8 @@ void Engine::Debug::Logger::InitializeConsole()
 	//	コンソールとcout
 	freopen_s(&sConOutFP, "CONOUT$", "w", stdout);
 	freopen_s(&sConInFP, "CONIN$", "r", stdin);
+	//	文字列はUTF-8で持っている
+	SetConsoleOutputCP(CP_UTF8);
 #endif // _DEBUG
 
 }

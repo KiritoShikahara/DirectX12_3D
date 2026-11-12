@@ -118,7 +118,7 @@ Engine::Graphics::DescriptorHeapInfo Engine::Graphics::GraphicsDescriptorHeapMan
 		count += (conflictIndex + 1);
 
 	}
-	return DescriptorHeapInfo(-1.-1);
+	return DescriptorHeapInfo{ -1, -1 };
 }
 
 /// <summary>

@@ -13,6 +13,7 @@ namespace Engine::System
 		static void CreateEnemy_Advanced();  // 黄（中盤）
 		static void CreateEnemy_Boss();      // 赤（最強）
 
+		static void CreateTutorialGate();	//	チュートリアルの入口(修練の木人)
 		static void TestEffect();	//	エフェクト
 	};
 }

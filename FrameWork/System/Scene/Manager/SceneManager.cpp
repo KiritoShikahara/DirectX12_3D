@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "Graphics/Particles/ParticleSystem.hpp"
 #include "SceneManager.hpp"
 
 #include"Graphics/DirectX/DirectX12.hpp"
@@ -144,6 +145,7 @@ void Engine::System::SceneManager::PostPresentUpdate()
 			mScene = std::move(mNextScene);
 			mNextScene = nullptr;
 
+			Graphics::ParticleSystem::GetInstance()->Clear();
 			mScene->Initialize();
 
 			//	
@@ -173,6 +175,7 @@ void Engine::System::SceneManager::PostPresentUpdate()
 		mScene = std::move(mNextScene);
 		mNextScene = nullptr;
 
+		Graphics::ParticleSystem::GetInstance()->Clear();
 		mScene->Initialize();
 
 	}
