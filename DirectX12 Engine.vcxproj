@@ -164,6 +164,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Application\UI\PromptBar.hpp" />
+    <ClInclude Include="Source\Application\UI\UiTheme.hpp" />
     <ClInclude Include="Source\Application\UI\InputGlyphs.hpp" />
     <ClInclude Include="Source\Application\Scene\Tutorial\TutorialScene.hpp" />
     <ClInclude Include="Source\Application\UI\Hud.hpp" />
@@ -351,6 +353,7 @@
     <ClInclude Include="FrameWork\System\Conponent\Timer\System\TimerComponentSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Application\UI\UiTheme.cpp" />
     <ClCompile Include="Source\Application\Scene\Tutorial\TutorialScene.cpp" />
     <ClCompile Include="Source\Application\UI\Hud.cpp" />
     <ClCompile Include="FrameWork\Graphics\Particles\ParticleSystem.cpp" />

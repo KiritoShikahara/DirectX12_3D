@@ -22,12 +22,14 @@ namespace Engine::Scene
 		/// 終了処理
 		/// </summary>
 		void Release()override;
+		void Render()override;
 
 		std::string GetSceneName()override
 		{
 			return "Title";
 		}
 	private:
+		float mTime = 0.0f;
 
 	};
 }

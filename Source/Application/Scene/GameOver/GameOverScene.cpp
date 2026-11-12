@@ -10,6 +10,7 @@
 #include"System/Conponent/Sprite/Scale/ScaleComponent.hpp"
 
 #include"Audio/Manager/AudioManager.hpp"
+#include"Application/UI/PromptBar.hpp"
 
 namespace Engine::Scene
 {
@@ -106,6 +107,11 @@ namespace Engine::Scene
 				break;
 			}
 		}
+	}
+
+	void GameOver::Render()
+	{
+		UI::DrawPromptBar({ { UI::eAction::Choose, "選ぶ" }, { UI::eAction::Select, "決定" } });
 	}
 
 	/// <summary>

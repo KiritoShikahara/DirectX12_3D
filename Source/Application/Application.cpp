@@ -32,6 +32,7 @@
 #include"Application/Combat/GameFeel.hpp"
 #include"Application/Combat/CombatEvents.hpp"
 #include"Application/UI/Hud.hpp"
+#include"Application/UI/UiTheme.hpp"
 #include"Engine/LaunchOptions.hpp"
 
 #include"System/CSV/CSVManager.hpp"
@@ -176,6 +177,7 @@ bool Engine::App::Application::Initialize()
     }
 
     mEffect = Graphics::EffectManager::GetInstance();
+    UI::Theme::Initialize();
 
     //  システム管理
     System::SystemManager::Create();

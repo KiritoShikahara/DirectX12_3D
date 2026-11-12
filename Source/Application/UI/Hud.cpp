@@ -1,28 +1,38 @@
 #include "pch.h"
 #include "Hud.hpp"
 
+#include"Application/UI/UiTheme.hpp"
+#include"Application/UI/InputGlyphs.hpp"
 #include"Application/Combat/CombatComponents.hpp"
 #include"Application/Combat/CombatEvents.hpp"
 #include"Application/Components/Status/StatusComponent.hpp"
 #include"Application/Components/Tag/TagComponent.hpp"
 #include"Application/Components/Skill/SkillComponent.hpp"
+#include"Application/Components/CameraWork/CameraControl.hpp"
 #include"System/Conponent/Transform/TransformConponent.hpp"
 #include"System/Camera/Camera.hpp"
-#include"Application/Components/CameraWork/CameraControl.hpp"
-#include"Application/UI/InputGlyphs.hpp"
+#include"System/Input/Manager/InputManager.hpp"
 
 #include<algorithm>
 #include<cmath>
 #include<vector>
 
+// =====================================================================
+//  戦闘HUD
+//  配置: 自分の状態=左上 / 敵の体力と体幹=下中央 / スキル=右下 / 操作=左下(必要な時だけ)
+//  見た目の部品は UiTheme にまとめている
+// =====================================================================
 namespace
 {
 	using namespace Engine;
 	using namespace Engine::System;
+	using namespace Engine::UI::Theme;
 	using Engine::UI::eAction;
 	using Engine::UI::KeyLabel;
-	using Engine::UI::KeyLabels;
 	using Combat::CombatEventType;
+
+	constexpr float ControlsShowSeconds = 10.0f;	//	操作ガイドを出しておく時間
+	constexpr float ControlsFadeSeconds = 1.5f;
 
 	struct FloatingText
 	{
@@ -39,6 +49,7 @@ namespace
 	{
 		std::string Text;
 		std::string Sub;
+		eFont Font = eFont::Display;
 		ImU32 Color = IM_COL32_WHITE;
 		float Age = 99.0f;
 		float Life = 1.0f;
@@ -57,8 +68,8 @@ namespace
 		std::string Text;
 		bool Highlight;
 	};
-	std::vector<WorldLabel> sLabels;
 
+	std::vector<WorldLabel> sLabels;
 	bool sEnabled = false;
 	const UI::Objective* sObjective = nullptr;
 	std::vector<FloatingText> sFloating;
@@ -68,61 +79,8 @@ namespace
 	float sEnemyHpTrail = 1.0f;
 	entt::entity sTrackedEnemy = entt::null;
 	float sTime = 0.0f;
-
-	float Scale()
-	{
-		return ImGui::GetIO().DisplaySize.y / 1080.0f;
-	}
-
-	ImU32 Col(float r, float g, float b, float a = 1.0f)
-	{
-		return ImGui::ColorConvertFloat4ToU32(ImVec4(r, g, b, a));
-	}
-
-	ImU32 WithAlpha(ImU32 c, float a)
-	{
-		ImVec4 v = ImGui::ColorConvertU32ToFloat4(c);
-		v.w *= a;
-		return ImGui::ColorConvertFloat4ToU32(v);
-	}
-
-	ImVec2 TextSize(float Size, const char* Text)
-	{
-		return ImGui::GetFont()->CalcTextSizeA(Size, FLT_MAX, 0.0f, Text);
-	}
-
-	/// <summary>
-	/// 影付きの文字。Align: 0=左 0.5=中央 1=右
-	/// </summary>
-	void Text(ImDrawList* dl, ImVec2 Pos, float Size, ImU32 Color, const char* Str, float Align = 0.0f)
-	{
-		const ImVec2 ts = TextSize(Size, Str);
-		Pos.x -= ts.x * Align;
-		const float a = ImGui::ColorConvertU32ToFloat4(Color).w;
-		dl->AddText(ImGui::GetFont(), Size, ImVec2(Pos.x + 2, Pos.y + 2), Col(0, 0, 0, 0.75f * a), Str);
-		dl->AddText(ImGui::GetFont(), Size, Pos, Color, Str);
-	}
-
-	/// <summary>
-	/// 減った分が遅れて追いかける(白い残像)ゲージ
-	/// </summary>
-	void Bar(ImDrawList* dl, ImVec2 Pos, ImVec2 Size, float Ratio, float Trail, ImU32 Fill, ImU32 FillTop, ImU32 Background, float Rounding)
-	{
-		Ratio = std::clamp(Ratio, 0.0f, 1.0f);
-		Trail = std::clamp(Trail, 0.0f, 1.0f);
-		const ImVec2 end = ImVec2(Pos.x + Size.x, Pos.y + Size.y);
-		dl->AddRectFilled(ImVec2(Pos.x - 2, Pos.y - 2), ImVec2(end.x + 2, end.y + 2), Col(0, 0, 0, 0.55f), Rounding + 2);
-		dl->AddRectFilled(Pos, end, Background, Rounding);
-		if (Trail > Ratio)
-		{
-			dl->AddRectFilled(Pos, ImVec2(Pos.x + Size.x * Trail, end.y), Col(1.0f, 0.95f, 0.85f, 0.85f), Rounding);
-		}
-		if (Ratio > 0.0f)
-		{
-			dl->AddRectFilledMultiColor(Pos, ImVec2(Pos.x + Size.x * Ratio, end.y), FillTop, FillTop, Fill, Fill);
-		}
-		dl->AddRect(ImVec2(Pos.x - 1, Pos.y - 1), ImVec2(end.x + 1, end.y + 1), Col(1, 1, 1, 0.25f), Rounding, 0, 1.0f);
-	}
+	float sControlsTimer = 0.0f;
+	bool sLastWasPad = false;
 
 	bool WorldToScreen(const Math::Vector3& World, ImVec2& Out)
 	{
@@ -143,13 +101,9 @@ namespace
 		return true;
 	}
 
-	void ShowBanner(const char* Text, const char* Sub, ImU32 Color, float Life)
+	void ShowBanner(const char* Text, const char* Sub, eFont Font, ImU32 Color, float Life)
 	{
-		sBanner.Text = Text;
-		sBanner.Sub = Sub;
-		sBanner.Color = Color;
-		sBanner.Age = 0.0f;
-		sBanner.Life = Life;
+		sBanner = { Text, Sub, Font, Color, 0.0f, Life };
 	}
 
 	entt::entity FindPlayer(entt::registry& Reg)
@@ -159,15 +113,23 @@ namespace
 	}
 
 	/// <summary>
-	/// 表示する敵(プレイヤーに一番近い生存敵)
+	/// 表示する敵(ロックオン中の敵、無ければ一番近い生存敵)
 	/// </summary>
 	entt::entity FindFocusEnemy(entt::registry& Reg)
 	{
 		const entt::entity player = FindPlayer(Reg);
 		Math::Vector3 origin = { 0, 0, 0 };
-		if (player != entt::null && Reg.all_of<Transform3D>(player))
+		if (player != entt::null)
 		{
-			origin = Reg.get<Transform3D>(player).Position;
+			if (const auto* camera = Reg.try_get<CameraControlComponent>(player);
+				camera != nullptr && camera->LockTarget != entt::null && Reg.valid(camera->LockTarget))
+			{
+				return camera->LockTarget;
+			}
+			if (Reg.all_of<Transform3D>(player))
+			{
+				origin = Reg.get<Transform3D>(player).Position;
+			}
 		}
 		entt::entity best = entt::null;
 		float bestDistance = 1e9f;
@@ -183,6 +145,12 @@ namespace
 			});
 		return best;
 	}
+
+	float EaseOutCubic(float t)
+	{
+		t = std::clamp(t, 0.0f, 1.0f);
+		return 1.0f - (1.0f - t) * (1.0f - t) * (1.0f - t);
+	}
 }
 
 namespace Engine::UI
@@ -196,6 +164,7 @@ namespace Engine::UI
 		sPlayerHpTrail = 1.0f;
 		sEnemyHpTrail = 1.0f;
 		sTrackedEnemy = entt::null;
+		sControlsTimer = 0.0f;
 		if (Enabled == false)
 		{
 			sObjective = nullptr;
@@ -223,16 +192,21 @@ namespace Engine::UI
 			{
 				continue;
 			}
-			const float size = (label.Highlight ? 30.0f : 22.0f) * s;
-			const ImVec2 ts = TextSize(size, label.Text.c_str());
-			const ImVec2 a = ImVec2(p.x - ts.x * 0.5f - 14 * s, p.y - 8 * s);
-			const ImVec2 b = ImVec2(p.x + ts.x * 0.5f + 14 * s, p.y + ts.y + 8 * s);
-			dl->AddRectFilled(a, b, Col(0.02f, 0.03f, 0.06f, label.Highlight ? 0.8f : 0.5f), 8 * s);
 			if (label.Highlight)
 			{
-				dl->AddRect(a, b, Col(0.6f, 0.85f, 1.0f, 0.6f + 0.4f * std::sin(sTime * 5.0f)), 8 * s, 0, 2 * s);
+				//	「[キー] 名前」を金の細線で受ける
+				const float h = 34 * s;
+				const std::string key = KeyLabel(eAction::Interact);
+				const float w = PromptWidth(h, key.c_str(), label.Text.c_str());
+				Band(dl, p.y + h * 0.5f, h * 1.1f, 0.7f);
+				Prompt(dl, ImVec2(p.x - w * 0.5f, p.y), h, key.c_str(), label.Text.c_str());
+				FadeLine(dl, ImVec2(p.x, p.y + h + 8 * s), w * 0.65f, Gold(0.8f), 1.0f);
 			}
-			Text(dl, p, size, label.Highlight ? Col(1, 1, 1) : Col(0.85f, 0.9f, 1.0f, 0.85f), label.Text.c_str(), 0.5f);
+			else
+			{
+				Diamond(dl, ImVec2(p.x, p.y - 12 * s), 4 * s, Gold(0.8f), true);
+				Text(dl, eFont::Mincho, p, 22 * s, Ivory(0.8f), label.Text.c_str(), 0.5f, 2 * s);
+			}
 		}
 		sLabels.clear();
 	}
@@ -270,9 +244,9 @@ namespace Engine::UI
 				FloatingText t;
 				t.Text = std::to_string(static_cast<int>(std::round(e.Value)));
 				t.World = e.Position;
-				t.Color = e.Extra != 0 ? Col(1.0f, 0.82f, 0.3f) : Col(1.0f, 1.0f, 1.0f);
-				t.Size = e.Extra != 0 ? 46.0f : 34.0f;
-				t.Drift = (static_cast<float>(sFloating.size() % 5) - 2.0f) * 14.0f;
+				t.Color = e.Extra != 0 ? Gold() : Ivory();
+				t.Size = e.Extra != 0 ? 44.0f : 30.0f;
+				t.Drift = (static_cast<float>(sFloating.size() % 5) - 2.0f) * 16.0f;
 				sFloating.push_back(t);
 				break;
 			}
@@ -280,24 +254,24 @@ namespace Engine::UI
 				if (e.Value > 0.0f)
 				{
 					FloatingText t;
-					t.Text = "-" + std::to_string(static_cast<int>(std::round(e.Value)));
+					t.Text = std::to_string(static_cast<int>(std::round(e.Value)));
 					t.World = e.Position;
-					t.Color = Col(1.0f, 0.35f, 0.3f);
-					t.Size = 30.0f;
+					t.Color = CrimsonLight();
+					t.Size = 26.0f;
 					sFloating.push_back(t);
 				}
 				break;
 			case CombatEventType::Parry:
-				ShowBanner("PARRY", "弾き", Col(0.65f, 0.85f, 1.0f), 0.9f);
+				ShowBanner("PARRY", "弾 き", eFont::Display, Moon(), 0.9f);
 				break;
 			case CombatEventType::PostureBreak:
-				ShowBanner("BREAK", "体幹崩し  ― 今が好機 ―", Col(1.0f, 0.8f, 0.35f), 1.4f);
+				ShowBanner("BREAK", "体 幹 崩 し", eFont::Display, Gold(), 1.4f);
 				break;
 			case CombatEventType::GuardBreak:
-				ShowBanner("GUARD BREAK", "スタミナ切れ", Col(1.0f, 0.4f, 0.3f), 1.0f);
+				ShowBanner("GUARD BROKEN", "防 御 を 崩 さ れ た", eFont::Display, Vermilion(), 1.1f);
 				break;
 			case CombatEventType::EnemyKilled:
-				ShowBanner("DEFEATED", "撃破", Col(1.0f, 0.9f, 0.7f), 2.0f);
+				ShowBanner("敵を討ち果たした", "ENEMY  FELLED", eFont::Mincho, Gold(), 2.6f);
 				break;
 			case CombatEventType::Telegraph:
 				sMarkers.push_back({ e.Position, e.Extra != 0, 0.0f });
@@ -312,62 +286,65 @@ namespace Engine::UI
 	{
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
+		const float s = Scale();
 		const entt::entity player = FindPlayer(Reg);
 		if (player == entt::null)
 		{
 			return;
 		}
 
+		//	被弾・瀕死で画面の縁を赤く
 		float red = 0.0f;
 		if (const auto* defense = Reg.try_get<DefenseComponent>(player))
 		{
-			red = (std::max)(red, defense->DamageFlashTimer / 0.5f * 0.55f);
+			red = (std::max)(red, defense->DamageFlashTimer / 0.5f * 0.5f);
 		}
 		if (auto* status = Reg.try_get<StatusComponet>(player))
 		{
 			const float ratio = status->GetHpRatio();
 			if (ratio < 0.3f && ratio > 0.0f)
 			{
-				red = (std::max)(red, 0.18f + 0.12f * std::sin(sTime * 5.0f));
+				red = (std::max)(red, 0.16f + 0.1f * std::sin(sTime * 4.0f));
 			}
 		}
 		if (red > 0.001f)
 		{
-			//	画面の縁を赤く(内側は透明)
-			const float edge = display.y * 0.22f;
-			const ImU32 c = Col(0.7f, 0.0f, 0.0f, red);
-			const ImU32 z = Col(0.7f, 0.0f, 0.0f, 0.0f);
+			const float edge = display.y * 0.24f;
+			const ImU32 c = Rgba(0.45f, 0.0f, 0.02f, red);
+			const ImU32 z = Rgba(0.45f, 0.0f, 0.02f, 0.0f);
 			dl->AddRectFilledMultiColor(ImVec2(0, 0), ImVec2(display.x, edge), c, c, z, z);
 			dl->AddRectFilledMultiColor(ImVec2(0, display.y - edge), ImVec2(display.x, display.y), z, z, c, c);
 			dl->AddRectFilledMultiColor(ImVec2(0, 0), ImVec2(edge, display.y), c, z, z, c);
 			dl->AddRectFilledMultiColor(ImVec2(display.x - edge, 0), ImVec2(display.x, display.y), z, c, c, z);
 		}
 
-		//	バナー(PARRY / BREAK ...)
+		//	バナー: 帯 → 文字が字間を詰めながら現れる → 消える
 		if (sBanner.Age < sBanner.Life)
 		{
 			sBanner.Age += DeltaTime;
 			const float t = sBanner.Age / sBanner.Life;
-			const float pop = 1.0f + 0.35f * std::exp(-sBanner.Age * 14.0f);
-			const float alpha = t < 0.75f ? 1.0f : 1.0f - (t - 0.75f) / 0.25f;
-			const float s = Scale();
-			const ImVec2 center = ImVec2(display.x * 0.5f, display.y * 0.36f);
-			const float size = 84.0f * s * pop;
-			//	背後の帯
-			dl->AddRectFilledMultiColor(ImVec2(0, center.y - 18 * s), ImVec2(display.x * 0.5f, center.y + size + 30 * s),
-				Col(0, 0, 0, 0), Col(0, 0, 0, 0.45f * alpha), Col(0, 0, 0, 0.45f * alpha), Col(0, 0, 0, 0));
-			dl->AddRectFilledMultiColor(ImVec2(display.x * 0.5f, center.y - 18 * s), ImVec2(display.x, center.y + size + 30 * s),
-				Col(0, 0, 0, 0.45f * alpha), Col(0, 0, 0, 0), Col(0, 0, 0, 0), Col(0, 0, 0, 0.45f * alpha));
-			Text(dl, center, size, WithAlpha(sBanner.Color, alpha), sBanner.Text.c_str(), 0.5f);
-			Text(dl, ImVec2(center.x, center.y + size * 0.95f), 26.0f * s, WithAlpha(IM_COL32_WHITE, alpha), sBanner.Sub.c_str(), 0.5f);
+			const float in = EaseOutCubic(sBanner.Age / 0.25f);
+			const float alpha = (t < 0.7f ? 1.0f : 1.0f - (t - 0.7f) / 0.3f) * in;
+			const float cy = display.y * 0.40f;
+			const bool display_ = sBanner.Font == eFont::Display;
+			const float size = (display_ ? 88.0f : 64.0f) * s;
+			const float tracking = (display_ ? 14.0f : 6.0f) * s + (1.0f - in) * 30.0f * s;
+
+			Band(dl, cy, size * 0.95f, alpha);
+			const ImVec4 c = ImGui::ColorConvertU32ToFloat4(sBanner.Color);
+			GlowText(dl, sBanner.Font, ImVec2(display.x * 0.5f, cy - size * 0.62f), size,
+				Rgba(c.x, c.y, c.z, alpha), Rgba(c.x, c.y, c.z, 0.12f * alpha), sBanner.Text.c_str(), 0.5f, tracking);
+			FadeLine(dl, ImVec2(display.x * 0.5f, cy + size * 0.52f), 360 * s * in, Rgba(c.x, c.y, c.z, 0.7f * alpha), 1.2f);
+			Text(dl, display_ ? eFont::Mincho : eFont::Display, ImVec2(display.x * 0.5f, cy + size * 0.6f), 22 * s,
+				Ivory(0.9f * alpha), sBanner.Sub.c_str(), 0.5f, 3 * s);
 		}
 
-		//	予告マーク(弾ける: 白い「!」 弾けない: 赤い「危」)
+		//	攻撃の予告: 弾ける=白い菱形の閃光 / 弾けない=朱の「危」
 		for (auto& m : sMarkers)
 		{
 			m.Age += DeltaTime;
 		}
-		sMarkers.erase(std::remove_if(sMarkers.begin(), sMarkers.end(), [](const Marker& m) { return m.Age > 0.7f; }), sMarkers.end());
+		sMarkers.erase(std::remove_if(sMarkers.begin(), sMarkers.end(), [](const Marker& m) { return m.Age > 0.75f; }), sMarkers.end());
 		for (const auto& m : sMarkers)
 		{
 			ImVec2 p;
@@ -375,13 +352,21 @@ namespace Engine::UI
 			{
 				continue;
 			}
-			const float s = Scale();
-			const float a = 1.0f - m.Age / 0.7f;
-			const float r = (34.0f + 30.0f * std::exp(-m.Age * 10.0f)) * s;
-			const ImU32 c = m.Parryable ? Col(1, 1, 1, a) : Col(1.0f, 0.15f, 0.1f, a);
-			dl->AddCircleFilled(p, r, Col(0, 0, 0, 0.45f * a), 32);
-			dl->AddCircle(p, r, c, 32, 3.0f * s);
-			Text(dl, ImVec2(p.x, p.y - 26 * s), 44 * s, c, m.Parryable ? "!" : "危", 0.5f);
+			const float a = 1.0f - m.Age / 0.75f;
+			const float pop = 1.0f + 0.6f * std::exp(-m.Age * 12.0f);
+			if (m.Parryable)
+			{
+				const float r = 14.0f * s * pop;
+				Diamond(dl, p, r * 2.2f, Ivory(0.12f * a), true);
+				Diamond(dl, p, r, Ivory(0.95f * a), true);
+				Diamond(dl, p, r * 1.6f, Moon(0.8f * a), false, 2.0f * s);
+				dl->AddLine(ImVec2(p.x - r * 3.5f, p.y), ImVec2(p.x + r * 3.5f, p.y), Ivory(0.6f * a), 1.5f * s);
+			}
+			else
+			{
+				const float size = 64.0f * s * pop;
+				GlowText(dl, eFont::Mincho, ImVec2(p.x, p.y - size * 0.6f), size, Vermilion(a), Vermilion(0.25f * a), "危", 0.5f);
+			}
 		}
 	}
 
@@ -402,11 +387,12 @@ namespace Engine::UI
 				continue;
 			}
 			const float k = t.Age / t.Life;
-			const float pop = 1.0f + 0.5f * std::exp(-t.Age * 18.0f);
-			p.y -= 70.0f * s * k;
+			const float pop = 1.0f + 0.45f * std::exp(-t.Age * 20.0f);
+			p.y -= 60.0f * s * EaseOutCubic(k);
 			p.x += t.Drift * s;
-			const float alpha = k < 0.6f ? 1.0f : 1.0f - (k - 0.6f) / 0.4f;
-			Text(dl, p, t.Size * s * pop, WithAlpha(t.Color, alpha), t.Text.c_str(), 0.5f);
+			const float alpha = k < 0.55f ? 1.0f : 1.0f - (k - 0.55f) / 0.45f;
+			const ImVec4 c = ImGui::ColorConvertU32ToFloat4(t.Color);
+			Text(dl, eFont::Display, p, t.Size * s * pop, Rgba(c.x, c.y, c.z, alpha), t.Text.c_str(), 0.5f);
 		}
 	}
 
@@ -418,42 +404,37 @@ namespace Engine::UI
 			return;
 		}
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
-		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
-		const ImVec2 origin = ImVec2(60 * s, display.y - 150 * s);
-
-		Text(dl, origin, 22 * s, Col(0.85f, 0.9f, 1.0f, 0.9f), "剣士");
+		const ImVec2 origin = ImVec2(70 * s, 58 * s);
 
 		if (auto* status = Reg.try_get<StatusComponet>(player))
 		{
 			const float ratio = status->GetHpRatio();
-			sPlayerHpTrail = (std::max)(ratio, sPlayerHpTrail - DeltaTime * 0.35f);
-			if (sPlayerHpTrail < ratio) sPlayerHpTrail = ratio;
-			const ImVec2 pos = ImVec2(origin.x, origin.y + 32 * s);
-			Bar(dl, pos, ImVec2(520 * s, 20 * s), ratio, sPlayerHpTrail, Col(0.65f, 0.08f, 0.08f), Col(0.95f, 0.3f, 0.25f), Col(0.08f, 0.04f, 0.05f, 0.8f), 3 * s);
-			char buf[64];
-			snprintf(buf, sizeof(buf), "%d / %d", static_cast<int>(std::ceil(status->Hp)), static_cast<int>(status->MaxHp.GetCurrent()));
-			Text(dl, ImVec2(pos.x + 528 * s, pos.y - 3 * s), 20 * s, Col(1, 1, 1, 0.9f), buf);
+			sPlayerHpTrail = (std::max)(ratio, sPlayerHpTrail - DeltaTime * 0.3f);
+			Gauge(dl, origin, ImVec2(460 * s, 11 * s), ratio, sPlayerHpTrail, Crimson(), CrimsonLight());
+			char buf[32];
+			snprintf(buf, sizeof(buf), "%d", static_cast<int>(std::ceil(status->Hp)));
+			Text(dl, eFont::Display, ImVec2(origin.x + 482 * s, origin.y - 8 * s), 22 * s, Ivory(0.9f), buf);
 		}
 		if (auto* stamina = Reg.try_get<StaminaComponent>(player))
 		{
-			const ImVec2 pos = ImVec2(origin.x, origin.y + 62 * s);
-			const bool denied = stamina->DeniedFlashTimer > 0.0f && std::fmod(sTime, 0.15f) < 0.075f;
+			const bool denied = stamina->DeniedFlashTimer > 0.0f && std::fmod(sTime, 0.16f) < 0.08f;
 			const bool low = stamina->Value.Value < Combat::Tuning::DodgeStaminaCost;
-			const ImU32 fill = denied ? Col(0.9f, 0.1f, 0.1f) : (low ? Col(0.6f, 0.45f, 0.1f) : Col(0.55f, 0.6f, 0.15f));
-			const ImU32 top = denied ? Col(1.0f, 0.4f, 0.3f) : (low ? Col(0.95f, 0.7f, 0.25f) : Col(0.9f, 0.95f, 0.4f));
-			Bar(dl, pos, ImVec2(380 * s, 10 * s), stamina->Value.Ratio(), 0.0f, fill, top, Col(0.06f, 0.06f, 0.04f, 0.8f), 2 * s);
-			Text(dl, ImVec2(pos.x + 388 * s, pos.y - 6 * s), 16 * s, Col(1, 1, 1, 0.7f), "スタミナ");
+			const ImU32 fill = denied ? Vermilion() : (low ? Rgba(0.45f, 0.32f, 0.12f, 1) : Rgba(0.42f, 0.46f, 0.22f, 1));
+			const ImU32 bright = denied ? Vermilion() : (low ? Gold() : Rgba(0.78f, 0.82f, 0.45f, 1));
+			Gauge(dl, ImVec2(origin.x, origin.y + 24 * s), ImVec2(320 * s, 6 * s), stamina->Value.Ratio(), 0.0f, fill, bright, false);
 		}
 		if (auto* defense = Reg.try_get<DefenseComponent>(player))
 		{
+			const ImVec2 p = ImVec2(origin.x, origin.y + 40 * s);
 			if (defense->StunTimer > 0.0f)
 			{
-				Text(dl, ImVec2(origin.x, origin.y - 30 * s), 22 * s, Col(1.0f, 0.4f, 0.3f), "体勢を崩された！");
+				Text(dl, eFont::Mincho, p, 20 * s, Vermilion(), "体勢を崩された", 0.0f, 2 * s);
 			}
 			else if (defense->Holding)
 			{
-				Text(dl, ImVec2(origin.x, origin.y - 30 * s), 22 * s, Col(0.6f, 0.8f, 1.0f), "ガード中");
+				Diamond(dl, ImVec2(p.x + 6 * s, p.y + 11 * s), 5 * s, Moon(0.9f), false, 1.5f);
+				Text(dl, eFont::Mincho, ImVec2(p.x + 18 * s, p.y), 20 * s, Moon(0.95f), "構え", 0.0f, 2 * s);
 			}
 		}
 	}
@@ -473,13 +454,11 @@ namespace Engine::UI
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
-		const float width = 760 * s;
-		const ImVec2 origin = ImVec2((display.x - width) * 0.5f, 54 * s);
+		const float width = 900 * s;
+		const float cx = display.x * 0.5f;
+		const float baseY = display.y - 120 * s;
 
-		const auto* combat = Reg.try_get<EnemyCombatComponent>(enemy);
-		Text(dl, ImVec2(display.x * 0.5f, origin.y - 4 * s), 28 * s, Col(1, 0.95f, 0.88f), combat != nullptr ? combat->DisplayName.c_str() : "敵", 0.5f);
-
-		//	ロックオンの印
+		//	ロックオンの印(小さな菱形と輪)
 		const entt::entity player = FindPlayer(Reg);
 		if (player != entt::null)
 		{
@@ -488,36 +467,42 @@ namespace Engine::UI
 				ImVec2 p;
 				if (WorldToScreen(Reg.get<Transform3D>(enemy).Position + Math::Vector3(0.0f, 4.5f, 0.0f), p))
 				{
-					const float r = (16.0f + 3.0f * std::sin(sTime * 6.0f)) * s;
-					const ImU32 c = Col(1.0f, 0.95f, 0.8f, 0.9f);
-					dl->AddQuad(ImVec2(p.x, p.y - r), ImVec2(p.x + r, p.y), ImVec2(p.x, p.y + r), ImVec2(p.x - r, p.y), c, 2.5f * s);
-					dl->AddCircleFilled(p, 3.0f * s, c);
+					const float r = (11.0f + 2.0f * std::sin(sTime * 5.0f)) * s;
+					Diamond(dl, p, r, Ivory(0.85f), false, 1.5f * s);
+					Diamond(dl, p, 3.0f * s, Ivory(0.95f), true);
 				}
 			}
 		}
 
+		//	体幹(中央から左右に伸びる)
+		if (const auto* posture = Reg.try_get<PostureComponent>(enemy))
+		{
+			const float pr = posture->Value.Ratio();
+			const bool broken = posture->Value.IsBroken();
+			const float half = 230 * s;
+			const float y = baseY - 92 * s;
+			const float h = 6 * s;
+			dl->AddRectFilled(ImVec2(cx - half, y), ImVec2(cx + half, y + h), Ink(0.7f));
+			const float danger = std::clamp((pr - 0.55f) / 0.45f, 0.0f, 1.0f);
+			const float fill = half * (broken ? 1.0f : pr);
+			const ImU32 inner = broken ? Gold(0.7f + 0.3f * std::sin(sTime * 18.0f)) : Rgba(0.95f, 0.75f - 0.45f * danger, 0.3f - 0.2f * danger, 1.0f);
+			const ImU32 outer = broken ? Gold() : Rgba(0.75f, 0.5f - 0.3f * danger, 0.15f, 1.0f);
+			dl->AddRectFilledMultiColor(ImVec2(cx - fill, y), ImVec2(cx, y + h), outer, inner, inner, outer);
+			dl->AddRectFilledMultiColor(ImVec2(cx, y), ImVec2(cx + fill, y + h), inner, outer, outer, inner);
+			dl->AddRect(ImVec2(cx - half - 1, y - 1), ImVec2(cx + half + 1, y + h + 1), GoldDim(0.7f));
+			Diamond(dl, ImVec2(cx, y + h * 0.5f), 6 * s, broken ? Gold() : Ink(0.95f), true);
+			Diamond(dl, ImVec2(cx, y + h * 0.5f), 6 * s, Gold(0.9f), false, 1.2f);
+		}
+
+		//	名前と体力
+		const auto* combat = Reg.try_get<EnemyCombatComponent>(enemy);
+		const char* name = combat != nullptr ? combat->DisplayName.c_str() : "";
+		Text(dl, eFont::Mincho, ImVec2(cx - width * 0.5f, baseY - 52 * s), 30 * s, Ivory(0.95f), name, 0.0f, 4 * s);
+
 		auto& status = Reg.get<StatusComponet>(enemy);
 		const float ratio = status.GetHpRatio();
 		sEnemyHpTrail = (std::max)(ratio, sEnemyHpTrail - DeltaTime * 0.3f);
-		Bar(dl, ImVec2(origin.x, origin.y + 34 * s), ImVec2(width, 14 * s), ratio, sEnemyHpTrail,
-			Col(0.6f, 0.1f, 0.08f), Col(0.95f, 0.35f, 0.25f), Col(0.07f, 0.03f, 0.03f, 0.8f), 2 * s);
-
-		if (const auto* posture = Reg.try_get<PostureComponent>(enemy))
-		{
-			//	体幹ゲージは中央から左右に伸びる
-			const float pr = posture->Value.Ratio();
-			const bool broken = posture->Value.IsBroken();
-			const float pw = 420 * s;
-			const ImVec2 center = ImVec2(display.x * 0.5f, origin.y + 62 * s);
-			const float h = 8 * s;
-			dl->AddRectFilled(ImVec2(center.x - pw * 0.5f - 2, center.y - 2), ImVec2(center.x + pw * 0.5f + 2, center.y + h + 2), Col(0, 0, 0, 0.55f), 3 * s);
-			const float half = pw * 0.5f * (broken ? 1.0f : pr);
-			const float danger = std::clamp((pr - 0.6f) / 0.4f, 0.0f, 1.0f);
-			ImU32 c = broken ? Col(1.0f, 0.85f, 0.3f, 0.6f + 0.4f * std::sin(sTime * 20.0f)) : Col(0.95f, 0.55f + 0.25f * (1 - danger), 0.15f);
-			dl->AddRectFilled(ImVec2(center.x - half, center.y), ImVec2(center.x + half, center.y + h), c, 2 * s);
-			dl->AddLine(ImVec2(center.x, center.y - 3 * s), ImVec2(center.x, center.y + h + 3 * s), Col(1, 1, 1, 0.6f), 2 * s);
-			Text(dl, ImVec2(center.x + pw * 0.5f + 12 * s, center.y - 7 * s), 16 * s, Col(1, 0.85f, 0.6f, 0.85f), broken ? "崩れ" : "体幹");
-		}
+		Gauge(dl, ImVec2(cx - width * 0.5f, baseY), ImVec2(width, 10 * s), ratio, sEnemyHpTrail, Crimson(), CrimsonLight());
 	}
 
 	void Hud::DrawSkills(entt::registry& Reg)
@@ -535,9 +520,10 @@ namespace Engine::UI
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
-		const float box = 78 * s;
-		const char* keys[2] = { KeyLabel(eAction::Skill1), KeyLabel(eAction::Skill2) };
-		const ImU32 tint[2] = { Col(0.45f, 1.0f, 0.75f), Col(1.0f, 0.55f, 0.25f) };
+		const float r = 40 * s;
+		const eAction keys[2] = { eAction::Skill1, eAction::Skill2 };
+		const char* glyph[2] = { "風", "炎" };
+		const ImU32 tint[2] = { Rgba(0.55f, 0.95f, 0.8f, 1), Rgba(1.0f, 0.55f, 0.3f, 1) };
 
 		for (int i = 0; i < 2; i++)
 		{
@@ -547,60 +533,67 @@ namespace Engine::UI
 				continue;
 			}
 			const auto& skill = Reg.get<SkillComponent>(skillEntity);
-			const ImVec2 p = ImVec2(display.x * 0.5f + (i == 0 ? -box - 10 * s : 10 * s), display.y - box - 60 * s);
-			const ImVec2 e = ImVec2(p.x + box, p.y + box);
+			const ImVec2 c = ImVec2(display.x - (250 - i * 110) * s, display.y - 125 * s);
 			const bool ready = skill.CooldownTimer <= 0.0f;
+			const ImVec4 t = ImGui::ColorConvertU32ToFloat4(tint[i]);
 
-			dl->AddRectFilled(p, e, Col(0.03f, 0.04f, 0.07f, 0.75f), 10 * s);
+			Diamond(dl, c, r, Ink(0.8f), true);
 			if (ready)
 			{
-				const float pulse = 0.5f + 0.5f * std::sin(sTime * 3.0f);
-				dl->AddRect(ImVec2(p.x - 2, p.y - 2), ImVec2(e.x + 2, e.y + 2), WithAlpha(tint[i], 0.4f + 0.4f * pulse), 12 * s, 0, 3 * s);
+				const float pulse = 0.5f + 0.5f * std::sin(sTime * 3.0f + i);
+				Diamond(dl, c, r * (1.12f + 0.04f * pulse), Rgba(t.x, t.y, t.z, 0.25f + 0.35f * pulse), false, 2.0f * s);
+				GlowText(dl, eFont::Mincho, ImVec2(c.x, c.y - 19 * s), 36 * s, Rgba(t.x, t.y, t.z, 1), Rgba(t.x, t.y, t.z, 0.15f), glyph[i], 0.5f);
 			}
 			else
 			{
-				//	クールダウン(下から埋まる)
-				const float r = std::clamp(skill.CooldownTimer / (std::max)(skill.MaxCooldown, 0.01f), 0.0f, 1.0f);
-				dl->AddRectFilled(ImVec2(p.x, p.y), ImVec2(e.x, p.y + box * r), Col(0, 0, 0, 0.55f), 10 * s);
+				const float remain = std::clamp(skill.CooldownTimer / (std::max)(skill.MaxCooldown, 0.01f), 0.0f, 1.0f);
+				RadialFill(dl, c, r * 0.62f, remain, Ink(0.55f));
 				char cd[16];
-				snprintf(cd, sizeof(cd), "%.1f", skill.CooldownTimer);
-				Text(dl, ImVec2(p.x + box * 0.5f, p.y + box * 0.28f), 28 * s, Col(1, 1, 1, 0.9f), cd, 0.5f);
+				snprintf(cd, sizeof(cd), "%.0f", std::ceil(skill.CooldownTimer));
+				Text(dl, eFont::Display, ImVec2(c.x, c.y - 14 * s), 26 * s, Ivory(0.95f), cd, 0.5f);
 			}
-			dl->AddRect(p, e, WithAlpha(tint[i], 0.7f), 10 * s, 0, 1.5f * s);
-			Text(dl, ImVec2(p.x + 8 * s, p.y + 4 * s), 20 * s, Col(1, 1, 1, 0.95f), keys[i]);
-			Text(dl, ImVec2(p.x + box * 0.5f, e.y + 4 * s), 18 * s, WithAlpha(tint[i], 0.95f), skill.DisplayName, 0.5f);
-			if (ready)
-			{
-				Text(dl, ImVec2(p.x + box * 0.5f, p.y + box * 0.32f), 24 * s, WithAlpha(tint[i], 0.95f), i == 0 ? "風" : "炎", 0.5f);
-			}
+			Diamond(dl, c, r, ready ? Gold(0.95f) : GoldDim(0.8f), false, 1.5f * s);
+
+			const char* key = KeyLabel(keys[i]);
+			const float h = 24 * s;
+			const float kw = PromptWidth(h, key, "") - h * 0.35f;
+			KeyChip(dl, ImVec2(c.x - kw * 0.5f, c.y + r + 10 * s), h, key);
+			Text(dl, eFont::Mincho, ImVec2(c.x, c.y + r + 40 * s), 18 * s, Ivory(0.75f), skill.DisplayName, 0.5f, 3 * s);
 		}
 	}
 
 	void Hud::DrawControls()
 	{
+		//	開始直後と入力機器を持ち替えた時だけ出す(慣れたら邪魔にならないように)
+		const bool pad = Input::InputManager::GetInstance()->IsUsingGamepad();
+		if (pad != sLastWasPad)
+		{
+			sLastWasPad = pad;
+			sControlsTimer = 0.0f;
+		}
+		sControlsTimer += ImGui::GetIO().DeltaTime;
+		const float alpha = 1.0f - std::clamp((sControlsTimer - ControlsShowSeconds) / ControlsFadeSeconds, 0.0f, 1.0f);
+		if (alpha <= 0.0f)
+		{
+			return;
+		}
+
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const ImVec2 display = ImGui::GetIO().DisplaySize;
 		const float s = Scale();
-		//	最後に使った入力機器(キーマウ/パッド)の表記に切り替える
-		struct Row { std::string Key; const char* Action; };
+		struct Row { eAction Key; const char* Action; };
 		const Row rows[] = {
-			{ KeyLabel(eAction::Attack), "攻撃" },
-			{ KeyLabel(eAction::Parry), "パリィ(長押しでガード)" },
-			{ KeyLabel(eAction::Dodge), "回避" },
-			{ KeyLabels({ eAction::Skill1, eAction::Skill2 }), "スキル" },
-			{ KeyLabel(eAction::LockOn), "ロックオン" },
-			{ KeyLabel(eAction::Move), "移動" },
+			{ eAction::Attack, "攻撃" },
+			{ eAction::Parry, "弾き・長押しで構え" },
+			{ eAction::Dodge, "回避" },
+			{ eAction::LockOn, "ロックオン" },
 		};
-		constexpr int RowCount = static_cast<int>(sizeof(rows) / sizeof(rows[0]));
-		const float lineH = 26 * s;
-		const float w = 360 * s;
-		const ImVec2 origin = ImVec2(display.x - w - 40 * s, display.y - lineH * RowCount - 50 * s);
-		dl->AddRectFilled(ImVec2(origin.x - 14 * s, origin.y - 10 * s), ImVec2(origin.x + w, origin.y + lineH * RowCount + 6 * s), Col(0, 0, 0, 0.35f), 8 * s);
-		for (int i = 0; i < RowCount; i++)
+		const float h = 28 * s;
+		float x = 70 * s;
+		const float y = display.y - 72 * s;
+		for (const auto& row : rows)
 		{
-			const ImVec2 p = ImVec2(origin.x, origin.y + lineH * i);
-			Text(dl, p, 18 * s, Col(0.75f, 0.85f, 1.0f, 0.95f), rows[i].Key.c_str());
-			Text(dl, ImVec2(origin.x + w - 14 * s, p.y), 18 * s, Col(1, 1, 1, 0.9f), rows[i].Action, 1.0f);
+			x += Prompt(dl, ImVec2(x, y), h, KeyLabel(row.Key), row.Action, alpha) + 30 * s;
 		}
 	}
 
@@ -613,36 +606,33 @@ namespace Engine::UI
 		ImDrawList* dl = ImGui::GetForegroundDrawList();
 		const float s = Scale();
 		const Objective& o = *sObjective;
-		const ImVec2 p = ImVec2(40 * s, 120 * s);
-		const float w = 520 * s;
-		const float h = 168 * s;
+		const ImVec2 p = ImVec2(70 * s, 150 * s);
 		const float flash = std::clamp(o.CompleteFlash, 0.0f, 1.0f);
 
-		dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), Col(0.02f, 0.03f, 0.06f, 0.72f), 10 * s);
-		dl->AddRectFilled(p, ImVec2(p.x + 6 * s, p.y + h), Col(0.45f, 0.7f, 1.0f, 0.9f), 10 * s);
-		if (flash > 0.0f)
-		{
-			dl->AddRect(p, ImVec2(p.x + w, p.y + h), Col(0.6f, 1.0f, 0.7f, flash), 10 * s, 0, 4 * s);
-		}
-
+		//	左の縦線と見出し
+		dl->AddRectFilledMultiColor(ImVec2(p.x - 18 * s, p.y), ImVec2(p.x - 16 * s, p.y + 150 * s), Gold(0.9f), Gold(0.9f), Gold(0.0f), Gold(0.0f));
 		char head[64];
-		snprintf(head, sizeof(head), "チュートリアル  %d / %d", o.Step, o.StepCount);
-		Text(dl, ImVec2(p.x + 22 * s, p.y + 12 * s), 18 * s, Col(0.6f, 0.75f, 1.0f, 0.9f), head);
-		Text(dl, ImVec2(p.x + 22 * s, p.y + 38 * s), 32 * s, flash > 0.0f ? Col(0.6f, 1.0f, 0.7f) : Col(1, 1, 1), o.Title.c_str());
-		Text(dl, ImVec2(p.x + 22 * s, p.y + 82 * s), 19 * s, Col(0.9f, 0.9f, 0.9f, 0.95f), o.Body.c_str());
+		snprintf(head, sizeof(head), "TRAINING   %d / %d", o.Step, o.StepCount);
+		Text(dl, eFont::Display, p, 16 * s, Gold(0.9f), head, 0.0f, 3 * s);
+
+		const ImU32 titleColor = flash > 0.0f ? Rgba(1.0f, 0.93f, 0.7f, 1.0f) : Ivory();
+		GlowText(dl, eFont::Mincho, ImVec2(p.x, p.y + 26 * s), 36 * s, titleColor, Gold(0.08f + 0.3f * flash), o.Title.c_str(), 0.0f, 4 * s);
+		Text(dl, eFont::Mincho, ImVec2(p.x, p.y + 76 * s), 20 * s, Ivory(0.85f), o.Body.c_str());
 
 		if (o.KeyHint.empty() == false)
 		{
-			const ImVec2 kp = ImVec2(p.x + 22 * s, p.y + 122 * s);
-			const ImVec2 ts = TextSize(20 * s, o.KeyHint.c_str());
-			dl->AddRectFilled(ImVec2(kp.x - 8 * s, kp.y - 4 * s), ImVec2(kp.x + ts.x + 8 * s, kp.y + ts.y + 4 * s), Col(0.45f, 0.7f, 1.0f, 0.25f), 6 * s);
-			Text(dl, kp, 20 * s, Col(0.75f, 0.9f, 1.0f), o.KeyHint.c_str());
+			KeyChip(dl, ImVec2(p.x, p.y + 110 * s), 28 * s, o.KeyHint.c_str());
 		}
+		//	進み具合は菱形の列(色だけに頼らず塗り/枠で区別)
 		if (o.ProgressMax > 0)
 		{
-			char prog[32];
-			snprintf(prog, sizeof(prog), "%d / %d", (std::min)(o.Progress, o.ProgressMax), o.ProgressMax);
-			Text(dl, ImVec2(p.x + w - 20 * s, p.y + 122 * s), 24 * s, Col(1, 1, 1), prog, 1.0f);
+			for (int i = 0; i < o.ProgressMax; i++)
+			{
+				const ImVec2 c = ImVec2(p.x + 8 * s + i * 22 * s, p.y + 160 * s);
+				const bool done = i < o.Progress;
+				Diamond(dl, c, 7 * s, done ? Gold() : Ink(0.6f), true);
+				Diamond(dl, c, 7 * s, Gold(0.9f), false, 1.2f);
+			}
 		}
 	}
 }

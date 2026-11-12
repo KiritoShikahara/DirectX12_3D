@@ -22,7 +22,7 @@ void Engine::Scene::CreateTitleObject::CreateBG()
 	trans.Scale = { 1.0f,1.0f };
 
 	//	sprite
-	auto res = Graphics::TextureManager::GetInstance()->Load("Assets/Title/Texture/Title.png");
+	auto res = Graphics::TextureManager::GetInstance()->Load("Assets/Title/Texture/Title_Clean.png");
 	auto& sprite = registry.emplace<SpriteComponent>(entity, res);
 	auto window = Window::GetInstance();
 	sprite.Sprite.SetSize({ (float)window->GetWidth(),(float)window->GetHeight()});

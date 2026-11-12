@@ -112,13 +112,9 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Basic()
 	interact.Rank = EnemyRank::Basic;
 	interact.Talkable = true;
 
-	//	話しかける用の画像
-	std::string FilePath = "Assets/StageSelect/Texture/Blue_C.png";
-
-	auto vfxRes = Graphics::TextureManager::GetInstance()->Load(FilePath);
-	auto& vfx = registry.emplace<VfxMeshComponent>(enemy, vfxRes);
-	vfx.IsShow = true;
-	vfx.Offset = { 0,11,0 };
+	//	頭上の案内は入力機器に合わせてHUDで描く
+	interact.Label = "蒼刃の騎士と立ち合う";
+	interact.LockedLabel = "";
 
 	//	タグ
 	registry.emplace<EnemyTag>(enemy);
@@ -178,21 +174,9 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Advanced()
 		interact.Talkable = true;
 	}
 
-	//	話しかける用の画像
-	std::string FilePath;
-	if (interact.Talkable == true)
-	{
-		FilePath = "Assets/StageSelect/Texture/Yellow_C.png";
-	}
-	else
-	{
-		FilePath = "Assets/StageSelect/Texture/Yellow_R.png";
-	}
-
-	auto vfxRes = Graphics::TextureManager::GetInstance()->Load(FilePath);
-	auto& vfx = registry.emplace<VfxMeshComponent>(enemy, vfxRes);
-	vfx.IsShow = true;
-	vfx.Offset = { 0,11,0 };
+	//	頭上の案内は入力機器に合わせてHUDで描く
+	interact.Label = "金獅子の剣士と立ち合う";
+	interact.LockedLabel = "金獅子の剣士 ― 蒼刃の騎士を倒すと挑める";
 
 	//	タグ
 	registry.emplace<EnemyTag>(enemy);
@@ -252,22 +236,9 @@ void Engine::System::StageSelectObjFactory::CreateEnemy_Boss()
 		interact.Talkable = true;
 	}
 
-	//	話しかける用の画像
-	std::string FilePath;
-	if (interact.Talkable == true)
-	{
-		FilePath = "Assets/StageSelect/Texture/Red_C.png";
-	}
-	else
-	{
-		FilePath = "Assets/StageSelect/Texture/Red_R.png";
-	}
-
-
-	auto vfxRes = Graphics::TextureManager::GetInstance()->Load(FilePath);
-	auto& vfx = registry.emplace<VfxMeshComponent>(enemy, vfxRes);
-	vfx.IsShow = true;
-	vfx.Offset = { 0,11,0 };
+	//	頭上の案内は入力機器に合わせてHUDで描く
+	interact.Label = "紅蓮の剣鬼と立ち合う";
+	interact.LockedLabel = "紅蓮の剣鬼 ― 金獅子の剣士を倒すと挑める";
 
 	//	タグ
 	registry.emplace<EnemyTag>(enemy);
@@ -305,7 +276,7 @@ void Engine::System::StageSelectObjFactory::CreateTutorialGate()
 	auto& interact = registry.emplace<InteractableComponent>(dummy);
 	interact.IsTutorial = true;
 	interact.Talkable = true;
-	interact.Label = "修練の木人（チュートリアル）";
+	interact.Label = "修練の木人で稽古する（チュートリアル）";
 
 	registry.emplace<EnemyTag>(dummy);
 }

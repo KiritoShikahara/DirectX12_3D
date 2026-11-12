@@ -48,10 +48,11 @@ void Engine::System::InteractableSystem::MainUpdate(entt::registry& Reg, double 
 			Math::Vector3 diff = trans.Position - playerPos;
 			float sqrtDistance = Math::Vector3::SqrLength(diff);
 			const bool inRange = sqrtDistance <= interract.InteractRange * interract.InteractRange;
-			if (interract.Label.empty() == false)
+			//	頭上の案内(近づくとボタン表記付きで強調)
+			const std::string& label = interract.Talkable ? interract.Label : interract.LockedLabel;
+			if (label.empty() == false)
 			{
-				UI::Hud::AddWorldLabel(trans.Position + Math::Vector3(0.0f, 12.0f, 0.0f),
-					inRange ? "[" + std::string(UI::KeyLabel(UI::eAction::Interact)) + "] " + interract.Label : interract.Label, inRange);
+				UI::Hud::AddWorldLabel(trans.Position + Math::Vector3(0.0f, 12.0f, 0.0f), label, inRange && interract.Talkable);
 			}
 			//	範囲内なら表示をする。事前に読み込む
 			if (sqrtDistance <= interract.InteractRange * interract.InteractRange)

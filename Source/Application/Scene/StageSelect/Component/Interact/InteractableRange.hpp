@@ -14,6 +14,7 @@ namespace Engine::System
 		bool Talkable = true;			//	離せる状態かどうか
 		bool IsTutorial = false;		//	true: チュートリアルへ
 		std::string Label;				//	頭上に出す案内(空なら出さない)
+		std::string LockedLabel;		//	まだ挑めない時の案内
 	};
 
 }

@@ -77,6 +77,7 @@ namespace Engine::Scene
 		/// 終了処理
 		/// </summary>
 		void Release()override;
+		void Render()override;
 
 		std::string GetSceneName()override
 		{

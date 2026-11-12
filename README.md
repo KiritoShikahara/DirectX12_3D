@@ -65,4 +65,4 @@ bash Tests/run_unit_tests.sh        # 戦闘ルールの単体テストだけ
 
 ## 使用素材
 - 月面テクスチャ：Poly Haven「moon_02」（CC0）https://polyhaven.com/a/moon_02
-- フォント：Noto Sans JP（SIL Open Font License）
+- フォント：Noto Sans JP、Cinzel、しっぽり明朝（いずれも SIL Open Font License。`Assets/Fonts/OFL-*.txt`）

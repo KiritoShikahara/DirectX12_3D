@@ -20,6 +20,9 @@ namespace Engine::UI
 		Move,
 		Camera,
 		Interact,
+		Select,		//	決定
+		Back,		//	戻る
+		Choose,		//	左右で選ぶ
 	};
 
 	/// <summary>
@@ -41,6 +44,9 @@ namespace Engine::UI
 		case eAction::Move:     return pad ? "左スティック" : "WASD";
 		case eAction::Camera:   return pad ? "右スティック" : "マウス";
 		case eAction::Interact: return pad ? "X" : "F";
+		case eAction::Select:   return pad ? "A" : "Space";
+		case eAction::Back:     return pad ? "B" : "Esc";
+		case eAction::Choose:   return pad ? "十字キー" : "A / D";
 		}
 		return "";
 	}

@@ -16,6 +16,7 @@
 #include"System/Conponent/Sprite/Glow/GlowComponents.hpp"
 
 #include"Audio/Manager/AudioManager.hpp"
+#include"Application/UI/PromptBar.hpp"
 
 namespace Engine::Scene
 {
@@ -112,6 +113,11 @@ namespace Engine::Scene
 	/// <summary>
 	/// 終了処理
 	/// </summary>
+	void GameClear::Render()
+	{
+		UI::DrawPromptBar({ { UI::eAction::Select, "タイトルへ" } });
+	}
+
 	void GameClear::Release()
 	{
 		//  ローカルオブジェクトの解放
