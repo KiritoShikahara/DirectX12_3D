@@ -14,6 +14,7 @@
 
 #include"Audio/Manager/AudioManager.hpp"
 #include"Application/Combat/CombatComponents.hpp"
+#include"Application/Components/CameraWork/CameraControl.hpp"
 #include"Application/Combat/CombatEvents.hpp"
 #include"Application/Combat/GameFeel.hpp"
 #include"Application/Effects/VfxPresets.hpp"
@@ -403,6 +404,14 @@ void Engine::System::PlayerStateSystem::MainUpdate(entt::registry& Reg, double D
 				collider->SetVolume({ 2.0f,5.0f,2.0f });
 				col.Offset = { 0.0f, -4.0f, 0.0f };
 				Reg.emplace_or_replace<ColliderComponent>(state.Weapon, std::move(col));
+
+				//	ロックオン中は敵の方へ振り向いて斬る
+				if (const auto* camera = Reg.try_get<CameraControlComponent>(entity);
+					camera != nullptr && camera->LockTarget != entt::null && Reg.valid(camera->LockTarget))
+				{
+					const Math::Vector3 to = Reg.get<Transform3D>(camera->LockTarget).Position - trans.Position;
+					trans.Rotation = Math::Quaternion::AngleAxis(atan2f(to.x, to.z), Math::Vector3(0, 0, 1));
+				}
 
 				fbx.CurrAnimation = "Attack_" + std::to_string(state.Attack.AttackCount);
 				fbx.Mesh->RestartAnimation();

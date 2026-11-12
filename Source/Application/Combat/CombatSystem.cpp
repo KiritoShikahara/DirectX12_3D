@@ -189,7 +189,7 @@ namespace Engine::System
 		view.each([&](entt::entity entity, EnemyAIComponent& ai, EnemyParameters& param, EnemyCombatComponent& combat, FbxComponent& fbx)
 			{
 				//	被弾フラッシュ
-				fbx.Mesh->SetEmissive({ 1.0f, 0.95f, 0.9f, 1.0f }, combat.HitFlashTimer > 0.0f ? (combat.HitFlashTimer / 0.12f) * 0.6f : 0.0f);
+				fbx.Mesh->SetEmissive({ 1.0f, 0.95f, 0.9f, 1.0f }, combat.HitFlashTimer > 0.0f ? (combat.HitFlashTimer / 0.12f) * 0.3f : 0.0f);
 
 				FbxComponent* weaponFbx = (param.Weapon != entt::null && Reg.valid(param.Weapon)) ? Reg.try_get<FbxComponent>(param.Weapon) : nullptr;
 				const Transform3D* weaponTrans = (param.Weapon != entt::null && Reg.valid(param.Weapon)) ? Reg.try_get<Transform3D>(param.Weapon) : nullptr;
@@ -243,10 +243,10 @@ namespace Engine::System
 					switch (phase)
 					{
 					case Combat::AttackPhase::Windup:
-						intensity = 0.6f + SmoothStep(0.0f, Combat::Tuning::ActiveBegin, progress) * 5.0f;
+						intensity = 0.6f + SmoothStep(0.0f, Combat::Tuning::ActiveBegin, progress) * 2.8f;
 						break;
 					case Combat::AttackPhase::Active:
-						intensity = 7.0f;
+						intensity = 4.0f;
 						break;
 					case Combat::AttackPhase::Recovery:
 						intensity = 0.6f + (1.0f - SmoothStep(Combat::Tuning::ActiveEnd, 1.0f, progress)) * 4.0f;

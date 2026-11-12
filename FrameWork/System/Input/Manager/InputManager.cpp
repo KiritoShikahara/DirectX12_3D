@@ -26,6 +26,7 @@ bool Engine::Input::InputManager::Initialize()
 	AddAction("Skill1", { eKeyCode::Q,ePadButton::L1 });
 	AddAction("Skill2", { eKeyCode::E,ePadButton::R1 });
 	AddAction("Guard", { eKeyCode::C,ePadButton::L2,eMouseButton::Right });
+	AddAction("LockOn", { eKeyCode::Tab,ePadButton::R3,eMouseButton::Middle });
 
 	AddAction("Option", { eKeyCode::Escape,ePadButton::Menu });
 

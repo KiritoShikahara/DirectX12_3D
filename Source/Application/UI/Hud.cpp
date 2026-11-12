@@ -8,6 +8,7 @@
 #include"Application/Components/Skill/SkillComponent.hpp"
 #include"System/Conponent/Transform/TransformConponent.hpp"
 #include"System/Camera/Camera.hpp"
+#include"Application/Components/CameraWork/CameraControl.hpp"
 
 #include<algorithm>
 #include<cmath>
@@ -474,6 +475,23 @@ namespace Engine::UI
 		const auto* combat = Reg.try_get<EnemyCombatComponent>(enemy);
 		Text(dl, ImVec2(display.x * 0.5f, origin.y - 4 * s), 28 * s, Col(1, 0.95f, 0.88f), combat != nullptr ? combat->DisplayName.c_str() : "敵", 0.5f);
 
+		//	ロックオンの印
+		const entt::entity player = FindPlayer(Reg);
+		if (player != entt::null)
+		{
+			if (const auto* camera = Reg.try_get<CameraControlComponent>(player); camera != nullptr && camera->LockTarget == enemy)
+			{
+				ImVec2 p;
+				if (WorldToScreen(Reg.get<Transform3D>(enemy).Position + Math::Vector3(0.0f, 4.5f, 0.0f), p))
+				{
+					const float r = (16.0f + 3.0f * std::sin(sTime * 6.0f)) * s;
+					const ImU32 c = Col(1.0f, 0.95f, 0.8f, 0.9f);
+					dl->AddQuad(ImVec2(p.x, p.y - r), ImVec2(p.x + r, p.y), ImVec2(p.x, p.y + r), ImVec2(p.x - r, p.y), c, 2.5f * s);
+					dl->AddCircleFilled(p, 3.0f * s, c);
+				}
+			}
+		}
+
 		auto& status = Reg.get<StatusComponet>(enemy);
 		const float ratio = status.GetHpRatio();
 		sEnemyHpTrail = (std::max)(ratio, sEnemyHpTrail - DeltaTime * 0.3f);
@@ -565,13 +583,15 @@ namespace Engine::UI
 			{ "右クリック / L2", "パリィ(長押しでガード)" },
 			{ "Shift / A", "回避" },
 			{ "Q E / L1 R1", "スキル" },
+			{ "Tab / R3", "ロックオン" },
 			{ "WASD / 左スティック", "移動" },
 		};
+		constexpr int RowCount = static_cast<int>(sizeof(rows) / sizeof(rows[0]));
 		const float lineH = 26 * s;
 		const float w = 360 * s;
-		const ImVec2 origin = ImVec2(display.x - w - 40 * s, display.y - lineH * 5 - 50 * s);
-		dl->AddRectFilled(ImVec2(origin.x - 14 * s, origin.y - 10 * s), ImVec2(origin.x + w, origin.y + lineH * 5 + 6 * s), Col(0, 0, 0, 0.35f), 8 * s);
-		for (int i = 0; i < 5; i++)
+		const ImVec2 origin = ImVec2(display.x - w - 40 * s, display.y - lineH * RowCount - 50 * s);
+		dl->AddRectFilled(ImVec2(origin.x - 14 * s, origin.y - 10 * s), ImVec2(origin.x + w, origin.y + lineH * RowCount + 6 * s), Col(0, 0, 0, 0.35f), 8 * s);
+		for (int i = 0; i < RowCount; i++)
 		{
 			const ImVec2 p = ImVec2(origin.x, origin.y + lineH * i);
 			Text(dl, p, 18 * s, Col(0.75f, 0.85f, 1.0f, 0.95f), rows[i].Key);

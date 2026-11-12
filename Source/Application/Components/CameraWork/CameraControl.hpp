@@ -33,7 +33,8 @@ namespace Engine::System
 		//	上を向く限界（70度くらい）
 		float PitchLimitMax = 1.2f;
 
-		//	物理・特殊
+		//	ロックオン中の敵(entt::nullで解除)
+		entt::entity LockTarget = entt::null;
 
 	};
 }
